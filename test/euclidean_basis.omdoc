@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- <!DOCTYPE omdoc PUBLIC "-//OMDoc//DTD OMDoc V1.2//EN" "../../dtd/omdoc.dtd"> -->
+
+<!-- Author: Andrei Ioniţă -->
+
+<omdoc cdbase="http://cds.omdoc.org/geometry"
+       xmlns="http://www.mathweb.org/omdoc" 
+       xmlns:om="http://www.openmath.org/OpenMath" version="1.8">
+
+<theory name="euclidean_axioms" meta="http://cds.omdoc.org/logics/fol">
+
+<symbol name="point"/>
+<symbol name="line"/>
+
+<!-- for now this import is present only to test the extraction -->
+<import name="triang" from="triangle.omdoc#triangle"/>
+
+<symbol name="euclidean_1" role="axiom">
+	<type>
+   <CMP>Any two points can be joined by a single line</CMP>
+	<FMP>
+		<OMOBJ>
+			<om:OMBIND>
+				<om:OMS name="forall"/>
+				<om:OMBVAR>
+					<om:OMV name="p1"/>
+					<om:OMV name="p2"/>
+				</om:OMBVAR>
+				<om:OMBIND>
+					<om:OMS name="exists-unique"/>
+					<om:OMBVAR>
+						<om:OMV name="line"/>
+					</om:OMBVAR>
+					<om:OMA>
+						<om:OMS name="join"/>
+						<om:OMV name="p1"/>
+						<om:OMV name="p2"/>
+						<om:OMV name="line"/>
+					</om:OMA>
+				</om:OMBIND>
+			</om:OMBIND>
+		</OMOBJ>
+	</FMP>
+	</type>
+</symbol>
+
+<symbol name="segment"/>
+
+<symbol name="euclidean_2" role="axiom">
+	<type>
+	<CMP>Any straight line segment can be extended indefinitely in a straight line</CMP>
+	<FMP>
+		<OMOBJ>
+			<om:OMBIND>
+				<om:OMS name="forall"/>
+				<om:OMV name="seg"/>
+				<om:OMA>
+					<om:OMS name="extension-of-segment-to-line"/> <!-- I don't know about this: it's actually the core of the axiom -->
+					<om:OMV name="seg"/>
+					<om:OMV name="line"/>
+				</om:OMA>
+			</om:OMBIND>
+		</OMOBJ>
+	</FMP>
+	</type>
+</symbol>
+
+<symbol name="circle"/>
+<symbol name="circle_radius"/>
+<symbol name="circle_center"/>
+<!-- to be eventually wrapped inside a 'circle' group -->
+
+<symbol name="end_point"/>
+<symbol name="euclidean_3" role="axiom">
+	<type>
+	<CMP>Given any straight line segment, a circle can be drawn having the segment as radius and one end point as center.</CMP>
+	<FMP>
+		<OMOBJ>
+			<om:OMBIND>
+				<om:OMS name="forall"/>
+				<om:OMBVAR>
+					<om:OMV name="seg"/>
+				</om:OMBVAR>
+				<om:OMBIND>
+					<om:OMS name="exists"/>
+					<om:OMBVAR>
+						<om:OMV name="circ"/>
+					</om:OMBVAR>
+					<om:OMA>
+						<om:OMS name="and"/>	
+						<om:OMA>
+							<om:OMS name="line_coincidence"/> <!-- have to define -->
+							<om:OMV name="circle_radius"/> <!-- I don't know how to relate to circle for now -->
+							<om:OMV name="seg"/>
+						</om:OMA>
+					 	<om:OMA>
+							<om:OMS name="point_coincidence"/>
+							<om:OMV name="circle_center"/> <!-- again, I have to relate to the circle bound var -->
+							<om:OMV name="end_point"/> <!-- be more specific here -->
+						</om:OMA>
+					</om:OMA>
+				</om:OMBIND>
+			</om:OMBIND>			
+		</OMOBJ>
+	</FMP>
+	</type>
+</symbol>
+
+<symbol name="angle"/>
+<symbol name="angle_measure"/>
+<!-- made up by me -->
+<symbol name="measure">
+	<value name="degrees"/>
+	<value name="radians"/>
+</symbol>
+<symbol name="right_angle"/>
+<definition name="def_right_angle" for="right_angle">
+		<FMP>
+			<OMOBJ>
+				<om:OMBIND>
+					<om:OMS name="forall"/>
+					<om:OMBVAR><om:OMV name="angle"/></om:OMBVAR>
+					<om:OMA>
+						<om:OMS name="equals"/>
+						<om:OMA>
+							<om:OMA> 
+								<om:OMS name="measure" value="degrees"/>
+ 								<om:OMV name="angle"/>
+							</om:OMA>
+							<om:OMC name="90"/> <!-- open math constant (made up) -->
+						</om:OMA>
+					</om:OMA>
+				</om:OMBIND>
+			</OMOBJ>
+		</FMP>
+</definition>
+
+<symbol name="congruence"/>
+<definition name="def_congruence" for="congruence">
+		<CMP>two geometrical objects have equal measures, i.e. they coincide by translation, rotation and mirroring operations.</CMP>
+		<FMP> <!-- ??? probably I have to tackle this particularly first (segments, then triangles, etc. and then make it polymorphic) -->
+		</FMP>
+</definition>
+
+<symbol name="euclidean_4" role="axiom">
+	<type>
+	<CMP>All right angles are congruent.</CMP>
+	<FMP>
+		<OMOBJ>
+			<om:OMBIND>
+				<om:OMS name="forall"/>
+				<om:OMBVAR>
+					<om:OMV name="right_angle1"/>
+					<om:OMV name="right_angle2"/>
+				</om:OMBVAR>
+				<om:OMA>
+					<om:OMS name="congruence"/>
+					<om:OMV name="right_angle1"/>
+					<om:OMV name="right_angle2"/>
+				</om:OMA>
+			</om:OMBIND>
+		</OMOBJ>
+	</FMP>
+	</type>
+</symbol>
+
+<symbol name="draw-a-line-through-a-point">
+	<!-- I don't know for now -->
+</symbol>
+
+<symbol name="euclidean_5" role="axiom"> <!-- alternate name for "parallel postulate -->
+	<type>
+	<!-- There are two formulations here, but one is difficult to formalize; only the equivalent statement is present -->
+	<CMP>Through a point not on a given straight line, one and only one line can be drawn that never meets the given line</CMP>
+	<FMP>
+		<OMOBJ>
+			<om:OMBIND>
+				<om:OMS name="forall"/>
+				<om:OMBVAR>
+					<om:OMV name="p"/>
+				</om:OMBVAR>
+				<om:OMBIND>
+					<om:OMS name="exists-unique"/>
+					<om:OMBVAR>
+						<om:OMV name="line"/>
+					</om:OMBVAR>
+					<om:OMA>
+						<om:OMS name="draw-line-through-a-point"/>
+						<om:OMV name="line"/>
+						<om:OMV name="p"/>
+					</om:OMA>
+				</om:OMBIND>
+			</om:OMBIND>
+		</OMOBJ>
+	</FMP>
+	</type>
+</symbol>
+
+<!-- other basic axioms or statements that are fundamental, should go here -->
+
+<symbol name="one-line-through-two-points" role="axiom">
+	<type>
+	<FMP>
+		<OMOBJ>
+			<om:OMBIND>
+				<om:OMS name="forall"/>
+				<om:OMBVAR>
+					<om:OMV name="p1"/>
+					<om:OMV name="p2"/>
+				</om:OMBVAR>
+				<om:OMBIND>
+					<om:OMS name="exists-unique"/>
+					<om:OMBVAR>
+						<om:OMV name="line"/>
+					</om:OMBVAR>
+					<om:OMA>
+						<om:OMS name="and"/>	
+						<om:OMA>
+							<om:OMS name="draw-a-line-through-a-point"/>
+							<om:OMV name="line"/>
+							<om:OMV name="p1"/>
+						</om:OMA>
+						<om:OMA>
+							<om:OMS name="draw-a-line-through-a-point"/>
+							<om:OMV name="line"/>
+							<om:OMV name="p2"/>
+						</om:OMA>
+					</om:OMA>
+				</om:OMBIND>
+			</om:OMBIND>
+		</OMOBJ>
+	</FMP>
+	</type>
+</symbol>
+
+<symbol name="colliniarity"/>
+<definition name="def_colliniarity" for="colliniarity">
+	<type>
+		<FMP>
+			<OMOBJ>
+				<!-- don't know right now -->
+			</OMOBJ>
+		</FMP>
+	</type>
+</definition>
+
+</theory>
+</omdoc>

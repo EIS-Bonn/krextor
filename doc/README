@@ -1,0 +1,138 @@
+Krextor is the KWARC RDF Extractor.  It is an extensible XSLT-based framework
+for extracting RDF from XML, supporting multiple input languages as well as
+multiple output RDF notations.  Krextor provides convenience templates that try
+to do “the right thing”™ in many common cases, as to reduce the need for
+manually writing repetitive code.
+
+== Contact ==
+
+Homepage: http://kwarc.info/projects/krextor/
+Wiki: http://mathweb.org/wiki/Krextor
+Bug reports: https://trac.kwarc.info/krextor/
+Mailing list: http://lists.jacobs-university.de/mailman/listinfo/project-swim (for now)
+
+== Requirements ==
+
+An XSLT 2.0 compliant XSLT processor.  Krextor has been tested with Saxon 9.0.
+
+== Usage ==
+
+In order to extract RDF from XML, you need to know the name of the extraction
+module for the desired XML language (e.g. OMDoc) and the name of the output
+module for the desired output RDF notation (e.g. RXR).
+
+Popular transformations (e.g. OMDoc to RXR) are available as pre-defined
+stylesheets, e.g.  transform-omdoc-rxr.xsl.
+
+Run it with
+$ saxon document.omdoc transform-omdoc-rxr.xsl
+
+For other conversions, or if you want to override the extraction in an
+application-specific way, you have to compose your own stylesheet that imports
+the desired extraction and output modules.  Let's assume that we want to
+extract RXR from OpenMath Content Dictionaries (ocd) and that the Krextor XSLTs
+are located in the subdirectory "krextor":
+
+<?xml version="1.0" encoding="UTF-8"?>
+<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+                version="2.0">
+  <xsl:import href="krextor/output-rdf-rxr.xsl"/>
+  <xsl:import href="krextor/extract-ocd-rdf.xsl"/>
+
+  <!-- Put application-specific template here.  You can also override 
+       imported templates. -->
+</xsl:stylesheet>
+
+== Extending ==
+
+Please let us know if you have written any extraction or output module, test
+case, or documentation that you would like us to make a part of the Krextor
+default distribution.
+
+=== Extraction ===
+
+To write an extraction module for a new XML language, copy one of the existing
+ones.  Then read and understand the documentation of generic-templates.xsl,
+particularly the named templates:
+
+* create-resource
+* add-literal-property
+* add-uri-property
+
+These templates make typical RDF extraction tasks much easier than directly
+creating output triples using the functions in the output modules.
+
+As a rule of thumb, we recommend that every XML element or attribute that
+corresponds to one RDF resource or property be matched by one template that
+calls one of the templates above.  This ensures the most effective default
+behaviour without requiring you to write much code yourself.
+
+=== Output ===
+
+To write an extraction module for a new RDF notation, copy and adapt the
+following template:
+
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" 
+    xmlns:krextor="http://kwarc.info/projects/krextor/"
+    exclude-result-prefixes="krextor"
+    version="2.0">
+    <xsl:output method="xml" encoding="UTF-8" indent="yes" omit-xml-declaration="no"/>
+
+    <xsl:include href="generic-templates.xsl"/>
+
+    <xsl:function name="krextor:triple-uri">
+	<xsl:param name="subject"/>
+	<xsl:param name="predicate"/>
+	<xsl:param name="object"/>
+	<!-- Output a triple with a URI object, possible by calling
+	     krextor:triple -->
+    </xsl:function>
+    
+    <xsl:function name="krextor:triple-lit">
+	<xsl:param name="subject"/>
+	<xsl:param name="predicate"/>
+	<xsl:param name="object"/>
+	<!-- Output a triple with a literal object, possible by calling
+	     krextor:triple -->
+    </xsl:function>
+
+    <xsl:function name="krextor:triple">
+	<xsl:param name="subject"/>
+	<xsl:param name="predicate"/>
+	<xsl:param name="object"/>
+        <!-- Output a generic triple -->
+    </xsl:function>
+
+    <xsl:template match="/">
+	<!-- begin output -->
+	<xsl:apply-imports/>
+	<!-- end output -->
+    </xsl:template>
+</xsl:stylesheet>
+
+Note that the current design of Krextor is optimized for sequential triples
+generation, i.e.
+
+< subject1, predicate1, object1 >
+< subject2, predicate2, object2 >
+...
+
+Grouping triples by a common subject, as commonly done in RDF/XML, N3 or
+TURTLE, is not easy to achieve.  However, this is only syntactic sugar making
+these notations easier to read for humans.  Krextor's output is intended for
+machine-processing instead.
+
+== Authors ==
+
+* Christoph Lange <ch.lange@jacobs-university.de>
+  General architecture
+  OMDoc extractor (partly)
+  OpenMath extractor
+  RXR output
+* Gordan Ristovski <gordan.ristovski@jacobs-university.de>
+  OMDoc extractor (partly)
+* Andrei Ioniţă <a.ionita@jacobs-university.de>
+  OMDoc extractor (MMT a.k.a. OMDoc 1.3 URIs)
+

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- <!DOCTYPE omdoc PUBLIC "-//OMDoc//DTD OMDoc V1.2//EN" "../../dtd/omdoc.dtd"> -->
+
+<!-- Author: Gordan Ristovski -->
+
+<omdoc xml:id="test" xmlns="http://www.mathweb.org/omdoc" xmlns:om="http://www.openmath.org/OpenMath" xmlns:dc="http://pur1.org/dc/elements/1.1/" version="1.8">
+
+	<omtext xml:id="blabla" type="definition" verbalizes="nesto1 nesto2">
+		
+		<metadata xml:id="metadatata">
+			<dc:author>Gordan Ristovski</dc:author>
+		</metadata>
+		
+		<CMP xml:id="objasnuvanje" xml:lang="en">
+			A 
+			<term role="definiendum" cd="whatever" name="triangle">
+				triangle
+			</term>
+			is a
+			<term role="definiens" cd="whatever" name="polygon">
+				polygon
+			</term>
+			with 3
+			<term role="definiens" cd="whatever" name="sides">
+				sides
+			</term>
+			<term role="definiens" cd="whatever" name="smajli">
+				:D
+			</term>
+		</CMP>
+	            <FMP xml:id="formula" logic="fol">
+	            	<assumption xml:id="ass"/>
+	            	<conclusion xml:id="conc">
+	            		<om:OMOBJ>
+	            			<om:OMS cd="whatever" name="triangle"/>
+	            			<om:OMS cd="whatever" name="equals"/>
+	            			<om:OMS cd="whatever" name="polygon"/>
+	            			<om:OMS cd="whatever" name="three"/>
+	            			<om:OMS cd="whatever" name="sides"/>
+	            			<om:OMS cd="whatever" name="smajli"/>
+	            		</om:OMOBJ>
+	            	</conclusion>
+	            	
+	            </FMP>
+	</omtext>
+
+</omdoc>

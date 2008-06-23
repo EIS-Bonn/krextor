@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- <!DOCTYPE omdoc PUBLIC "-//OMDoc//DTD OMDoc V1.2//EN" "../../dtd/omdoc.dtd"> -->
+
+<!-- Author: Andrei Ioniţă -->
+
+<omdoc xml:id="triangle" xmlns="http://www.mathweb.org/omdoc" xmlns:om="http://www.openmath.org/OpenMath" version="1.8">
+
+<theory xml:id="thy-triangle" name="triangle" meta="http://www.mathweb.org/twelf/twelf">
+
+<import name="euclid" from="euclidean_basis#euclidean_axioms"/>
+
+<symbol xml:id="sym-triangle" name="triangle">
+	<definition>
+		<FMP>
+			<OMOBJ>
+				<OMBIND>
+					<OMS name="forall"/>
+					<OMBVAR>
+						<OMV name="p1"/>
+						<OMV name="p2"/>
+						<OMV name="p3"/>
+					</OMBVAR>
+					<OMA>
+						<OMS name="not"/>
+						<OMA>
+							<OMS name="collinearity"/>
+							<OMV name="p1"/>
+							<OMA>
+								<OMS name="point"/>
+								<OMV name="p2"/>
+							</OMA>
+							<OMA>
+								<OMS name="point"/>
+								<OMV name="p3"/>
+							</OMA>
+						</OMA>
+					</OMA>
+				</OMBIND>
+			</OMOBJ>
+		</FMP>
+	</definition>
+</symbol>
+		
+<symbol xml:id="right_triangle" name="triangle">
+	<definition>
+		<OMOBJ>	
+			<OMBIND>
+				<OMS name="forall"/>
+				<OMBVAR>
+					<OMV name="triang"/>
+				</OMBVAR>
+				<OMBIND>
+				    <OMS name="exists"/>
+					<OMBVAR>
+						<OMV name="angl"/>
+					</OMBVAR>	
+					<OMA>
+					    <OMS name="and"/>
+						<OMA>
+							<OMS name="is-an-angle-of-the-triangle"/>
+							<OMV name="angl"/>
+							<OMV name="triang"/>
+						</OMA>
+						<OMA>
+							<OMS name="is-a-right-angle"/> <!-- or it is called some other name this is what is should -->
+							<OMV name="angl"/>
+						</OMA>
+					</OMA>
+				</OMBIND>
+			</OMBIND>
+		</OMOBJ>
+	</definition>
+</symbol>
+
+<symbol xml:id="side-of-a-triangle" name="side">
+	<definition>
+		<CMP>a segment part of the triangle</CMP>
+		<!-- to be filled in -->
+	</definition>
+</symbol>
+
+<symbol xml:id="equilateral_triangle" name="triangle">
+	<definition>
+		<OMOBJ>
+			<OMBIND>
+				<OMS name="forall"/>
+				<OMBVAR>
+					<OMV name="triang"/>
+					<OMV name="s1"/>
+					<OMV name="s2"/>
+					<OMV name="s3"/>
+				</OMBVAR>
+				<OMA>
+					<OMS name="and"/>
+					<OMA>
+						<OMS name="is-side-of-the-triangle"/>
+						<OMV name="s1"/>
+						<OMV name="triang"/>
+					</OMA>
+					<OMA>
+						<OMS name="is-side-of-the-triangle"/>
+						<OMV name="s2"/>
+						<OMV name="triang"/>
+					</OMA>
+					<OMA>
+						<OMS name="is-side-of-the-triangle"/>
+						<OMV name="s3"/>
+						<OMV name="triang"/>
+					</OMA>
+					<OMA>
+					    <OMS name="congruent"/>
+						<OMV name="s1"/>
+						<OMV name="s2"/>
+						<OMV name="s3"/>
+					</OMA>
+				</OMA>
+			</OMBIND>
+		</OMOBJ>
+	</definition>
+</symbol>
+
+<symbol xml:id="isosceles_triangle" name="triangle">
+	<CMP> A triangle with two equal sides</CMP>
+	<definition>
+		<OMOBJ>
+			<OMBIND>
+				<OMS name="forall"/>
+				<OMBVAR>
+					<OMV name="triang"/>
+					<OMV name="s1"/>
+					<OMV name="s2"/>
+				</OMBVAR>
+				<OMA>
+					<OMS name="and"/>
+					<OMA>
+						<OMS name="is-side-of-the-triangle"/>
+						<OMV name="s1"/>
+						<OMV name="triang"/>
+					</OMA>
+					<OMA>
+						<OMS name="is-side-of-the-triangle"/>
+						<OMV name="s2"/>
+						<OMV name="triang"/>
+					</OMA>
+					<OMA>
+					    <OMS name="congruent"/>
+						<OMV name="s1"/>
+						<OMV name="s2"/>
+					</OMA>
+				</OMA>
+			</OMBIND>
+		</OMOBJ>
+	</definition>
+</symbol>
+
+</theory>
+
+</omdoc>
+
+		
+					
