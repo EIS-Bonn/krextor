@@ -1,0 +1,5 @@
+2008-06-23 Krextor 0.1
+    Initial release
+    * input formats: OMDoc (with test cases), OpenMath CD
+    * output formats: RXR
+    * documentation

@@ -11,6 +11,14 @@ Wiki: http://mathweb.org/wiki/Krextor
 Bug reports: https://trac.kwarc.info/krextor/
 Mailing list: http://lists.jacobs-university.de/mailman/listinfo/project-swim (for now)
 
+== Releases ==
+
+* trunk: most recent development version
+* tags: older versions
+  * 0.1
+
+See ChangeLog for details.
+
 == Requirements ==
 
 An XSLT 2.0 compliant XSLT processor.  Krextor has been tested with Saxon 9.0.
