@@ -43,5 +43,28 @@
 	            	
 	            </FMP>
 	</omtext>
+	
+	<!--And now testing some proofs, reference:Listing 17.1 from OMDoc 1.2 manual-->
+	<assertion xml:id="a1">
+		<CMP>
+			There are infinitely many prime numbers
+		</CMP>
+	</assertion>
+	
+	<proof xml:id="p" for="#a1">
+		<omtext xml:id="intro">
+			<CMP>
+				We need to prove that the set P of all prime numbers in not finite
+			</CMP>
+		</omtext>
+		
+		<derive xml:id="d1">
+			<method>
+				<hypothesis xml:id="h2"> <CMP> Let P be finite </CMP> </hypothesis>
+				<!--...-->
+				<derive xml:id="d9" type="conclusion"> <CMP> Thus we have contradicted our assumption </CMP> </derive>
+			</method>
+		</derive>
+	</proof>
 
 </omdoc>

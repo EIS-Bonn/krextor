@@ -267,6 +267,7 @@
 	</xsl:call-template>
     </xsl:template>
 
+	<!--TODO: modeling of for attribute in proof, I dont think it can be solved now, since it is similar to the phrase problem-->
     <xsl:template match="proof">
 	<xsl:call-template name="create-omdoc-resource">
 	    <xsl:with-param name="type" select="'&odo;FormalProof'"/>
@@ -372,7 +373,7 @@
 		</xsl:call-template>
 	</xsl:template>
 	
-	<xsl:template match="omtext[not(@type)]">
+	<xsl:template match="omtext[not(@type) and not(parent::proof)]">
 		<xsl:call-template name="create-omdoc-resource">
 			<xsl:with-param name="type" select="'&odo;InformalStatement'"/>
 		</xsl:call-template>>
@@ -418,6 +419,36 @@
 		<xsl:call-template name="add-uri-property">
 			<xsl:with-param name="property" select="'&odo;usesSymbol'"/>
 			<xsl:with-param name="object" select="om:symbol-uri((ancestor-or-self::om:*/@cdbase)[last()], @cd, @name)"/>
+		</xsl:call-template>
+	</xsl:template>
+	
+	<xsl:template match="derive[@type='conclusion']">
+		<xsl:call-template name="create-omdoc-resource">
+			<xsl:with-param name="type" select="'&odo;DerivedConclusion'"/>
+		</xsl:call-template>
+	</xsl:template>
+	
+	<xsl:template match="derive[@type='gap']">
+		<xsl:call-template name="create-omdoc-resource">
+			<xsl:with-param name="type" select="'&odo;Gap'"/>
+		</xsl:call-template>
+	</xsl:template>
+	
+	<xsl:template match="derive[not(@type='conclusion') and not(@type='gap')]">
+		<xsl:call-template name="create-omdoc-resource">
+			<xsl:with-param name="type" select="'&odo;DerivationStep'"/>
+		</xsl:call-template>
+	</xsl:template>
+	
+	<xsl:template match="hypothesis">
+		<xsl:call-template name="create-omdoc-resource">
+			<xsl:with-param name="type" select="'&odo;Hypothesis'"/>
+		</xsl:call-template>
+	</xsl:template>
+	
+	<xsl:template match="proof//omtext">
+		<xsl:call-template name="create-omdoc-resource">
+			<xsl:with-param name="type" select="'&odo;InformalProofStep'"/>
 		</xsl:call-template>
 	</xsl:template>
 	
