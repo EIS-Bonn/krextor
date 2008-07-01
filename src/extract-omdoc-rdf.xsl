@@ -451,20 +451,18 @@
 		</xsl:call-template>>
 	</xsl:template>
 	
-	<!--!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!-->
-	
 	<xsl:template match="omtext[not(@type) and parent::proof]">
 		<xsl:call-template name="create-omdoc-resource">
-			<xsl:with-param name="related-via-property" select="'&odo;hasPart'"/>
-			<xsl:with-param name="type" select="'&odo;InformalProofStep'"/>
+			<xsl:with-param name="related-via-property" select="if (parent::proof) then '&odo;hasStep' else '&odo;hasPart'"/>
+			<xsl:with-param name="type" select="'&odo;Proof'"/>
+			<!--AND ALSO ADD FORMALITY DEGREE AS SOON AS CHRISTOPH FINISHES IT-->
 		</xsl:call-template>>
 	</xsl:template>
 	
 	<xsl:template match="CMP">
-		
 		<xsl:call-template name="create-omdoc-resource">
 			<xsl:with-param name="related-via-property" select="'&odo;hasProperty'"/>
-			<xsl:with-param name="type" select="'&odo;InformalProperty'"/>
+			<xsl:with-param name="type" select="'&odo;Property'"/>
 		</xsl:call-template>
 	</xsl:template>
 	
@@ -489,6 +487,8 @@
 		</xsl:call-template>
 	</xsl:template>
 	
+	<!--!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!-->
+	
 	<xsl:template match="CMP//term[@role='definiendum']">
 		<xsl:call-template name="add-uri-property">
 			<xsl:with-param name="property" select="'&odo;defines'"/>
@@ -503,7 +503,7 @@
 		</xsl:call-template>
 	</xsl:template>
 	
-	<xsl:template match="derive[@type='conclusion']" mode="mode2">
+	<xsl:template match="derive[@type='conclusion']">
 		<xsl:call-template name="create-omdoc-resource">
 			<xsl:with-param name="related-via-property" select="'&odo;hasPart'"/>
 			<xsl:with-param name="type" select="'&odo;DerivedConclusion'"/>
