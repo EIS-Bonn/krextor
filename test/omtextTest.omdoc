@@ -44,6 +44,8 @@
 	            </FMP>
 	</omtext>
 	
+	<axiom xml:id="foo"/>
+
 	<!--And now testing some proofs, reference:Listing 17.1 from OMDoc 1.2 manual-->
 	<assertion xml:id="a1">
 		<CMP>

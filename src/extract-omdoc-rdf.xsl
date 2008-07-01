@@ -36,9 +36,10 @@
 -->
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" 
     xpath-default-namespace="http://www.mathweb.org/omdoc"
+    xmlns:krextor="http://kwarc.info/projects/krextor/"
     xmlns:omdoc="http://www.mathweb.org/omdoc"
     xmlns:om="http://www.openmath.org/OpenMath"
-    exclude-result-prefixes="omdoc om"
+    exclude-result-prefixes="omdoc om krextor"
     version="2.0">
 
     <!-- Specifies whether MMT-style URLs (OMDoc 1.3) should be generated -->
@@ -55,6 +56,7 @@
     <xsl:template name="create-omdoc-resource">
 	<xsl:param name="related-via-property"/>
 	<xsl:param name="type"/>
+	<xsl:param name="formality-degree"/>
 	<xsl:param name="base-uri" tunnel="yes"/>
 	<xsl:param name="mmt" select="$mmt and @name"/>
 	<xsl:param name="use-document-uri" select="not($use-root-xmlid) and self::node() = /"/>
@@ -67,6 +69,11 @@
 		    then concat($base-uri, '/', @name)
 		    else $base-uri" tunnel="yes"/>
 		<xsl:with-param name="autogenerate-fragment-uri" select="not($mmt) and not($use-document-uri)"/>
+		<xsl:with-param name="properties">
+		    <xsl:if test="$formality-degree">
+			<krextor:property uri="&odo;formalityDegree" object="{$formality-degree}"/>
+		    </xsl:if>
+		</xsl:with-param>
 		<xsl:with-param name="related-via-property" select="$related-via-property"/>
 		<xsl:with-param name="type" select="$type"/>
 	    </xsl:call-template>
@@ -163,7 +170,7 @@
 	<xsl:call-template name="create-omdoc-resource">
 		<xsl:with-param name="related-via-property" select="if (parent::proof) then '&odo;hasStep' else '&odo;hasPart'"/>
 	    <xsl:with-param name="type" select="'&odo;Axiom'"/>
-		<!--AND ALSO ADD FORMALITY DEGREE AS SOON AS CHRISTOPH FINISHES IT-->
+	    <xsl:with-param name="formality-degree" select="'&odo;Formal'"/>
 	</xsl:call-template>
     </xsl:template>
 

@@ -71,6 +71,14 @@ relationships between fragments in the "references" portlet.
     <xsl:template name="create-resource">
 	<xsl:param name="related-via-property"/>
 	<xsl:param name="type"/>
+	<!-- additional properties of this resource, encoded as
+	    <krextor:property uri="property-uri" object="object-uri"/>
+	    or
+	    <krextor:property uri="property-uri">
+		object-literal
+	    </krextor:property>
+	-->
+	<xsl:param name="properties"/>
 	<!-- We pass the base URI as a parameter into templates.  This is because we need to tweak the base URI when processing transcluded documents; in this case, the transcluding document's URI should still be considered the base URI, instead of the URI of the transcluded document. -->
 	<xsl:param name="base-uri" tunnel="yes"/>
 	<!-- If we are to autogenerate the URI for this node (i.e. if no manipulated base URI has been passed in and should be used), then a URI for this node is generated as follows:
@@ -85,13 +93,19 @@ relationships between fragments in the "references" portlet.
 		else ()
 	    else $base-uri"/>
 	<xsl:if test="$generated-uri">
+	    <xsl:sequence select="krextor:triple-uri($generated-uri, '&rdf;type', $type)"/>
 	    <xsl:if test="$related-via-property">
 		<xsl:call-template name="add-uri-property">
 		    <xsl:with-param name="property" select="$related-via-property"/>
 		    <xsl:with-param name="object" select="$generated-uri"/>
 		</xsl:call-template>
 	    </xsl:if>
-	    <xsl:sequence select="krextor:triple-uri($generated-uri, '&rdf;type', $type)"/>
+	    <xsl:for-each select="$properties/krextor:property[@uri]">
+		<xsl:sequence select="if (@object) 
+		    then krextor:triple-uri($generated-uri, @uri, @object)
+		    else if (text()) then krextor:triple-lit($generated-uri, @uri, text())
+		    else ()"/>
+	    </xsl:for-each>
 	    <!-- We also process attributes, as they may contain links to other resources -->
 	    <xsl:apply-templates select="*|@*">
 		<!-- pass on the generated base URI.  For resolving relative URIs, an appended fragment does
