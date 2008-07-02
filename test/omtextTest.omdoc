@@ -62,9 +62,14 @@
 		
 		<derive xml:id="d1">
 			<method>
-			<proof xml:id="ppp" for="#a55">
+				<proof xml:id="ppp" for="#a55">
 					<hypothesis xml:id="h2"> <CMP> Let P be finite </CMP> </hypothesis>
-				<derive xml:id="d9" type="conclusion"> <CMP> Thus we have contradicted our assumption </CMP> </derive>
+					<derive xml:id="d9" type="conclusion">
+						<CMP> Thus we have contradicted our assumption </CMP> 
+						<method>
+							<premise xref="#h2"/>
+						</method>
+					</derive>
 				
 					<hypothesis xml:id="h3"> <CMP> Let P be infinite </CMP> </hypothesis>
 				</proof>

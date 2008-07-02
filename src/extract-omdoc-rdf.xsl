@@ -473,7 +473,7 @@
 		</xsl:call-template>
 	</xsl:template>
 	
-	<xsl:template match="assumption[parent::FMP]">
+	<xsl:template match="FMP/assumption">
 		<xsl:call-template name="create-omdoc-resource">
 			<xsl:with-param name="related-via-property" select="'&odo;assumes'"/>
 			<xsl:with-param name="type" select="'&odo;AssumptionElement'"/>
@@ -481,7 +481,7 @@
 		</xsl:call-template>
 	</xsl:template>
 	
-	<xsl:template match="conclusion[parent::FMP]">
+	<xsl:template match="FMP/conclusion">
 		<xsl:call-template name="create-omdoc-resource">
 			<xsl:with-param name="related-via-property" select="'&odo;concludes'"/>
 			<xsl:with-param name="type" select="'&odo;ConclusionElement'"/>
@@ -505,13 +505,13 @@
 		</xsl:call-template>
 	</xsl:template>
 	
-	<xsl:template match="derive/method/proof">
+	<!--<xsl:template match="derive/method/proof">
 		<xsl:call-template name="add-uri-property">
 			<xsl:with-param name="property" select="'&odo;justifiedBy'"/>
 			<xsl:with-param name="object" select="@xml:id"/>
-			<!--<xsl:with-param name="formality-degree" select="'&odo;Informal'"/>-->
+			<!-<xsl:with-param name="formality-degree" select="'&odo;Informal'"/>->
 		</xsl:call-template>
-	</xsl:template>
+	</xsl:template>-->
 	
 	<xsl:template match="derive/method/premise">
 		<!-- TODO @rank -->
