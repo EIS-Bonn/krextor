@@ -64,16 +64,52 @@ ones.  Then read and understand the documentation of generic-templates.xsl,
 particularly the named templates:
 
 * create-resource
+  Creates an RDF resource of some type from this element, and probably creates
+  related triples having this resource as a subject or object.  Then, matching
+  extraction templates are applied to the child elements.  A call to
+  create-resource defines a scope in which the created resource is the default
+  subject of any other triple created using these templates, unless another
+  resource is created from some child element.
 * add-literal-property
+  Adds a literal-valued property to the resource in whose create-resource scope
+  this template was called.
 * add-uri-property
+  Adds a URI-valued property to the resource in whose create-resource scope
+  this template was called.
 
 These templates make typical RDF extraction tasks much easier than directly
-creating output triples using the functions in the output modules.
+creating output triples using the functions in the output modules.  See the
+source code for additional documentation.
 
 As a rule of thumb, we recommend that every XML element or attribute that
 corresponds to one RDF resource or property be matched by one template that
 calls one of the templates above.  This ensures the most effective default
-behaviour without requiring you to write much code yourself.
+behaviour without requiring you to write much code yourself.  More particularly:
+
+1. If an element E corresponds to a resource, write a template that matches E
+   and calls create-resource.
+2. If an element E contains text that corresponds to the value of a property of
+   a resource represented by a parent or ancestor element, write a template
+   that matches E and calls add-literal-property or add-uri-property.
+3. If an attribute A contains text that corresponds to the value of a property
+   of a resource represented by its parent element E, write a template that
+   matches A and calls add-literal-property or add-uri-property.
+   create-resource, as called from a template matching E, ensures that
+   templates are applied to attributes, too – which is not generally the case
+   in XSLT.
+4. If an element E corresponds to a resource that is related to a resource
+   represented by a parent or ancestor element P via a property P–prop–E (e.g.
+   a part-of relationship), match E as in case (1), but pass the parameter
+   related-via-property with value ‘prop’.
+
+A template that traverses XInclude links is provided in generic-templates.xsl
+and active by default.  Templates are applied to nodes in XIncluded documents
+in "included" mode.  A rule of thumb is not to recursively create resources
+from XIncluded elements, but to process these documents separately and then
+merge the resulting RDF graphs.  It is recommended to just generate part-of
+relationships from the including document to the resource represented by the
+root element of the included document, this time using add-uri-property and its
+default behaviour.
 
 === Output ===
 
@@ -106,6 +142,8 @@ following template:
 	     krextor:triple -->
     </xsl:function>
 
+    <!-- This function is not strictly needed, but helpful to avoid
+         redundancies in the functions above. -->
     <xsl:function name="krextor:triple">
 	<xsl:param name="subject"/>
 	<xsl:param name="predicate"/>
@@ -120,7 +158,7 @@ following template:
     </xsl:template>
 </xsl:stylesheet>
 
-Note that the current design of Krextor is optimized for sequential triples
+Note that the current design of Krextor is optimised for sequential triples
 generation, i.e.
 
 < subject1, predicate1, object1 >
@@ -128,7 +166,7 @@ generation, i.e.
 ...
 
 Grouping triples by a common subject, as commonly done in RDF/XML, N3 or
-TURTLE, is not easy to achieve.  However, this is only syntactic sugar making
+Turtle, is not easy to achieve.  However, this is only syntactic sugar making
 these notations easier to read for humans.  Krextor's output is intended for
 machine-processing instead.
 

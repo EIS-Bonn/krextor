@@ -161,7 +161,7 @@
 	</xsl:call-template>
     </xsl:template>
 
-    <xsl:template match="CDName">
+    <xsl:template match="Name|CDName">
 	<!-- TODO reconsider whether dc:identifier actually is the right property -->
 	<xsl:call-template name="add-literal-property">
 	    <xsl:with-param name="property" select="'&dc;identifier'"/>

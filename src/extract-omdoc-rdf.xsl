@@ -98,7 +98,7 @@
 	instead of a generic contains relationship. -->
     </xsl:template>
 
-    <xsl:template match="@meta[parent::theory]">
+    <xsl:template match="theory/@meta">
 	<xsl:call-template name="add-uri-property">
 	    <xsl:with-param name="property" select="'&odo;metaTheory'"/>
 	</xsl:call-template>
@@ -119,27 +119,27 @@
 	</xsl:call-template>
     </xsl:template>    
 
-    <xsl:template match="@from[parent::imports]">
+    <xsl:template match="imports/@from">
 	<xsl:call-template name="add-uri-property">
 	    <xsl:with-param name="property" select="'&odo;imports'"/>
 	</xsl:call-template>
     </xsl:template>
 	
 	
-	<xsl:template match="@verbalizes[parent::omtext]">
+    <xsl:template match="omtext/@verbalizes">
 		<xsl:call-template name="add-uri-property">
 			<xsl:with-param name="list" select="true()"/>
 			<xsl:with-param name="property" select="'&odo;verbalizes'"/>
 		</xsl:call-template>
 	</xsl:template>
 	
-	<xsl:template match="@logic[parent::FMP]">
+	<xsl:template match="FMP/@logic">
 		<xsl:call-template name="add-literal-property">
 			<xsl:with-param name="property" select="'&odo;logic'"/>
 		</xsl:call-template>
 	</xsl:template>
 	
-	<xsl:template match="@xml:lang[parent::CMP]">
+	<xsl:template match="CMP/@xml:lang">
 		<xsl:call-template name="add-literal-property">
 			<xsl:with-param name="property" select="'&dc;language'"/>
 		</xsl:call-template>
@@ -182,7 +182,7 @@
 	</xsl:call-template>
     </xsl:template>
 
-    <xsl:template match="@for[parent::definition]">
+    <xsl:template match="definition/@for">
 	<xsl:call-template name="add-uri-property">
 	    <xsl:with-param name="property" select="'&odo;defines'"/>
 	</xsl:call-template>
@@ -310,12 +310,17 @@
 	</xsl:call-template>
     </xsl:template>
 
-	<!--TODO: modeling of for attribute in proof, I dont think it can be solved now, since it is similar to the phrase problem-->
     <xsl:template match="proof">
 	<xsl:call-template name="create-omdoc-resource">
-		<xsl:with-param name="related-via-property" select="'&odo;hasPart'"/>
-	   	<xsl:with-param name="type" select="'&odo;Proof'"/>
-		<xsl:with-param name="formality-degree" select="'&odo;Formal'"/>
+	    <xsl:with-param name="related-via-property" select="if (parent::method[parent::derive]) then '&odo;justifiedBy' else '&odo;hasPart'"/>
+	    <xsl:with-param name="type" select="'&odo;Proof'"/>
+	    <xsl:with-param name="formality-degree" select="'&odo;Formal'"/>
+	</xsl:call-template>
+    </xsl:template>
+    
+    <xsl:template match="proof/@for">
+	<xsl:call-template name="add-uri-property">
+	   	<xsl:with-param name="property" select="'&odo;proves'"/>
 	</xsl:call-template>
     </xsl:template>
 	
@@ -456,20 +461,22 @@
 			<xsl:with-param name="related-via-property" select="if (parent::proof) then '&odo;hasStep' else '&odo;hasPart'"/>
 			<xsl:with-param name="type" select="if (parent::proof) then '&odo;ProofText' else '&odo;Statement'"/>
 			<xsl:with-param name="formality-degree" select="'&odo;Informal'"/>
-		</xsl:call-template>>
+		</xsl:call-template>
 	</xsl:template>
 	
 	<xsl:template match="CMP">
 		<xsl:call-template name="create-omdoc-resource">
 			<xsl:with-param name="related-via-property" select="'&odo;hasProperty'"/>
 			<xsl:with-param name="type" select="'&odo;Property'"/>
+			<xsl:with-param name="formality-degree" select="'&odo;Informal'"/>
 		</xsl:call-template>
 	</xsl:template>
 	
 	<xsl:template match="FMP">
 		<xsl:call-template name="create-omdoc-resource">
 			<xsl:with-param name="related-via-property" select="'&odo;hasProperty'"/>
-			<xsl:with-param name="type" select="'&odo;FormalProperty'"/>
+			<xsl:with-param name="type" select="'&odo;Property'"/>
+			<xsl:with-param name="formality-degree" select="'&odo;Formal'"/>
 		</xsl:call-template>
 	</xsl:template>
 	
@@ -477,7 +484,6 @@
 		<xsl:call-template name="create-omdoc-resource">
 			<xsl:with-param name="related-via-property" select="'&odo;assumes'"/>
 			<xsl:with-param name="type" select="'&odo;AssumptionElement'"/>
-			<xsl:with-param name="formality-degree" select="'&odo;Informal'"/>
 		</xsl:call-template>
 	</xsl:template>
 	
@@ -485,7 +491,6 @@
 		<xsl:call-template name="create-omdoc-resource">
 			<xsl:with-param name="related-via-property" select="'&odo;concludes'"/>
 			<xsl:with-param name="type" select="'&odo;ConclusionElement'"/>
-			<xsl:with-param name="formality-degree" select="'&odo;Informal'"/>
 		</xsl:call-template>
 	</xsl:template>
 	
@@ -504,14 +509,6 @@
 			<!--<xsl:with-param name="formality-degree" select="'&odo;Informal'"/>-->
 		</xsl:call-template>
 	</xsl:template>
-	
-	<!--<xsl:template match="derive/method/proof">
-		<xsl:call-template name="add-uri-property">
-			<xsl:with-param name="property" select="'&odo;justifiedBy'"/>
-			<xsl:with-param name="object" select="@xml:id"/>
-			<!-<xsl:with-param name="formality-degree" select="'&odo;Informal'"/>->
-		</xsl:call-template>
-	</xsl:template>-->
 	
 	<xsl:template match="derive/method/premise">
 		<!-- TODO @rank -->
