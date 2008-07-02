@@ -323,6 +323,7 @@
 	
 	<xsl:template match="omtext[@type='axiom']">
 		<xsl:call-template name="create-omdoc-resource">
+			<!-- TODO await discussion w.r.t. proof/omtext --> 
 			<xsl:with-param name="related-via-property" select="if (parent::proof) then '&odo;hasStep' else '&odo;hasPart'"/>
 			<xsl:with-param name="type" select="'&odo;Axiom'"/>
 			<xsl:with-param name="formality-degree" select="'&odo;Informal'"/>
@@ -450,18 +451,10 @@
 		</xsl:call-template>
 	</xsl:template>
 	
-	<xsl:template match="omtext[not(@type) and not(parent::proof)]">
+	<xsl:template match="omtext[not(@type)]">
 		<xsl:call-template name="create-omdoc-resource">
 			<xsl:with-param name="related-via-property" select="if (parent::proof) then '&odo;hasStep' else '&odo;hasPart'"/>
-			<xsl:with-param name="type" select="'&odo;Statement'"/>
-			<xsl:with-param name="formality-degree" select="'&odo;Informal'"/>
-		</xsl:call-template>>
-	</xsl:template>
-	
-	<xsl:template match="omtext[not(@type) and parent::proof]">
-		<xsl:call-template name="create-omdoc-resource">
-			<xsl:with-param name="related-via-property" select="if (parent::proof) then '&odo;hasStep' else '&odo;hasPart'"/>
-			<xsl:with-param name="type" select="'&odo;Proof'"/>
+			<xsl:with-param name="type" select="if (parent::proof) then '&odo;ProofText' else '&odo;Statement'"/>
 			<xsl:with-param name="formality-degree" select="'&odo;Informal'"/>
 		</xsl:call-template>>
 	</xsl:template>
@@ -516,6 +509,19 @@
 		<xsl:call-template name="add-uri-property">
 			<xsl:with-param name="property" select="'&odo;justifiedBy'"/>
 			<xsl:with-param name="object" select="@xml:id"/>
+			<!--<xsl:with-param name="formality-degree" select="'&odo;Informal'"/>-->
+		</xsl:call-template>
+	</xsl:template>
+	
+	<xsl:template match="derive/method/premise">
+		<!-- TODO @rank -->
+		<!-- enforce the following template to be called -->
+		<xsl:apply-templates select="@xref"/>
+	</xsl:template>
+	
+	<xsl:template match="derive/method/premise/@xref">
+		<xsl:call-template name="add-uri-property">
+			<xsl:with-param name="property" select="'&odo;justifiedBy'"/>
 			<!--<xsl:with-param name="formality-degree" select="'&odo;Informal'"/>-->
 		</xsl:call-template>
 	</xsl:template>
