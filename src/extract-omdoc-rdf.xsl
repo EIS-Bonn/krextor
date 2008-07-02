@@ -483,7 +483,7 @@
 	<xsl:template match="assumption[parent::FMP]">
 		<xsl:call-template name="create-omdoc-resource">
 			<xsl:with-param name="related-via-property" select="'&odo;assumes'"/>
-			<xsl:with-param name="type" select="'&odo;Assumption'"/>
+			<xsl:with-param name="type" select="'&odo;AssumptionElement'"/>
 			<xsl:with-param name="formality-degree" select="'&odo;Informal'"/>
 		</xsl:call-template>
 	</xsl:template>
@@ -491,7 +491,7 @@
 	<xsl:template match="conclusion[parent::FMP]">
 		<xsl:call-template name="create-omdoc-resource">
 			<xsl:with-param name="related-via-property" select="'&odo;concludes'"/>
-			<xsl:with-param name="type" select="'&odo;Conclusion'"/>
+			<xsl:with-param name="type" select="'&odo;ConclusionElement'"/>
 			<xsl:with-param name="formality-degree" select="'&odo;Informal'"/>
 		</xsl:call-template>
 	</xsl:template>

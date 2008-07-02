@@ -83,7 +83,7 @@
    <rxr:triple>
       <rxr:subject uri="file:/home/gristovski/Desktop/krextorup/trunk/src/../test/omtextTest.omdoc#ass"/>
       <rxr:predicate uri="http://www.w3.org/1999/02/22-rdf-syntax-ns#type"/>
-      <rxr:object uri="http://www.omdoc.org/ontology#Assumption"/>
+      <rxr:object uri="http://www.omdoc.org/ontology#AssumptionElement"/>
    </rxr:triple>
    <rxr:triple>
       <rxr:subject uri="file:/home/gristovski/Desktop/krextorup/trunk/src/../test/omtextTest.omdoc#formula"/>
@@ -98,7 +98,7 @@
    <rxr:triple>
       <rxr:subject uri="file:/home/gristovski/Desktop/krextorup/trunk/src/../test/omtextTest.omdoc#conc"/>
       <rxr:predicate uri="http://www.w3.org/1999/02/22-rdf-syntax-ns#type"/>
-      <rxr:object uri="http://www.omdoc.org/ontology#Conclusion"/>
+      <rxr:object uri="http://www.omdoc.org/ontology#ConclusionElement"/>
    </rxr:triple>
    <rxr:triple>
       <rxr:subject uri="file:/home/gristovski/Desktop/krextorup/trunk/src/../test/omtextTest.omdoc#formula"/>
@@ -216,8 +216,63 @@
       <rxr:object uri="http://www.omdoc.org/ontology#Formal"/>
    </rxr:triple>
    <rxr:triple>
+      <rxr:subject uri="file:/home/gristovski/Desktop/krextorup/trunk/src/../test/omtextTest.omdoc#ppp"/>
+      <rxr:predicate uri="http://www.w3.org/1999/02/22-rdf-syntax-ns#type"/>
+      <rxr:object uri="http://www.omdoc.org/ontology#Proof"/>
+   </rxr:triple>
+   <rxr:triple>
       <rxr:subject uri="file:/home/gristovski/Desktop/krextorup/trunk/src/../test/omtextTest.omdoc#d1"/>
-      <rxr:predicate uri="http://www.omdoc.org/ontology#justifiedBy"/>
-      <rxr:object uri="ppp"/>
+      <rxr:predicate uri="http://www.omdoc.org/ontology#hasPart"/>
+      <rxr:object uri="file:/home/gristovski/Desktop/krextorup/trunk/src/../test/omtextTest.omdoc#ppp"/>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="file:/home/gristovski/Desktop/krextorup/trunk/src/../test/omtextTest.omdoc#ppp"/>
+      <rxr:predicate uri="http://www.omdoc.org/ontology#formalityDegree"/>
+      <rxr:object uri="http://www.omdoc.org/ontology#Formal"/>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="file:/home/gristovski/Desktop/krextorup/trunk/src/../test/omtextTest.omdoc#h2"/>
+      <rxr:predicate uri="http://www.w3.org/1999/02/22-rdf-syntax-ns#type"/>
+      <rxr:object uri="http://www.omdoc.org/ontology#Hypothesis"/>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="file:/home/gristovski/Desktop/krextorup/trunk/src/../test/omtextTest.omdoc#ppp"/>
+      <rxr:predicate uri="http://www.omdoc.org/ontology#hasStep"/>
+      <rxr:object uri="file:/home/gristovski/Desktop/krextorup/trunk/src/../test/omtextTest.omdoc#h2"/>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="file:/home/gristovski/Desktop/krextorup/trunk/src/../test/omtextTest.omdoc#h2"/>
+      <rxr:predicate uri="http://www.omdoc.org/ontology#formalityDegree"/>
+      <rxr:object uri="http://www.omdoc.org/ontology#Formal"/>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="file:/home/gristovski/Desktop/krextorup/trunk/src/../test/omtextTest.omdoc#d9"/>
+      <rxr:predicate uri="http://www.w3.org/1999/02/22-rdf-syntax-ns#type"/>
+      <rxr:object uri="http://www.omdoc.org/ontology#DerivedConclusion"/>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="file:/home/gristovski/Desktop/krextorup/trunk/src/../test/omtextTest.omdoc#ppp"/>
+      <rxr:predicate uri="http://www.omdoc.org/ontology#hasStep"/>
+      <rxr:object uri="file:/home/gristovski/Desktop/krextorup/trunk/src/../test/omtextTest.omdoc#d9"/>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="file:/home/gristovski/Desktop/krextorup/trunk/src/../test/omtextTest.omdoc#d9"/>
+      <rxr:predicate uri="http://www.omdoc.org/ontology#formalityDegree"/>
+      <rxr:object uri="http://www.omdoc.org/ontology#Formal"/>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="file:/home/gristovski/Desktop/krextorup/trunk/src/../test/omtextTest.omdoc#h3"/>
+      <rxr:predicate uri="http://www.w3.org/1999/02/22-rdf-syntax-ns#type"/>
+      <rxr:object uri="http://www.omdoc.org/ontology#Hypothesis"/>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="file:/home/gristovski/Desktop/krextorup/trunk/src/../test/omtextTest.omdoc#ppp"/>
+      <rxr:predicate uri="http://www.omdoc.org/ontology#hasStep"/>
+      <rxr:object uri="file:/home/gristovski/Desktop/krextorup/trunk/src/../test/omtextTest.omdoc#h3"/>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="file:/home/gristovski/Desktop/krextorup/trunk/src/../test/omtextTest.omdoc#h3"/>
+      <rxr:predicate uri="http://www.omdoc.org/ontology#formalityDegree"/>
+      <rxr:object uri="http://www.omdoc.org/ontology#Formal"/>
    </rxr:triple>
 </rxr:graph>
