@@ -4,6 +4,13 @@ multiple output RDF notations.  Krextor provides convenience templates that try
 to do “the right thing”™ in many common cases, as to reduce the need for
 manually writing repetitive code.
 
+The extracted RDF graph will in most cases be an outline of the semantic
+structure of an XML document, abstracting from the concrete syntax.  It can be
+used for more easily exchanging or interlinking knowledge contained in XML
+documents on the semantic web.  There are many tools that support querying RDF,
+using languages like SPARQL.  If the extracted RDF is backed by an expressive
+ontology, a reasoner can be used to infer additional knowledge from it.
+
 == Contact ==
 
 Homepage: http://kwarc.info/projects/krextor/
