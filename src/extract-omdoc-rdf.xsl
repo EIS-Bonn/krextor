@@ -68,7 +68,7 @@
     <xsl:include href="util-openmath-symbols.xsl"/>
 	
     <xsl:template name="create-omdoc-resource">
-	<xsl:param name="related-via-property"/>
+	<xsl:param name="related-via-properties"/>
 	<xsl:param name="type"/>
 	<xsl:param name="formality-degree"/>
 	<xsl:param name="base-uri" tunnel="yes"/>
@@ -90,7 +90,7 @@
 			<krextor:property uri="&odo;formalityDegree" object="{$formality-degree}"/>
 		    </xsl:if>
 		</xsl:with-param>
-		<xsl:with-param name="related-via-property" select="$related-via-property"/>
+		<xsl:with-param name="related-via-properties" select="$related-via-properties"/>
 		<xsl:with-param name="type" select="$type"/>
 	    </xsl:call-template>
 	</xsl:if>
@@ -175,7 +175,7 @@
     <!-- TODO adapt to further progress of the MMT (OMDoc 1.3) specification -->
     <xsl:template match="symbol[not(@role)]">
 	<xsl:call-template name="create-omdoc-resource">
-		<xsl:with-param name="related-via-property" select="if (parent::proof) then '&odo;hasStep' else '&odo;hasPart'"/>
+		<xsl:with-param name="related-via-properties" select="(if (parent::proof) then '&odo;hasStep' else '&odo;hasPart')"/>
 	    <xsl:with-param name="type" select="'&odo;Symbol'"/>
 		<xsl:with-param name="formality-degree" select="'&odo;Formal'"/>
 	</xsl:call-template>
@@ -184,7 +184,7 @@
     <!-- TODO adapt to further progress of the MMT (OMDoc 1.3) specification -->
     <xsl:template match="symbol[@role='axiom']|axiom">
 	<xsl:call-template name="create-omdoc-resource">
-		<xsl:with-param name="related-via-property" select="if (parent::proof) then '&odo;hasStep' else '&odo;hasPart'"/>
+		<xsl:with-param name="related-via-properties" select="(if (parent::proof) then '&odo;hasStep' else '&odo;hasPart')"/>
 	    <xsl:with-param name="type" select="'&odo;Axiom'"/>
 	    <xsl:with-param name="formality-degree" select="'&odo;Formal'"/>
 	</xsl:call-template>
@@ -192,7 +192,7 @@
 
     <xsl:template match="definition[@name or @xml:id]">
 	<xsl:call-template name="create-omdoc-resource">
-	    <xsl:with-param name="related-via-property" select="if (parent::proof) then '&odo;hasStep' else '&odo;hasPart'"/>
+	    <xsl:with-param name="related-via-properties" select="(if (parent::proof) then '&odo;hasStep' else '&odo;hasPart')"/>
 	    <xsl:with-param name="type" select="'&odo;Definition'"/>
 		<xsl:with-param name="formality-degree" select="'&odo;Formal'"/>
 	</xsl:call-template>
@@ -206,7 +206,7 @@
 	
     <xsl:template match="alternative">
 	<xsl:call-template name="create-omdoc-resource">
-		<xsl:with-param name="related-via-property" select="'&odo;hasPart'"/>
+		<xsl:with-param name="related-via-properties" select="('&odo;hasPart')"/>
 	    <xsl:with-param name="type" select="'&odo;AlternativeDefinition'"/>
 		<xsl:with-param name="formality-degree" select="'&odo;Formal'"/>
 	</xsl:call-template>
@@ -216,7 +216,7 @@
 	<!--Gordan: Potential problem, now that I have the type in omtext... will resolve later, after I finish with the property-->
     <xsl:template match="type[not(parent::symbol)]">
 	<xsl:call-template name="create-omdoc-resource">
-		<xsl:with-param name="related-via-property" select="'&odo;hasPart'"/>
+		<xsl:with-param name="related-via-properties" select="('&odo;hasPart')"/>
 	    <xsl:with-param name="type" select="'&odo;TypeAssertion'"/>
 		<xsl:with-param name="formality-degree" select="'&odo;Formal'"/>
 	</xsl:call-template>
@@ -224,7 +224,7 @@
 
     <xsl:template match="assertion[not(@type)]">
 	<xsl:call-template name="create-omdoc-resource">
-		<xsl:with-param name="related-via-property" select="'&odo;hasPart'"/>
+		<xsl:with-param name="related-via-properties" select="('&odo;hasPart')"/>
 	    <xsl:with-param name="type" select="'&odo;Assertion'"/>
 		<xsl:with-param name="formality-degree" select="'&odo;Formal'"/>
 	</xsl:call-template>
@@ -232,7 +232,7 @@
 
     <xsl:template match="assertion[@type='theorem']">
 	<xsl:call-template name="create-omdoc-resource">
-		<xsl:with-param name="related-via-property" select="'&odo;hasPart'"/>
+		<xsl:with-param name="related-via-properties" select="('&odo;hasPart')"/>
 	    <xsl:with-param name="type" select="'&odo;Theorem'"/>
 		<xsl:with-param name="formality-degree" select="'&odo;Formal'"/>
 	</xsl:call-template>
@@ -240,7 +240,7 @@
 
     <xsl:template match="assertion[@type='lemma']">
 	<xsl:call-template name="create-omdoc-resource">
-		<xsl:with-param name="related-via-property" select="'&odo;hasPart'"/>
+		<xsl:with-param name="related-via-properties" select="('&odo;hasPart')"/>
 	    <xsl:with-param name="type" select="'&odo;Lemma'"/>
 		<xsl:with-param name="formality-degree" select="'&odo;Formal'"/>
 	</xsl:call-template>
@@ -248,7 +248,7 @@
 
     <xsl:template match="assertion[@type='corollary']">
 	<xsl:call-template name="create-omdoc-resource">
-		<xsl:with-param name="related-via-property" select="'&odo;hasPart'"/>
+		<xsl:with-param name="related-via-properties" select="('&odo;hasPart')"/>
 	    <xsl:with-param name="type" select="'&odo;Corollary'"/>
 		<xsl:with-param name="formality-degree" select="'&odo;Formal'"/>
 	</xsl:call-template>
@@ -256,7 +256,7 @@
 
     <xsl:template match="assertion[@type='proposition']">
 	<xsl:call-template name="create-omdoc-resource">
-		<xsl:with-param name="related-via-property" select="'&odo;hasPart'"/>
+		<xsl:with-param name="related-via-properties" select="('&odo;hasPart')"/>
 	    <xsl:with-param name="type" select="'&odo;Proposition'"/>
 		<xsl:with-param name="formality-degree" select="'&odo;Formal'"/>
 	</xsl:call-template>
@@ -264,7 +264,7 @@
 
     <xsl:template match="assertion[@type='conjecture']">
 	<xsl:call-template name="create-omdoc-resource">
-		<xsl:with-param name="related-via-property" select="'&odo;hasPart'"/>
+		<xsl:with-param name="related-via-properties" select="('&odo;hasPart')"/>
 	    <xsl:with-param name="type" select="'&odo;Conjecture'"/>
 		<xsl:with-param name="formality-degree" select="'&odo;Formal'"/>
 	</xsl:call-template>
@@ -272,7 +272,7 @@
 
     <xsl:template match="assertion[@type='false-conjecture']">
 	<xsl:call-template name="create-omdoc-resource">
-		<xsl:with-param name="related-via-property" select="'&odo;hasPart'"/>
+		<xsl:with-param name="related-via-properties" select="('&odo;hasPart')"/>
 	    <xsl:with-param name="type" select="'&odo;FormalConjecture'"/>
 		<xsl:with-param name="formality-degree" select="'&odo;Formal'"/>
 	</xsl:call-template>
@@ -280,7 +280,7 @@
 
     <xsl:template match="assertion[@type='obligation']">
 	<xsl:call-template name="create-omdoc-resource">
-		<xsl:with-param name="related-via-property" select="'&odo;hasPart'"/>
+		<xsl:with-param name="related-via-properties" select="('&odo;hasPart')"/>
 	    <xsl:with-param name="type" select="'&odo;Obligation'"/>
 		<xsl:with-param name="formality-degree" select="'&odo;Formal'"/>
 	</xsl:call-template>
@@ -288,7 +288,7 @@
 
     <xsl:template match="assertion[@type='postulate']">
 	<xsl:call-template name="create-omdoc-resource">
-		<xsl:with-param name="related-via-property" select="'&odo;hasPart'"/>
+		<xsl:with-param name="related-via-properties" select="('&odo;hasPart')"/>
 	    <xsl:with-param name="type" select="'&odo;Postulate'"/>
 		<xsl:with-param name="formality-degree" select="'&odo;Formal'"/>
 	</xsl:call-template>
@@ -296,7 +296,7 @@
 
     <xsl:template match="assertion[@type='formula']">
 	<xsl:call-template name="create-omdoc-resource">
-		<xsl:with-param name="related-via-property" select="'&odo;hasPart'"/>
+		<xsl:with-param name="related-via-properties" select="('&odo;hasPart')"/>
 	    <xsl:with-param name="type" select="'&odo;Formula'"/>
 		<xsl:with-param name="formality-degree" select="'&odo;Formal'"/>
 	</xsl:call-template>
@@ -304,7 +304,7 @@
 
     <xsl:template match="assertion[@type='assumption']">
 	<xsl:call-template name="create-omdoc-resource">
-		<xsl:with-param name="related-via-property" select="'&odo;hasPart'"/>
+		<xsl:with-param name="related-via-properties" select="('&odo;hasPart')"/>
 	    <xsl:with-param name="type" select="'&odo;Assumption'"/>
 		<xsl:with-param name="formality-degree" select="'&odo;Formal'"/>
 	</xsl:call-template>
@@ -312,7 +312,7 @@
 
     <xsl:template match="assertion[@type='rule']">
 	<xsl:call-template name="create-omdoc-resource">
-		<xsl:with-param name="related-via-property" select="'&odo;hasPart'"/>
+		<xsl:with-param name="related-via-properties" select="('&odo;hasPart')"/>
 	    <xsl:with-param name="type" select="'&odo;Rule'"/>
 		<xsl:with-param name="formality-degree" select="'&odo;Formal'"/>
 	</xsl:call-template>
@@ -320,7 +320,7 @@
 
     <xsl:template match="example">
 	<xsl:call-template name="create-omdoc-resource">
-		<xsl:with-param name="related-via-property" select="'&odo;hasPart'"/>
+		<xsl:with-param name="related-via-properties" select="('&odo;hasPart')"/>
 	    <xsl:with-param name="type" select="'&odo;Example'"/>
 		<xsl:with-param name="formality-degree" select="'&odo;Formal'"/>
 	</xsl:call-template>
@@ -328,7 +328,7 @@
 
     <xsl:template match="proof">
 	<xsl:call-template name="create-omdoc-resource">
-	    <xsl:with-param name="related-via-property" select="if (parent::method[parent::derive]) then '&odo;justifiedBy' else '&odo;hasPart'"/>
+	    <xsl:with-param name="related-via-properties" select="(if (parent::method[parent::derive]) then '&odo;justifiedBy' else '&odo;hasPart')"/>
 	    <xsl:with-param name="type" select="'&odo;Proof'"/>
 	    <xsl:with-param name="formality-degree" select="'&odo;Formal'"/>
 	</xsl:call-template>
@@ -345,7 +345,7 @@
 	<xsl:template match="omtext[@type='axiom']">
 		<xsl:call-template name="create-omdoc-resource">
 			<!-- TODO await discussion w.r.t. proof/omtext --> 
-			<xsl:with-param name="related-via-property" select="if (parent::proof) then '&odo;hasStep' else '&odo;hasPart'"/>
+			<xsl:with-param name="related-via-properties" select="(if (parent::proof) then '&odo;hasStep' else '&odo;hasPart')"/>
 			<xsl:with-param name="type" select="'&odo;Axiom'"/>
 			<xsl:with-param name="formality-degree" select="'&odo;Informal'"/>
 		</xsl:call-template>
@@ -353,7 +353,7 @@
 	
 	<xsl:template match="omtext[@type='definition']">
 		<xsl:call-template name="create-omdoc-resource">
-			<xsl:with-param name="related-via-property" select="if (parent::proof) then '&odo;hasStep' else '&odo;hasPart'"/>
+			<xsl:with-param name="related-via-properties" select="(if (parent::proof) then '&odo;hasStep' else '&odo;hasPart')"/>
 			<xsl:with-param name="type" select="'&odo;Definition'"/>
 			<xsl:with-param name="formality-degree" select="'&odo;Informal'"/>
 		</xsl:call-template>
@@ -361,7 +361,7 @@
 	
 	<xsl:template match="omtext[@type='example']">
 		<xsl:call-template name="create-omdoc-resource">
-			<xsl:with-param name="related-via-property" select="if (parent::proof) then '&odo;hasStep' else '&odo;hasPart'"/>
+			<xsl:with-param name="related-via-properties" select="(if (parent::proof) then '&odo;hasStep' else '&odo;hasPart')"/>
 			<xsl:with-param name="type" select="'&odo;Example'"/>
 			<xsl:with-param name="formality-degree" select="'&odo;Informal'"/>
 		</xsl:call-template>
@@ -369,7 +369,7 @@
 	
 	<xsl:template match="omtext[@type='proof']">
 		<xsl:call-template name="create-omdoc-resource">
-			<xsl:with-param name="related-via-property" select="if (parent::proof) then '&odo;hasStep' else '&odo;hasPart'"/>
+			<xsl:with-param name="related-via-properties" select="(if (parent::proof) then '&odo;hasStep' else '&odo;hasPart')"/>
 			<xsl:with-param name="type" select="'&odo;Proof'"/>
 			<xsl:with-param name="formality-degree" select="'&odo;Informal'"/>
 		</xsl:call-template>
@@ -377,7 +377,7 @@
 	
 	<xsl:template match="omtext[@type = 'assertion']">
 		<xsl:call-template name="create-omdoc-resource">
-			<xsl:with-param name="related-via-property" select="if (parent::proof) then '&odo;hasStep' else '&odo;hasPart'"/>
+			<xsl:with-param name="related-via-properties" select="(if (parent::proof) then '&odo;hasStep' else '&odo;hasPart')"/>
 			<xsl:with-param name="type" select="'&odo;Assertion'"/>
 			<xsl:with-param name="formality-degree" select="'&odo;Informal'"/>
 		</xsl:call-template>
@@ -385,7 +385,7 @@
 	
 	<xsl:template match="omtext[@type='corollary']">
 		<xsl:call-template name="create-omdoc-resource">
-			<xsl:with-param name="related-via-property" select="if (parent::proof) then '&odo;hasStep' else '&odo;hasPart'"/>
+			<xsl:with-param name="related-via-properties" select="(if (parent::proof) then '&odo;hasStep' else '&odo;hasPart')"/>
 			<xsl:with-param name="type" select="'&odo;Corollary'"/>
 			<xsl:with-param name="formality-degree" select="'&odo;Informal'"/>
 		</xsl:call-template>
@@ -393,7 +393,7 @@
 	
 	<xsl:template match="omtext[@type='conjecture']">
 		<xsl:call-template name="create-omdoc-resource">
-			<xsl:with-param name="related-via-property" select="if (parent::proof) then '&odo;hasStep' else '&odo;hasPart'"/>
+			<xsl:with-param name="related-via-properties" select="(if (parent::proof) then '&odo;hasStep' else '&odo;hasPart')"/>
 			<xsl:with-param name="type" select="'&odo;Conjecture'"/>
 			<xsl:with-param name="formality-degree" select="'&odo;Informal'"/>
 		</xsl:call-template>
@@ -401,7 +401,7 @@
 	
 	<xsl:template match="omtext[@type='falseconjecture']">
 		<xsl:call-template name="create-omdoc-resource">
-			<xsl:with-param name="related-via-property" select="if (parent::proof) then '&odo;hasStep' else '&odo;hasPart'"/>
+			<xsl:with-param name="related-via-properties" select="(if (parent::proof) then '&odo;hasStep' else '&odo;hasPart')"/>
 			<xsl:with-param name="type" select="'&odo;FalseConjecture'"/>
 			<xsl:with-param name="formality-degree" select="'&odo;Informal'"/>
 		</xsl:call-template>
@@ -409,7 +409,7 @@
 	
 	<xsl:template match="omtext[@type='formula']">
 		<xsl:call-template name="create-omdoc-resource">
-			<xsl:with-param name="related-via-property" select="if (parent::proof) then '&odo;hasStep' else '&odo;hasPart'"/>
+			<xsl:with-param name="related-via-properties" select="(if (parent::proof) then '&odo;hasStep' else '&odo;hasPart')"/>
 			<xsl:with-param name="type" select="'&odo;Formula'"/>
 			<xsl:with-param name="formality-degree" select="'&odo;Informal'"/>
 		</xsl:call-template>
@@ -417,7 +417,7 @@
 	
 	<xsl:template match="omtext[@type='lemma']">
 		<xsl:call-template name="create-omdoc-resource">
-			<xsl:with-param name="related-via-property" select="if (parent::proof) then '&odo;hasStep' else '&odo;hasPart'"/>
+			<xsl:with-param name="related-via-properties" select="(if (parent::proof) then '&odo;hasStep' else '&odo;hasPart')"/>
 			<xsl:with-param name="type" select="'&odo;Lemma'"/>
 			<xsl:with-param name="formality-degree" select="'&odo;Informal'"/>
 		</xsl:call-template>
@@ -425,7 +425,7 @@
 	
 	<xsl:template match="omtext[@type='postulate']">
 		<xsl:call-template name="create-omdoc-resource">
-			<xsl:with-param name="related-via-property" select="if (parent::proof) then '&odo;hasStep' else '&odo;hasPart'"/>
+			<xsl:with-param name="related-via-properties" select="(if (parent::proof) then '&odo;hasStep' else '&odo;hasPart')"/>
 			<xsl:with-param name="type" select="'&odo;Postulate'"/>
 			<xsl:with-param name="formality-degree" select="'&odo;Informal'"/>
 		</xsl:call-template>
@@ -433,7 +433,7 @@
 	
 	<xsl:template match="omtext[@type='proposition']">
 		<xsl:call-template name="create-omdoc-resource">
-			<xsl:with-param name="related-via-property" select="if (parent::proof) then '&odo;hasStep' else '&odo;hasPart'"/>
+			<xsl:with-param name="related-via-properties" select="(if (parent::proof) then '&odo;hasStep' else '&odo;hasPart')"/>
 			<xsl:with-param name="type" select="'&odo;Proposition'"/>
 			<xsl:with-param name="formality-degree" select="'&odo;Informal'"/>
 		</xsl:call-template>
@@ -441,7 +441,7 @@
 	
 	<xsl:template match="omtext[@type='theorem']">
 		<xsl:call-template name="create-omdoc-resource">
-			<xsl:with-param name="related-via-property" select="if (parent::proof) then '&odo;hasStep' else '&odo;hasPart'"/>
+			<xsl:with-param name="related-via-properties" select="(if (parent::proof) then '&odo;hasStep' else '&odo;hasPart')"/>
 			<xsl:with-param name="type" select="'&odo;Theorem'"/>
 			<xsl:with-param name="formality-degree" select="'&odo;Informal'"/>
 		</xsl:call-template>
@@ -450,7 +450,7 @@
 	<!--TODO Assumption may have the inductive attribute-->
 	<xsl:template match="omtext[@type='assumption']">
 		<xsl:call-template name="create-omdoc-resource">
-			<xsl:with-param name="related-via-property" select="if (parent::proof) then '&odo;hasStep' else '&odo;hasPart'"/>
+			<xsl:with-param name="related-via-properties" select="(if (parent::proof) then '&odo;hasStep' else '&odo;hasPart')"/>
 			<xsl:with-param name="type" select="'&odo;Assumption'"/>
 			<xsl:with-param name="formality-degree" select="'&odo;Informal'"/>
 		</xsl:call-template>
@@ -458,7 +458,7 @@
 	
 	<xsl:template match="omtext[@type='obligation']">
 		<xsl:call-template name="create-omdoc-resource">
-			<xsl:with-param name="related-via-property" select="if (parent::proof) then '&odo;hasStep' else '&odo;hasPart'"/>
+			<xsl:with-param name="related-via-properties" select="(if (parent::proof) then '&odo;hasStep' else '&odo;hasPart')"/>
 			<xsl:with-param name="type" select="'&odo;Obligation'"/>
 			<xsl:with-param name="formality-degree" select="'&odo;Informal'"/>
 		</xsl:call-template>
@@ -466,7 +466,7 @@
 	
 	<xsl:template match="omtext[@type='rule']">
 		<xsl:call-template name="create-omdoc-resource">
-			<xsl:with-param name="related-via-property" select="if (parent::proof) then '&odo;hasStep' else '&odo;hasPart'"/>
+			<xsl:with-param name="related-via-properties" select="(if (parent::proof) then '&odo;hasStep' else '&odo;hasPart')"/>
 			<xsl:with-param name="type" select="'&odo;Rule'"/>
 			<xsl:with-param name="formality-degree" select="'&odo;Informal'"/>
 		</xsl:call-template>
@@ -474,7 +474,7 @@
 	
 	<xsl:template match="omtext[not(@type)]">
 		<xsl:call-template name="create-omdoc-resource">
-			<xsl:with-param name="related-via-property" select="if (parent::proof) then '&odo;hasStep' else '&odo;hasPart'"/>
+			<xsl:with-param name="related-via-properties" select="(if (parent::proof) then '&odo;hasStep' else '&odo;hasPart')"/>
 			<xsl:with-param name="type" select="if (parent::proof) then '&odo;ProofText' else '&odo;Statement'"/>
 			<xsl:with-param name="formality-degree" select="'&odo;Informal'"/>
 		</xsl:call-template>
@@ -482,7 +482,7 @@
 	
 	<xsl:template match="CMP">
 		<xsl:call-template name="create-omdoc-resource">
-			<xsl:with-param name="related-via-property" select="'&odo;hasProperty'"/>
+			<xsl:with-param name="related-via-properties" select="('&odo;hasProperty')"/>
 			<xsl:with-param name="type" select="'&odo;Property'"/>
 			<xsl:with-param name="formality-degree" select="'&odo;Informal'"/>
 		</xsl:call-template>
@@ -490,7 +490,7 @@
 	
 	<xsl:template match="FMP">
 		<xsl:call-template name="create-omdoc-resource">
-			<xsl:with-param name="related-via-property" select="'&odo;hasProperty'"/>
+			<xsl:with-param name="related-via-properties" select="('&odo;hasProperty')"/>
 			<xsl:with-param name="type" select="'&odo;Property'"/>
 			<xsl:with-param name="formality-degree" select="'&odo;Formal'"/>
 		</xsl:call-template>
@@ -498,14 +498,14 @@
 	
 	<xsl:template match="FMP/assumption">
 		<xsl:call-template name="create-omdoc-resource">
-			<xsl:with-param name="related-via-property" select="'&odo;assumes'"/>
+			<xsl:with-param name="related-via-properties" select="('&odo;assumes')"/>
 			<xsl:with-param name="type" select="'&odo;AssumptionElement'"/>
 		</xsl:call-template>
 	</xsl:template>
 	
 	<xsl:template match="FMP/conclusion">
 		<xsl:call-template name="create-omdoc-resource">
-			<xsl:with-param name="related-via-property" select="'&odo;concludes'"/>
+			<xsl:with-param name="related-via-properties" select="('&odo;concludes')"/>
 			<xsl:with-param name="type" select="'&odo;ConclusionElement'"/>
 		</xsl:call-template>
 	</xsl:template>
@@ -541,7 +541,7 @@
 	
 	<xsl:template match="derive[@type='conclusion']">
 		<xsl:call-template name="create-omdoc-resource">
-			<xsl:with-param name="related-via-property" select="'&odo;hasStep'"/>
+			<xsl:with-param name="related-via-properties" select="('&odo;hasStep')"/>
 			<xsl:with-param name="type" select="'&odo;DerivedConclusion'"/>
 			<xsl:with-param name="formality-degree" select="'&odo;Formal'"/>
 		</xsl:call-template>
@@ -549,7 +549,7 @@
 	
 	<xsl:template match="derive[@type='gap']">
 		<xsl:call-template name="create-omdoc-resource">
-			<xsl:with-param name="related-via-property" select="'&odo;hasStep'"/>
+			<xsl:with-param name="related-via-properties" select="('&odo;hasStep')"/>
 			<xsl:with-param name="type" select="'&odo;Gap'"/>
 			<xsl:with-param name="formality-degree" select="'&odo;Formal'"/>
 		</xsl:call-template>
@@ -557,7 +557,7 @@
 	
 	<xsl:template match="derive[not(@type='conclusion') and not(@type='gap')]">
 		<xsl:call-template name="create-omdoc-resource">
-			<xsl:with-param name="related-via-property" select="'&odo;hasStep'"/>
+			<xsl:with-param name="related-via-properties" select="('&odo;hasStep')"/>
 			<xsl:with-param name="type" select="'&odo;DerivationStep'"/>
 			<xsl:with-param name="formality-degree" select="'&odo;Formal'"/>
 		</xsl:call-template>
@@ -565,7 +565,7 @@
 	
 	<xsl:template match="hypothesis">
 		<xsl:call-template name="create-omdoc-resource">
-			<xsl:with-param name="related-via-property" select="'&odo;hasStep'"/>
+			<xsl:with-param name="related-via-properties" select="('&odo;hasStep')"/>
 			<xsl:with-param name="type" select="'&odo;Hypothesis'"/>
 			<xsl:with-param name="formality-degree" select="'&odo;Formal'"/>
 		</xsl:call-template>

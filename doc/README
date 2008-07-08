@@ -107,7 +107,9 @@ behaviour without requiring you to write much code yourself.  More particularly:
 4. If an element E corresponds to a resource that is related to a resource
    represented by a parent or ancestor element P via a property P–prop–E (e.g.
    a part-of relationship), match E as in case (1), but pass the parameter
-   related-via-property with value ‘prop’.
+   related-via-properties with value (‘prop’).  This is designed as a sequence
+   because sometimes there can be more than one such property, e.g. one logical
+   relation and one document structure relation.
 
 A template that traverses XInclude links is provided in generic-templates.xsl
 and active by default.  Templates are applied to nodes in XIncluded documents
