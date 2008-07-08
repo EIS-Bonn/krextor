@@ -45,9 +45,31 @@ relationships between fragments in the "references" portlet.
     xmlns:xs="http://www.w3.org/2001/XMLSchema"
     exclude-result-prefixes="krextor xi xs"
     version="2.0">
-    <!-- Should URIs like document#fragment automatically be generated from
-         xml:id attributes? -->
-    <xsl:param name="autogenerate-fragment-uris" select="true()"/>
+    <!-- Should URIs like document#fragment automatically be generated?
+         This is a sequence of string values:
+	 * 'xml-id': use the xml:id attribute if available, otherwise nothing
+	 * 'document-root-base': use the base URI if we are on the root
+	   element, otherwise nothing.  Note that for meaningful results you
+	   should not pass a manipulated base URI into create-resource.
+	 * 'generate-id': generate via generate-id() function (always succeeds)
+	 * 'pseudo-xpath': generate an XPath-like expression from the local 
+	   names and local positions of the element and its parents (always
+	   succeeds; can lead to clashes if elements from different namespaces
+	   with the same local names are used in the same context or if dashes
+	   are used within element names; inefficient because the whole XPath
+	   from the root is newly computed for every element); example:
+	   doc-section2-para1 = /doc/section[2]/para[1]
+	
+	 The default setting is ('xml-id' 'document-root-base').  If one method
+	 fails to generate a URI, the next one in the list is tried.
+
+	 Note that there is no guarantee that generate-id and pseudo-xpath 
+	 generate URIs that differ from all xml:ids in the document.  We leave
+	 the responsibility of not creating xml:ids too obscure to the document
+	 author.
+    -->
+    <xsl:param name="autogenerate-fragment-uris" select="('xml-id',
+	'document-root-base')"/>
 
     <!-- Should XIncludes be traversed?  Note: Templates for nodes in XIncluded
          documents are matched in "included" mode. -->
@@ -59,6 +81,72 @@ relationships between fragments in the "references" portlet.
 	<xsl:sequence select="$node instance of xs:anyAtomicType
 	    or $node instance of text()
 	    or $node instance of attribute()"/>
+    </xsl:function>
+
+    <xsl:function name="krextor:fragment-uri">
+	<xsl:param name="fragment-id"/>
+	<xsl:param name="base-uri"/>
+	<xsl:value-of select="resolve-uri(concat('#', $fragment-id), $base-uri)"/>
+    </xsl:function>
+
+    <xsl:function name="krextor:pseudo-xpath">
+	<xsl:param name="node"/>
+	<xsl:value-of select="if ($node/parent::node() instance of document-node())
+		then local-name($node)
+	    else concat(
+		krextor:pseudo-xpath($node/parent::node()),
+		'-',
+		local-name($node),
+		count($node/preceding-sibling::node()) + 1
+		)"/>
+    </xsl:function>
+
+    <!-- Generates a URI for a resource -->
+    <xsl:function name="krextor:generate-uri">
+	<xsl:param name="node"/>
+	<xsl:param name="position"/>
+	<xsl:param name="autogenerate-fragment-uri"/>
+	<xsl:param name="base-uri"/>
+	<xsl:value-of select="krextor:generate-uri-step(
+	    $node,
+	    $position,
+	    $base-uri,
+	    $autogenerate-fragment-uri[1],
+	    subsequence($autogenerate-fragment-uri, 2))"/>
+    </xsl:function>
+
+    <!-- Generates a URI for a resource: head/tail implementation of a single step -->
+    <xsl:function name="krextor:generate-uri-step">
+	<xsl:param name="node"/>
+	<xsl:param name="position"/>
+	<xsl:param name="base-uri"/>
+	<xsl:param name="head"/>
+	<xsl:param name="tail"/>
+
+	<xsl:variable name="result" select="
+	    if ($head eq 'document-root-base'
+		and $node/parent::node() instance of document-node())
+		then $base-uri
+	    else if ($head = ('xml-id', 'generate-id', 'pseudo-xpath'))
+		then krextor:fragment-uri(
+		    if ($head eq 'xml-id' and $node/@xml:id)
+		        then $node/@xml:id
+		    else if ($head eq 'generate-id')
+			then generate-id($node) 
+		    else if ($head eq 'pseudo-xpath')
+			then krextor:pseudo-xpath($node)
+		    else (),
+		    $base-uri)
+	    else ()"/>
+	<xsl:value-of select="if ($result) then $result
+	    else if (exists($tail)) then krextor:generate-uri-step(
+		$node,
+		$position,
+		$base-uri,
+		$tail[1],
+		subsequence($tail, 2)
+	    )
+	    else ()"/>
     </xsl:function>
 
     <!--
@@ -92,16 +180,14 @@ relationships between fragments in the "references" portlet.
 	<xsl:param name="properties"/>
 	<!-- We pass the base URI as a parameter into templates.  This is because we need to tweak the base URI when processing transcluded documents; in this case, the transcluding document's URI should still be considered the base URI, instead of the URI of the transcluded document. -->
 	<xsl:param name="base-uri" tunnel="yes"/>
-	<!-- If we are to autogenerate the URI for this node (i.e. if no manipulated base URI has been passed in and should be used), then a URI for this node is generated as follows:
+	<!-- If we are to autogenerate the URI for this node, then we call the krextor:generate-uri function to generate one. Note that if you want to use your own URI generation you have to pass your own 
 	  1. The fragment URI of this node, if there is an xml:id attribute
 	  2. The base URI (assumed to be the one of the document), if we are at the root node
 	  3. Nothing (no RDF will be generated)
 	  -->
 	<xsl:param name="autogenerate-fragment-uri" select="$autogenerate-fragment-uris"/>
-	<xsl:variable name="generated-uri" select="if ($autogenerate-fragment-uri) then
-		if (@xml:id) then resolve-uri(concat('#', @xml:id), $base-uri)
-		else if (parent::node() instance of document-node()) then $base-uri
-		else ()
+	<xsl:variable name="generated-uri" select="if (exists($autogenerate-fragment-uri)) 
+	    then krextor:generate-uri(., position(), $autogenerate-fragment-uri, $base-uri)
 	    else $base-uri"/>
 	<xsl:if test="$generated-uri">
 	    <xsl:sequence select="krextor:triple-uri($generated-uri, '&rdf;type', $type)"/>

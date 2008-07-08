@@ -47,7 +47,21 @@
 
     <!-- Intercept auto-generation of fragment URIs from xml:ids, as this 
          should not always be done for OMDoc -->
-    <xsl:param name="autogenerate-fragment-uris" select="false()"/>
+    <!-- TODO think about having ('mmt', 'xml-id' ...), i.e. a configuration in
+         the same way as for generic-templates.xsl, with custom handlers for 
+	 values like 'mmt', which generic-templates does not know -->
+    <xsl:param name="autogenerate-fragment-uris" select="()"/>
+
+    <!-- Default setting if we want fragment URIs to be auto-generated -->
+    <xsl:param name="autogenerate-fragment-uris-omdoc-default" select="(
+	'xml-id',
+	'document-root-base')"/>
+    <!-- Other settings for testing -->
+    <!--
+    <xsl:param name="autogenerate-fragment-uris-omdoc-default" select="(
+	'pseudo-xpath'
+	)"/>
+    -->
 
     <xsl:param name="use-root-xmlid" select="false()"/>
 
@@ -68,7 +82,9 @@
 		<xsl:with-param name="base-uri" select="if ($mmt and @name)
 		    then concat($base-uri, '/', @name)
 		    else $base-uri" tunnel="yes"/>
-		<xsl:with-param name="autogenerate-fragment-uri" select="not($mmt) and not($use-document-uri)"/>
+		<xsl:with-param name="autogenerate-fragment-uri" select="if (not($mmt) and not($use-document-uri))
+		    then $autogenerate-fragment-uris-omdoc-default
+		    else ()"/>
 		<xsl:with-param name="properties">
 		    <xsl:if test="$formality-degree">
 			<krextor:property uri="&odo;formalityDegree" object="{$formality-degree}"/>
