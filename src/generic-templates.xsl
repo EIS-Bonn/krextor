@@ -168,7 +168,7 @@ relationships between fragments in the "references" portlet.
     or children of this element.
     -->
     <xsl:template name="create-resource">
-	<xsl:param name="related-via-properties"/>
+	<xsl:param name="related-via-properties" select="()" tunnel="yes"/>
 	<xsl:param name="type"/>
 	<!-- additional properties of this resource, encoded as
 	    <krextor:property uri="property-uri" object="object-uri"/>
@@ -178,6 +178,8 @@ relationships between fragments in the "references" portlet.
 	    </krextor:property>
 	-->
 	<xsl:param name="properties"/>
+	<!-- The node set to which apply-templates is applied -->
+	<xsl:param name="process-next" select="*|@*" tunnel="yes"/>
 	<!-- We pass the base URI as a parameter into templates.  This is because we need to tweak the base URI when processing transcluded documents; in this case, the transcluding document's URI should still be considered the base URI, instead of the URI of the transcluded document. -->
 	<xsl:param name="base-uri" tunnel="yes"/>
 	<!-- If we are to autogenerate the URI for this node, then we call the krextor:generate-uri function to generate one. Note that if you want to use your own URI generation you have to pass your own 
@@ -206,7 +208,7 @@ relationships between fragments in the "references" portlet.
 		</xsl:for-each>
 	    </xsl:if>
 	    <!-- We also process attributes, as they may contain links to other resources -->
-	    <xsl:apply-templates select="*|@*">
+	    <xsl:apply-templates select="$process-next">
 		<!-- pass on the generated base URI.  For resolving relative URIs, an appended fragment does
 		     not matter, but for generating property triples for this resource it does. -->
 		<xsl:with-param name="base-uri" select="$generated-uri" tunnel="yes"/>

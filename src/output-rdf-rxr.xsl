@@ -43,6 +43,8 @@ http://ilrt.org/discovery/2004/03/rxr/
 
     <xsl:output method="xml" encoding="UTF-8" indent="yes" omit-xml-declaration="no"/>
 
+    <!-- blank nodes! -->
+
     <xsl:function name="krextor:triple-uri">
 	<xsl:param name="subject"/>
 	<xsl:param name="predicate"/>
