@@ -1,6 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <rxr:graph xmlns:rxr="http://ilrt.org/discovery/2004/03/rxr/">
    <rxr:triple>
+      <rxr:subject uri="file:/home/gristovski/Desktop/krextorup/trunk/src/../test/omtextTest.omdoc"/>
+      <rxr:predicate uri="http://www.w3.org/1999/02/22-rdf-syntax-ns#type"/>
+      <rxr:object uri="http://www.omdoc.org/ontology#Document"/>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="file:/home/gristovski/Desktop/krextorup/trunk/src/../test/omtextTest.omdoc"/>
+      <rxr:predicate uri=""/>
+      <rxr:object uri="file:/home/gristovski/Desktop/krextorup/trunk/src/../test/omtextTest.omdoc"/>
+   </rxr:triple>
+   <rxr:triple>
       <rxr:subject uri="file:/home/gristovski/Desktop/krextorup/trunk/src/../test/omtextTest.omdoc#blabla"/>
       <rxr:predicate uri="http://www.w3.org/1999/02/22-rdf-syntax-ns#type"/>
       <rxr:object uri="http://www.omdoc.org/ontology#Definition"/>
@@ -8,6 +18,11 @@
    <rxr:triple>
       <rxr:subject uri="file:/home/gristovski/Desktop/krextorup/trunk/src/../test/omtextTest.omdoc"/>
       <rxr:predicate uri="http://www.omdoc.org/ontology#hasPart"/>
+      <rxr:object uri="file:/home/gristovski/Desktop/krextorup/trunk/src/../test/omtextTest.omdoc#blabla"/>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="file:/home/gristovski/Desktop/krextorup/trunk/src/../test/omtextTest.omdoc"/>
+      <rxr:predicate uri="http://salt.semanticauthoring.org/onto/abstract-document-ontology#hasComposite"/>
       <rxr:object uri="file:/home/gristovski/Desktop/krextorup/trunk/src/../test/omtextTest.omdoc#blabla"/>
    </rxr:triple>
    <rxr:triple>
@@ -41,6 +56,16 @@
       <rxr:object uri="file:/home/gristovski/Desktop/krextorup/trunk/src/../test/omtextTest.omdoc#objasnuvanje"/>
    </rxr:triple>
    <rxr:triple>
+      <rxr:subject uri="file:/home/gristovski/Desktop/krextorup/trunk/src/../test/omtextTest.omdoc#blabla"/>
+      <rxr:predicate uri="sdoc;hasInformationChunk"/>
+      <rxr:object uri="file:/home/gristovski/Desktop/krextorup/trunk/src/../test/omtextTest.omdoc#objasnuvanje"/>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="file:/home/gristovski/Desktop/krextorup/trunk/src/../test/omtextTest.omdoc#objasnuvanje"/>
+      <rxr:predicate uri="http://www.omdoc.org/ontology#formalityDegree"/>
+      <rxr:object uri="http://www.omdoc.org/ontology#Informal"/>
+   </rxr:triple>
+   <rxr:triple>
       <rxr:subject uri="file:/home/gristovski/Desktop/krextorup/trunk/src/../test/omtextTest.omdoc#objasnuvanje"/>
       <rxr:predicate uri="http://purl.org/dc/elements/1.1/language"/>
       <rxr:object>en</rxr:object>
@@ -68,12 +93,22 @@
    <rxr:triple>
       <rxr:subject uri="file:/home/gristovski/Desktop/krextorup/trunk/src/../test/omtextTest.omdoc#formula"/>
       <rxr:predicate uri="http://www.w3.org/1999/02/22-rdf-syntax-ns#type"/>
-      <rxr:object uri="http://www.omdoc.org/ontology#FormalProperty"/>
+      <rxr:object uri="http://www.omdoc.org/ontology#Property"/>
    </rxr:triple>
    <rxr:triple>
       <rxr:subject uri="file:/home/gristovski/Desktop/krextorup/trunk/src/../test/omtextTest.omdoc#blabla"/>
       <rxr:predicate uri="http://www.omdoc.org/ontology#hasProperty"/>
       <rxr:object uri="file:/home/gristovski/Desktop/krextorup/trunk/src/../test/omtextTest.omdoc#formula"/>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="file:/home/gristovski/Desktop/krextorup/trunk/src/../test/omtextTest.omdoc#blabla"/>
+      <rxr:predicate uri="sdoc;hasInformationChunk"/>
+      <rxr:object uri="file:/home/gristovski/Desktop/krextorup/trunk/src/../test/omtextTest.omdoc#formula"/>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="file:/home/gristovski/Desktop/krextorup/trunk/src/../test/omtextTest.omdoc#formula"/>
+      <rxr:predicate uri="http://www.omdoc.org/ontology#formalityDegree"/>
+      <rxr:object uri="http://www.omdoc.org/ontology#Formal"/>
    </rxr:triple>
    <rxr:triple>
       <rxr:subject uri="file:/home/gristovski/Desktop/krextorup/trunk/src/../test/omtextTest.omdoc#formula"/>
@@ -91,11 +126,6 @@
       <rxr:object uri="file:/home/gristovski/Desktop/krextorup/trunk/src/../test/omtextTest.omdoc#ass"/>
    </rxr:triple>
    <rxr:triple>
-      <rxr:subject uri="file:/home/gristovski/Desktop/krextorup/trunk/src/../test/omtextTest.omdoc#ass"/>
-      <rxr:predicate uri="http://www.omdoc.org/ontology#formalityDegree"/>
-      <rxr:object uri="http://www.omdoc.org/ontology#Informal"/>
-   </rxr:triple>
-   <rxr:triple>
       <rxr:subject uri="file:/home/gristovski/Desktop/krextorup/trunk/src/../test/omtextTest.omdoc#conc"/>
       <rxr:predicate uri="http://www.w3.org/1999/02/22-rdf-syntax-ns#type"/>
       <rxr:object uri="http://www.omdoc.org/ontology#ConclusionElement"/>
@@ -104,11 +134,6 @@
       <rxr:subject uri="file:/home/gristovski/Desktop/krextorup/trunk/src/../test/omtextTest.omdoc#formula"/>
       <rxr:predicate uri="http://www.omdoc.org/ontology#concludes"/>
       <rxr:object uri="file:/home/gristovski/Desktop/krextorup/trunk/src/../test/omtextTest.omdoc#conc"/>
-   </rxr:triple>
-   <rxr:triple>
-      <rxr:subject uri="file:/home/gristovski/Desktop/krextorup/trunk/src/../test/omtextTest.omdoc#conc"/>
-      <rxr:predicate uri="http://www.omdoc.org/ontology#formalityDegree"/>
-      <rxr:object uri="http://www.omdoc.org/ontology#Informal"/>
    </rxr:triple>
    <rxr:triple>
       <rxr:subject uri="file:/home/gristovski/Desktop/krextorup/trunk/src/../test/omtextTest.omdoc#conc"/>
@@ -151,6 +176,11 @@
       <rxr:object uri="file:/home/gristovski/Desktop/krextorup/trunk/src/../test/omtextTest.omdoc#foo"/>
    </rxr:triple>
    <rxr:triple>
+      <rxr:subject uri="file:/home/gristovski/Desktop/krextorup/trunk/src/../test/omtextTest.omdoc"/>
+      <rxr:predicate uri="http://salt.semanticauthoring.org/onto/abstract-document-ontology#hasPart"/>
+      <rxr:object uri="file:/home/gristovski/Desktop/krextorup/trunk/src/../test/omtextTest.omdoc#foo"/>
+   </rxr:triple>
+   <rxr:triple>
       <rxr:subject uri="file:/home/gristovski/Desktop/krextorup/trunk/src/../test/omtextTest.omdoc#foo"/>
       <rxr:predicate uri="http://www.omdoc.org/ontology#formalityDegree"/>
       <rxr:object uri="http://www.omdoc.org/ontology#Formal"/>
@@ -163,6 +193,11 @@
    <rxr:triple>
       <rxr:subject uri="file:/home/gristovski/Desktop/krextorup/trunk/src/../test/omtextTest.omdoc"/>
       <rxr:predicate uri="http://www.omdoc.org/ontology#hasPart"/>
+      <rxr:object uri="file:/home/gristovski/Desktop/krextorup/trunk/src/../test/omtextTest.omdoc#a1"/>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="file:/home/gristovski/Desktop/krextorup/trunk/src/../test/omtextTest.omdoc"/>
+      <rxr:predicate uri="http://salt.semanticauthoring.org/onto/abstract-document-ontology#hasComposite"/>
       <rxr:object uri="file:/home/gristovski/Desktop/krextorup/trunk/src/../test/omtextTest.omdoc#a1"/>
    </rxr:triple>
    <rxr:triple>
@@ -181,9 +216,19 @@
       <rxr:object uri="file:/home/gristovski/Desktop/krextorup/trunk/src/../test/omtextTest.omdoc#p"/>
    </rxr:triple>
    <rxr:triple>
+      <rxr:subject uri="file:/home/gristovski/Desktop/krextorup/trunk/src/../test/omtextTest.omdoc"/>
+      <rxr:predicate uri="http://salt.semanticauthoring.org/onto/abstract-document-ontology#hasComposite"/>
+      <rxr:object uri="file:/home/gristovski/Desktop/krextorup/trunk/src/../test/omtextTest.omdoc#p"/>
+   </rxr:triple>
+   <rxr:triple>
       <rxr:subject uri="file:/home/gristovski/Desktop/krextorup/trunk/src/../test/omtextTest.omdoc#p"/>
       <rxr:predicate uri="http://www.omdoc.org/ontology#formalityDegree"/>
       <rxr:object uri="http://www.omdoc.org/ontology#Formal"/>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="file:/home/gristovski/Desktop/krextorup/trunk/src/../test/omtextTest.omdoc#p"/>
+      <rxr:predicate uri="http://www.omdoc.org/ontology#proves"/>
+      <rxr:object uri="file:/home/gristovski/Desktop/krextorup/trunk/src/../test/omtextTest.omdoc#a1"/>
    </rxr:triple>
    <rxr:triple>
       <rxr:subject uri="file:/home/gristovski/Desktop/krextorup/trunk/src/../test/omtextTest.omdoc#intro"/>
@@ -196,11 +241,16 @@
       <rxr:object uri="file:/home/gristovski/Desktop/krextorup/trunk/src/../test/omtextTest.omdoc#intro"/>
    </rxr:triple>
    <rxr:triple>
+      <rxr:subject uri="file:/home/gristovski/Desktop/krextorup/trunk/src/../test/omtextTest.omdoc#p"/>
+      <rxr:predicate uri="http://salt.semanticauthoring.org/onto/abstract-document-ontology#hasPart"/>
+      <rxr:object uri="file:/home/gristovski/Desktop/krextorup/trunk/src/../test/omtextTest.omdoc#intro"/>
+   </rxr:triple>
+   <rxr:triple>
       <rxr:subject uri="file:/home/gristovski/Desktop/krextorup/trunk/src/../test/omtextTest.omdoc#intro"/>
       <rxr:predicate uri="http://www.omdoc.org/ontology#formalityDegree"/>
       <rxr:object uri="http://www.omdoc.org/ontology#Informal"/>
-   </rxr:triple>&gt;
-	<rxr:triple>
+   </rxr:triple>
+   <rxr:triple>
       <rxr:subject uri="file:/home/gristovski/Desktop/krextorup/trunk/src/../test/omtextTest.omdoc#d1"/>
       <rxr:predicate uri="http://www.w3.org/1999/02/22-rdf-syntax-ns#type"/>
       <rxr:object uri="http://www.omdoc.org/ontology#DerivationStep"/>
@@ -208,6 +258,11 @@
    <rxr:triple>
       <rxr:subject uri="file:/home/gristovski/Desktop/krextorup/trunk/src/../test/omtextTest.omdoc#p"/>
       <rxr:predicate uri="http://www.omdoc.org/ontology#hasStep"/>
+      <rxr:object uri="file:/home/gristovski/Desktop/krextorup/trunk/src/../test/omtextTest.omdoc#d1"/>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="file:/home/gristovski/Desktop/krextorup/trunk/src/../test/omtextTest.omdoc#p"/>
+      <rxr:predicate uri="http://salt.semanticauthoring.org/onto/abstract-document-ontology#hasPart"/>
       <rxr:object uri="file:/home/gristovski/Desktop/krextorup/trunk/src/../test/omtextTest.omdoc#d1"/>
    </rxr:triple>
    <rxr:triple>
@@ -222,13 +277,23 @@
    </rxr:triple>
    <rxr:triple>
       <rxr:subject uri="file:/home/gristovski/Desktop/krextorup/trunk/src/../test/omtextTest.omdoc#d1"/>
-      <rxr:predicate uri="http://www.omdoc.org/ontology#hasPart"/>
+      <rxr:predicate uri="http://www.omdoc.org/ontology#justifiedBy"/>
+      <rxr:object uri="file:/home/gristovski/Desktop/krextorup/trunk/src/../test/omtextTest.omdoc#ppp"/>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="file:/home/gristovski/Desktop/krextorup/trunk/src/../test/omtextTest.omdoc#d1"/>
+      <rxr:predicate uri="http://salt.semanticauthoring.org/onto/abstract-document-ontology#hasPart"/>
       <rxr:object uri="file:/home/gristovski/Desktop/krextorup/trunk/src/../test/omtextTest.omdoc#ppp"/>
    </rxr:triple>
    <rxr:triple>
       <rxr:subject uri="file:/home/gristovski/Desktop/krextorup/trunk/src/../test/omtextTest.omdoc#ppp"/>
       <rxr:predicate uri="http://www.omdoc.org/ontology#formalityDegree"/>
       <rxr:object uri="http://www.omdoc.org/ontology#Formal"/>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="file:/home/gristovski/Desktop/krextorup/trunk/src/../test/omtextTest.omdoc#ppp"/>
+      <rxr:predicate uri="http://www.omdoc.org/ontology#proves"/>
+      <rxr:object uri="file:/home/gristovski/Desktop/krextorup/trunk/src/../test/omtextTest.omdoc#a55"/>
    </rxr:triple>
    <rxr:triple>
       <rxr:subject uri="file:/home/gristovski/Desktop/krextorup/trunk/src/../test/omtextTest.omdoc#h2"/>
@@ -238,6 +303,11 @@
    <rxr:triple>
       <rxr:subject uri="file:/home/gristovski/Desktop/krextorup/trunk/src/../test/omtextTest.omdoc#ppp"/>
       <rxr:predicate uri="http://www.omdoc.org/ontology#hasStep"/>
+      <rxr:object uri="file:/home/gristovski/Desktop/krextorup/trunk/src/../test/omtextTest.omdoc#h2"/>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="file:/home/gristovski/Desktop/krextorup/trunk/src/../test/omtextTest.omdoc#ppp"/>
+      <rxr:predicate uri="http://salt.semanticauthoring.org/onto/abstract-document-ontology#hasPart"/>
       <rxr:object uri="file:/home/gristovski/Desktop/krextorup/trunk/src/../test/omtextTest.omdoc#h2"/>
    </rxr:triple>
    <rxr:triple>
@@ -253,6 +323,11 @@
    <rxr:triple>
       <rxr:subject uri="file:/home/gristovski/Desktop/krextorup/trunk/src/../test/omtextTest.omdoc#ppp"/>
       <rxr:predicate uri="http://www.omdoc.org/ontology#hasStep"/>
+      <rxr:object uri="file:/home/gristovski/Desktop/krextorup/trunk/src/../test/omtextTest.omdoc#d9"/>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="file:/home/gristovski/Desktop/krextorup/trunk/src/../test/omtextTest.omdoc#ppp"/>
+      <rxr:predicate uri="http://salt.semanticauthoring.org/onto/abstract-document-ontology#hasPart"/>
       <rxr:object uri="file:/home/gristovski/Desktop/krextorup/trunk/src/../test/omtextTest.omdoc#d9"/>
    </rxr:triple>
    <rxr:triple>
@@ -273,6 +348,11 @@
    <rxr:triple>
       <rxr:subject uri="file:/home/gristovski/Desktop/krextorup/trunk/src/../test/omtextTest.omdoc#ppp"/>
       <rxr:predicate uri="http://www.omdoc.org/ontology#hasStep"/>
+      <rxr:object uri="file:/home/gristovski/Desktop/krextorup/trunk/src/../test/omtextTest.omdoc#h3"/>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="file:/home/gristovski/Desktop/krextorup/trunk/src/../test/omtextTest.omdoc#ppp"/>
+      <rxr:predicate uri="http://salt.semanticauthoring.org/onto/abstract-document-ontology#hasPart"/>
       <rxr:object uri="file:/home/gristovski/Desktop/krextorup/trunk/src/../test/omtextTest.omdoc#h3"/>
    </rxr:triple>
    <rxr:triple>

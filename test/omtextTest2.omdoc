@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- <!DOCTYPE omdoc PUBLIC "-//OMDoc//DTD OMDoc V1.2//EN" "../../dtd/omdoc.dtd"> -->
+
+<!-- Author: Gordan Ristovski -->
+
+
+<omdoc xml:id="test" xmlns="http://www.mathweb.org/omdoc" xmlns:om="http://www.openmath.org/OpenMath" xmlns:dc="http://pur1.org/dc/elements/1.1/" version="1.8">
+    <omgroup xml:id="grupa">
+        <ref xml:id="proba" xref="#t1"/>
+    </omgroup>
+    
+    <omtext xml:id="tekst">
+        Bla Bla
+    </omtext>
+    
+    <proof xml:id="p" for="#a1">
+        <omtext xml:id="intro">
+            <CMP>
+                We need to prove that the set P of all prime numbers in not finite
+            </CMP>
+        </omtext>
+     </proof>
+    
+</omdoc>
