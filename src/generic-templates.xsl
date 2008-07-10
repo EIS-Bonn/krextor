@@ -22,7 +22,7 @@
     * 
 -->
 
-<!DOCTYPE xsl:stylesheet [
+<!DOCTYPE stylesheet [
     <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#">
     <!ENTITY lang "http://purl.org/dc/elements/1.1/language#">
 ]>
@@ -39,7 +39,7 @@ support being a bit restricted. I.e. that you can jump to them (the whole page
 would be loaded and the respective fragment shown), but you would e.g. not see
 relationships between fragments in the "references" portlet.
 -->
-<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" 
+<stylesheet xmlns="http://www.w3.org/1999/XSL/Transform" 
     xmlns:krextor="http://kwarc.info/projects/krextor/"
     xmlns:xi="http://www.w3.org/2001/XInclude"
     xmlns:xs="http://www.w3.org/2001/XMLSchema"
@@ -68,30 +68,33 @@ relationships between fragments in the "references" portlet.
 	 the responsibility of not creating xml:ids too obscure to the document
 	 author.
     -->
-    <xsl:param name="autogenerate-fragment-uris" select="('xml-id',
+    <param name="autogenerate-fragment-uris" select="('xml-id',
 	'document-root-base')"/>
 
     <!-- Should XIncludes be traversed?  Note: Templates for nodes in XIncluded
          documents are matched in "included" mode. -->
-    <xsl:param name="traverse-xincludes" select="true()"/>
+    <param name="traverse-xincludes" select="true()"/>
 
     <!-- Checks whether a given node is a text node, an attribute, or an atomic value -->
-    <xsl:function name="krextor:is-text-or-attribute-or-atomic">
-	<xsl:param name="node"/>
-	<xsl:sequence select="$node instance of xs:anyAtomicType
+    <function name="krextor:is-text-or-attribute-or-atomic">
+	<param name="node"/>
+	<sequence select="$node instance of xs:anyAtomicType
 	    or $node instance of text()
 	    or $node instance of attribute()"/>
-    </xsl:function>
+    </function>
 
-    <xsl:function name="krextor:fragment-uri">
-	<xsl:param name="fragment-id"/>
-	<xsl:param name="base-uri"/>
-	<xsl:value-of select="resolve-uri(concat('#', $fragment-id), $base-uri)"/>
-    </xsl:function>
+    <!-- Generates a URI for a fragment of a document -->
+    <function name="krextor:fragment-uri">
+	<param name="fragment-id"/>
+	<param name="base-uri"/>
+	<value-of select="resolve-uri(concat('#', $fragment-id), $base-uri)"/>
+    </function>
 
-    <xsl:function name="krextor:pseudo-xpath">
-	<xsl:param name="node"/>
-	<xsl:value-of select="if ($node/parent::node() instance of document-node())
+    <!-- creates an XPath-like string from the path to a node, 
+         e.g. doc-sect1-para2 for /doc/sect[1]/para[2] -->
+    <function name="krextor:pseudo-xpath">
+	<param name="node"/>
+	<value-of select="if ($node/parent::node() instance of document-node())
 		then local-name($node)
 	    else concat(
 		krextor:pseudo-xpath($node/parent::node()),
@@ -99,31 +102,31 @@ relationships between fragments in the "references" portlet.
 		local-name($node),
 		count($node/preceding-sibling::node()) + 1
 		)"/>
-    </xsl:function>
+    </function>
 
     <!-- Generates a URI for a resource -->
-    <xsl:function name="krextor:generate-uri">
-	<xsl:param name="node"/>
-	<xsl:param name="position"/>
-	<xsl:param name="autogenerate-fragment-uri"/>
-	<xsl:param name="base-uri"/>
-	<xsl:value-of select="krextor:generate-uri-step(
+    <function name="krextor:generate-uri">
+	<param name="node"/>
+	<param name="position"/>
+	<param name="autogenerate-fragment-uri"/>
+	<param name="base-uri"/>
+	<value-of select="krextor:generate-uri-step(
 	    $node,
 	    $position,
 	    $base-uri,
 	    $autogenerate-fragment-uri[1],
 	    subsequence($autogenerate-fragment-uri, 2))"/>
-    </xsl:function>
+    </function>
 
     <!-- Generates a URI for a resource: head/tail implementation of a single step -->
-    <xsl:function name="krextor:generate-uri-step">
-	<xsl:param name="node"/>
-	<xsl:param name="position"/>
-	<xsl:param name="base-uri"/>
-	<xsl:param name="head"/>
-	<xsl:param name="tail"/>
+    <function name="krextor:generate-uri-step">
+	<param name="node"/>
+	<param name="position"/>
+	<param name="base-uri"/>
+	<param name="head"/>
+	<param name="tail"/>
 
-	<xsl:variable name="result" select="
+	<variable name="result" select="
 	    if ($head eq 'document-root-base'
 		and $node/parent::node() instance of document-node())
 		then $base-uri
@@ -138,7 +141,7 @@ relationships between fragments in the "references" portlet.
 		    else (),
 		    $base-uri)
 	    else ()"/>
-	<xsl:value-of select="if ($result) then $result
+	<value-of select="if ($result) then $result
 	    else if (exists($tail)) then krextor:generate-uri-step(
 		$node,
 		$position,
@@ -147,7 +150,7 @@ relationships between fragments in the "references" portlet.
 		subsequence($tail, 2)
 	    )
 	    else ()"/>
-    </xsl:function>
+    </function>
 
     <!--
     Creates an RDF resource of some type from the current element, and probably
@@ -167,143 +170,235 @@ relationships between fragments in the "references" portlet.
     not possible to have them generated by templates matching some attributes
     or children of this element.
     -->
-    <xsl:template name="create-resource">
-	<xsl:param name="related-via-properties" select="()" tunnel="yes"/>
-	<xsl:param name="type"/>
+    <template name="create-resource">
+	<param name="related-via-properties" select="()"/>
+	<param name="type"/>
 	<!-- additional properties of this resource, encoded as
 	    <krextor:property uri="property-uri" object="object-uri"/>
 	    or
 	    <krextor:property uri="property-uri">
 		object-literal
 	    </krextor:property>
+	    On literal-valued objects, the attribute @language and @datatype
+	    are also allowed.
+	    Support for blank node objects is not yet implemented.
 	-->
-	<xsl:param name="properties"/>
+	<param name="properties"/>
 	<!-- The node set to which apply-templates is applied -->
-	<xsl:param name="process-next" select="*|@*" tunnel="yes"/>
+	<param name="process-next"/>
 	<!-- We pass the base URI as a parameter into templates.  This is because we need to tweak the base URI when processing transcluded documents; in this case, the transcluding document's URI should still be considered the base URI, instead of the URI of the transcluded document. -->
-	<xsl:param name="base-uri" tunnel="yes"/>
+	<param name="base-uri" tunnel="yes"/>
 	<!-- If we are to autogenerate the URI for this node, then we call the krextor:generate-uri function to generate one. Note that if you want to use your own URI generation you have to pass your own 
 	  1. The fragment URI of this node, if there is an xml:id attribute
 	  2. The base URI (assumed to be the one of the document), if we are at the root node
 	  3. Nothing (no RDF will be generated)
 	  -->
-	<xsl:param name="autogenerate-fragment-uri" select="$autogenerate-fragment-uris"/>
-	<xsl:variable name="generated-uri" select="if (exists($autogenerate-fragment-uri)) 
-	    then krextor:generate-uri(., position(), $autogenerate-fragment-uri, $base-uri)
+	<param name="autogenerate-fragment-uri" select="$autogenerate-fragment-uris"/>
+	<!-- Is this a blank node? -->
+	<param name="blank-node" select="false()"/>
+	<param name="blank-node-id" tunnel="yes"/>
+	<variable name="generated-uri" select="if ($blank-node) then $base-uri
+	    else if (exists($autogenerate-fragment-uri)) 
+		then krextor:generate-uri(., position(), $autogenerate-fragment-uri, $base-uri)
 	    else $base-uri"/>
-	<xsl:if test="$generated-uri">
-	    <xsl:sequence select="krextor:triple-uri($generated-uri, '&rdf;type', $type)"/>
-	    <xsl:for-each select="$related-via-properties">
-		<xsl:call-template name="add-uri-property">
-		    <xsl:with-param name="property" select="."/>
-		    <xsl:with-param name="object" select="$generated-uri"/>
-		</xsl:call-template>
-	    </xsl:for-each>
-	    <xsl:if test="$properties">
-		<xsl:for-each select="$properties/krextor:property[@uri]">
-		    <xsl:sequence select="if (@object) 
-			then krextor:triple-uri($generated-uri, @uri, @object)
-			else if (text()) then krextor:triple-lit($generated-uri, @uri, text())
-			else ()"/>
-		</xsl:for-each>
-	    </xsl:if>
+	<!-- TODO introduce auto-blank node if no xml:id given
+	     if auto-blank-node isn't desired, skip elements without xml:id altogether -->
+	<variable name="generated-blank-node-id" select="if ($blank-node) then generate-id()
+	    else ''"/>
+	<if test="@type = 'satellite'">
+	    <message select="concat('node ', generate-id())"/>
+	    <message select="concat('blank node? ', $blank-node)"/>
+	    <message select="concat('generated URI: ', $generated-uri)"/>
+	</if>
+	<if test="$generated-uri">
+	    <call-template name="output-triple">
+		<with-param name="subject" select="if ($blank-node) then $generated-blank-node-id
+		    else $generated-uri"/>
+		<with-param name="subject-type" select="if ($blank-node) then 'blank'
+		    else 'uri'"/>
+		<with-param name="predicate" select="'&rdf;type'"/>
+		<with-param name="object" select="$type"/>
+		<with-param name="object-type" select="'uri'"/>
+	    </call-template>
+	    <for-each select="$related-via-properties">
+		<choose>
+		    <when test="$blank-node">
+			<call-template name="add-uri-property">
+			    <with-param name="property" select="."/>
+			    <with-param name="blank" select="$generated-blank-node-id"/>
+			</call-template>
+		    </when>
+		    <otherwise>
+			<call-template name="add-uri-property">
+			    <with-param name="property" select="."/>
+			    <with-param name="object" select="$generated-uri"/>
+			</call-template>
+		    </otherwise>
+		</choose>
+	    </for-each>
+	    <if test="$properties">
+		<for-each select="$properties/krextor:property[@uri]">
+		    <variable name="object" select="if (@object) then @object
+			else if (text()) then text()
+			else ''"/>
+		    <if test="$object">
+			<call-template name="output-triple">
+			    <with-param name="subject" select="if ($blank-node) then $generated-blank-node-id
+				else $generated-uri"/>
+			    <with-param name="subject-type" select="if ($blank-node) then 'blank'
+				else 'uri'"/>
+			    <with-param name="predicate" select="@uri"/>
+			    <with-param name="object" select="$object"/>
+			    <with-param name="object-type" select="if (@object) then 'uri'
+				else ''"/>
+			    <with-param name="object-language" select="@language"/>
+			    <with-param name="object-datatype" select="@datatype"/>
+			</call-template>
+		    </if>
+		</for-each>
+	    </if>
 	    <!-- We also process attributes, as they may contain links to other resources -->
-	    <xsl:apply-templates select="$process-next">
-		<!-- pass on the generated base URI.  For resolving relative URIs, an appended fragment does
-		     not matter, but for generating property triples for this resource it does. -->
-		<xsl:with-param name="base-uri" select="$generated-uri" tunnel="yes"/>
-		<!-- Pass the information what type this is; this might help to disambiguate triple generation from children of the element that represents the resource of that type. -->
-		<xsl:with-param name="type" select="$type" tunnel="yes"/>
-	    </xsl:apply-templates>
-	</xsl:if>
-    </xsl:template>
+	    <choose>
+		<when test="$process-next">
+		    <if test="@type eq 'satellite'">
+			<message select="concat('node ', generate-id())"/>
+			<message select="concat('sat. URI = ', $generated-uri)"/>
+			<message select="concat('gen. blank node ID = ', $generated-blank-node-id)"/>
+		    </if>
+		    <apply-templates select="$process-next" mode="redirected-processing">
+			<!-- pass on the generated base URI or blank node ID.  For resolving relative URIs, an appended fragment does
+			     not matter, but for generating property triples for this resource it does. -->
+			<with-param name="base-uri" select="$generated-uri" tunnel="yes"/>
+			<!-- Pass the information what type this is; this might help to disambiguate triple generation from children of the element that represents the resource of that type. -->
+			<with-param name="type" select="$type" tunnel="yes"/>
+			<with-param name="blank-node-id" select="$generated-blank-node-id" tunnel="yes"/>
+		    </apply-templates>
+		</when>
+		<otherwise>
+		    <apply-templates>
+			<!-- pass on the generated base URI or blank node ID.  For resolving relative URIs, an appended fragment does
+			     not matter, but for generating property triples for this resource it does. -->
+			<with-param name="base-uri" select="$generated-uri" tunnel="yes"/>
+			<!-- Pass the information what type this is; this might help to disambiguate triple generation from children of the element that represents the resource of that type. -->
+			<with-param name="type" select="$type" tunnel="yes"/>
+			<with-param name="blank-node-id" select="$generated-blank-node-id" tunnel="yes"/>
+		    </apply-templates>
+		</otherwise>
+	    </choose>
+	</if>
+    </template>
 
     <!-- Adds a literal-valued property to the resource in whose
          create-resource scope this template was called. -->
-    <xsl:template name="add-literal-property">
-	<xsl:param name="property"/>
-	<xsl:param name="base-uri" tunnel="yes"/>
-	<xsl:param name="object" select="."/>
+    <template name="add-literal-property">
+	<param name="base-uri" tunnel="yes"/>
+	<param name="blank-node-id" tunnel="yes"/>
+	<param name="property" required="yes"/>
+	<param name="object" select="."/>
 	<!-- Is the object a whitespace-separated list? -->
-	<xsl:param name="list" select="false()"/>
+	<param name="list" select="false()"/>
 	<!-- Normalize whitespace around the value of the object? -->
-	<xsl:param name="normalize-space" select="false()"/>
-	<xsl:choose>
+	<param name="normalize-space" select="false()"/>
+	<param name="object-language" select="''"/>
+	<param name="object-datatype" select="''"/>
+	<choose>
 	    <!-- If the "object" is a whitespace-separated list of actual objects, we recursively generate one triple for each object. -->
-	    <xsl:when test="$list">
-		<xsl:for-each select="tokenize($object, '\s+')">
-		    <xsl:call-template name="add-literal-property">
-			<xsl:with-param name="property" select="$property"/>
-			<xsl:with-param name="object" select="."/>
+	    <when test="$list">
+		<for-each select="tokenize($object, '\s+')">
+		    <call-template name="add-literal-property">
+			<with-param name="property" select="$property"/>
+			<with-param name="object" select="."/>
 			<!-- Make sure that we don't run into an infinite loop ;-) -->
-			<xsl:with-param name="list" select="false()"/>
-		    </xsl:call-template>
-		</xsl:for-each>
-	    </xsl:when>
-	    <xsl:otherwise>
-		<xsl:sequence select="krextor:triple-lit($base-uri, $property, if ($normalize-space) then normalize-space($object) else $object)"/>
-	    </xsl:otherwise>
-	</xsl:choose>
-    </xsl:template>    
+			<with-param name="list" select="false()"/>
+		    </call-template>
+		</for-each>
+	    </when>
+	    <otherwise>
+		<call-template name="output-triple">
+		    <with-param name="subject" select="if ($blank-node-id) then $blank-node-id
+			else $base-uri"/>
+		    <with-param name="subject-type" select="if ($blank-node-id) then 'blank'
+			else 'uri'"/>
+		    <with-param name="predicate" select="$property"/>
+		    <with-param name="object" select="if ($normalize-space) then normalize-space($object)
+			else $object"/>
+		    <with-param name="object-language" select="$object-language"/>
+		    <with-param name="object-datatype" select="$object-datatype"/>
+		</call-template>
+	    </otherwise>
+	</choose>
+    </template>    
 
     <!-- Adds a URI-valued property to the resource in whose create-resource
          scope this template was called. -->
-    <xsl:template name="add-uri-property">
-	<xsl:param name="base-uri" tunnel="yes"/>
-	<xsl:param name="property"/>
+    <template name="add-uri-property">
+	<param name="base-uri" tunnel="yes"/>
+	<param name="blank-node-id" tunnel="yes"/>
+	<param name="property" required="yes"/>
 	<!-- Is the object a whitespace-separated list? -->
-	<xsl:param name="list" select="false()"/>
+	<param name="list" select="false()"/>
 	<!-- Currently we assume that, if no explicit link target is given, we are either:
 	1. in the root element R of an XIncluded document and that a relationship between the parent of the xi:include and the XIncluded document is to be expressed.
 	2. or we are in an attribute or a text node or any item of a whitespace-separated list,
 	   and a relationship between the current base URI and the URIref in the attribute value is to be expressed. -->
-	<xsl:param name="object" select="if (krextor:is-text-or-attribute-or-atomic(.))
+	<param name="object" select="if (krextor:is-text-or-attribute-or-atomic(.))
 	       then if ($list) then . else resolve-uri(., $base-uri)
 	    else if (parent::node() instance of document-node()) then base-uri()
-	    else ()"/>
-	<xsl:if test="$object">
-	    <xsl:choose>
+	    else ''"/>
+	<!-- node ID, if the object is a blank node -->
+	<param name="blank"/>
+	<if test="$blank or $object">
+	    <variable name="actual-object" select="if ($blank) then $blank
+		else $object"/>
+	    <choose>
 		<!-- If the "object" is a whitespace-separated list of actual objects, we recursively generate one triple for each object. -->
-		<xsl:when test="$list">
-		    <xsl:for-each select="tokenize($object, '\s+')">
-			<xsl:call-template name="add-uri-property">
-			    <xsl:with-param name="property" select="$property"/>
+		<when test="$list">
+		    <for-each select="tokenize($actual-object, '\s+')">
+			<call-template name="add-uri-property">
+			    <with-param name="property" select="$property"/>
 			    <!-- Make sure that we don't run into an infinite loop ;-) -->
-			    <xsl:with-param name="list" select="false()"/>
-			</xsl:call-template>
-		    </xsl:for-each>
-		</xsl:when>
-		<xsl:otherwise>
-		    <xsl:sequence select="krextor:triple-uri($base-uri, $property, $object)"/>
-		</xsl:otherwise>
-	    </xsl:choose>
-	</xsl:if>
-    </xsl:template>    
-	
+			    <with-param name="list" select="false()"/>
+			</call-template>
+		    </for-each>
+		</when>
+		<otherwise>
+		    <call-template name="output-triple">
+			<with-param name="subject" select="if ($blank-node-id) then $blank-node-id
+			    else $base-uri"/>
+			<with-param name="subject-type" select="if ($blank-node-id) then 'blank'
+			    else 'uri'"/>
+			<with-param name="predicate" select="$property"/>
+			<with-param name="object" select="$actual-object"/>
+			<with-param name="object-type" select="if ($blank) then 'blank' else 'uri'"/>
+		    </call-template>
+		</otherwise>
+	    </choose>
+	</if>
+    </template>    
 
     <!-- We support the following generic inclusion mechanism for XML documents:
     A root element R of a transcluded documents will be treated like a direct child of the parent element P of the xi:include element.  If there is a relevant relationship between P and R, an according triple is generated, with the transcluded document's URI (not the URI of R!) being the object.  The transcluded document is loaded and its root node examined in order to find this out.  Any relationships between elements of the transcluding document and the transcluded document that are not direct relationships between P and R are not considered during RDF extraction.
 
     Note: We're using XInclude because the semantics of <element xlink:type="simple" xlink:show="embed" xlink:href="some-XML-resource"/> is not yet clearly defined in the XLink specification.  Should the root element of the document pointed to replace the pointing element, or should it be transcluded into the pointing element as a child?
     -->
-    <xsl:template match="xi:include">
-	<xsl:if test="$traverse-xincludes">
-	    <xsl:apply-templates select="document(@href, .)" mode="included"/>
-	</xsl:if>
-    </xsl:template>
+    <template match="xi:include">
+	<if test="$traverse-xincludes">
+	    <apply-templates select="document(@href, .)" mode="included"/>
+	</if>
+    </template>
 
-    <xsl:template match="/" mode="included">
-	<xsl:apply-templates mode="included"/>
-    </xsl:template>
+    <template match="/" mode="included">
+	<apply-templates mode="included"/>
+    </template>
 
-    <xsl:template match="/">
-	<xsl:apply-templates>
-	    <xsl:with-param name="base-uri" select="base-uri()" tunnel="yes"/>
-	</xsl:apply-templates>
-    </xsl:template>
+    <template match="/">
+	<apply-templates>
+	    <with-param name="base-uri" select="base-uri()" tunnel="yes"/>
+	</apply-templates>
+    </template>
 
     <!-- No RDF is extracted from attributes that are not matched by the
 	 language-specific templates, nor from text nodes. -->
-    <xsl:template match="@*|text()"/>
-</xsl:stylesheet>
+    <template match="@*|text()"/>
+</stylesheet>
 
