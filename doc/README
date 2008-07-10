@@ -23,6 +23,7 @@ Mailing list: http://lists.jacobs-university.de/mailman/listinfo/project-swim (f
 * trunk: most recent development version
 * tags: older versions
   * 0.1
+  * 0.2
 
 See ChangeLog for details.
 
@@ -46,7 +47,7 @@ For other conversions, or if you want to override the extraction in an
 application-specific way, you have to compose your own stylesheet that imports
 the desired extraction and output modules.  Let's assume that we want to
 extract RXR from OpenMath Content Dictionaries (ocd) and that the Krextor XSLTs
-are located in the subdirectory "krextor":
+are located in the subdirectory “krextor”:
 
 <?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
@@ -72,21 +73,23 @@ particularly the named templates:
 
 * create-resource
   Creates an RDF resource of some type from this element, and probably creates
-  related triples having this resource as a subject or object.  Then, matching
-  extraction templates are applied to the child elements.  A call to
-  create-resource defines a scope in which the created resource is the default
-  subject of any other triple created using these templates, unless another
-  resource is created from some child element.
+  related triples having this resource as a subject or object.  Resources can
+  be identified by auto-generated URIs, by custom URIs, or by blank node IDs.
+  Then, matching extraction templates are applied to the child elements.  A
+  call to create-resource defines a scope in which the created resource is the
+  default subject of any other triple created using these templates, unless
+  another resource is created from some child element.
 * add-literal-property
   Adds a literal-valued property to the resource in whose create-resource scope
   this template was called.
 * add-uri-property
-  Adds a URI-valued property to the resource in whose create-resource scope
-  this template was called.
+  Adds a URI-valued property to the resource R in whose create-resource scope
+  this template was called.  R can either be subject (default) or object
+  (“inverse mode”) of the resulting triple.
 
 These templates make typical RDF extraction tasks much easier than directly
-creating output triples using the functions in the output modules.  See the
-source code for additional documentation.
+creating output triples using the output-triple function in the output module.
+See the source code for additional documentation.
 
 As a rule of thumb, we recommend that every XML element or attribute that
 corresponds to one RDF resource or property be matched by one template that
@@ -107,13 +110,13 @@ behaviour without requiring you to write much code yourself.  More particularly:
 4. If an element E corresponds to a resource that is related to a resource
    represented by a parent or ancestor element P via a property P–prop–E (e.g.
    a part-of relationship), match E as in case (1), but pass the parameter
-   related-via-properties with value (‘prop’).  This is designed as a sequence
-   because sometimes there can be more than one such property, e.g. one logical
-   relation and one document structure relation.
+   related-via-properties with value ‘prop’.  This is designed as a
+   (comma-separated) sequence because sometimes there can be more than one such
+   property, e.g. one logical relation and one document structure relation.
 
 A template that traverses XInclude links is provided in generic-templates.xsl
 and active by default.  Templates are applied to nodes in XIncluded documents
-in "included" mode.  A rule of thumb is not to recursively create resources
+in “included” mode.  A rule of thumb is not to recursively create resources
 from XIncluded elements, but to process these documents separately and then
 merge the resulting RDF graphs.  It is recommended to just generate part-of
 relationships from the including document to the resource represented by the
@@ -131,34 +134,34 @@ following template:
     xmlns:krextor="http://kwarc.info/projects/krextor/"
     exclude-result-prefixes="krextor"
     version="2.0">
+    <!-- Note that text output is possible, too. -->
     <xsl:output method="xml" encoding="UTF-8" indent="yes" omit-xml-declaration="no"/>
 
-    <xsl:include href="generic-templates.xsl"/>
+    <xsl:import href="generic-templates.xsl"/>
 
-    <xsl:function name="krextor:triple-uri">
-	<xsl:param name="subject"/>
-	<xsl:param name="predicate"/>
-	<xsl:param name="object"/>
-	<!-- Output a triple with a URI object, possible by calling
-	     krextor:triple -->
-    </xsl:function>
-    
-    <xsl:function name="krextor:triple-lit">
-	<xsl:param name="subject"/>
-	<xsl:param name="predicate"/>
-	<xsl:param name="object"/>
-	<!-- Output a triple with a literal object, possible by calling
-	     krextor:triple -->
-    </xsl:function>
+    <!-- creates one RDF triple -->
+    <xsl:template name="output-triple">
+	<!-- value of the subject -->
+	<xsl:param name="subject" required="yes"/>
+	<!-- type of the subject: either 'uri' or 'blank' -->
+	<xsl:param name="subject-type" select="'uri'"/>
 
-    <!-- This function is not strictly needed, but helpful to avoid
-         redundancies in the functions above. -->
-    <xsl:function name="krextor:triple">
-	<xsl:param name="subject"/>
-	<xsl:param name="predicate"/>
-	<xsl:param name="object"/>
-        <!-- Output a generic triple -->
-    </xsl:function>
+	<!-- value of the predicate -->
+	<xsl:param name="predicate" required="yes"/>
+
+	<!-- value of the object -->
+	<xsl:param name="object" required="yes"/>
+	<!-- type of the object: either 'uri' or 'blank',
+	     or nothing for literal objects -->
+	<xsl:param name="object-type"/>
+	<!-- language annotation is only supported on the object,
+	     but neither on triples nor on graphs, as in RXR -->
+	<xsl:param name="object-language"/>
+	<!-- datatype of the (literal) object -->
+	<xsl:param name="object-datatype"/>
+
+        <!-- output the triple -->
+    </xsl:template>
 
     <xsl:template match="/">
 	<!-- begin output -->
@@ -166,6 +169,12 @@ following template:
 	<!-- end output -->
     </xsl:template>
 </xsl:stylesheet>
+
+Blank nodes, as well as language and datatype annotations for objects, will
+only be generated if the extraction module requests it; that is, for simple
+applications you can ignore these parameters.  For other applications, such as
+a simple graph visualisation, you may not even want to distinguish between e.g.
+URIs and blank nodes.
 
 Note that the current design of Krextor is optimised for sequential triples
 generation, i.e.
