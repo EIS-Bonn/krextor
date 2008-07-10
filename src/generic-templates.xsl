@@ -152,6 +152,39 @@ relationships between fragments in the "references" portlet.
 	    else ()"/>
     </function>
 
+    <!-- Relates the current resource to its parent via some properties or their inverses -->
+    <template name="_krextor-related-via-properties">
+	<!-- The list of properties -->
+	<param name="properties" select="()"/>
+	<!-- Are these inverse properties? -->
+	<param name="inverse" select="false()"/>
+
+	<!-- The identifier of the current resource -->
+	<param name="blank-node"/>
+	<param name="generated-blank-node-id"/>
+	<param name="generated-uri"/>
+	<for-each select="$properties">
+	    <if test=".">
+		    <choose>
+			<when test="$blank-node">
+			    <call-template name="add-uri-property">
+				<with-param name="property" select="."/>
+				<with-param name="inverse" select="$inverse"/>
+				<with-param name="blank" select="$generated-blank-node-id"/>
+			    </call-template>
+			</when>
+			<otherwise>
+			    <call-template name="add-uri-property">
+				<with-param name="property" select="."/>
+				<with-param name="inverse" select="$inverse"/>
+				<with-param name="object" select="$generated-uri"/>
+			    </call-template>
+			</otherwise>
+		    </choose>
+	    </if>
+	</for-each>
+    </template>
+
     <!--
     Creates an RDF resource of some type from the current element, and probably
     creates related triples having this resource as a subject or object.  Then,
@@ -172,6 +205,7 @@ relationships between fragments in the "references" portlet.
     -->
     <template name="create-resource">
 	<param name="related-via-properties" select="()"/>
+	<param name="related-via-inverse-properties" select="()"/>
 	<param name="type"/>
 	<!-- additional properties of this resource, encoded as
 	    <krextor:property uri="property-uri" object="object-uri"/>
@@ -185,7 +219,8 @@ relationships between fragments in the "references" portlet.
 	-->
 	<param name="properties"/>
 	<!-- The node set to which apply-templates is applied -->
-	<param name="process-next"/>
+	<!-- We also process attributes, as they may contain links to other resources -->
+	<param name="process-next" select="*|@*"/>
 	<!-- We pass the base URI as a parameter into templates.  This is because we need to tweak the base URI when processing transcluded documents; in this case, the transcluding document's URI should still be considered the base URI, instead of the URI of the transcluded document. -->
 	<param name="base-uri" tunnel="yes"/>
 	<!-- If we are to autogenerate the URI for this node, then we call the krextor:generate-uri function to generate one. Note that if you want to use your own URI generation you have to pass your own 
@@ -205,39 +240,36 @@ relationships between fragments in the "references" portlet.
 	     if auto-blank-node isn't desired, skip elements without xml:id altogether -->
 	<variable name="generated-blank-node-id" select="if ($blank-node) then generate-id()
 	    else ''"/>
-	<if test="@type = 'satellite'">
-	    <message select="concat('node ', generate-id())"/>
-	    <message select="concat('blank node? ', $blank-node)"/>
-	    <message select="concat('generated URI: ', $generated-uri)"/>
-	</if>
 	<if test="$generated-uri">
-	    <call-template name="output-triple">
-		<with-param name="subject" select="if ($blank-node) then $generated-blank-node-id
-		    else $generated-uri"/>
-		<with-param name="subject-type" select="if ($blank-node) then 'blank'
-		    else 'uri'"/>
-		<with-param name="predicate" select="'&rdf;type'"/>
-		<with-param name="object" select="$type"/>
-		<with-param name="object-type" select="'uri'"/>
+	    <!-- Create the triple that instantiates this resource -->
+	    <if test="$type">
+		<call-template name="output-triple">
+		    <with-param name="subject" select="if ($blank-node) then $generated-blank-node-id
+			else $generated-uri"/>
+		    <with-param name="subject-type" select="if ($blank-node) then 'blank'
+			else 'uri'"/>
+		    <with-param name="predicate" select="'&rdf;type'"/>
+		    <with-param name="object" select="$type"/>
+		    <with-param name="object-type" select="'uri'"/>
+		</call-template>
+	    </if>
+
+	    <!-- Relate this resource to its parent -->
+	    <call-template name="_krextor-related-via-properties">
+		<with-param name="properties" select="$related-via-properties"/>
+		<with-param name="blank-node" select="$blank-node"/>
+		<with-param name="generated-blank-node-id" select="$generated-blank-node-id"/>
+		<with-param name="generated-uri" select="$generated-uri"/>
 	    </call-template>
-	    <for-each select="$related-via-properties">
-	    	<if test=".">
-			<choose>
-			    <when test="$blank-node">
-				<call-template name="add-uri-property">
-				    <with-param name="property" select="."/>
-				    <with-param name="blank" select="$generated-blank-node-id"/>
-				</call-template>
-			    </when>
-			    <otherwise>
-				<call-template name="add-uri-property">
-				    <with-param name="property" select="."/>
-				    <with-param name="object" select="$generated-uri"/>
-				</call-template>
-			    </otherwise>
-			</choose>
-	    	</if>
-	    </for-each>
+	    <call-template name="_krextor-related-via-properties">
+		<with-param name="properties" select="$related-via-inverse-properties"/>
+		<with-param name="inverse" select="true()"/>
+		<with-param name="blank-node" select="$blank-node"/>
+		<with-param name="generated-blank-node-id" select="$generated-blank-node-id"/>
+		<with-param name="generated-uri" select="$generated-uri"/>
+	    </call-template>
+
+	    <!-- Add additional properties to this resource -->
 	    <if test="$properties">
 		<for-each select="$properties/krextor:property[@uri]">
 		    <variable name="object" select="if (@object) then @object
@@ -259,34 +291,16 @@ relationships between fragments in the "references" portlet.
 		    </if>
 		</for-each>
 	    </if>
-	    <!-- We also process attributes, as they may contain links to other resources -->
-	    <choose>
-		<when test="$process-next">
-		    <if test="@type eq 'satellite'">
-			<message select="concat('node ', generate-id())"/>
-			<message select="concat('sat. URI = ', $generated-uri)"/>
-			<message select="concat('gen. blank node ID = ', $generated-blank-node-id)"/>
-		    </if>
-		    <apply-templates select="$process-next" mode="redirected-processing">
-			<!-- pass on the generated base URI or blank node ID.  For resolving relative URIs, an appended fragment does
-			     not matter, but for generating property triples for this resource it does. -->
-			<with-param name="base-uri" select="$generated-uri" tunnel="yes"/>
-			<!-- Pass the information what type this is; this might help to disambiguate triple generation from children of the element that represents the resource of that type. -->
-			<with-param name="type" select="$type" tunnel="yes"/>
-			<with-param name="blank-node-id" select="$generated-blank-node-id" tunnel="yes"/>
-		    </apply-templates>
-		</when>
-		<otherwise>
-		    <apply-templates select="*|@*">
-			<!-- pass on the generated base URI or blank node ID.  For resolving relative URIs, an appended fragment does
-			     not matter, but for generating property triples for this resource it does. -->
-			<with-param name="base-uri" select="$generated-uri" tunnel="yes"/>
-			<!-- Pass the information what type this is; this might help to disambiguate triple generation from children of the element that represents the resource of that type. -->
-			<with-param name="type" select="$type" tunnel="yes"/>
-			<with-param name="blank-node-id" select="$generated-blank-node-id" tunnel="yes"/>
-		    </apply-templates>
-		</otherwise>
-	    </choose>
+
+	    <!-- Process the children of this element, or whichever nodes desired -->
+	    <apply-templates select="$process-next">
+		<!-- pass on the generated base URI or blank node ID.  For resolving relative URIs, an appended fragment does
+		     not matter, but for generating property triples for this resource it does. -->
+		<with-param name="base-uri" select="$generated-uri" tunnel="yes"/>
+		<!-- Pass the information what type this is; this might help to disambiguate triple generation from children of the element that represents the resource of that type. -->
+		<with-param name="type" select="$type" tunnel="yes"/>
+		<with-param name="blank-node-id" select="$generated-blank-node-id" tunnel="yes"/>
+	    </apply-templates>
 	</if>
     </template>
 
@@ -337,6 +351,8 @@ relationships between fragments in the "references" portlet.
 	<param name="base-uri" tunnel="yes"/>
 	<param name="blank-node-id" tunnel="yes"/>
 	<param name="property" required="yes"/>
+	<!-- Should the property be applied in inverse direction? -->
+	<param name="inverse" select="false()"/>
 	<!-- Is the object a whitespace-separated list? -->
 	<param name="list" select="false()"/>
 	<!-- Currently we assume that, if no explicit link target is given, we are either:
@@ -358,21 +374,37 @@ relationships between fragments in the "references" portlet.
 		    <for-each select="tokenize($actual-object, '\s+')">
 			<call-template name="add-uri-property">
 			    <with-param name="property" select="$property"/>
+			    <with-param name="inverse" select="$inverse"/>
 			    <!-- Make sure that we don't run into an infinite loop ;-) -->
 			    <with-param name="list" select="false()"/>
 			</call-template>
 		    </for-each>
 		</when>
 		<otherwise>
-		    <call-template name="output-triple">
-			<with-param name="subject" select="if ($blank-node-id) then $blank-node-id
-			    else $base-uri"/>
-			<with-param name="subject-type" select="if ($blank-node-id) then 'blank'
-			    else 'uri'"/>
-			<with-param name="predicate" select="$property"/>
-			<with-param name="object" select="$actual-object"/>
-			<with-param name="object-type" select="if ($blank) then 'blank' else 'uri'"/>
-		    </call-template>
+		    <choose>
+			<when test="$inverse">
+			    <call-template name="output-triple">
+				<with-param name="subject" select="$actual-object"/>
+				<with-param name="subject-type" select="if ($blank) then 'blank' else 'uri'"/>
+				<with-param name="predicate" select="$property"/>
+				<with-param name="object" select="if ($blank-node-id) then $blank-node-id
+				    else $base-uri"/>
+				<with-param name="object-type" select="if ($blank-node-id) then 'blank'
+				    else 'uri'"/>
+			    </call-template>
+			</when>
+			<otherwise>
+			    <call-template name="output-triple">
+				<with-param name="subject" select="if ($blank-node-id) then $blank-node-id
+				    else $base-uri"/>
+				<with-param name="subject-type" select="if ($blank-node-id) then 'blank'
+				    else 'uri'"/>
+				<with-param name="predicate" select="$property"/>
+				<with-param name="object" select="$actual-object"/>
+				<with-param name="object-type" select="if ($blank) then 'blank' else 'uri'"/>
+			    </call-template>
+			</otherwise>
+		    </choose>
 		</otherwise>
 	    </choose>
 	</if>

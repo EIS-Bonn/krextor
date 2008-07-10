@@ -28,7 +28,7 @@
     <!ENTITY odo "http://www.omdoc.org/ontology#">
     <!ENTITY dc "http://purl.org/dc/elements/1.1/">
     <!ENTITY sdoc "http://salt.semanticauthoring.org/onto/abstract-document-ontology#">
-    <!ENTITY sr "http://salt.semanticauthoring.org/onto/2007/10/rhetorical-ontology.rdfs#">
+    <!ENTITY sr "http://salt.semanticauthoring.org/onto/rhetorical-ontology#">
 ]>
 
 <!--
@@ -44,8 +44,8 @@
     exclude-result-prefixes="omdoc om krextor"
     version="2.0">
 
-    <!-- TODO add rhetorical stuff -->
-    <!-- TODO group omtext templates together, just capitalise @type -> ontology concepts -->
+    <!-- TODO think about a two-pass processing of resources that can have both
+         document-wise physical children and mathematical/rhetorical logical children -->
 
     <!-- Specifies whether MMT-style URLs (OMDoc 1.3) should be generated -->
     <xsl:param name="mmt" select="false()"/>
@@ -75,11 +75,12 @@
     <xsl:template name="create-omdoc-resource">
 	<xsl:param name="type"/>
 	<xsl:param name="related-via-properties" select="()"/>
+	<xsl:param name="related-via-inverse-properties" select="()"/>
 	<xsl:param name="formality-degree"/>
 	<xsl:param name="base-uri" tunnel="yes"/>
 	<xsl:param name="mmt" select="$mmt and @name"/>
 	<xsl:param name="use-document-uri" select="not($use-root-xmlid) and self::node() = /"/>
-	<xsl:param name="process-next" select="()"/>
+	<xsl:param name="process-next" select="*|@*"/>
 	<xsl:param name="blank-node" select="false()"/>
 	<!-- Check if we can generate a URI for the current element -->
 	<xsl:if test="$mmt or $use-document-uri or @xml:id">
@@ -100,6 +101,7 @@
 		<xsl:with-param name="type" select="$type"/>
 		<xsl:with-param name="blank-node" select="$blank-node"/>
 		<xsl:with-param name="related-via-properties" select="$related-via-properties"/>
+		<xsl:with-param name="related-via-inverse-properties" select="$related-via-inverse-properties"/>
 		<xsl:with-param name="process-next" select="$process-next"/>
 	    </xsl:call-template>
 	</xsl:if>
@@ -427,57 +429,77 @@
 		</xsl:call-template>
 	</xsl:template>
 	
-        <xsl:template match="phrase[@type eq 'nucleus']" mode="redirected-processing">
+        <xsl:template match="phrase[@type eq 'nucleus']">
+	    <!-- Here, we just create the resource.
+	         As it can be used in multiple rhetorical relations, we do that in a second pass -->
 	    <xsl:call-template name="create-omdoc-resource">
-		<xsl:with-param name="related-via-properties" select="'&odo;hasNucleus'"/>
-		<!-- Note that this triple is created as many times as the
-		nucleus participates in rhetoric relations, i.e. as many times
-		as it's references from some satellites. --> 
 		<xsl:with-param name="type" select="'&sr;Nucleus'"/>
 	    </xsl:call-template>
 	</xsl:template>
+	
+        <xsl:template match="phrase[@type eq 'nucleus']" mode="second-pass">
+	    <xsl:param name="_omdoc-second-pass" tunnel="yes"/>
+	    <xsl:call-template name="create-omdoc-resource">
+		<!-- Here, we do not actually create the resource but abuse that
+		     template to create an additional link from the rhetorical relation
+		     to it. -->
+		<xsl:with-param name="related-via-properties" select="'&odo;hasNucleus'"/>
+	    </xsl:call-template>
+	</xsl:template>
 
-	<xsl:template match="phrase[@type eq 'satellite']" mode="redirected-processing">
+	<xsl:template match="phrase[@type eq 'satellite']" mode="second-pass">
 	    <xsl:call-template name="create-omdoc-resource">
 		<xsl:with-param name="related-via-properties" select="'&odo;hasSatellite'"/>
 		<xsl:with-param name="type" select="'&sr;Satellite'"/>
 	    </xsl:call-template>
 	</xsl:template>
 
-	<xsl:template match="phrase[@type eq 'satellite']/@for" mode="redirected-processing">
-	    <xsl:apply-templates select="document(.)" mode="redirected-processing"/>
+	<xsl:template match="phrase[@type eq 'satellite']/@for" mode="second-pass">
+	    <xsl:apply-templates select="document(.)" mode="second-pass"/>
 	</xsl:template>
 
+	<!-- We start processing phrases and rhetorical relations here -->
         <xsl:template match="phrase[@type eq 'satellite']">
-	    <xsl:call-template name="create-omdoc-resource">
-		<xsl:with-param name="related-via-properties" select="'&odo;hasRhetoricRelation'"/>
-		<xsl:with-param name="type" select="concat('&sr;',
-			if (@relation = (
-			    (: rhetoric relation types (SALT) :)
-			    'antithesis',
-			    'circumstance',
-			    'concession',
-			    'condition',
-			    'evidence',
-			    'means',
-			    'preparation',
-			    'purpose',
-			    'cause',
-			    'consequence',
-			    'elaboration',
-			    'restatement',
-			    'solutionhood'
-			)) then omdoc:capitalize-type(@relation)
-			else 'RhetoricRelation')"/>
-		<xsl:with-param name="blank-node" select="true()"/>
-		<xsl:with-param name="process-next" select=".|@for"/>
-	    </xsl:call-template>
+	    <xsl:param name="_omdoc-second-pass" tunnel="yes"/>
+	    <xsl:choose>
+		<xsl:when test="$_omdoc-second-pass">
+		    <xsl:apply-templates select=".|@for" mode="second-pass">
+			<xsl:with-param name="_omdoc-second-pass" select="false()" tunnel="yes"/>
+		    </xsl:apply-templates>
+		</xsl:when>
+		<xsl:otherwise>
+		    <xsl:call-template name="create-omdoc-resource">
+			<xsl:with-param name="related-via-inverse-properties" select="'&sr;partOfRhetoricalStructure'"/>
+			<xsl:with-param name="type" select="concat('&sr;',
+				if (@relation = (
+				    (: rhetoric relation types (SALT) :)
+				    'antithesis',
+				    'circumstance',
+				    'concession',
+				    'condition',
+				    'evidence',
+				    'means',
+				    'preparation',
+				    'purpose',
+				    'cause',
+				    'consequence',
+				    'elaboration',
+				    'restatement',
+				    'solutionhood'
+				)) then omdoc:capitalize-type(@relation)
+				else 'RhetoricalRelation')"/>
+			<xsl:with-param name="blank-node" select="true()"/>
+			<xsl:with-param name="process-next" select="."/>
+			<xsl:with-param name="_omdoc-second-pass" select="true()" tunnel="yes"/>
+		    </xsl:call-template>
+		</xsl:otherwise>
+	    </xsl:choose>
 	</xsl:template>
 
 	<xsl:template match="derive/method/premise">
 		<!-- TODO @rank -->
 		<!-- enforce the following template to be called -->
-		<xsl:apply-templates select="@xref"/>
+		<xsl:apply-templates select="@xref" mode="#current"/>
 	</xsl:template>
 	
 	<xsl:template match="derive/method/premise/@xref">
