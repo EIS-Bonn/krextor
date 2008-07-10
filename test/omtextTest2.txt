@@ -6,11 +6,6 @@
       <rxr:object uri="http://www.omdoc.org/ontology#Document"/>
    </rxr:triple>
    <rxr:triple>
-      <rxr:subject uri="file:/home/gristovski/Desktop/krextorup/trunk/src/../test/omtextTest2.omdoc"/>
-      <rxr:predicate uri=""/>
-      <rxr:object uri="file:/home/gristovski/Desktop/krextorup/trunk/src/../test/omtextTest2.omdoc"/>
-   </rxr:triple>
-   <rxr:triple>
       <rxr:subject uri="file:/home/gristovski/Desktop/krextorup/trunk/src/../test/omtextTest2.omdoc#grupa"/>
       <rxr:predicate uri="http://www.w3.org/1999/02/22-rdf-syntax-ns#type"/>
       <rxr:object uri="http://www.omdoc.org/ontology#DocumentUnit"/>
@@ -29,11 +24,6 @@
       <rxr:subject uri="file:/home/gristovski/Desktop/krextorup/trunk/src/../test/omtextTest2.omdoc#grupa"/>
       <rxr:predicate uri="http://www.omdoc.org/ontology#hasPart"/>
       <rxr:object uri="file:/home/gristovski/Desktop/krextorup/trunk/src/../test/omtextTest2.omdoc#proba"/>
-   </rxr:triple>
-   <rxr:triple>
-      <rxr:subject uri="file:/home/gristovski/Desktop/krextorup/trunk/src/../test/omtextTest2.omdoc#proba"/>
-      <rxr:predicate uri="http://www.omdoc.org/ontology#hasReference"/>
-      <rxr:object uri="file:/home/gristovski/Desktop/krextorup/trunk/src/../test/omtextTest2.omdoc#t1"/>
    </rxr:triple>
    <rxr:triple>
       <rxr:subject uri="file:/home/gristovski/Desktop/krextorup/trunk/src/../test/omtextTest2.omdoc#tekst"/>
@@ -74,11 +64,6 @@
       <rxr:subject uri="file:/home/gristovski/Desktop/krextorup/trunk/src/../test/omtextTest2.omdoc#p"/>
       <rxr:predicate uri="http://www.omdoc.org/ontology#formalityDegree"/>
       <rxr:object uri="http://www.omdoc.org/ontology#Formal"/>
-   </rxr:triple>
-   <rxr:triple>
-      <rxr:subject uri="file:/home/gristovski/Desktop/krextorup/trunk/src/../test/omtextTest2.omdoc#p"/>
-      <rxr:predicate uri="http://www.omdoc.org/ontology#proves"/>
-      <rxr:object uri="file:/home/gristovski/Desktop/krextorup/trunk/src/../test/omtextTest2.omdoc#a1"/>
    </rxr:triple>
    <rxr:triple>
       <rxr:subject uri="file:/home/gristovski/Desktop/krextorup/trunk/src/../test/omtextTest2.omdoc#intro"/>
