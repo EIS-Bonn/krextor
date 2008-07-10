@@ -123,6 +123,12 @@
 	<xsl:value-of select="string-join($capitalized-tokens, '')"/>
     </xsl:function>
 	
+	<xsl:template match="omdoc:*/@theory">
+		<xsl:call-template name="add-uri-property">
+			<xsl:with-param name="property" select="'&odo;theoryOf'"/>
+		</xsl:call-template>
+	</xsl:template>
+	
 	<xsl:template match="omdoc">
 		<xsl:call-template name="create-omdoc-resource">
 			<xsl:with-param name="type" select="'&odo;Document'"/>
@@ -149,7 +155,7 @@
                             'entities'
 			)) then concat('&sr;', omdoc:capitalize-type(@type))
 			else '&odo;DocumentUnit'"/>
-		<xsl:with-param name="related-via-properties" select="if(parent::omdoc) then '&sdoc;hasComposite' else '&sdoc;hasPart'"/>
+		<xsl:with-param name="related-via-properties" select="if (self::tgroup and parent::theory) then '&odo;homeTheoryOf' else '' , if(parent::omdoc) then '&sdoc;hasComposite' else '&sdoc;hasPart'"/>
 	    </xsl:call-template>
 	</xsl:template>
 	
@@ -175,7 +181,7 @@
 	
 	<xsl:template match="theory">	
     		<xsl:call-template name="create-omdoc-resource">
-    			<xsl:with-param name="related-via-properties" select="if(parent::omdoc or parent::omgroup) then '&odo;homeTheoryOf' else '&odo;hasPart', if(parent::omdoc) then '&sdoc;hasComposite' else '&sdoc;hasPart'"/>
+    			<xsl:with-param name="related-via-properties" select="if (parent::theory) then '&odo;homeTheoryOf' else '&odo;hasPart' , if (parent::omdoc) then '&sdoc;hasComposite' else '&sdoc;hasPart'"/>
 	   		<xsl:with-param name="type" select="'&odo;Theory'"/>
 		</xsl:call-template>
 	<!-- TODO make this the home theory of any statement-level child
@@ -203,7 +209,7 @@
     <xsl:template match="import">
 	<xsl:call-template name="create-omdoc-resource">
 	    <xsl:with-param name="type" select="'&odo;Import'"/>
-		<xsl:with-param name="related-via-properties" select="if (parent::tgroup) then '&sdoc;hasComposite' else '&sdoc;hasPart'"/>
+		<xsl:with-param name="related-via-properties" select="if (parent::theory) then '&odo;homeTheoryOf' else '&odo;hasImport' , if (parent::tgroup) then '&sdoc;hasComposite' else '&sdoc;hasPart'"/>
 	</xsl:call-template>
     </xsl:template>    
 
@@ -247,7 +253,7 @@
     <!-- TODO adapt to further progress of the MMT (OMDoc 1.3) specification -->
     <xsl:template match="symbol[not(@role)]">
 	<xsl:call-template name="create-omdoc-resource">
-		<xsl:with-param name="related-via-properties" select="if (parent::proof) then '&odo;hasStep' else '&odo;hasPart' , if (parent::tgroup) then '&sdoc;hasComposite' else '&sdoc;hasPart'"/>
+		<xsl:with-param name="related-via-properties" select="if (parent::proof) then '&odo;hasStep' else if (parent::theory) then '&odo;homeTheoryOf' else '&odo;hasPart' , if (parent::tgroup) then '&sdoc;hasComposite' else '&sdoc;hasPart'"/>
 	    <xsl:with-param name="type" select="'&odo;Symbol'"/>
 		<xsl:with-param name="formality-degree" select="'&odo;Formal'"/>
 	</xsl:call-template>
@@ -256,7 +262,7 @@
     <!-- TODO adapt to further progress of the MMT (OMDoc 1.3) specification -->
     <xsl:template match="symbol[@role='axiom']|axiom">
 	<xsl:call-template name="create-omdoc-resource">
-		<xsl:with-param name="related-via-properties" select="if (parent::proof) then '&odo;hasStep' else '&odo;hasPart' , if (parent::tgroup) then '&sdoc;hasComposite' else '&sdoc;hasPart'"/>
+		<xsl:with-param name="related-via-properties" select="if (parent::proof) then '&odo;hasStep' else if (parent::theory) then '&odo;homeTheoryOf' else '&odo;hasPart' , if (parent::tgroup) then '&sdoc;hasComposite' else '&sdoc;hasPart'"/>
 	    <xsl:with-param name="type" select="'&odo;Axiom'"/>
 	    <xsl:with-param name="formality-degree" select="'&odo;Formal'"/>
 	</xsl:call-template>
@@ -264,7 +270,7 @@
 
     <xsl:template match="definition[@name or @xml:id]">
 	<xsl:call-template name="create-omdoc-resource">
-		<xsl:with-param name="related-via-properties" select="if (parent::proof) then '&odo;hasStep' else '&odo;hasPart' , if (parent::tgroup) then '&sdoc;hasComposite' else '&sdoc;hasPart'"/>
+		<xsl:with-param name="related-via-properties" select="if (parent::proof) then '&odo;hasStep' else if (parent::theory) then '&odo;homeTheoryOf' else '&odo;hasPart' , if (parent::tgroup) then '&sdoc;hasComposite' else '&sdoc;hasPart'"/>
 	    <xsl:with-param name="type" select="'&odo;Definition'"/>
 		<xsl:with-param name="formality-degree" select="'&odo;Formal'"/>
 	</xsl:call-template>
@@ -279,7 +285,7 @@
 	
     <xsl:template match="alternative">
 	<xsl:call-template name="create-omdoc-resource">
-		<xsl:with-param name="related-via-properties" select="'&odo;hasPart' , if (parent::omdoc) then '&sdoc;hasComposite' else '&sdoc;hasPart'"/>
+		<xsl:with-param name="related-via-properties" select="if (parent::theory) then '&odo;homeTheoryOf' else '&odo;hasPart' , if (parent::omdoc) then '&sdoc;hasComposite' else '&sdoc;hasPart'"/>
 	    <xsl:with-param name="type" select="'&odo;AlternativeDefinition'"/>
 		<xsl:with-param name="formality-degree" select="'&odo;Formal'"/>
 	</xsl:call-template>
@@ -287,7 +293,7 @@
 
     <xsl:template match="type[not(parent::symbol)]">
 	<xsl:call-template name="create-omdoc-resource">
-		<xsl:with-param name="related-via-properties" select="'&odo;hasPart' , if (parent::omdoc) then '&sdoc;hasComposite' else '&sdoc;hasPart'"/>
+		<xsl:with-param name="related-via-properties" select="if (parent::theory) then '&odo;homeTheoryOf' else '&odo;hasPart' , if (parent::omdoc) then '&sdoc;hasComposite' else '&sdoc;hasPart'"/>
 	    <xsl:with-param name="type" select="'&odo;TypeAssertion'"/>
 		<xsl:with-param name="formality-degree" select="'&odo;Formal'"/>
 	</xsl:call-template>
@@ -295,7 +301,7 @@
 
     <xsl:template match="assertion">
 	<xsl:call-template name="create-omdoc-resource">
-	    <xsl:with-param name="related-via-properties" select="'&odo;hasPart' , if (parent::omdoc) then '&sdoc;hasComposite' else '&sdoc;hasPart'"/>
+		<xsl:with-param name="related-via-properties" select="if (parent::theory) then '&odo;homeTheoryOf' else '&odo;hasPart' , if (parent::omdoc) then '&sdoc;hasComposite' else '&sdoc;hasPart'"/>
 	    <xsl:with-param name="type" select="concat('&odo;',
 		if (@type = (
 		    'theorem',
@@ -317,7 +323,7 @@
 
     <xsl:template match="example">
 	<xsl:call-template name="create-omdoc-resource">
-		<xsl:with-param name="related-via-properties" select="'&odo;hasPart' , if (parent::omdoc) then '&sdoc;hasComposite' else '&sdoc;hasPart'"/>
+		<xsl:with-param name="related-via-properties" select="if (parent::theory) then '&odo;homeTheoryOf' else '&odo;hasPart' , if (parent::omdoc) then '&sdoc;hasComposite' else '&sdoc;hasPart'"/>
 	    <xsl:with-param name="type" select="'&odo;Example'"/>
 		<xsl:with-param name="formality-degree" select="'&odo;Formal'"/>
 	</xsl:call-template>
@@ -325,7 +331,7 @@
 
     <xsl:template match="proof">
 	<xsl:call-template name="create-omdoc-resource">
-		<xsl:with-param name="related-via-properties" select="if (parent::method[parent::derive]) then '&odo;justifiedBy' else '&odo;hasPart' , if (parent::omdoc) then '&sdoc;hasComposite' else '&sdoc;hasPart'"/>
+		<xsl:with-param name="related-via-properties" select="if (parent::method[parent::derive]) then '&odo;justifiedBy' else if (parent::theory) then '&odo;homeTheoryOf' else  '&odo;hasPart' , if (parent::omdoc) then '&sdoc;hasComposite' else '&sdoc;hasPart'"/>
 	    <xsl:with-param name="type" select="'&odo;Proof'"/>
 	    <xsl:with-param name="formality-degree" select="'&odo;Formal'"/>
 	</xsl:call-template>
@@ -339,30 +345,33 @@
 	
     <!--TODO omtext/@type='assumption' may have the inductive attribute-->
     <xsl:template match="omtext">
+    	<xsl:variable name="has-mathematical-type" select="@type = (
+    		(: mathematical types :)
+    		'axiom',
+    		'definition',
+    		'example',
+    		'proof',
+    		'assertion',
+    		'corollary',
+    		'conjecture', 
+    		'false-conjecture', 
+    		'formula', 
+    		'lemma', 
+    		'postulate', 
+    		'proposition', 
+    		'theorem', 
+    		'assumption', 
+    		'obligation', 
+    		'rule',
+    		'hypothesis'
+    		(: TODO: notation :)
+    		)"/>"
 	<xsl:call-template name="create-omdoc-resource">
-	    <xsl:with-param name="related-via-properties" select="if (parent::proof) then '&odo;hasStep' else '&odo;hasPart' , if (parent::omdoc) then '&sdoc;hasComposite' else '&sdoc;hasPart'"/>
+	    <xsl:with-param name="related-via-properties" select="if (parent::theory and $has-mathematical-type) then '&odo;homeTheoryOf'
+	    	else if (parent::proof) then '&odo;hasStep' else '&odo;hasPart' ,
+	    	if (parent::omdoc) then '&sdoc;hasComposite' else '&sdoc;hasPart'"/>
 	    <xsl:with-param name="type" select="
-		if (@type = (
-		    (: mathematical types :)
-		    'axiom',
-		    'definition',
-		    'example',
-		    'proof',
-		    'assertion',
-		    'corollary',
-		    'conjecture', 
-		    'false-conjecture', 
-		    'formula', 
-		    'lemma', 
-		    'postulate', 
-		    'proposition', 
-		    'theorem', 
-		    'assumption', 
-		    'obligation', 
-		    'rule',
-                    'hypothesis'
-                    (: TODO: notation :)
-		)) then concat('&odo;', omdoc:capitalize-type(@type))
+		if ($has-mathematical-type) then concat('&odo;', omdoc:capitalize-type(@type))
 		else if (@type = (
                     (: rhetoric block types (SALT) :)
 		    'introduction',

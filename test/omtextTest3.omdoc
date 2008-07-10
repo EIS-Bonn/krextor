@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- <!DOCTYPE omdoc PUBLIC "-//OMDoc//DTD OMDoc V1.2//EN" "../../dtd/omdoc.dtd"> -->
+
+<!-- Author: Gordan Ristovski -->
+
+
+<omdoc xml:id="test" xmlns="http://www.mathweb.org/omdoc" xmlns:om="http://www.openmath.org/OpenMath" xmlns:dc="http://pur1.org/dc/elements/1.1/" version="1.8">
+        
+    
+    <theory xml:id="t1">
+            <axiom xml:id="a1"/>
+    </theory>
+    
+    <omtext xml:id="tekst" theory="#blabla">
+        Bla Bla
+    </omtext>
+    
+</omdoc>

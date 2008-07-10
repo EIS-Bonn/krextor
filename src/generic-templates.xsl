@@ -221,20 +221,22 @@ relationships between fragments in the "references" portlet.
 		<with-param name="object-type" select="'uri'"/>
 	    </call-template>
 	    <for-each select="$related-via-properties">
-		<choose>
-		    <when test="$blank-node">
-			<call-template name="add-uri-property">
-			    <with-param name="property" select="."/>
-			    <with-param name="blank" select="$generated-blank-node-id"/>
-			</call-template>
-		    </when>
-		    <otherwise>
-			<call-template name="add-uri-property">
-			    <with-param name="property" select="."/>
-			    <with-param name="object" select="$generated-uri"/>
-			</call-template>
-		    </otherwise>
-		</choose>
+	    	<if test=".">
+			<choose>
+			    <when test="$blank-node">
+				<call-template name="add-uri-property">
+				    <with-param name="property" select="."/>
+				    <with-param name="blank" select="$generated-blank-node-id"/>
+				</call-template>
+			    </when>
+			    <otherwise>
+				<call-template name="add-uri-property">
+				    <with-param name="property" select="."/>
+				    <with-param name="object" select="$generated-uri"/>
+				</call-template>
+			    </otherwise>
+			</choose>
+	    	</if>
 	    </for-each>
 	    <if test="$properties">
 		<for-each select="$properties/krextor:property[@uri]">

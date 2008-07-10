@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rxr:graph xmlns:rxr="http://ilrt.org/discovery/2004/03/rxr/">
+   <rxr:triple>
+      <rxr:subject uri="file:/home/gristovski/Desktop/krextorup/trunk/src/../test/omtextTest3.omdoc"/>
+      <rxr:predicate uri="http://www.w3.org/1999/02/22-rdf-syntax-ns#type"/>
+      <rxr:object uri="http://www.omdoc.org/ontology#Document"/>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="file:/home/gristovski/Desktop/krextorup/trunk/src/../test/omtextTest3.omdoc#t1"/>
+      <rxr:predicate uri="http://www.w3.org/1999/02/22-rdf-syntax-ns#type"/>
+      <rxr:object uri="http://www.omdoc.org/ontology#Theory"/>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="file:/home/gristovski/Desktop/krextorup/trunk/src/../test/omtextTest3.omdoc"/>
+      <rxr:predicate uri="http://www.omdoc.org/ontology#hasPart"/>
+      <rxr:object uri="file:/home/gristovski/Desktop/krextorup/trunk/src/../test/omtextTest3.omdoc#t1"/>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="file:/home/gristovski/Desktop/krextorup/trunk/src/../test/omtextTest3.omdoc"/>
+      <rxr:predicate uri="http://salt.semanticauthoring.org/onto/abstract-document-ontology#hasComposite"/>
+      <rxr:object uri="file:/home/gristovski/Desktop/krextorup/trunk/src/../test/omtextTest3.omdoc#t1"/>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="file:/home/gristovski/Desktop/krextorup/trunk/src/../test/omtextTest3.omdoc#a1"/>
+      <rxr:predicate uri="http://www.w3.org/1999/02/22-rdf-syntax-ns#type"/>
+      <rxr:object uri="http://www.omdoc.org/ontology#Axiom"/>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="file:/home/gristovski/Desktop/krextorup/trunk/src/../test/omtextTest3.omdoc#t1"/>
+      <rxr:predicate uri="http://www.omdoc.org/ontology#homeTheoryOf"/>
+      <rxr:object uri="file:/home/gristovski/Desktop/krextorup/trunk/src/../test/omtextTest3.omdoc#a1"/>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="file:/home/gristovski/Desktop/krextorup/trunk/src/../test/omtextTest3.omdoc#t1"/>
+      <rxr:predicate uri="http://salt.semanticauthoring.org/onto/abstract-document-ontology#hasPart"/>
+      <rxr:object uri="file:/home/gristovski/Desktop/krextorup/trunk/src/../test/omtextTest3.omdoc#a1"/>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="file:/home/gristovski/Desktop/krextorup/trunk/src/../test/omtextTest3.omdoc#a1"/>
+      <rxr:predicate uri="http://www.omdoc.org/ontology#formalityDegree"/>
+      <rxr:object uri="http://www.omdoc.org/ontology#Formal"/>
+   </rxr:triple>"
+	<rxr:triple>
+      <rxr:subject uri="file:/home/gristovski/Desktop/krextorup/trunk/src/../test/omtextTest3.omdoc#tekst"/>
+      <rxr:predicate uri="http://www.w3.org/1999/02/22-rdf-syntax-ns#type"/>
+      <rxr:object uri="http://www.omdoc.org/ontology#Statement"/>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="file:/home/gristovski/Desktop/krextorup/trunk/src/../test/omtextTest3.omdoc"/>
+      <rxr:predicate uri="http://www.omdoc.org/ontology#hasPart"/>
+      <rxr:object uri="file:/home/gristovski/Desktop/krextorup/trunk/src/../test/omtextTest3.omdoc#tekst"/>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="file:/home/gristovski/Desktop/krextorup/trunk/src/../test/omtextTest3.omdoc"/>
+      <rxr:predicate uri="http://salt.semanticauthoring.org/onto/abstract-document-ontology#hasComposite"/>
+      <rxr:object uri="file:/home/gristovski/Desktop/krextorup/trunk/src/../test/omtextTest3.omdoc#tekst"/>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="file:/home/gristovski/Desktop/krextorup/trunk/src/../test/omtextTest3.omdoc#tekst"/>
+      <rxr:predicate uri="http://www.omdoc.org/ontology#formalityDegree"/>
+      <rxr:object uri="http://www.omdoc.org/ontology#Informal"/>
+   </rxr:triple>
+</rxr:graph>
