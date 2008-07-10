@@ -277,7 +277,7 @@ relationships between fragments in the "references" portlet.
 		    </apply-templates>
 		</when>
 		<otherwise>
-		    <apply-templates>
+		    <apply-templates select="*|@*">
 			<!-- pass on the generated base URI or blank node ID.  For resolving relative URIs, an appended fragment does
 			     not matter, but for generating property triples for this resource it does. -->
 			<with-param name="base-uri" select="$generated-uri" tunnel="yes"/>
