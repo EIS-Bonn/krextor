@@ -1,3 +1,11 @@
+2008-07-10 Krextor 0.2
+    * support for blank nodes, inverse properties, multilingual literals,
+      datatypes; more flexible processing order
+    * input formats: extended OMDoc support (structured proofs, document
+      structures, rhetorical relations), more test cases
+    * output modules: redesigned architecture; consult the documentation
+    * more comprehensive documentation
+
 2008-06-23 Krextor 0.1
     Initial release
     * input formats: OMDoc (with test cases), OpenMath CD
