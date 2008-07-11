@@ -60,4 +60,9 @@
       <rxr:predicate uri="http://www.omdoc.org/ontology#formalityDegree"/>
       <rxr:object uri="http://www.omdoc.org/ontology#Informal"/>
    </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="file:/home/gristovski/Desktop/krextorup/trunk/src/../test/omtextTest3.omdoc#tekst"/>
+      <rxr:predicate uri="http://www.omdoc.org/ontology#theoryOf"/>
+      <rxr:object uri="file:/home/gristovski/Desktop/krextorup/trunk/src/../test/omtextTest3.omdoc#blabla"/>
+   </rxr:triple>
 </rxr:graph>
