@@ -44,7 +44,7 @@ http://ilrt.org/discovery/2004/03/rxr/
     <xsl:output method="xml" encoding="UTF-8" indent="yes" omit-xml-declaration="no"/>
 
     <!-- creates one RDF triple -->
-    <xsl:template name="output-triple">
+    <xsl:template name="krextor:output-triple">
 	<!-- value of the subject -->
 	<xsl:param name="subject" required="yes"/>
 	<!-- type of the subject: either 'uri' or 'blank' -->

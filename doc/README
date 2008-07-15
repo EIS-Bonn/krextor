@@ -69,7 +69,7 @@ default distribution.
 
 To write an extraction module for a new XML language, copy one of the existing
 ones.  Then read and understand the documentation of generic-templates.xsl,
-particularly the named templates:
+particularly the named templates in the krextor namespace:
 
 * create-resource
   Creates an RDF resource of some type from this element, and probably creates
@@ -123,6 +123,36 @@ relationships from the including document to the resource represented by the
 root element of the included document, this time using add-uri-property and its
 default behaviour.
 
+==== Example ====
+
+Consider the following XML format for data about social networks:
+
+<person friends="http://van-houten.name/milhouse">
+  <name>Bart Simpson</name>
+</person>
+
+Here is a Krextor XSLT snippet that extracts RDF using the FOAF ontology
+(http://www.foaf-project.org), assuming namespaces prefixes and XML entities
+are set up correctly:
+
+<xsl:template match="person">
+  <xsl:call-template name="krextor:create-resource">
+    <xsl:with-param name="type" select="'&foaf;Person'"/>
+  </xsl:call-template>
+</xsl:template>
+
+<xsl:template match="person/@friends">
+  <xsl:call-template name="krextor:add-uri-property">
+    <xsl:with-param name="property" select="'&foaf;knows'"/>
+  </xsl:call-template>
+</xsl:template>
+
+<xsl:template match="person/name">
+  <xsl:call-template name="krextor:add-literal-property">
+    <xsl:with-param name="property" select="'&foaf;name'"/>
+  </xsl:call-template>
+</xsl:template>
+
 === Output ===
 
 To write an extraction module for a new RDF notation, copy and adapt the
@@ -140,7 +170,7 @@ following template:
     <xsl:import href="generic-templates.xsl"/>
 
     <!-- creates one RDF triple -->
-    <xsl:template name="output-triple">
+    <xsl:template name="krextor:output-triple">
 	<!-- value of the subject -->
 	<xsl:param name="subject" required="yes"/>
 	<!-- type of the subject: either 'uri' or 'blank' -->
