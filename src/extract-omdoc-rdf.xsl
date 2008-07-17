@@ -338,6 +338,14 @@
 	    <xsl:with-param name="formality-degree" select="'&odo;Formal'"/>
 	</xsl:call-template>
     </xsl:template>
+	
+	<xsl:template match="proofobject">
+		<xsl:call-template name="krextor:create-omdoc-resource">
+			<xsl:with-param name="related-via-properties" select="if (parent::method[parent::derive]) then '&odo;justifiedBy' else if (parent::theory) then '&odo;homeTheoryOf' else  '&odo;hasPart' , if (parent::omdoc) then '&sdoc;hasComposite' else '&sdoc;hasPart'"/>
+			<xsl:with-param name="type" select="'&odo;Proof'"/>
+			<xsl:with-param name="formality-degree" select="'&odo;Computerized'"/>
+		</xsl:call-template>
+	</xsl:template>
     
     <xsl:template match="proof/@for">
 	<xsl:call-template name="krextor:add-uri-property">
