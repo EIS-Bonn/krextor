@@ -29,8 +29,13 @@ See ChangeLog for details.
 
 == Requirements ==
 
-An XSLT 2.0 compliant XSLT processor.  Krextor has been tested with Saxon 9.1
-(see http://www.saxonica.com).
+An XSLT 2.0 compliant XSLT processor.  Krextor has been tested with the
+following XSLT processors:
+
+* Saxon 9.1 (see http://www.saxonica.com)
+* Gestalt 1.0 (see http://gestalt.sourceforge.net/)
+
+We appreciate reports from users of other XSLT processors.
 
 == Usage ==
 
