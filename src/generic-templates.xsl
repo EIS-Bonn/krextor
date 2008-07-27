@@ -240,19 +240,19 @@ relationships between fragments in the "references" portlet.
 	     if auto-blank-node isn't desired, skip elements without xml:id altogether -->
 	<variable name="generated-blank-node-id" select="if ($blank-node) then generate-id()
 	    else ''"/>
+	<variable name="subject" select="if ($blank-node) then $generated-blank-node-id else $generated-uri"/>
+	<variable name="subject-type" select="if ($blank-node) then 'blank' else 'uri'"/>
 	<if test="$generated-uri">
-	    <!-- Create the triple that instantiates this resource -->
-	    <if test="$type">
+	    <!-- Create the triple(s) that instantiates this resource -->
+	    <for-each select="$type">
 		<call-template name="krextor:output-triple">
-		    <with-param name="subject" select="if ($blank-node) then $generated-blank-node-id
-			else $generated-uri"/>
-		    <with-param name="subject-type" select="if ($blank-node) then 'blank'
-			else 'uri'"/>
+		    <with-param name="subject" select="$subject"/>
+		    <with-param name="subject-type" select="$subject-type"/>
 		    <with-param name="predicate" select="'&rdf;type'"/>
-		    <with-param name="object" select="$type"/>
+		    <with-param name="object" select="."/>
 		    <with-param name="object-type" select="'uri'"/>
 		</call-template>
-	    </if>
+	    </for-each>
 
 	    <!-- Relate this resource to its parent -->
 	    <call-template name="krextor:related-via-properties">
@@ -277,10 +277,8 @@ relationships between fragments in the "references" portlet.
 			else ''"/>
 		    <if test="$object">
 			<call-template name="krextor:output-triple">
-			    <with-param name="subject" select="if ($blank-node) then $generated-blank-node-id
-				else $generated-uri"/>
-			    <with-param name="subject-type" select="if ($blank-node) then 'blank'
-				else 'uri'"/>
+			    <with-param name="subject" select="$subject"/>
+			    <with-param name="subject-type" select="$subject-type"/>
 			    <with-param name="predicate" select="@uri"/>
 			    <with-param name="object" select="$object"/>
 			    <with-param name="object-type" select="if (@object) then 'uri'
