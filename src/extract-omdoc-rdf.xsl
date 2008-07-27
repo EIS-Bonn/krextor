@@ -78,6 +78,15 @@
 	<xsl:param name="related-via-inverse-properties" select="()"/>
 	<xsl:param name="formality-degree"/>
 	<xsl:param name="base-uri" tunnel="yes"/>
+	<!-- the URI of the current document section resource -->
+	<xsl:param name="document-base" tunnel="yes"/>
+	<!-- the URI of the current mathematical or rhetorical structure -->
+	<xsl:param name="knowledge-base" tunnel="yes"/>
+	<!-- a list of values from ('document', 'knowledge'), specifying
+	     whether a document section or a mathematical/rhetorical structure
+	     resource should be generated from this element -->
+	     <!-- <xsl:param name="ontologies" required="yes"/> -->
+	<xsl:param name="ontologies" required="no"/>
 	<xsl:param name="mmt" select="$mmt and @name"/>
 	<xsl:param name="use-document-uri" select="not($use-root-xmlid) and self::node() = /"/>
 	<xsl:param name="process-next" select="*|@*"/>
@@ -124,6 +133,61 @@
 	</xsl:variable>
 	<xsl:value-of select="string-join($capitalized-tokens, '')"/>
     </xsl:function>
+
+	<xsl:variable name="salt-rhetorical-block-types" select="
+	    'introduction',
+	    'background',
+	    'motivation',
+	    'scenario',
+	    'contribution',
+	    'evaluation',
+	    'results',
+	    'discussion',
+	    'conclusion'"/>
+	<xsl:variable name="salt-rhetorical-block-types-all" select="
+	    $salt-rhetorical-block-types,
+	    'abstract',
+	    'entities'"/>
+	<xsl:variable name="salt-rhetorical-relation-types" select="
+	    'antithesis',
+	    'circumstance',
+	    'concession',
+	    'condition',
+	    'evidence',
+	    'means',
+	    'preparation',
+	    'purpose',
+	    'cause',
+	    'consequence',
+	    'elaboration',
+	    'restatement',
+	    'solutionhood'
+	    "/>
+
+	<xsl:variable name="omdoc-assertion-types" select="
+	    'theorem',
+	    'lemma',
+	    'corollary',
+	    'proposition',
+	    'conjecture',
+	    'false-conjecture',
+	    'obligation',
+	    'postulate',
+	    'formula',
+	    'assumption',
+	    'rule'
+	    "/>
+	<xsl:variable name="omdoc-statement-types" select="
+	    $omdoc-assertion-types,
+	    'axiom',
+	    'definition',
+	    'example',
+	    'proof',
+	    'assertion',
+	    'rule',
+	    'hypothesis'
+	    (: TODO: notation :)
+	    "/>
 	
 	<xsl:template match="omdoc:*/@theory">
 		<xsl:call-template name="krextor:add-uri-property">
@@ -134,28 +198,16 @@
 	<xsl:template match="omdoc">
 		<xsl:call-template name="krextor:create-omdoc-resource">
 			<xsl:with-param name="type" select="'&odo;Document'"/>
+			<xsl:with-param name="ontologies" select="'document'"/>
 		</xsl:call-template>
 	</xsl:template>
 	
 	<!--Do we actually need a separate class for tgroup?-->
 	<xsl:template match="omgroup|tgroup">
 	    <xsl:call-template name="krextor:create-omdoc-resource">
+		<!-- FIXME documentUnit, rhetoricalBlock? -->
 		<xsl:with-param name="type" select="
-			if (@type = (
-			    (: rhetoric block types (SALT) :)
-			    'introduction',
-			    'background',
-			    'motivation',
-			    'scenario',
-			    'contribution',
-			    'evaluation',
-			    'results',
-			    'discussion',
-			    'conclusion',
-                            (: plus the ones that we allow on group level :)
-                            'abstract',
-                            'entities'
-			)) then concat('&sr;', omdoc:capitalize-type(@type))
+			if (@type = $salt-rhetorical-block-types-all) then concat('&sr;', omdoc:capitalize-type(@type))
 			else '&odo;DocumentUnit'"/>
 		<xsl:with-param name="related-via-properties" select="if (self::tgroup and parent::theory) then '&odo;homeTheoryOf' else '' , if(parent::omdoc) then '&sdoc;hasComposite' else '&sdoc;hasPart'"/>
 	    </xsl:call-template>
@@ -163,6 +215,7 @@
 	
 	<xsl:template match="ref">
 		<xsl:call-template name="krextor:create-omdoc-resource">
+		    <!-- FIXME documentUnit -->
 			<xsl:with-param name="type" select="'&odo;Reference'"/>
 			<xsl:with-param name="related-via-properties" select="'&odo;hasPart'"/>
 		</xsl:call-template>
@@ -183,6 +236,7 @@
 	
 	<xsl:template match="theory">	
     		<xsl:call-template name="krextor:create-omdoc-resource">
+		    <!-- FIXME documentUnit, mathematicalBlock -->
     			<xsl:with-param name="related-via-properties" select="if (parent::theory) then '&odo;homeTheoryOf' else '&odo;hasPart' , if (parent::omdoc) then '&sdoc;hasComposite' else '&sdoc;hasPart'"/>
 	   		<xsl:with-param name="type" select="'&odo;Theory'"/>
 		</xsl:call-template>
@@ -210,6 +264,7 @@
     <!-- An MMT (OMDoc 1.3) import -->
     <xsl:template match="import">
 	<xsl:call-template name="krextor:create-omdoc-resource">
+	    <!-- FIXME mathematicalBlock. Is it a document unit? -->
 	    <xsl:with-param name="type" select="'&odo;Import'"/>
 		<xsl:with-param name="related-via-properties" select="if (parent::theory) then '&odo;homeTheoryOf' else '&odo;hasImport' , if (parent::tgroup) then '&sdoc;hasComposite' else '&sdoc;hasPart'"/>
 	</xsl:call-template>
@@ -255,6 +310,7 @@
     <!-- TODO adapt to further progress of the MMT (OMDoc 1.3) specification -->
     <xsl:template match="symbol[not(@role)]">
 	<xsl:call-template name="krextor:create-omdoc-resource">
+	    <!-- FIXME mathematicalBlock. Is it a document unit? -->
 		<xsl:with-param name="related-via-properties" select="if (parent::proof) then '&odo;hasStep' else if (parent::theory) then '&odo;homeTheoryOf' else '&odo;hasPart' , if (parent::tgroup) then '&sdoc;hasComposite' else '&sdoc;hasPart'"/>
 	    <xsl:with-param name="type" select="'&odo;Symbol'"/>
 		<xsl:with-param name="formality-degree" select="'&odo;Formal'"/>
@@ -264,6 +320,7 @@
     <!-- TODO adapt to further progress of the MMT (OMDoc 1.3) specification -->
     <xsl:template match="symbol[@role='axiom']|axiom">
 	<xsl:call-template name="krextor:create-omdoc-resource">
+	    <!-- FIXME documentUnit, mathematicalBlock (can contain CMPs) -->
 		<xsl:with-param name="related-via-properties" select="if (parent::proof) then '&odo;hasStep' else if (parent::theory) then '&odo;homeTheoryOf' else '&odo;hasPart' , if (parent::tgroup) then '&sdoc;hasComposite' else '&sdoc;hasPart'"/>
 	    <xsl:with-param name="type" select="'&odo;Axiom'"/>
 	    <xsl:with-param name="formality-degree" select="'&odo;Formal'"/>
@@ -272,6 +329,7 @@
 
     <xsl:template match="definition[@name or @xml:id]">
 	<xsl:call-template name="krextor:create-omdoc-resource">
+	    <!-- FIXME documentUnit, mathematicalBlock -->
 		<xsl:with-param name="related-via-properties" select="if (parent::proof) then '&odo;hasStep' else if (parent::theory) then '&odo;homeTheoryOf' else '&odo;hasPart' , if (parent::tgroup) then '&sdoc;hasComposite' else '&sdoc;hasPart'"/>
 	    <xsl:with-param name="type" select="'&odo;Definition'"/>
 		<xsl:with-param name="formality-degree" select="'&odo;Formal'"/>
@@ -287,6 +345,7 @@
 	
     <xsl:template match="alternative">
 	<xsl:call-template name="krextor:create-omdoc-resource">
+	    <!-- FIXME documentUnit, mathematicalBlock -->
 		<xsl:with-param name="related-via-properties" select="if (parent::theory) then '&odo;homeTheoryOf' else '&odo;hasPart' , if (parent::omdoc) then '&sdoc;hasComposite' else '&sdoc;hasPart'"/>
 	    <xsl:with-param name="type" select="'&odo;AlternativeDefinition'"/>
 		<xsl:with-param name="formality-degree" select="'&odo;Formal'"/>
@@ -295,6 +354,7 @@
 
     <xsl:template match="type[not(parent::symbol)]">
 	<xsl:call-template name="krextor:create-omdoc-resource">
+	    <!-- FIXME documentUnit, mathematicalBlock -->
 		<xsl:with-param name="related-via-properties" select="if (parent::theory) then '&odo;homeTheoryOf' else '&odo;hasPart' , if (parent::omdoc) then '&sdoc;hasComposite' else '&sdoc;hasPart'"/>
 	    <xsl:with-param name="type" select="'&odo;TypeAssertion'"/>
 		<xsl:with-param name="formality-degree" select="'&odo;Formal'"/>
@@ -303,21 +363,10 @@
 
     <xsl:template match="assertion">
 	<xsl:call-template name="krextor:create-omdoc-resource">
+	    <!-- FIXME documentUnit, mathematicalBlock -->
 		<xsl:with-param name="related-via-properties" select="if (parent::theory) then '&odo;homeTheoryOf' else '&odo;hasPart' , if (parent::omdoc) then '&sdoc;hasComposite' else '&sdoc;hasPart'"/>
 	    <xsl:with-param name="type" select="concat('&odo;',
-		if (@type = (
-		    'theorem',
-		    'lemma',
-		    'corollary',
-		    'proposition',
-		    'conjecture',
-		    'false-conjecture',
-		    'obligation',
-		    'postulate',
-		    'formula',
-		    'assumption',
-		    'rule'
-		)) then omdoc:capitalize-type(@type)
+		if (@type = $omdoc-assertion-types) then omdoc:capitalize-type(@type)
 		else 'Assertion')"/>
 	    <xsl:with-param name="formality-degree" select="'&odo;Formal'"/>
 	</xsl:call-template>
@@ -325,6 +374,7 @@
 
     <xsl:template match="example">
 	<xsl:call-template name="krextor:create-omdoc-resource">
+	    <!-- FIXME documentUnit, mathematicalBlock -->
 		<xsl:with-param name="related-via-properties" select="if (parent::theory) then '&odo;homeTheoryOf' else '&odo;hasPart' , if (parent::omdoc) then '&sdoc;hasComposite' else '&sdoc;hasPart'"/>
 	    <xsl:with-param name="type" select="'&odo;Example'"/>
 		<xsl:with-param name="formality-degree" select="'&odo;Formal'"/>
@@ -333,6 +383,7 @@
 
     <xsl:template match="proof">
 	<xsl:call-template name="krextor:create-omdoc-resource">
+	    <!-- FIXME documentUnit, mathematicalBlock -->
 		<xsl:with-param name="related-via-properties" select="if (parent::method[parent::derive]) then '&odo;justifiedBy' else if (parent::theory) then '&odo;homeTheoryOf' else  '&odo;hasPart' , if (parent::omdoc) then '&sdoc;hasComposite' else '&sdoc;hasPart'"/>
 	    <xsl:with-param name="type" select="'&odo;Proof'"/>
 	    <xsl:with-param name="formality-degree" select="'&odo;Formal'"/>
@@ -355,45 +406,16 @@
 	
     <!--TODO omtext/@type='assumption' may have the inductive attribute-->
     <xsl:template match="omtext">
-    	<xsl:variable name="has-mathematical-type" select="@type = (
-    		(: mathematical types :)
-    		'axiom',
-    		'definition',
-    		'example',
-    		'proof',
-    		'assertion',
-    		'corollary',
-    		'conjecture', 
-    		'false-conjecture', 
-    		'formula', 
-    		'lemma', 
-    		'postulate', 
-    		'proposition', 
-    		'theorem', 
-    		'assumption', 
-    		'obligation', 
-    		'rule',
-    		'hypothesis'
-    		(: TODO: notation :)
-    		)"/>"
+    	<xsl:variable name="has-mathematical-type" select="@type = $omdoc-statement-types"/>"
 	<xsl:call-template name="krextor:create-omdoc-resource">
+	    <!-- FIXME documentUnit, (mathematicalBlock|rhetoricalBlock)?
+	    maybe split into multiple templates -->
 	    <xsl:with-param name="related-via-properties" select="if (parent::theory and $has-mathematical-type) then '&odo;homeTheoryOf'
 	    	else if (parent::proof) then '&odo;hasStep' else '&odo;hasPart' ,
 	    	if (parent::omdoc) then '&sdoc;hasComposite' else '&sdoc;hasPart'"/>
 	    <xsl:with-param name="type" select="
 		if ($has-mathematical-type) then concat('&odo;', omdoc:capitalize-type(@type))
-		else if (@type = (
-                    (: rhetoric block types (SALT) :)
-		    'introduction',
-                    'background',
-                    'motivation',
-                    'scenario',
-                    'contribution',
-                    'evaluation',
-                    'results',
-                    'discussion',
-                    'conclusion'
-                )) then concat('&sr;', omdoc:capitalize-type(@type))
+		else if (@type = $salt-rhetorical-block-types) then concat('&sr;', omdoc:capitalize-type(@type))
 		else if (@type eq 'derive') then '&odo;DerivationStep'
 		else if (parent::proof) then '&odo;ProofText'
 		else '&odo;Statement'"/>
@@ -403,6 +425,7 @@
 
     <xsl:template match="CMP|FMP">
 	<xsl:call-template name="krextor:create-omdoc-resource">
+	    <!-- FIXME documentUnit, mathematicalBlock -->
 	    <xsl:with-param name="related-via-properties" select="'&odo;hasProperty' , '&sdoc;hasInformationChunk'"/>
 	    <xsl:with-param name="type" select="'&odo;Property'"/>
 	    <xsl:with-param name="formality-degree" select="if (self::CMP) then '&odo;Informal' else '&odo;Formal'"/>
@@ -411,6 +434,7 @@
 	
 	<xsl:template match="FMP/assumption">
 		<xsl:call-template name="krextor:create-omdoc-resource">
+	    <!-- FIXME mathematicalBlock -->
 			<xsl:with-param name="related-via-properties" select="'&odo;assumes'"/>
 			<xsl:with-param name="type" select="'&odo;AssumptionElement'"/>
 		</xsl:call-template>
@@ -418,6 +442,7 @@
 	
 	<xsl:template match="FMP/conclusion">
 		<xsl:call-template name="krextor:create-omdoc-resource">
+	    <!-- FIXME mathematicalBlock -->
 			<xsl:with-param name="related-via-properties" select="'&odo;concludes'"/>
 			<xsl:with-param name="type" select="'&odo;ConclusionElement'"/>
 		</xsl:call-template>
@@ -441,6 +466,7 @@
 	    <!-- Here, we just create the resource.
 	         As it can be used in multiple rhetorical relations, we do that in a second pass -->
 	    <xsl:call-template name="krextor:create-omdoc-resource">
+		<!-- FIXME rhetoricalBlock.  No documentUnit, as below InformationChunk level -->
 		<xsl:with-param name="type" select="'&sr;Nucleus'"/>
 	    </xsl:call-template>
 	</xsl:template>
@@ -457,6 +483,7 @@
 
 	<xsl:template match="phrase[@type eq 'satellite']" mode="second-pass">
 	    <xsl:call-template name="krextor:create-omdoc-resource">
+		<!-- FIXME rhetoricalBlock.  No documentUnit, as below InformationChunk level -->
 		<xsl:with-param name="related-via-properties" select="'&odo;hasSatellite'"/>
 		<xsl:with-param name="type" select="'&sr;Satellite'"/>
 	    </xsl:call-template>
@@ -477,24 +504,10 @@
 		</xsl:when>
 		<xsl:otherwise>
 		    <xsl:call-template name="krextor:create-omdoc-resource">
+		<!-- FIXME rhetoricalBlock.  No documentUnit, as below InformationChunk level -->
 			<xsl:with-param name="related-via-inverse-properties" select="'&sr;partOfRhetoricalStructure'"/>
 			<xsl:with-param name="type" select="concat('&sr;',
-				if (@relation = (
-				    (: rhetoric relation types (SALT) :)
-				    'antithesis',
-				    'circumstance',
-				    'concession',
-				    'condition',
-				    'evidence',
-				    'means',
-				    'preparation',
-				    'purpose',
-				    'cause',
-				    'consequence',
-				    'elaboration',
-				    'restatement',
-				    'solutionhood'
-				)) then omdoc:capitalize-type(@relation)
+				if (@relation = $salt-rhetorical-relation-types) then omdoc:capitalize-type(@relation)
 				else 'RhetoricalRelation')"/>
 			<xsl:with-param name="blank-node" select="true()"/>
 			<xsl:with-param name="process-next" select="."/>
@@ -519,6 +532,7 @@
 	
 	<xsl:template match="derive[@type='conclusion']">
 		<xsl:call-template name="krextor:create-omdoc-resource">
+		    <!-- FIXME documentUnit, mathematicalBlock -->
 			<xsl:with-param name="related-via-properties" select="'&odo;hasStep' , '&sdoc;hasPart'"/>
 			<xsl:with-param name="type" select="'&odo;DerivedConclusion'"/>
 			<xsl:with-param name="formality-degree" select="'&odo;Formal'"/>
@@ -527,6 +541,7 @@
 	
 	<xsl:template match="derive[@type='gap']">
 		<xsl:call-template name="krextor:create-omdoc-resource">
+		    <!-- FIXME documentUnit, mathematicalBlock -->
 			<xsl:with-param name="related-via-properties" select="'&odo;hasStep' , '&sdoc;hasPart'"/>
 			<xsl:with-param name="type" select="'&odo;Gap'"/>
 			<xsl:with-param name="formality-degree" select="'&odo;Formal'"/>
@@ -535,6 +550,7 @@
 	
 	<xsl:template match="derive[not(@type='conclusion') and not(@type='gap')]">
 		<xsl:call-template name="krextor:create-omdoc-resource">
+		    <!-- FIXME documentUnit, mathematicalBlock -->
 			<xsl:with-param name="related-via-properties" select="'&odo;hasStep' , '&sdoc;hasPart'"/>
 			<xsl:with-param name="type" select="'&odo;DerivationStep'"/>
 			<xsl:with-param name="formality-degree" select="'&odo;Formal'"/>
@@ -543,6 +559,7 @@
 	
 	<xsl:template match="hypothesis">
 		<xsl:call-template name="krextor:create-omdoc-resource">
+		    <!-- FIXME documentUnit, mathematicalBlock -->
 			<xsl:with-param name="related-via-properties" select="'&odo;hasStep' , '&sdoc;hasPart'"/>
 			<xsl:with-param name="type" select="'&odo;Hypothesis'"/>
 			<xsl:with-param name="formality-degree" select="'&odo;Formal'"/>
