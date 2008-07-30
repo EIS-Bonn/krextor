@@ -5,7 +5,7 @@
 
 <omdoc xml:id="test" xmlns="http://www.mathweb.org/omdoc" xmlns:om="http://www.openmath.org/OpenMath" xmlns:dc="http://pur1.org/dc/elements/1.1/" version="1.8">
 
-	<omtext xml:id="blabla" type="definition" verbalizes="nesto1 nesto2">
+	<omtext xml:id="OMT" type="definition" for="STH1">
 		
 		<metadata xml:id="metadatata">
 			<dc:author>Gordan Ristovski</dc:author>
@@ -44,8 +44,9 @@
 	            </FMP>
 	</omtext>
 	
-	<axiom xml:id="foo"/>
-
+	<axiom xml:id="foo" for="#random">
+		<CMP>Some Random Axiom</CMP>
+	</axiom>
 	<!--And now testing some proofs, reference:Listing 17.1 from OMDoc 1.2 manual-->
 	<assertion xml:id="a1">
 		<CMP>

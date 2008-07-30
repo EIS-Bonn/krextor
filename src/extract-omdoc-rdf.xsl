@@ -133,7 +133,8 @@
 	</xsl:variable>
 	<xsl:value-of select="string-join($capitalized-tokens, '')"/>
     </xsl:function>
-
+	<!-- TODO: There can also be @for for the rhetorical types but it's not yet completely clear where
+		the @for should point to and how to model it in the ontology. -->
 	<xsl:variable name="salt-rhetorical-block-types" select="
 	    'introduction',
 	    'background',
@@ -336,13 +337,19 @@
 	</xsl:call-template>
     </xsl:template>
 
-    <xsl:template match="definition/@for">
+	<xsl:template match="definition/@for|omtext[@type='definition']/@for">
 	<xsl:call-template name="krextor:add-uri-property">
 	    <xsl:with-param name="property" select="'&odo;defines'"/>
 	</xsl:call-template>
-    </xsl:template>
+	</xsl:template>
 	
+	<xsl:template match="example/@for|omtext[@type='example']/@for">
+		<xsl:call-template name="krextor:add-uri-property">
+			<xsl:with-param name="property" select="'&odo;exemplifies'"/>
+		</xsl:call-template>
+	</xsl:template>
 	
+
     <xsl:template match="alternative">
 	<xsl:call-template name="krextor:create-omdoc-resource">
 	    <!-- FIXME documentUnit, mathematicalBlock -->
@@ -398,7 +405,7 @@
 		</xsl:call-template>
 	</xsl:template>
     
-    <xsl:template match="proof/@for">
+	<xsl:template match="proof/@for|omtext[@type='proof']/@for">
 	<xsl:call-template name="krextor:add-uri-property">
 	   	<xsl:with-param name="property" select="'&odo;proves'"/>
 	</xsl:call-template>
@@ -432,7 +439,7 @@
 	</xsl:call-template>
     </xsl:template>
 	
-	<xsl:template match="FMP/assumption">
+	<xsl:template match="FMP/assumption|omtext[@type='assumption']/@for">
 		<xsl:call-template name="krextor:create-omdoc-resource">
 	    <!-- FIXME mathematicalBlock -->
 			<xsl:with-param name="related-via-properties" select="'&odo;assumes'"/>
