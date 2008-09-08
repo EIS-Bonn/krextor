@@ -150,6 +150,10 @@
 	</xsl:if>
     </xsl:template>
 
+	<!-- Note: in cases where the mcd:notation element does not point to the symbol it renders, we may
+	     need (mcd:prototype/((.|om:OMA|om:OMBIND|om:OMATTR/om:OMATP)/om:OMS|(.|m:apply|m:bind)/m:csymbol|m:semantics/m:annotation-xml))[1]
+	     instead.
+	     See https://trac.kwarc.info/jomdoc/ticket/76 -->
     <xsl:template match="@name[parent::mcd:notation[@cd]]">
 	<xsl:variable name="notation" select="parent::mcd:notation"/>
 	<xsl:call-template name="krextor:add-uri-property">
