@@ -24,6 +24,7 @@
 
 <!DOCTYPE xsl:stylesheet [
     <!ENTITY omo "http://www.openmath.org/ontology#">
+    <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#">
     <!ENTITY dc "http://purl.org/dc/elements/1.1/">
 ]>
 
@@ -47,6 +48,8 @@
 
     <xsl:include href="util-openmath-symbols.xsl"/>
 
+    <xsl:strip-space elements="*"/>
+
     <xsl:template match="CD">
 	<xsl:call-template name="krextor:create-resource">
 	    <xsl:with-param name="type" select="'&omo;ContentDictionary'"/>
@@ -61,24 +64,69 @@
 
     <xsl:template match="CDDefinition">
 	<xsl:call-template name="krextor:create-resource">
+	    <xsl:with-param name="related-via-properties" select="'&omo;containsSymbolDefinition'"/>
 	    <xsl:with-param name="type" select="'&omo;SymbolDefinition'"/>
+	</xsl:call-template>
+    </xsl:template>    
+
+    <xsl:template match="description">
+	<xsl:call-template name="krextor:create-resource">
+	    <!-- OpenMath 3 transition: no specific types known yet -->
+	    <xsl:with-param name="related-via-properties" select="'&omo;hasDirectPart'"/>
+	    <xsl:with-param name="type" select="'&omo;OpenMathConcept'"/>
+	</xsl:call-template>
+    </xsl:template>    
+
+    <xsl:template match="discussion">
+	<xsl:call-template name="krextor:create-resource">
+	    <!-- OpenMath 3 transition: no specific types known yet -->
+	    <xsl:with-param name="related-via-properties" select="'&omo;hasDirectPart'"/>
+	    <xsl:with-param name="type" select="'&omo;OpenMathConcept'"/>
+	</xsl:call-template>
+    </xsl:template>    
+
+    <xsl:template match="property">
+	<xsl:call-template name="krextor:create-resource">
+	    <xsl:with-param name="related-via-properties" select="'&omo;hasProperty'"/>
+	    <xsl:with-param name="type" select="'&omo;Property'"/>
+	    <!-- FIXME remove when OpenMath 3 is stable, as then we'll always
+	    have CMPs and FMPs inside properties, no longer ones that are
+	    direct children of CDDefinition -->
+	    <xsl:with-param name="inside-property" select="true()" tunnel="yes"/>
 	</xsl:call-template>
     </xsl:template>    
 
     <xsl:template match="CMP">
 	<xsl:call-template name="krextor:create-resource">
+	    <!-- This is for OpenMath 2 backwards compatibility.  In OpenMath 3, this
+		 will only be a child of property. -->
+	    <xsl:with-param name="related-via-properties" select="if (parent::CDDefinition) then '&omo;hasCommentedProperty' else '&omo;hasCommentedPart'"/>
 	    <xsl:with-param name="type" select="'&omo;CommentedProperty'"/>
 	</xsl:call-template>
     </xsl:template>    
 
+    <!-- This is for OpenMath 2 backwards compatibility.  In OpenMath 3, this
+         will be a child of property. -->
     <xsl:template match="FMP">
 	<xsl:call-template name="krextor:create-resource">
+	    <!-- This is for OpenMath 2 backwards compatibility.  In OpenMath 3, this
+		 will only be a child of property. -->
+	    <xsl:with-param name="related-via-properties" select="if (parent::CDDefinition) then '&omo;hasFormalProperty' else '&omo;hasFormalPart'"/>
 	    <xsl:with-param name="type" select="'&omo;FormalProperty'"/>
 	</xsl:call-template>
     </xsl:template>    
 
-    <xsl:template match="Example">
+    <xsl:template match="Pragmatic">
 	<xsl:call-template name="krextor:create-resource">
+	    <xsl:with-param name="related-via-properties" select="'&omo;hasPragmaticGuidelines'"/>
+	    <xsl:with-param name="type" select="'&omo;PragmaticGuidelines'"/>
+	</xsl:call-template>
+    </xsl:template>    
+
+    <!-- OpenMath 3 transition: allow MMLexample here, too -->
+    <xsl:template match="MMLexample|Example">
+	<xsl:call-template name="krextor:create-resource">
+	    <xsl:with-param name="related-via-properties" select="'&omo;hasExample'"/>
 	    <xsl:with-param name="type" select="'&omo;Example'"/>
 	</xsl:call-template>
     </xsl:template>    
@@ -112,6 +160,7 @@
 
     <xsl:template match="ocds:Signature">
 	<xsl:call-template name="krextor:create-resource">
+	    <xsl:with-param name="related-via-properties" select="'&omo;containsSignature'"/>
 	    <xsl:with-param name="type" select="'&omo;Signature'"/>
 	</xsl:call-template>
     </xsl:template>    
@@ -132,6 +181,7 @@
 
     <xsl:template match="mcd:notation">
 	<xsl:call-template name="krextor:create-resource">
+	    <xsl:with-param name="related-via-properties" select="'&omo;containsNotationDefinition'"/>
 	    <xsl:with-param name="type" select="'&omo;Notation'"/>
 	</xsl:call-template>
 	
@@ -167,7 +217,8 @@
     </xsl:template>
 
     <xsl:template match="Name|CDName">
-	<!-- TODO reconsider whether dc:identifier actually is the right property -->
+	<!-- TODO reconsider whether dc:identifier actually is the right property
+	     See discussion in the OpenMath ontology source -->
 	<xsl:call-template name="krextor:add-literal-property">
 	    <xsl:with-param name="property" select="'&dc;identifier'"/>
 	    <xsl:with-param name="normalize-space" select="true()"/>
@@ -181,6 +232,13 @@
 	</xsl:call-template>
     </xsl:template>
 
+    <xsl:template match="Title">
+	<xsl:call-template name="krextor:add-literal-property">
+	    <xsl:with-param name="property" select="'&dc;title'"/>
+	    <xsl:with-param name="normalize-space" select="true()"/>
+	</xsl:call-template>
+    </xsl:template>
+
     <xsl:template match="CDDate">
 	<xsl:call-template name="krextor:add-literal-property">
 	    <xsl:with-param name="property" select="'&dc;date'"/>
@@ -190,7 +248,7 @@
 
     <xsl:template match="CDComment">
 	<xsl:call-template name="krextor:add-literal-property">
-	    <xsl:with-param name="property" select="'&dc;comment'"/>
+	    <xsl:with-param name="property" select="'&rdfs;comment'"/>
 	</xsl:call-template>
     </xsl:template>
 
@@ -254,19 +312,58 @@
 	</xsl:call-template>
     </xsl:template>
 
+    <xsl:template match="description" mode="included">
+	<xsl:call-template name="krextor:add-uri-property">
+	    <!-- OpenMath 3 transition: no specific type known yet -->
+	    <xsl:with-param name="property" select="'&omo;hasDirectPart'"/>
+	</xsl:call-template>
+    </xsl:template>
+
+    <xsl:template match="discussion" mode="included">
+	<xsl:call-template name="krextor:add-uri-property">
+	    <!-- OpenMath 3 transition: no specific type known yet -->
+	    <xsl:with-param name="property" select="'&omo;hasDirectPart'"/>
+	</xsl:call-template>
+    </xsl:template>
+
+    <xsl:template match="property" mode="included">
+	<xsl:call-template name="krextor:add-uri-property">
+	    <xsl:with-param name="property" select="'&omo;hasProperty'"/>
+	</xsl:call-template>
+    </xsl:template>
+
+    <!-- This is for OpenMath 2 backwards compatibility.  In OpenMath 3, this
+         will be a child of property. -->
     <xsl:template match="CMP" mode="included">
+	<!-- FIXME remove when OpenMath 3 is stable, as then we'll always
+	have CMPs and FMPs inside properties, no longer ones that are
+	direct children of CDDefinition -->
+	<xsl:param name="inside-property" select="false()" tunnel="yes"/>
 	<xsl:call-template name="krextor:add-uri-property">
-	    <xsl:with-param name="property" select="'&omo;hasCommentedProperty'"/>
+	    <xsl:with-param name="property" select="if ($inside-property) then '&omo;hasCommentedPart' else '&omo;hasCommentedProperty'"/>
 	</xsl:call-template>
     </xsl:template>
 
+    <!-- This is for OpenMath 2 backwards compatibility.  In OpenMath 3, this
+         will be a child of property. -->
     <xsl:template match="FMP" mode="included">
+	<!-- FIXME remove when OpenMath 3 is stable, as then we'll always
+	have CMPs and FMPs inside properties, no longer ones that are
+	direct children of CDDefinition -->
+	<xsl:param name="inside-property" select="false()" tunnel="yes"/>
 	<xsl:call-template name="krextor:add-uri-property">
-	    <xsl:with-param name="property" select="'&omo;hasFormalProperty'"/>
+	    <xsl:with-param name="property" select="if ($inside-property) then '&omo;hasFormalPart' else '&omo;hasFormalProperty'"/>
 	</xsl:call-template>
     </xsl:template>
 
-    <xsl:template match="Example" mode="included">
+    <xsl:template match="Pragmatic" mode="included">
+	<xsl:call-template name="krextor:add-uri-property">
+	    <xsl:with-param name="property" select="'&omo;hasPragmaticGuidelines'"/>
+	</xsl:call-template>
+    </xsl:template>
+
+    <!-- OpenMath 3 transition: allow MMLexample here, too -->
+    <xsl:template match="MMLexample|Example" mode="included">
 	<xsl:call-template name="krextor:add-uri-property">
 	    <xsl:with-param name="property" select="'&omo;hasExample'"/>
 	</xsl:call-template>
