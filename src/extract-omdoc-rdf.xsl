@@ -37,9 +37,9 @@
 	See https://svn.omdoc.org/repos/omdoc/trunk/owl for the corresponding ontology.
 -->
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" 
-    xpath-default-namespace="http://www.mathweb.org/omdoc"
+    xpath-default-namespace="http://omdoc.org/ns"
     xmlns:krextor="http://kwarc.info/projects/krextor/"
-    xmlns:omdoc="http://www.mathweb.org/omdoc"
+    xmlns:omdoc="http://omdoc.org/ns"
     xmlns:om="http://www.openmath.org/OpenMath"
     exclude-result-prefixes="omdoc om krextor"
     version="2.0">

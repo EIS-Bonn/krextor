@@ -33,6 +33,8 @@
 	Currently, RDF is only extracted from top-level elements. CDs are assumed
 	to be split into fragments of interest, which are XIncluded by their parents.
 
+	Existing metadata vocabularies are reused, as documented in the ontology.
+
 	See https://svn.openmath.org/OpenMath3/owl for the corresponding ontology.
 -->
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" 

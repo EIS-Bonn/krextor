@@ -67,6 +67,14 @@ relationships between fragments in the "references" portlet.
 	 generate URIs that differ from all xml:ids in the document.  We leave
 	 the responsibility of not creating xml:ids too obscure to the document
 	 author.
+
+	 Also note that any fragment ID that the base URI of the document
+	 already has is discarded and replaced by the generated fragment ID, if
+	 Krextor is instructed to generate one.  More than one fragment is not
+	 allowed by the URI RFC 3986 (http://www.faqs.org/rfcs/rfc3986.html).
+	 See
+	 http://www.aifb.uni-karlsruhe.de/pipermail/swikig/2006-February/000095.html
+	 for more background on this in a semantic web context.
     -->
     <param name="autogenerate-fragment-uris" select="('xml-id',
 	'document-root-base')"/>
@@ -254,20 +262,22 @@ relationships between fragments in the "references" portlet.
 		</call-template>
 	    </for-each>
 
-	    <!-- Relate this resource to its parent -->
-	    <call-template name="krextor:related-via-properties">
-		<with-param name="properties" select="$related-via-properties"/>
-		<with-param name="blank-node" select="$blank-node"/>
-		<with-param name="generated-blank-node-id" select="$generated-blank-node-id"/>
-		<with-param name="generated-uri" select="$generated-uri"/>
-	    </call-template>
-	    <call-template name="krextor:related-via-properties">
-		<with-param name="properties" select="$related-via-inverse-properties"/>
-		<with-param name="inverse" select="true()"/>
-		<with-param name="blank-node" select="$blank-node"/>
-		<with-param name="generated-blank-node-id" select="$generated-blank-node-id"/>
-		<with-param name="generated-uri" select="$generated-uri"/>
-	    </call-template>
+	    <if test="not(parent::node() instance of document-node())">
+		<!-- Relate this resource to its parent, if it has a parent -->
+		<call-template name="krextor:related-via-properties">
+		    <with-param name="properties" select="$related-via-properties"/>
+		    <with-param name="blank-node" select="$blank-node"/>
+		    <with-param name="generated-blank-node-id" select="$generated-blank-node-id"/>
+		    <with-param name="generated-uri" select="$generated-uri"/>
+		</call-template>
+		<call-template name="krextor:related-via-properties">
+		    <with-param name="properties" select="$related-via-inverse-properties"/>
+		    <with-param name="inverse" select="true()"/>
+		    <with-param name="blank-node" select="$blank-node"/>
+		    <with-param name="generated-blank-node-id" select="$generated-blank-node-id"/>
+		    <with-param name="generated-uri" select="$generated-uri"/>
+		</call-template>
+	    </if>
 
 	    <!-- Add additional properties to this resource -->
 	    <if test="$properties">
@@ -432,5 +442,6 @@ relationships between fragments in the "references" portlet.
     <!-- No RDF is extracted from attributes that are not matched by the
 	 language-specific templates, nor from text nodes. -->
     <template match="@*|text()"/>
+    <template match="@*|text()" mode="included"/>
 </stylesheet>
 
