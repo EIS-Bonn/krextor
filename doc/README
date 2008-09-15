@@ -44,7 +44,7 @@ module for the desired XML language (e.g. OMDoc) and the name of the output
 module for the desired output RDF notation (e.g. RXR).
 
 Popular transformations (e.g. OMDoc to RXR) are available as pre-defined
-stylesheets, e.g.  transform-omdoc-rxr.xsl.
+stylesheets, e.g. transform-omdoc-rxr.xsl.
 
 Run it with
 $ saxon document.omdoc transform-omdoc-rxr.xsl
@@ -58,8 +58,8 @@ are located in the subdirectory “krextor”:
 <?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                 version="2.0">
-  <xsl:import href="krextor/output-rdf-rxr.xsl"/>
-  <xsl:import href="krextor/extract-ocd-rdf.xsl"/>
+  <xsl:import href="krextor/output/rxr.xsl"/>
+  <xsl:import href="krextor/extract/ocd.xsl"/>
 
   <!-- Put application-specific template here.  You can also override 
        imported templates. -->
@@ -162,49 +162,7 @@ are set up correctly:
 === Output ===
 
 To write an extraction module for a new RDF notation, copy and adapt the
-following template:
-
-<?xml version="1.0" encoding="UTF-8"?>
-
-<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" 
-    xmlns:krextor="http://kwarc.info/projects/krextor/"
-    exclude-result-prefixes="krextor"
-    version="2.0">
-    <!-- Note that text output is possible, too. -->
-    <xsl:output method="xml" encoding="UTF-8" indent="yes" omit-xml-declaration="no"/>
-
-    <xsl:import href="generic-templates.xsl"/>
-
-    <!-- creates one RDF triple -->
-    <xsl:template name="krextor:output-triple">
-	<!-- value of the subject -->
-	<xsl:param name="subject" required="yes"/>
-	<!-- type of the subject: either 'uri' or 'blank' -->
-	<xsl:param name="subject-type" select="'uri'"/>
-
-	<!-- value of the predicate -->
-	<xsl:param name="predicate" required="yes"/>
-
-	<!-- value of the object -->
-	<xsl:param name="object" required="yes"/>
-	<!-- type of the object: either 'uri' or 'blank',
-	     or nothing for literal objects -->
-	<xsl:param name="object-type"/>
-	<!-- language annotation is only supported on the object,
-	     but neither on triples nor on graphs, as in RXR -->
-	<xsl:param name="object-language"/>
-	<!-- datatype of the (literal) object -->
-	<xsl:param name="object-datatype"/>
-
-        <!-- output the triple -->
-    </xsl:template>
-
-    <xsl:template match="/">
-	<!-- begin output -->
-	<xsl:apply-imports/>
-	<!-- end output -->
-    </xsl:template>
-</xsl:stylesheet>
+template output/none.xsl.
 
 Blank nodes, as well as language and datatype annotations for objects, will
 only be generated if the extraction module requests it; that is, for simple
