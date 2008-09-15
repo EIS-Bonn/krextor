@@ -35,7 +35,7 @@ http://ilrt.org/discovery/2004/03/rxr/
     xmlns:krextor="http://kwarc.info/projects/krextor/"
     exclude-result-prefixes="krextor"
     version="2.0">
-    <xsl:import href="generic-templates.xsl"/>
+    <xsl:import href="../generic/generic.xsl"/>
 
     <xsl:output method="xml" encoding="UTF-8" indent="yes" omit-xml-declaration="no"/>
 

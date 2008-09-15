@@ -48,7 +48,7 @@
     exclude-result-prefixes="om ocd ocds ocdg mcd krextor"
     version="2.0">
 
-    <xsl:include href="util-openmath-symbols.xsl"/>
+    <xsl:include href="util/openmath.xsl"/>
 
     <xsl:strip-space elements="*"/>
 

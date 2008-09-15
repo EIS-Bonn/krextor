@@ -30,7 +30,7 @@ This stylesheet does not create any output.  It is intended for debugging.
     xmlns:krextor="http://kwarc.info/projects/krextor/"
     exclude-result-prefixes="krextor"
     version="2.0">
-    <xsl:import href="generic-templates.xsl"/>
+    <xsl:import href="../generic/generic.xsl"/>
 
     <xsl:output method="xml" encoding="UTF-8" indent="yes" omit-xml-declaration="no"/>
 

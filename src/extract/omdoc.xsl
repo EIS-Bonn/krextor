@@ -70,7 +70,7 @@
 
     <xsl:param name="use-root-xmlid" select="false()"/>
 
-    <xsl:include href="util-openmath-symbols.xsl"/>
+    <xsl:include href="util/openmath.xsl"/>
 	
     <xsl:template name="krextor:create-omdoc-resource">
 	<xsl:param name="type"/>
@@ -197,6 +197,7 @@
 	</xsl:template>
 	
 	<xsl:template match="omdoc">
+	    <krextor:HELLO/>
 		<xsl:call-template name="krextor:create-omdoc-resource">
 			<xsl:with-param name="type" select="'&odo;Document'"/>
 			<xsl:with-param name="ontologies" select="'document'"/>
