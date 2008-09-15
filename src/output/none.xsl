@@ -32,8 +32,10 @@ This stylesheet does not create any output.  It is intended for debugging.
     version="2.0">
     <xsl:import href="../generic/generic.xsl"/>
 
+    <!-- Note that text output is possible, too. -->
     <xsl:output method="xml" encoding="UTF-8" indent="yes" omit-xml-declaration="no"/>
 
+    <!-- creates one RDF triple -->
     <xsl:template name="krextor:output-triple">
 	<!-- value of the subject -->
 	<xsl:param name="subject" required="yes"/>
@@ -53,5 +55,13 @@ This stylesheet does not create any output.  It is intended for debugging.
 	<xsl:param name="object-language"/>
 	<!-- datatype of the (literal) object -->
 	<xsl:param name="object-datatype"/>
+
+	<!-- output the triple -->
+    </xsl:template>
+
+    <xsl:template match="/">
+	<!-- begin output -->
+	<xsl:apply-imports/>
+	<!-- end output -->
     </xsl:template>
 </xsl:stylesheet>
