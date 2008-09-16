@@ -40,7 +40,7 @@ would be loaded and the respective fragment shown), but you would e.g. not see
 relationships between fragments in the "references" portlet.
 -->
 <stylesheet xmlns="http://www.w3.org/1999/XSL/Transform" 
-    xmlns:krextor="http://kwarc.info/projects/krextor/"
+    xmlns:krextor="http://kwarc.info/projects/krextor"
     xmlns:xi="http://www.w3.org/2001/XInclude"
     xmlns:xs="http://www.w3.org/2001/XMLSchema"
     exclude-result-prefixes="krextor xi xs"

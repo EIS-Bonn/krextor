@@ -39,7 +39,7 @@
 -->
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" 
     xpath-default-namespace="http://www.openmath.org/OpenMathCD"
-    xmlns:krextor="http://kwarc.info/projects/krextor/"
+    xmlns:krextor="http://kwarc.info/projects/krextor"
     xmlns:om="http://www.openmath.org/OpenMath"
     xmlns:ocd="http://www.openmath.org/OpenMathCD"
     xmlns:ocds="http://www.openmath.org/OpenMathCDS"

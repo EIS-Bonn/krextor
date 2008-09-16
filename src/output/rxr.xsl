@@ -32,7 +32,7 @@ http://ilrt.org/discovery/2004/03/rxr/
 -->
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" 
     xmlns:rxr="http://ilrt.org/discovery/2004/03/rxr/"
-    xmlns:krextor="http://kwarc.info/projects/krextor/"
+    xmlns:krextor="http://kwarc.info/projects/krextor"
     exclude-result-prefixes="krextor"
     version="2.0">
     <xsl:import href="../generic/generic.xsl"/>

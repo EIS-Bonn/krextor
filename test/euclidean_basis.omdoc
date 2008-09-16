@@ -4,8 +4,8 @@
 <!-- Author: Andrei Ioniţă -->
 
 <omdoc cdbase="http://cds.omdoc.org/geometry"
-       xmlns="http://www.mathweb.org/omdoc" 
-       xmlns:om="http://www.openmath.org/OpenMath" version="1.8">
+       xmlns="http://omdoc.org/ns" 
+       xmlns:om="http://www.openmath.org/OpenMath" version="1.6">
 
 <theory name="euclidean_axioms" meta="http://cds.omdoc.org/logics/fol">
 

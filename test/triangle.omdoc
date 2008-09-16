@@ -3,7 +3,7 @@
 
 <!-- Author: Andrei Ioniţă -->
 
-<omdoc xml:id="triangle" xmlns="http://www.mathweb.org/omdoc" xmlns:om="http://www.openmath.org/OpenMath" version="1.8">
+<omdoc xml:id="triangle" xmlns="http://omdoc.org/ns" xmlns:om="http://www.openmath.org/OpenMath" version="1.6">
 
 <theory xml:id="thy-triangle" name="triangle" meta="http://www.mathweb.org/twelf/twelf">
 

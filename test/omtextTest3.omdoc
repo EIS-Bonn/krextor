@@ -4,7 +4,7 @@
 <!-- Author: Gordan Ristovski -->
 
 
-<omdoc xml:id="test" xmlns="http://www.mathweb.org/omdoc" xmlns:om="http://www.openmath.org/OpenMath" xmlns:dc="http://pur1.org/dc/elements/1.1/" version="1.8">
+<omdoc xml:id="test" xmlns="http://omdoc.org/ns" xmlns:om="http://www.openmath.org/OpenMath" xmlns:dc="http://pur1.org/dc/elements/1.1/" version="1.6">
         
     
     <theory xml:id="t1">
