@@ -24,7 +24,6 @@
 
 <!DOCTYPE stylesheet [
     <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#">
-    <!ENTITY lang "http://purl.org/dc/elements/1.1/language#">
 ]>
 
 <!--
@@ -82,6 +81,9 @@ relationships between fragments in the "references" portlet.
     <!-- Should XIncludes be traversed?  Note: Templates for nodes in XIncluded
          documents are matched in "included" mode. -->
     <param name="traverse-xincludes" select="true()"/>
+
+    <variable name="krextor:resources" select="()"/>
+    <variable name="krextor:literal-properties" select="()"/>
 
     <!-- Checks whether a given node is a text node, an attribute, or an atomic value -->
     <function name="krextor:is-text-or-attribute-or-atomic">
@@ -212,6 +214,7 @@ relationships between fragments in the "references" portlet.
     or children of this element.
     -->
     <template name="krextor:create-resource">
+	<param name="subject"/>
 	<param name="related-via-properties" select="()"/>
 	<param name="related-via-inverse-properties" select="()"/>
 	<param name="type"/>
@@ -241,6 +244,7 @@ relationships between fragments in the "references" portlet.
 	<param name="blank-node" select="false()"/>
 	<param name="blank-node-id" tunnel="yes"/>
 	<variable name="generated-uri" select="if ($blank-node) then $base-uri
+	    else if ($subject) then $subject
 	    else if (exists($autogenerate-fragment-uri)) 
 		then krextor:generate-uri(., position(), $autogenerate-fragment-uri, $base-uri)
 	    else $base-uri"/>
@@ -312,25 +316,40 @@ relationships between fragments in the "references" portlet.
 	</if>
     </template>
 
+    <template match="*" mode="krextor:create-resource">
+	<variable name="mapping" select="$krextor:resources/*[
+		    local-name() eq local-name(current())
+		    and namespace-uri() eq namespace-uri(current())]"/>
+	<call-template name="krextor:create-resource">
+	    <with-param name="type" select="$mapping/@type"/>
+	    <with-param name="related-via-properties" select="$mapping/@related-via-properties"/>
+	    <with-param name="related-via-inverse-properties" select="$mapping/@related-via-inverse-properties"/>
+	</call-template>
+    </template>
+
     <!-- Adds a literal-valued property to the resource in whose
          create-resource scope this template was called. -->
     <template name="krextor:add-literal-property">
 	<param name="base-uri" tunnel="yes"/>
 	<param name="blank-node-id" tunnel="yes"/>
-	<param name="property" required="yes"/>
+	<param name="property"/>
+	<!-- property from incomplete triples -->
+	<param name="tunneled-property" tunnel="yes"/>
 	<param name="object" select="."/>
 	<!-- Is the object a whitespace-separated list? -->
-	<param name="list" select="false()"/>
+	<param name="list" select="false()" as="xs:boolean"/>
 	<!-- Normalize whitespace around the value of the object? -->
-	<param name="normalize-space" select="false()"/>
+	<param name="normalize-space" select="false()" as="xs:boolean"/>
 	<param name="object-language" select="''"/>
 	<param name="object-datatype" select="''"/>
+	<variable name="actual-property" select="if ($property) then $property
+	    else $tunneled-property"/>
 	<choose>
 	    <!-- If the "object" is a whitespace-separated list of actual objects, we recursively generate one triple for each object. -->
 	    <when test="$list">
 		<for-each select="tokenize($object, '\s+')">
 		    <call-template name="krextor:add-literal-property">
-			<with-param name="property" select="$property"/>
+			<with-param name="property" select="$actual-property"/>
 			<with-param name="object" select="."/>
 			<!-- Make sure that we don't run into an infinite loop ;-) -->
 			<with-param name="list" select="false()"/>
@@ -343,7 +362,7 @@ relationships between fragments in the "references" portlet.
 			else $base-uri"/>
 		    <with-param name="subject-type" select="if ($blank-node-id) then 'blank'
 			else 'uri'"/>
-		    <with-param name="predicate" select="$property"/>
+		    <with-param name="predicate" select="$actual-property"/>
 		    <with-param name="object" select="if ($normalize-space) then normalize-space($object)
 			else $object"/>
 		    <with-param name="object-language" select="$object-language"/>
@@ -353,14 +372,30 @@ relationships between fragments in the "references" portlet.
 	</choose>
     </template>    
 
+    <template match="*|@*" mode="krextor:add-literal-property">
+	<variable name="mapping" select="$krextor:literal-properties/*[
+		    local-name() eq local-name(current())
+		    and namespace-uri() eq namespace-uri(current())
+		    and (not(current() instance of attribute()) or @krextor-attribute)]"/>
+	<call-template name="krextor:add-literal-property">
+	    <with-param name="property" select="$mapping/@property"/>
+	    <with-param name="list" select="boolean($mapping/@list)"/>
+	    <with-param name="normalize-space" select="$mapping/@normalize-space"/>
+	</call-template>
+    </template>
+
     <!-- Adds a URI-valued property to the resource in whose create-resource
          scope this template was called. -->
     <template name="krextor:add-uri-property">
 	<param name="base-uri" tunnel="yes"/>
 	<param name="blank-node-id" tunnel="yes"/>
-	<param name="property" required="yes"/>
+	<param name="property"/>
+	<!-- property from incomplete triples -->
+	<param name="tunneled-property" tunnel="yes"/>
 	<!-- Should the property be applied in inverse direction? -->
 	<param name="inverse" select="false()"/>
+	<!-- inverse information from incomplete triples -->
+	<param name="tunneled-inverse" tunnel="yes"/>
 	<!-- Is the object a whitespace-separated list? -->
 	<param name="list" select="false()"/>
 	<!-- Currently we assume that, if no explicit link target is given, we are either:
@@ -373,16 +408,20 @@ relationships between fragments in the "references" portlet.
 	    else ''"/>
 	<!-- node ID, if the object is a blank node -->
 	<param name="blank"/>
-	<if test="$blank or $object">
+	<if test="($blank or $object) and ($property or $tunneled-property)">
 	    <variable name="actual-object" select="if ($blank) then $blank
 		else $object"/>
+	    <variable name="actual-property" select="if ($property) then $property
+		else $tunneled-property"/>
+	    <variable name="actual-inverse" select="if ($property) then $inverse
+		else $tunneled-inverse"/>
 	    <choose>
 		<!-- If the "object" is a whitespace-separated list of actual objects, we recursively generate one triple for each object. -->
 		<when test="$list">
 		    <for-each select="tokenize($actual-object, '\s+')">
 			<call-template name="krextor:add-uri-property">
-			    <with-param name="property" select="$property"/>
-			    <with-param name="inverse" select="$inverse"/>
+			    <with-param name="property" select="$actual-property"/>
+			    <with-param name="inverse" select="$actual-inverse"/>
 			    <!-- Make sure that we don't run into an infinite loop ;-) -->
 			    <with-param name="list" select="false()"/>
 			</call-template>
@@ -390,11 +429,11 @@ relationships between fragments in the "references" portlet.
 		</when>
 		<otherwise>
 		    <choose>
-			<when test="$inverse">
+			<when test="$actual-inverse">
 			    <call-template name="krextor:output-triple">
 				<with-param name="subject" select="$actual-object"/>
 				<with-param name="subject-type" select="if ($blank) then 'blank' else 'uri'"/>
-				<with-param name="predicate" select="$property"/>
+				<with-param name="predicate" select="$actual-property"/>
 				<with-param name="object" select="if ($blank-node-id) then $blank-node-id
 				    else $base-uri"/>
 				<with-param name="object-type" select="if ($blank-node-id) then 'blank'
@@ -407,7 +446,7 @@ relationships between fragments in the "references" portlet.
 				    else $base-uri"/>
 				<with-param name="subject-type" select="if ($blank-node-id) then 'blank'
 				    else 'uri'"/>
-				<with-param name="predicate" select="$property"/>
+				<with-param name="predicate" select="$actual-property"/>
 				<with-param name="object" select="$actual-object"/>
 				<with-param name="object-type" select="if ($blank) then 'blank' else 'uri'"/>
 			    </call-template>
@@ -417,6 +456,19 @@ relationships between fragments in the "references" portlet.
 	    </choose>
 	</if>
     </template>    
+
+    <!-- Creates a property whose values are added by nested template calls -->
+    <template name="krextor:create-property">
+	<param name="property" required="yes"/>
+	<param name="inverse" select="false()"/>
+	<!-- The node set to which apply-templates is applied -->
+	<!-- We also process attributes, as they may contain links to other resources -->
+	<param name="process-next" select="*|@*"/>
+	<apply-templates select="$process-next">
+	    <with-param name="tunneled-property" select="$property" tunnel="yes"/>
+	    <with-param name="tunneled-inverse" select="$inverse" tunnel="yes"/>
+	</apply-templates>
+    </template>
 
     <!-- We support the following generic inclusion mechanism for XML documents:
     A root element R of a transcluded documents will be treated like a direct child of the parent element P of the xi:include element.  If there is a relevant relationship between P and R, an according triple is generated, with the transcluded document's URI (not the URI of R!) being the object.  The transcluded document is loaded and its root node examined in order to find this out.  Any relationships between elements of the transcluding document and the transcluded document that are not direct relationships between P and R are not considered during RDF extraction.

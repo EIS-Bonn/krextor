@@ -40,6 +40,7 @@
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" 
     xpath-default-namespace="http://www.openmath.org/OpenMathCD"
     xmlns:krextor="http://kwarc.info/projects/krextor"
+    xmlns="http://www.openmath.org/OpenMathCD"
     xmlns:om="http://www.openmath.org/OpenMath"
     xmlns:ocd="http://www.openmath.org/OpenMathCD"
     xmlns:ocds="http://www.openmath.org/OpenMathCDS"
@@ -51,42 +52,94 @@
     <xsl:include href="util/openmath.xsl"/>
 
     <xsl:strip-space elements="*"/>
+    
+    <!-- Easy XML -> RDF mappings -->
+    <xsl:variable name="krextor:resources">
+	<CD type="&omo;ContentDictionary"/>
+	<CDDefinition type="&omo;SymbolDefinition"
+	    related-via-properties="&omo;containsSymbolDefinition"/>
+	<!-- OpenMath 3 transition: no specific types known yet -->
+	<description type="&omo;OpenMathConcept"
+	    related-via-properties="&omo;hasDirectPart"/>
+	<!-- OpenMath 3 transition: no specific types known yet -->
+	<discussion type="&omo;OpenMathConcept"
+	    related-via-properties="&omo;hasDirectPart"/>
+	<Pragmatic type="&omo;PragmaticGuidelines"
+	    related-via-properties="&omo;hasPragmaticGuidelines"/>
+	<Example type="&omo;Example"
+	    related-via-properties="&omo;hasExample"/>
+	<!-- OpenMath 3 transition: allow MMLexample here, too -->
+	<MMLexample type="&omo;Example"
+	    related-via-properties="&omo;hasExample"/>
+	<ocdg:CDGroup type="&omo;ContentDictionaryGroup"/>
+	<ocds:CDSignatures type="&omo;SignatureDictionary"/>
+	<ocds:Signature type="&omo;Signature"
+	    related-via-properties="&omo;containsSignature"/>
+	<mcd:notations type="&omo;NotationDictionary"/>
+    </xsl:variable>
 
-    <xsl:template match="CD">
-	<xsl:call-template name="krextor:create-resource">
-	    <xsl:with-param name="type" select="'&omo;ContentDictionary'"/>
-	</xsl:call-template>
+    <xsl:template match="CD|
+	CDDefinition|
+	description|
+	discussion|
+	Pragmatic|
+	Example|
+	MMLexample|
+	ocdg:CDGroup|
+	ocds:CDSignatures|
+	ocds:Signature|
+	mcd:notations">
+	<xsl:apply-templates select="." mode="krextor:create-resource"/>
     </xsl:template>    
 
-    <xsl:template match="ocdg:CDGroup">
-	<xsl:call-template name="krextor:create-resource">
-	    <xsl:with-param name="type" select="'&omo;ContentDictionaryGroup'"/>
-	</xsl:call-template>
-    </xsl:template>    
+    <xsl:variable name="krextor:literal-properties">
+	<!-- TODO reconsider whether dc:identifier actually is the right property
+	     See discussion in the OpenMath ontology source -->
+	<Name property="&dc;identifier" normalize-space="true"/>
+	<CDName property="&dc;identifier" normalize-space="true"/>
+	<Description property="&dc;description" normalize-space="true"/>
+	<Title property="&dc;title" normalize-space="true"/>
+	<CDDate property="&dc;date" normalize-space="true"/>
+	<CDComment property="&rdfs;comment" normalize-space="true"/>
+	<CDReviewDate property="&omo;reviewDate" normalize-space="true"/>
+	<ocds:CDSReviewDate property="&omo;reviewDate" normalize-space="true"/>
+	<CDStatus property="&omo;status" normalize-space="true"/>
+	<ocds:CDSStatus property="&omo;status" normalize-space="true"/>
+	<CDVersion property="&omo;version" normalize-space="true"/>
+	<ocdg:CDGroupVersion property="&omo;version" normalize-space="true"/>
+	<CDRevision property="&omo;revision" normalize-space="true"/>
+	<ocdg:CDGroupRevision property="&omo;revision" normalize-space="true"/>
+	<CDURL property="&omo;url" normalize-space="true"/>
+	<ocdg:CDGroupURL property="&omo;url" normalize-space="true"/>
+	<!--  for now we store this as a literal, as SWiM does not yet support URI properties with external objects -->
+	<CDBase property="&omo;base" normalize-space="true"/>
+	<Role property="&omo;role" normalize-space="true"/>
+    </xsl:variable>
 
-    <xsl:template match="CDDefinition">
-	<xsl:call-template name="krextor:create-resource">
-	    <xsl:with-param name="related-via-properties" select="'&omo;containsSymbolDefinition'"/>
-	    <xsl:with-param name="type" select="'&omo;SymbolDefinition'"/>
-	</xsl:call-template>
-    </xsl:template>    
+    <xsl:template match="Name|
+	CDName|
+	Description|
+	Title|
+	CDDate|
+	CDComment|
+	CDReviewDate|
+	ocds:CDSReviewDate|
+	CDStatus|
+	ocds:CDSStatus|
+	CDVersion|
+	ocdg:CDGroupVersion|
+	CDRevision|
+	ocdg:CDGroupRevision|
+	CDURL|
+	ocdg:CDGroupURL|
+	(: for now we store this as a literal, as SWiM does not yet support URI
+	   properties with external objects :)
+	CDBase|
+	Role">
+	<xsl:apply-templates select="." mode="krextor:add-literal-property"/>
+    </xsl:template>
 
-    <xsl:template match="description">
-	<xsl:call-template name="krextor:create-resource">
-	    <!-- OpenMath 3 transition: no specific types known yet -->
-	    <xsl:with-param name="related-via-properties" select="'&omo;hasDirectPart'"/>
-	    <xsl:with-param name="type" select="'&omo;OpenMathConcept'"/>
-	</xsl:call-template>
-    </xsl:template>    
-
-    <xsl:template match="discussion">
-	<xsl:call-template name="krextor:create-resource">
-	    <!-- OpenMath 3 transition: no specific types known yet -->
-	    <xsl:with-param name="related-via-properties" select="'&omo;hasDirectPart'"/>
-	    <xsl:with-param name="type" select="'&omo;OpenMathConcept'"/>
-	</xsl:call-template>
-    </xsl:template>    
-
+    <!-- Special cases -->
     <xsl:template match="property">
 	<xsl:call-template name="krextor:create-resource">
 	    <xsl:with-param name="related-via-properties" select="'&omo;hasProperty'"/>
@@ -118,27 +171,6 @@
 	</xsl:call-template>
     </xsl:template>    
 
-    <xsl:template match="Pragmatic">
-	<xsl:call-template name="krextor:create-resource">
-	    <xsl:with-param name="related-via-properties" select="'&omo;hasPragmaticGuidelines'"/>
-	    <xsl:with-param name="type" select="'&omo;PragmaticGuidelines'"/>
-	</xsl:call-template>
-    </xsl:template>    
-
-    <!-- OpenMath 3 transition: allow MMLexample here, too -->
-    <xsl:template match="MMLexample|Example">
-	<xsl:call-template name="krextor:create-resource">
-	    <xsl:with-param name="related-via-properties" select="'&omo;hasExample'"/>
-	    <xsl:with-param name="type" select="'&omo;Example'"/>
-	</xsl:call-template>
-    </xsl:template>    
-
-    <xsl:template match="ocds:CDSignatures">
-	<xsl:call-template name="krextor:create-resource">
-	    <xsl:with-param name="type" select="'&omo;SignatureDictionary'"/>
-	</xsl:call-template>
-    </xsl:template>    
-
     <xsl:template match="@type[parent::ocds:CDSignatures]">
 	<!-- Currently we assume that @cd is a CD name (in fact a relative URI) to be resolved against the base URI. -->
 	<xsl:call-template name="krextor:add-uri-property">
@@ -160,24 +192,11 @@
 	</xsl:call-template>
     </xsl:template>
 
-    <xsl:template match="ocds:Signature">
-	<xsl:call-template name="krextor:create-resource">
-	    <xsl:with-param name="related-via-properties" select="'&omo;containsSignature'"/>
-	    <xsl:with-param name="type" select="'&omo;Signature'"/>
-	</xsl:call-template>
-    </xsl:template>    
-
     <xsl:template match="@name[parent::ocds:Signature[@cd]]">
 	<xsl:call-template name="krextor:add-uri-property">
 	    <xsl:with-param name="property" select="'&omo;typesSymbol'"/>
 	    <!-- In SWiM, a Signature element is assumed to carry @cdbase and @cd attributes, cf. the discussion of 2008/05/10 on the OM3 mailing list -->
 	    <xsl:with-param name="object" select="om:symbol-uri((ancestor::*/@cdbase)[last()], ../@cd, .)"/>
-	</xsl:call-template>
-    </xsl:template>
-
-    <xsl:template match="mcd:notations">
-	<xsl:call-template name="krextor:create-resource">
-	    <xsl:with-param name="type" select="'&omo;NotationDictionary'"/>
 	</xsl:call-template>
     </xsl:template>
 
@@ -218,94 +237,8 @@
 	</xsl:call-template>
     </xsl:template>
 
-    <xsl:template match="Name|CDName">
-	<!-- TODO reconsider whether dc:identifier actually is the right property
-	     See discussion in the OpenMath ontology source -->
-	<xsl:call-template name="krextor:add-literal-property">
-	    <xsl:with-param name="property" select="'&dc;identifier'"/>
-	    <xsl:with-param name="normalize-space" select="true()"/>
-	</xsl:call-template>
-    </xsl:template>
-
-    <xsl:template match="Description">
-	<xsl:call-template name="krextor:add-literal-property">
-	    <xsl:with-param name="property" select="'&dc;description'"/>
-	    <xsl:with-param name="normalize-space" select="true()"/>
-	</xsl:call-template>
-    </xsl:template>
-
-    <xsl:template match="Title">
-	<xsl:call-template name="krextor:add-literal-property">
-	    <xsl:with-param name="property" select="'&dc;title'"/>
-	    <xsl:with-param name="normalize-space" select="true()"/>
-	</xsl:call-template>
-    </xsl:template>
-
-    <xsl:template match="CDDate">
-	<xsl:call-template name="krextor:add-literal-property">
-	    <xsl:with-param name="property" select="'&dc;date'"/>
-	    <xsl:with-param name="normalize-space" select="true()"/>
-	</xsl:call-template>
-    </xsl:template>
-
-    <xsl:template match="CDComment">
-	<xsl:call-template name="krextor:add-literal-property">
-	    <xsl:with-param name="property" select="'&rdfs;comment'"/>
-	</xsl:call-template>
-    </xsl:template>
-
-    <xsl:template match="CDReviewDate|ocds:CDSReviewDate">
-	<xsl:call-template name="krextor:add-literal-property">
-	    <xsl:with-param name="property" select="'&omo;reviewDate'"/>
-	    <xsl:with-param name="normalize-space" select="true()"/>
-	</xsl:call-template>
-    </xsl:template>
-
-    <xsl:template match="CDStatus|ocds:CDSStatus">
-	<xsl:call-template name="krextor:add-literal-property">
-	    <xsl:with-param name="property" select="'&omo;status'"/>
-	    <xsl:with-param name="normalize-space" select="true()"/>
-	</xsl:call-template>
-    </xsl:template>
-
-    <xsl:template match="CDVersion|ocdg:CDGroupVersion">
-	<xsl:call-template name="krextor:add-literal-property">
-	    <xsl:with-param name="property" select="'&omo;version'"/>
-	    <xsl:with-param name="normalize-space" select="true()"/>
-	</xsl:call-template>
-    </xsl:template>
-
-    <xsl:template match="CDRevision|ocdg:CDGroupRevision">
-	<xsl:call-template name="krextor:add-literal-property">
-	    <xsl:with-param name="property" select="'&omo;revision'"/>
-	    <xsl:with-param name="normalize-space" select="true()"/>
-	</xsl:call-template>
-    </xsl:template>
-
-    <xsl:template match="CDURL|ocdg:CDGroupURL">
-	<xsl:call-template name="krextor:add-literal-property">
-	    <xsl:with-param name="property" select="'&omo;url'"/>
-	    <xsl:with-param name="normalize-space" select="true()"/>
-	</xsl:call-template>
-    </xsl:template>
-
     <!-- CDUses is not extracted but computed -->
 
-    <!--  for now we store this as a literal, as SWiM does not yet support URI properties with external objects -->
-    <xsl:template match="CDBase">
-	<xsl:call-template name="krextor:add-literal-property">
-	    <xsl:with-param name="property" select="'&omo;base'"/>
-	    <xsl:with-param name="normalize-space" select="true()"/>
-	</xsl:call-template>
-    </xsl:template>
-
-    <xsl:template match="Role">
-	<xsl:call-template name="krextor:add-literal-property">
-	    <xsl:with-param name="property" select="'&omo;role'"/>
-	    <xsl:with-param name="normalize-space" select="true()"/>
-	</xsl:call-template>
-    </xsl:template>
-	
     <!-- TODO for containment within the same file, either consider @xml:id or target of @href -->
 	
     <xsl:template match="CDDefinition" mode="included">
