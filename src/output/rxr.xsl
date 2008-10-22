@@ -30,64 +30,64 @@ Specification of RXR:
 http://www.idealliance.org/papers/dx_xmle04/papers/03-08-03/03-08-03.html
 http://ilrt.org/discovery/2004/03/rxr/
 -->
-<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" 
+<stylesheet xmlns="http://www.w3.org/1999/XSL/Transform" 
     xmlns:rxr="http://ilrt.org/discovery/2004/03/rxr/"
     xmlns:krextor="http://kwarc.info/projects/krextor"
     exclude-result-prefixes="krextor"
     version="2.0">
-    <xsl:import href="../generic/generic.xsl"/>
+    <import href="../generic/generic.xsl"/>
 
-    <xsl:output method="xml" encoding="UTF-8" indent="yes" omit-xml-declaration="no"/>
+    <output method="xml" encoding="UTF-8" indent="yes" omit-xml-declaration="no"/>
 
     <!-- creates one RDF triple -->
-    <xsl:template name="krextor:output-triple">
+    <template name="krextor:output-triple">
 	<!-- value of the subject -->
-	<xsl:param name="subject" required="yes"/>
+	<param name="subject" required="yes"/>
 	<!-- type of the subject: either 'uri' or 'blank' -->
-	<xsl:param name="subject-type" select="'uri'"/>
+	<param name="subject-type" select="'uri'"/>
 
 	<!-- value of the predicate -->
-	<xsl:param name="predicate" required="yes"/>
+	<param name="predicate" required="yes"/>
 
 	<!-- value of the object -->
-	<xsl:param name="object" required="yes"/>
+	<param name="object" required="yes"/>
 	<!-- type of the object: either 'uri' or 'blank',
 	     or nothing for literal objects -->
-	<xsl:param name="object-type"/>
+	<param name="object-type"/>
 	<!-- language annotation is only supported on the object,
 	     but neither on triples nor on graphs, as in RXR -->
-	<xsl:param name="object-language"/>
+	<param name="object-language"/>
 	<!-- datatype of the (literal) object -->
-	<xsl:param name="object-datatype"/>
+	<param name="object-datatype"/>
 
 	<rxr:triple>
 	    <rxr:subject>
-		<xsl:attribute name="{$subject-type}" select="$subject"/>
+		<attribute name="{$subject-type}" select="$subject"/>
 	    </rxr:subject>
 	    <rxr:predicate uri="{$predicate}"/>
 	    <rxr:object>
-		<xsl:if test="$object-language">
-		    <xsl:attribute name="xml:lang" select="$object-language"/>
-		</xsl:if>
-		<xsl:choose>
-		    <xsl:when test="$object-type">
-			<xsl:attribute name="{$object-type}" select="$object"/>
-		    </xsl:when>
-		    <xsl:otherwise>
+		<if test="$object-language">
+		    <attribute name="xml:lang" select="$object-language"/>
+		</if>
+		<choose>
+		    <when test="$object-type">
+			<attribute name="{$object-type}" select="$object"/>
+		    </when>
+		    <otherwise>
 			<!-- literal object -->
-			<xsl:if test="$object-datatype">
-			    <xsl:attribute name="datatype" select="$object-datatype"/>
-			</xsl:if>
-			<xsl:value-of select="$object"/>
-		    </xsl:otherwise>
-		</xsl:choose>
+			<if test="$object-datatype">
+			    <attribute name="datatype" select="$object-datatype"/>
+			</if>
+			<value-of select="$object"/>
+		    </otherwise>
+		</choose>
 	    </rxr:object>
 	</rxr:triple>
-    </xsl:template>
+    </template>
 
-    <xsl:template match="/">
+    <template match="/">
 	<rxr:graph>
-	    <xsl:apply-imports/>
+	    <apply-imports/>
 	</rxr:graph>
-    </xsl:template>
-</xsl:stylesheet>
+    </template>
+</stylesheet>
