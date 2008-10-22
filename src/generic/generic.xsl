@@ -217,7 +217,7 @@ relationships between fragments in the "references" portlet.
 	<param name="subject"/>
 	<param name="related-via-properties" select="()"/>
 	<param name="related-via-inverse-properties" select="()"/>
-	<param name="type"/>
+	<param name="type" select="()"/>
 	<!-- additional properties of this resource, encoded as
 	    <krextor:property uri="property-uri" object="object-uri"/>
 	    or
