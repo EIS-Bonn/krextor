@@ -197,7 +197,6 @@
 	</xsl:template>
 	
 	<xsl:template match="omdoc">
-	    <krextor:HELLO/>
 		<xsl:call-template name="krextor:create-omdoc-resource">
 			<xsl:with-param name="type" select="'&odo;Document'"/>
 			<xsl:with-param name="ontologies" select="'document'"/>
