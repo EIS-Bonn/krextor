@@ -42,11 +42,13 @@
     xmlns:krextor="http://kwarc.info/projects/krextor"
     xmlns="http://www.openmath.org/OpenMathCD"
     xmlns:om="http://www.openmath.org/OpenMath"
-    xmlns:ocd="http://www.openmath.org/OpenMathCD"
+    xmlns:cd="http://www.openmath.org/OpenMathCD"
     xmlns:ocds="http://www.openmath.org/OpenMathCDS"
     xmlns:ocdg="http://www.openmath.org/OpenMathCDG"
+    xmlns:m="http://www.w3.org/1998/Math/MathML"
     xmlns:mcd="http://www.w3.org/ns/mathml-cd"
-    exclude-result-prefixes="om ocd ocds ocdg mcd krextor"
+    xmlns:xi="http://www.w3.org/2001/XInclude"
+    exclude-result-prefixes="om cd ocds ocdg mcd krextor m xi"
     version="2.0">
 
     <xsl:include href="util/openmath.xsl"/>
@@ -140,6 +142,7 @@
     </xsl:template>
 
     <!-- Special cases -->
+
     <xsl:template match="property">
 	<xsl:call-template name="krextor:create-resource">
 	    <xsl:with-param name="related-via-properties" select="'&omo;hasProperty'"/>
@@ -178,7 +181,7 @@
 	    <!-- resolve against the @cdbase if that is available.
 		 We assume that @cdbase defines the base both for
 		 @cd and for @type. -->
-	     <xsl:with-param name="object" select="resolve-uri(concat(., '.ocd'), om:cdbase-or-default(../@cdbase))"/>
+	     <xsl:with-param name="object" select="resolve-uri(., om:cdbase-or-default(../@cdbase))"/>
 	</xsl:call-template>
     </xsl:template>
 
@@ -188,7 +191,7 @@
 	    <!-- resolve against the @cdbase if that is available.
 	    We assume that @cdbase defines the base both for
 	    @cd and for @type. -->
-	    <xsl:with-param name="object" select="resolve-uri(concat(., '.ocd'), om:cdbase-or-default(../@cdbase))"/>
+	    <xsl:with-param name="object" select="resolve-uri(., om:cdbase-or-default(../@cdbase))"/>
 	</xsl:call-template>
     </xsl:template>
 
@@ -200,40 +203,61 @@
 	</xsl:call-template>
     </xsl:template>
 
+    <!--
+    Determine the symbol that a prototype matches.  Returns a dummy element
+    with @cdbase, @cd, and @name attributes.
+    -->
+    <xsl:function name="krextor:matched-symbol">
+	<!-- the mcd:prototype element -->
+	<xsl:param name="prototype"/>
+	<xsl:variable name="symbol" select="$prototype/((.|om:OMA|om:OMBIND|om:OMATTR/om:OMATP)/om:OMS|(.|m:apply|m:bind)/m:csymbol|m:semantics/m:annotation-xml)[1]"/>
+	<krextor:_>
+	    <xsl:for-each select="('cdbase', 'cd', 'name')">
+		<xsl:variable name="attribute" select="$symbol/@*[local-name() eq current()]"/>
+		<xsl:if test="$attribute">
+		    <xsl:attribute name="{current()}" select="$attribute"/>
+		</xsl:if>
+	    </xsl:for-each>
+	</krextor:_>
+    </xsl:function>
+
     <xsl:template match="mcd:notation">
+	<xsl:if test="parent::mcd:notations and not(preceding-sibling::mcd:notation)">
+	    <xsl:apply-templates select="." mode="krextor:link-notation-to-cd"/>
+	</xsl:if>
+
 	<xsl:call-template name="krextor:create-resource">
 	    <xsl:with-param name="related-via-properties" select="'&omo;containsNotationDefinition'"/>
 	    <xsl:with-param name="type" select="'&omo;Notation'"/>
 	</xsl:call-template>
-	
-	<!-- Here we assume that the mcd:notations element itself does not 
-	point to a cdbase or a cd but that only its mcd:notation children do.
-	We assume that all mcd:notation children of one mcd:notations point
-	to the same cdbase and cd, therefore we look up these targets from the
-	first child. -->
-	<xsl:if test="parent::mcd:notations and @cd and not(preceding-sibling::mcd:notation)">
-	    <xsl:call-template name="krextor:add-uri-property">
-		<xsl:with-param name="property" select="'&omo;containsNotationsFor'"/>
-		<!-- resolve against the @cdbase if that is available -->
-		<xsl:with-param name="object" select="resolve-uri(concat(@cd, '.ocd'), om:cdbase-or-default(@cdbase))"/>
-		<!-- TODO rewrite this for SWiM -->
-	    </xsl:call-template>
-	</xsl:if>
     </xsl:template>
 
-	<!-- Note: in cases where the mcd:notation element does not point to the symbol it renders, we may
-	     need (mcd:prototype/((.|om:OMA|om:OMBIND|om:OMATTR/om:OMATP)/om:OMS|(.|m:apply|m:bind)/m:csymbol|m:semantics/m:annotation-xml))[1]
-	     instead.
-	     See https://trac.kwarc.info/jomdoc/ticket/76 -->
-    <xsl:template match="@name[parent::mcd:notation[@cd]]">
-	<xsl:variable name="notation" select="parent::mcd:notation"/>
+    <xsl:template match="mcd:notation" mode="krextor:link-notation-to-cd">
+	<!--
+	Here we assume that the mcd:notations element itself does not point to
+	a cdbase or a cd, that its mcd:notation children don't do it either,
+	but that the prototypes do it (implicitly), and that, of course, there
+	is a prototype.
+
+	We assume that all prototypes in one notation dictionary point to to
+	the same cdbase and cd, therefore we look up these targets from the
+	first child.
+	-->
+	<xsl:variable name="symbol" select="krextor:matched-symbol(mcd:prototype[1])"/>
 	<xsl:call-template name="krextor:add-uri-property">
-	    <xsl:with-param name="property" select="'&omo;rendersSymbol'"/>
-	    <!-- Here we assume that the mcd:notations element itself does not 
-	    point to a cdbase or a cd but that its mcd:notation children 
-	    have attributes @cdbase, @cd, and @name -->
+	    <!-- implicit subject is the notation dictionary -->
+	    <xsl:with-param name="property" select="'&omo;containsNotationsFor'"/>
 	    <!-- resolve against the @cdbase if that is available -->
-	    <xsl:with-param name="object" select="om:symbol-uri(om:cdbase-or-default($notation/@cdbase), $notation/@cd, $notation/@name)"/>
+	    <xsl:with-param name="object" select="resolve-uri($symbol/@cd, om:cdbase-or-default($symbol/@cdbase))"/>
+	</xsl:call-template>
+    </xsl:template>
+
+    <xsl:template match="mcd:prototype[not(preceding-sibling::mcd:prototype)]">
+	<xsl:variable name="symbol" select="krextor:matched-symbol(.)"/>
+	<xsl:call-template name="krextor:add-uri-property">
+	    <!-- the mcd:notation is the subject -->
+	    <xsl:with-param name="property" select="'&omo;rendersSymbol'"/>
+	    <xsl:with-param name="object" select="om:symbol-uri(om:cdbase-or-default($symbol/@cdbase), $symbol/@cd, $symbol/@name)"/>
 	</xsl:call-template>
     </xsl:template>
 
@@ -241,27 +265,27 @@
 
     <!-- TODO for containment within the same file, either consider @xml:id or target of @href -->
 	
-    <xsl:template match="CDDefinition" mode="included">
+    <xsl:template match="CDDefinition" mode="krextor:included">
 	<xsl:call-template name="krextor:add-uri-property">
 	    <xsl:with-param name="property" select="'&omo;containsSymbolDefinition'"/>
 	</xsl:call-template>
     </xsl:template>
 
-    <xsl:template match="description" mode="included">
+    <xsl:template match="description" mode="krextor:included">
 	<xsl:call-template name="krextor:add-uri-property">
 	    <!-- OpenMath 3 transition: no specific type known yet -->
 	    <xsl:with-param name="property" select="'&omo;hasDirectPart'"/>
 	</xsl:call-template>
     </xsl:template>
 
-    <xsl:template match="discussion" mode="included">
+    <xsl:template match="discussion" mode="krextor:included">
 	<xsl:call-template name="krextor:add-uri-property">
 	    <!-- OpenMath 3 transition: no specific type known yet -->
 	    <xsl:with-param name="property" select="'&omo;hasDirectPart'"/>
 	</xsl:call-template>
     </xsl:template>
 
-    <xsl:template match="property" mode="included">
+    <xsl:template match="property" mode="krextor:included">
 	<xsl:call-template name="krextor:add-uri-property">
 	    <xsl:with-param name="property" select="'&omo;hasProperty'"/>
 	</xsl:call-template>
@@ -269,7 +293,7 @@
 
     <!-- This is for OpenMath 2 backwards compatibility.  In OpenMath 3, this
          will be a child of property. -->
-    <xsl:template match="CMP" mode="included">
+    <xsl:template match="CMP" mode="krextor:included">
 	<!-- FIXME remove when OpenMath 3 is stable, as then we'll always
 	have CMPs and FMPs inside properties, no longer ones that are
 	direct children of CDDefinition -->
@@ -281,7 +305,7 @@
 
     <!-- This is for OpenMath 2 backwards compatibility.  In OpenMath 3, this
          will be a child of property. -->
-    <xsl:template match="FMP" mode="included">
+    <xsl:template match="FMP" mode="krextor:included">
 	<!-- FIXME remove when OpenMath 3 is stable, as then we'll always
 	have CMPs and FMPs inside properties, no longer ones that are
 	direct children of CDDefinition -->
@@ -291,14 +315,14 @@
 	</xsl:call-template>
     </xsl:template>
 
-    <xsl:template match="Pragmatic" mode="included">
+    <xsl:template match="Pragmatic" mode="krextor:included">
 	<xsl:call-template name="krextor:add-uri-property">
 	    <xsl:with-param name="property" select="'&omo;hasPragmaticGuidelines'"/>
 	</xsl:call-template>
     </xsl:template>
 
     <!-- OpenMath 3 transition: allow MMLexample here, too -->
-    <xsl:template match="MMLexample|Example" mode="included">
+    <xsl:template match="MMLexample|Example" mode="krextor:included">
 	<xsl:call-template name="krextor:add-uri-property">
 	    <xsl:with-param name="property" select="'&omo;hasExample'"/>
 	</xsl:call-template>
@@ -318,18 +342,29 @@
 	    <xsl:with-param name="property" select="'&omo;containsContentDictionary'"/>
 	    <!-- We ignore the CDVersion for now -->
 	    <!-- If the CDURL is given, use it. Otherwise, resolve CDName against the CDGroupURL, as specified in section 4.4.2.2 of the OpenMath 2.0 Specification. -->
-	    <xsl:with-param name="object" select="if (ocdg:CDURL) then ocdg:CDURL/text() else resolve-uri(concat(ocdg:CDName/text(), '.ocd'), ../ocdg:CDGroupURL)"/>
+	    <xsl:with-param name="object" select="if (ocdg:CDURL) then ocdg:CDURL/text() else resolve-uri(ocdg:CDName/text(), ../ocdg:CDGroupURL)"/>
 	</xsl:call-template>
     </xsl:template>
 
-    <xsl:template match="ocds:Signature" mode="included">
+    <xsl:template match="ocds:Signature" mode="krextor:included">
 	<xsl:call-template name="krextor:add-uri-property">
 	    <xsl:with-param name="property" select="'&omo;containsSignature'"/>
 	</xsl:call-template>
     </xsl:template>
 
 
-    <xsl:template match="mcd:notation" mode="included">
+    <xsl:template match="mcd:notation" mode="krextor:included">
+	<xsl:param name="krextor:parent-element" tunnel="yes"/>
+
+	<!--
+	Here, we assume that mcd:notations cannot have children other than
+	mcd:notation (which is the case in MathML 3).
+	-->
+	<xsl:if test="not($krextor:parent-element/preceding-sibling::mcd:notation|
+	    $krextor:parent-element/preceding-sibling::xi:include)">
+	    <xsl:apply-templates select="." mode="krextor:link-notation-to-cd"/>
+	</xsl:if>
+
 	<xsl:call-template name="krextor:add-uri-property">
 	    <xsl:with-param name="property" select="'&omo;containsNotationDefinition'"/>
 	</xsl:call-template>

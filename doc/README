@@ -73,8 +73,11 @@ default distribution.
 
 === Extraction ===
 
+NOTE: CHECK extract/ocd.xsl FOR A NEW, EASIER WAY OF DOING 'STANDARD'
+EXTRACTIONS.  THIS HAS NOT YET BEEN DOCUMENTED HERE.
+
 To write an extraction module for a new XML language, copy one of the existing
-ones.  Then read and understand the documentation of generic-templates.xsl,
+ones.  Then read and understand the documentation of generic/generic.xsl,
 particularly the named templates in the krextor namespace:
 
 * create-resource

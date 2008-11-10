@@ -79,7 +79,7 @@ relationships between fragments in the "references" portlet.
 	'document-root-base')"/>
 
     <!-- Should XIncludes be traversed?  Note: Templates for nodes in XIncluded
-         documents are matched in "included" mode. -->
+         documents are matched in "krextor:included" mode. -->
     <param name="traverse-xincludes" select="true()"/>
 
     <variable name="krextor:resources" select="()"/>
@@ -93,11 +93,13 @@ relationships between fragments in the "references" portlet.
 	    or $node instance of attribute()"/>
     </function>
 
-    <!-- Generates a URI for a fragment of a document -->
-    <function name="krextor:fragment-uri">
+    <!-- Generates a URI for a fragment of a document; returns the empty sequence if the fragment ID is empty -->
+    <function name="krextor:fragment-uri-or-null">
 	<param name="fragment-id"/>
 	<param name="base-uri"/>
-	<value-of select="resolve-uri(concat('#', $fragment-id), $base-uri)"/>
+	<value-of select="if ($fragment-id)
+	    then resolve-uri(concat('#', $fragment-id), $base-uri)
+	    else ()"/>
     </function>
 
     <!-- creates an XPath-like string from the path to a node, 
@@ -129,6 +131,7 @@ relationships between fragments in the "references" portlet.
     </function>
 
     <!-- Generates a URI for a resource: head/tail implementation of a single step -->
+    <!-- TODO revise this using fxsl -->
     <function name="krextor:generate-uri-step">
 	<param name="node"/>
 	<param name="position"/>
@@ -141,7 +144,7 @@ relationships between fragments in the "references" portlet.
 		and $node/parent::node() instance of document-node())
 		then $base-uri
 	    else if ($head = ('xml-id', 'generate-id', 'pseudo-xpath'))
-		then krextor:fragment-uri(
+		then krextor:fragment-uri-or-null(
 		    if ($head eq 'xml-id' and $node/@xml:id)
 		        then $node/@xml:id
 		    else if ($head eq 'generate-id')
@@ -477,12 +480,14 @@ relationships between fragments in the "references" portlet.
     -->
     <template match="xi:include">
 	<if test="$traverse-xincludes">
-	    <apply-templates select="document(@href, .)" mode="included"/>
+	    <apply-templates select="document(@href, .)" mode="krextor:included">
+		<with-param name="krextor:parent-element" select="." tunnel="yes"/>
+	    </apply-templates>
 	</if>
     </template>
 
-    <template match="/" mode="included">
-	<apply-templates mode="included"/>
+    <template match="/" mode="krextor:included">
+	<apply-templates mode="krextor:included"/>
     </template>
 
     <template match="/">
@@ -494,6 +499,6 @@ relationships between fragments in the "references" portlet.
     <!-- No RDF is extracted from attributes that are not matched by the
 	 language-specific templates, nor from text nodes. -->
     <template match="@*|text()"/>
-    <template match="@*|text()" mode="included"/>
+    <template match="@*|text()" mode="krextor:included"/>
 </stylesheet>
 
