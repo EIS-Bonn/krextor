@@ -76,7 +76,7 @@ then
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
     version="2.0">
     <xsl:import href="$rdfOutput"/>
-    <xsl:import href="$xmlExtractor"/>
+    <xsl:include href="$xmlExtractor"/>
 </xsl:stylesheet>
 EOF
     transformer=/tmp/krextor.$$.xsl

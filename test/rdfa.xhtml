@@ -1,15 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <html xmlns="http://www.w3.org/1999/xhtml"
     xmlns:foaf="http://xmlns.com/foaf/0.1/"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
     xmlns:dc="http://purl.org/dc/elements/1.1/">
     <head>
+	<!--<base href="http://kwarc.info/"/>-->
 	<title>Krextor RDFa test</title>
-	<meta property="dc:creator" content="Christoph Lange"/>
+	<meta property="dc:creator" xml:lang="de" content="Christoph Lange"/>
 	<link rev="prev" href="foo.html"/>
     </head>
     <body>
 	<div typeof="dc:Foobar dc:bla" about="[dc:kwarc]">
-	    <span property="dc:description">Hello</span>
+	    <span property="dc:description" datatype="xsd:string">Hello,
+World!</span>
+	</div>
+	<div typeof="foaf:Person">
+	    <meta property="foaf:name" xml:lang="en" content="MiKo">Foobar</meta>
 	</div>
     </body>
 </html>

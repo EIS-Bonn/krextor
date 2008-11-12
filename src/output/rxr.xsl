@@ -60,9 +60,15 @@ http://ilrt.org/discovery/2004/03/rxr/
 	<!-- datatype of the (literal) object -->
 	<param name="object-datatype"/>
 
+	<!-- We accept a static base URI (as, e.g., defined by base/@href in XHTML), against which every URL is resolved -->
+	<param name="krextor:base-uri" tunnel="yes"/>
+
 	<rxr:triple>
 	    <rxr:subject>
-		<attribute name="{$subject-type}" select="$subject"/>
+		<attribute name="{$subject-type}" select="
+		    if ($subject-type eq 'uri' and $krextor:base-uri)
+		    then resolve-uri($subject, $krextor:base-uri)
+		    else $subject"/>
 	    </rxr:subject>
 	    <rxr:predicate uri="{$predicate}"/>
 	    <rxr:object>
@@ -71,7 +77,10 @@ http://ilrt.org/discovery/2004/03/rxr/
 		</if>
 		<choose>
 		    <when test="$object-type">
-			<attribute name="{$object-type}" select="$object"/>
+			<attribute name="{$object-type}" select="
+			    if ($object-type eq 'uri' and $krextor:base-uri)
+			    then resolve-uri($object, $krextor:base-uri)
+			    else $object"/>
 		    </when>
 		    <otherwise>
 			<!-- literal object -->

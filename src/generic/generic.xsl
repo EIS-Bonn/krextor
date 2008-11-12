@@ -235,22 +235,22 @@ relationships between fragments in the "references" portlet.
 	<!-- The node set to which apply-templates is applied -->
 	<!-- We also process attributes, as they may contain links to other resources -->
 	<param name="process-next" select="*|@*"/>
-	<!-- We pass the base URI as a parameter into templates.  This is because we need to tweak the base URI when processing transcluded documents; in this case, the transcluding document's URI should still be considered the base URI, instead of the URI of the transcluded document. -->
-	<param name="base-uri" tunnel="yes"/>
+	<!-- We pass the subject URI as a parameter into templates.  This is because we need to tweak the subject URI when processing transcluded documents; in this case, the transcluding document's URI should still be considered the subject URI, instead of the URI of the transcluded document. -->
+	<param name="subject-uri" tunnel="yes"/>
 	<!-- If we are to autogenerate the URI for this node, then we call the krextor:generate-uri function to generate one. Note that if you want to use your own URI generation you have to pass your own 
 	  1. The fragment URI of this node, if there is an xml:id attribute
-	  2. The base URI (assumed to be the one of the document), if we are at the root node
+	  2. The subject URI (assumed to be the one of the document), if we are at the root node
 	  3. Nothing (no RDF will be generated)
 	  -->
 	<param name="autogenerate-fragment-uri" select="$autogenerate-fragment-uris"/>
 	<!-- Is this a blank node? -->
 	<param name="blank-node" select="false()"/>
 	<param name="blank-node-id" tunnel="yes"/>
-	<variable name="generated-uri" select="if ($blank-node) then $base-uri
+	<variable name="generated-uri" select="if ($blank-node) then $subject-uri
 	    else if ($subject) then $subject
 	    else if (exists($autogenerate-fragment-uri)) 
-		then krextor:generate-uri(., position(), $autogenerate-fragment-uri, $base-uri)
-	    else $base-uri"/>
+		then krextor:generate-uri(., position(), $autogenerate-fragment-uri, $subject-uri)
+	    else $subject-uri"/>
 	<!-- TODO introduce auto-blank node if no xml:id given
 	     if auto-blank-node isn't desired, skip elements without xml:id altogether -->
 	<variable name="generated-blank-node-id" select="if ($blank-node) then generate-id()
@@ -309,9 +309,9 @@ relationships between fragments in the "references" portlet.
 
 	    <!-- Process the children of this element, or whichever nodes desired -->
 	    <apply-templates select="$process-next">
-		<!-- pass on the generated base URI or blank node ID.  For resolving relative URIs, an appended fragment does
+		<!-- pass on the generated subject URI or blank node ID.  For resolving relative URIs, an appended fragment does
 		     not matter, but for generating property triples for this resource it does. -->
-		<with-param name="base-uri" select="$generated-uri" tunnel="yes"/>
+		<with-param name="subject-uri" select="$generated-uri" tunnel="yes"/>
 		<!-- Pass the information what type this is; this might help to disambiguate triple generation from children of the element that represents the resource of that type. -->
 		<with-param name="type" select="$type" tunnel="yes"/>
 		<with-param name="blank-node-id" select="$generated-blank-node-id" tunnel="yes"/>
@@ -333,7 +333,7 @@ relationships between fragments in the "references" portlet.
     <!-- Adds a literal-valued property to the resource in whose
          create-resource scope this template was called. -->
     <template name="krextor:add-literal-property">
-	<param name="base-uri" tunnel="yes"/>
+	<param name="subject-uri" tunnel="yes"/>
 	<param name="blank-node-id" tunnel="yes"/>
 	<param name="property"/>
 	<!-- property from incomplete triples -->
@@ -362,7 +362,7 @@ relationships between fragments in the "references" portlet.
 	    <otherwise>
 		<call-template name="krextor:output-triple">
 		    <with-param name="subject" select="if ($blank-node-id) then $blank-node-id
-			else $base-uri"/>
+			else $subject-uri"/>
 		    <with-param name="subject-type" select="if ($blank-node-id) then 'blank'
 			else 'uri'"/>
 		    <with-param name="predicate" select="$actual-property"/>
@@ -390,7 +390,7 @@ relationships between fragments in the "references" portlet.
     <!-- Adds a URI-valued property to the resource in whose create-resource
          scope this template was called. -->
     <template name="krextor:add-uri-property">
-	<param name="base-uri" tunnel="yes"/>
+	<param name="subject-uri" tunnel="yes"/>
 	<param name="blank-node-id" tunnel="yes"/>
 	<param name="property"/>
 	<!-- property from incomplete triples -->
@@ -404,9 +404,9 @@ relationships between fragments in the "references" portlet.
 	<!-- Currently we assume that, if no explicit link target is given, we are either:
 	1. in the root element R of an XIncluded document and that a relationship between the parent of the xi:include and the XIncluded document is to be expressed.
 	2. or we are in an attribute or a text node or any item of a whitespace-separated list,
-	   and a relationship between the current base URI and the URIref in the attribute value is to be expressed. -->
+	   and a relationship between the current subject URI and the URIref in the attribute value is to be expressed. -->
 	<param name="object" select="if (krextor:is-text-or-attribute-or-atomic(.))
-	       then if ($list) then . else resolve-uri(., $base-uri)
+	       then if ($list) then . else resolve-uri(., $subject-uri)
 	    else if (parent::node() instance of document-node()) then base-uri()
 	    else ''"/>
 	<!-- node ID, if the object is a blank node -->
@@ -438,7 +438,7 @@ relationships between fragments in the "references" portlet.
 				<with-param name="subject-type" select="if ($blank) then 'blank' else 'uri'"/>
 				<with-param name="predicate" select="$actual-property"/>
 				<with-param name="object" select="if ($blank-node-id) then $blank-node-id
-				    else $base-uri"/>
+				    else $subject-uri"/>
 				<with-param name="object-type" select="if ($blank-node-id) then 'blank'
 				    else 'uri'"/>
 			    </call-template>
@@ -446,7 +446,7 @@ relationships between fragments in the "references" portlet.
 			<otherwise>
 			    <call-template name="krextor:output-triple">
 				<with-param name="subject" select="if ($blank-node-id) then $blank-node-id
-				    else $base-uri"/>
+				    else $subject-uri"/>
 				<with-param name="subject-type" select="if ($blank-node-id) then 'blank'
 				    else 'uri'"/>
 				<with-param name="predicate" select="$actual-property"/>
@@ -492,7 +492,7 @@ relationships between fragments in the "references" portlet.
 
     <template match="/">
 	<apply-templates>
-	    <with-param name="base-uri" select="base-uri()" tunnel="yes"/>
+	    <with-param name="subject-uri" select="base-uri()" tunnel="yes"/>
 	</apply-templates>
     </template>
 

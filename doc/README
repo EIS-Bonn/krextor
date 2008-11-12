@@ -43,6 +43,8 @@ In order to extract RDF from XML, you need to know the name of the extraction
 module for the desired XML language (e.g. OMDoc) and the name of the output
 module for the desired output RDF notation (e.g. RXR).
 
+NOTE: THERE IS A NEW SHELL SCRIPT (bin/krextor), WHICH NEEDS TO BE DOCUMENTED
+
 Popular transformations (e.g. OMDoc to RXR) are available as pre-defined
 stylesheets, e.g. transform-omdoc-rxr.xsl.
 
@@ -59,10 +61,13 @@ are located in the subdirectory “krextor”:
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                 version="2.0">
   <xsl:import href="krextor/output/rxr.xsl"/>
-  <xsl:import href="krextor/extract/ocd.xsl"/>
+  <xsl:include href="krextor/extract/ocd.xsl"/>
 
   <!-- Put application-specific template here.  You can also override 
-       imported templates. -->
+       imported templates. For overriding the included extraction 
+       template, introduce another level of import, or change the
+       inclusion of the extraction template to xsl:import at your own
+       risk. -->
 </xsl:stylesheet>
 
 == Extending ==
@@ -191,7 +196,9 @@ machine-processing instead.
   General architecture
   OMDoc extractor (partly)
   OpenMath extractor
+  RDFa extractor
   RXR output
+  Turtle output
 * Gordan Ristovski <g.ristovski@jacobs-university.de>
   OMDoc extractor (partly)
 * Andrei Ioniţă <a.ionita@jacobs-university.de>

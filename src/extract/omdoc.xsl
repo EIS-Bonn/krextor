@@ -77,7 +77,7 @@
 	<xsl:param name="related-via-properties" select="()"/>
 	<xsl:param name="related-via-inverse-properties" select="()"/>
 	<xsl:param name="formality-degree"/>
-	<xsl:param name="base-uri" tunnel="yes"/>
+	<xsl:param name="subject-uri" tunnel="yes"/>
 	<!-- the URI of the current document section resource -->
 	<xsl:param name="document-base" tunnel="yes"/>
 	<!-- the URI of the current mathematical or rhetorical structure -->
@@ -96,9 +96,9 @@
 	    <xsl:call-template name="krextor:create-resource">
 		<!-- If we are not on top level, manipulate the base URI,
 		     either in MMT or in OMDoc 1.2 style -->
-		<xsl:with-param name="base-uri" select="if ($mmt and @name)
-		    then concat($base-uri, '/', @name)
-		    else $base-uri" tunnel="yes"/>
+		<xsl:with-param name="subject-uri" select="if ($mmt and @name)
+		    then concat($subject-uri, '/', @name)
+		    else $subject-uri" tunnel="yes"/>
 		<xsl:with-param name="autogenerate-fragment-uri" select="if (not($mmt) and not($use-document-uri))
 		    then $autogenerate-fragment-uris-omdoc-default
 		    else ()"/>

@@ -79,7 +79,17 @@ http://www.dajobe.org/2004/01/turtle/
 		    <!-- output the object(s) -->
 		    <value-of select="if (@uri|@blank) then
 			    krextor:node-id-to-turtle(.)
+			else if (contains(., '&#xa;')) then
+			    concat('&quot;&quot;&quot;', ., '&quot;&quot;&quot;')
 			else concat('&quot;', ., '&quot;')"/>
+		    <choose>
+			<when test="@xml:lang">
+			    <value-of select="concat('@', @xml:lang)"/>
+			</when>
+			<when test="@datatype">
+			    <value-of select="concat('^^&lt;', @datatype, '&gt;')"/>
+			</when>
+		    </choose>
 		    <value-of select="if (position() ne last()) then ', ' else ' '"/>
 		</for-each>
 		<value-of select="if (position() ne last()) then ';' else '.'"/>
