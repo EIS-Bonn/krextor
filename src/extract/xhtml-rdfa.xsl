@@ -32,6 +32,7 @@
 <stylesheet xmlns="http://www.w3.org/1999/XSL/Transform" 
     xpath-default-namespace="http://www.w3.org/1999/xhtml"
     xmlns:krextor="http://kwarc.info/projects/krextor"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema"
     version="2.0">
 
     <import href="util/rdfa.xsl"/>
@@ -47,8 +48,8 @@
 	</apply-imports>
     </template>
 
-    <template match="krextor:curie" mode="krextor:resolve-prefixless-curie" as="text()">
-	<sequence select="if (text() = (
+    <template match="krextor:curie" mode="krextor:resolve-prefixless-curie" as="xs:string">
+	<sequence select="if (. = (
 		'alternate',
 		'appendix',
 		'bookmark',
@@ -74,8 +75,8 @@
 		'start',
 		'top',
 		'up'
-	    )) then concat('http://www.w3.org/1999/xhtml/vocab#', $localname)
-	    else ()"/>
+	    )) then concat('http://www.w3.org/1999/xhtml/vocab#', .)
+	    else ''"/>
     </template>
 
     <!-- FIXME restrict to those elements where @about is actually allowed -->

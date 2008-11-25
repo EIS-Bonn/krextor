@@ -24,19 +24,27 @@
 
 <stylesheet xmlns="http://www.w3.org/1999/XSL/Transform" 
     xpath-default-namespace="http://www.w3.org/1999/xhtml"
-    xpath-default-namespace="http://www.w3.org/1999/xhtml"
     xmlns:xd="http://www.pnp-software.com/XSLTdoc"
     xmlns:krextor="http://kwarc.info/projects/krextor"
     version="2.0">
     <xd:doc type="stylesheet">
-	<xs:short>A collection of templates and utility functions for generic <a href="http://www.w3.org/TR/rdfa-primer/">RDFa</a> support, independently of the host language</xs:short>
+	<xd:short>A collection of templates and utility functions for generic <a href="http://www.w3.org/TR/rdfa-primer/">RDFa</a> support, independently of the host language</xd:short>
 	<xd:author>Christoph Lange</xd:author>
 	<xd:copyright>Christoph Lange, 2008</xd:copyright>
 	<xd:svnId>$Id$</xd:svnId>
     </xd:doc>
 
-    <function name="krextor:default-curie-namespace"/>
+    <xd:doc type="string">Returns the default namespace URI for a CURIE of the form <code>:localname</code>.  As this is up to the host language, this is an empty implementation and intended to be overridden by the importing template.
+	<xd:param name="focus" type="node">the focus node, for the namespace context</xd:param>
+    </xd:doc>
+    <function name="krextor:default-curie-namespace">
+	<param name="focus"/>
+    </function>
 
+    <xd:doc type="string">Converts a CURIE to a URI, using the current namespace context.
+	<xd:param name="focus" type="node">the focus node, for the namespace context</xd:param>
+	<xd:param name="curie" type="string">the CURIE</xd:param>
+    </xd:doc>
     <function name="krextor:curie-to-uri">
 	<param name="focus"/>
 	<param name="curie"/>
@@ -83,20 +91,28 @@
 	</choose>
     </function>
 
+    <xd:doc type="string*">Converts a sequence of CURIEs to a sequence of URIs, using the current namespace context.
+	<xd:param name="focus" type="node">the focus node, for the namespace context</xd:param>
+	<xd:param name="curies" type="string*">the CURIEs</xd:param>
+    </xd:doc>
     <function name="krextor:curies-to-uris">
 	<param name="focus"/>
-	<param name="curie"/>
+	<param name="curies"/>
 	<choose>
-	    <when test="matches($curie, ' ')">
-		<sequence select="for $c in tokenize($curie, '\s+')
+	    <when test="matches($curies, ' ')">
+		<sequence select="for $c in tokenize($curies, '\s+')
 		    return krextor:curie-to-uri($focus, $c)"/>
 	    </when>
 	    <otherwise>
-		<sequence select="krextor:curie-to-uri($focus, $curie)"/>
+		<sequence select="krextor:curie-to-uri($focus, $curies)"/>
 	    </otherwise>
 	</choose>
     </function>
 
+    <xd:doc type="string">Converts a safe CURIE to a URI, using the current namespace context if the safe CURIE actually is a CURIE.
+	<xd:param name="focus" type="node">the focus node, for the namespace context</xd:param>
+	<xd:param name="safe-curie" type="string*">the safe CURIE</xd:param>
+    </xd:doc>
     <function name="krextor:safe-curie-to-uri">
 	<param name="focus"/>
 	<param name="safe-curie"/>
