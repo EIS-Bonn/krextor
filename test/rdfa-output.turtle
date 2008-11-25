@@ -1,0 +1,11 @@
+<file:/home/clange/svn/kwarc.info/swim/projects/krextor/trunk/test/rdfa.xhtml>
+	<http://purl.org/dc/elements/1.1/creator>	"Christoph Lange"@de .
+<foo.html>
+	<http://www.w3.org/1999/xhtml/vocab#prev>	<file:/home/clange/svn/kwarc.info/swim/projects/krextor/trunk/test/rdfa.xhtml> .
+<http://purl.org/dc/elements/1.1/kwarc>
+	<http://www.w3.org/1999/02/22-rdf-syntax-ns#type>	<http://purl.org/dc/elements/1.1/Foobar>, <http://purl.org/dc/elements/1.1/bla> ;
+	<http://purl.org/dc/elements/1.1/description>	"""Hello,
+World!"""^^<http://www.w3.org/2001/XMLSchema#string> .
+_:d8e12
+	<http://www.w3.org/1999/02/22-rdf-syntax-ns#type>	<http://xmlns.com/foaf/0.1/Person> ;
+	<http://xmlns.com/foaf/0.1/name>	"MiKo"@en .
