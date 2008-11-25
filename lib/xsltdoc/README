@@ -1,0 +1,18 @@
+About the xsltdoc directory
+===========================
+
+The XSLTdoc tool is distributed under a license that you can find in the
+COPYING file.  Using this software implies you are bound by this license.
+
+For you convenience, we bundle XSLTdoc with Krextor.  Every once a while, we
+update to the latest version.
+
+For more details about XSLTdoc and obtaining the latest version, please see http://www.pnp-software.com/XSLTdoc/ .
+
+Any trouble with the runnable capabilities of _this_ installation should be
+reported on the Krextor Trac at https://trac.kwarc.info/krextor/, not to the
+XSLTdoc developers.
+
+Christoph Lange, November 25, 2008
+ch.lange@jacobs-university.de
+

@@ -2,8 +2,8 @@ About the saxon directory
 =========================
 
 The Saxon XSLT processor of Michael Kay is distributed under a license that you
-can find in COPYING file.  Using this software implies you are bound by this
-license.
+can find in the COPYING file.  Using this software implies you are bound by
+this license.
 
 For you convenience, we bundle Saxon with Krextor.  Every once a while, we update
 to the latest version.
