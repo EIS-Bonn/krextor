@@ -26,6 +26,7 @@
     <!ENTITY owl "http://www.w3.org/2002/07/owl#">
     <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#">
     <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+    <!ENTITY omdoc "http://omdoc.org/ns">
 ]>
 
 <!--
@@ -38,9 +39,12 @@
     xmlns="http://omdoc.org/ns"
     version="2.0">
 
+    <xsl:import href="util/rdfa.xsl"/>
+
     <xsl:strip-space elements="*"/>
     
     <xsl:template match="symbol">
+	<xsl:param name="krextor:sem-web-base" tunnel="yes"/>
 	<xsl:call-template name="krextor:create-resource"/>
     </xsl:template>
 
@@ -49,5 +53,27 @@
 	    <xsl:with-param name="property" select="'&rdf;type'"/>
 	    <xsl:with-param name="object" select="concat('NS-URL-OF-', om:OMOBJ/om:OMS/@cd, '/', om:OMOBJ/om:OMS/@name)"/>
 	</xsl:call-template>
+    </xsl:template>
+
+    <!-- Try to find the ontology namespace (special metadata field
+         omdoc:semwebbase) -->
+    <xsl:template match="theory">
+	<xsl:variable name="sem-web-base">
+	    <xsl:variable name="link">
+		<xsl:value-of select="metadata/link[krextor:curie-to-uri(., @rel) eq '&omdoc;semWebBase']"/>
+	    </xsl:variable>
+	    <xsl:message select="boolean(trace($link, 'foo'))"/>
+	    <xsl:value-of select="if ($link) then $link/@href else ()"/>
+	</xsl:variable>
+	<xsl:choose>
+	    <xsl:when test="$sem-web-base">
+		<xsl:apply-templates>
+		    <xsl:with-param name="krextor:sem-web-base" select="$sem-web-base" tunnel="yes"/>
+		</xsl:apply-templates>
+	    </xsl:when>
+	    <xsl:otherwise>
+		<xsl:apply-templates/>
+	    </xsl:otherwise>
+	</xsl:choose>
     </xsl:template>
 </xsl:stylesheet>

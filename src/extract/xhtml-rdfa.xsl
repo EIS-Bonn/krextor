@@ -34,98 +34,48 @@
     xmlns:krextor="http://kwarc.info/projects/krextor"
     version="2.0">
 
+    <import href="util/rdfa.xsl"/>
     <import href="util/openmath/verb.xsl"/>
     
     <strip-space elements="*"/>
 
     <param name="autogenerate-fragment-uris" select="()"/>
 
-    <function name="krextor:curie-to-uri">
-	<param name="focus"/>
-	<param name="curie"/>
-	<choose>
-	    <when test="$curie">
-		<analyze-string select="$curie" regex="^(([^:]*):)?(.+)$">
-		    <matching-substring>
-			<variable name="no-prefix" select="not(matches(regex-group(1), ':$'))"/>
-			<variable name="prefix" select="regex-group(2)"/>
-			<variable name="localname" select="regex-group(3)"/>
-			<variable name="resolved-uri" select="resolve-QName($curie, $focus)"/>
-			<choose>
-			    <when test="$no-prefix and
-				$localname = (
-				'alternate',
-				'appendix',
-				'bookmark',
-				'cite',
-				'chapter',
-				'contents',
-				'copyright',
-				'first',
-				'glossary',
-				'help',
-				'icon',
-				'index',
-				'last',
-				'license',
-				'meta',
-				'next',
-				'p3pv1',
-				'prev',
-				'role',
-				'section',
-				'stylesheet',
-				'subsection',
-				'start',
-				'top',
-				'up'
-				)">
-				<value-of select="concat('http://www.w3.org/1999/xhtml/vocab#', $localname)"/>
-			    </when>
-			    <otherwise>
-				<value-of select="concat(namespace-uri-from-QName($resolved-uri), local-name-from-QName($resolved-uri))"/>
-			    </otherwise>
-			</choose>
-		    </matching-substring>
-		</analyze-string>
-	    </when>
-	    <otherwise>
-		<sequence select="()"/>
-	    </otherwise>
-	</choose>
-    </function>
-
-    <function name="krextor:curies-to-uris">
-	<param name="focus"/>
-	<param name="curie"/>
-	<choose>
-	    <when test="matches($curie, ' ')">
-		<sequence select="for $c in tokenize($curie, '\s+')
-		    return krextor:curie-to-uri($focus, $c)"/>
-	    </when>
-	    <otherwise>
-		<sequence select="krextor:curie-to-uri($focus, $curie)"/>
-	    </otherwise>
-	</choose>
-    </function>
-
-    <function name="krextor:safe-curie-to-uri">
-	<param name="focus"/>
-	<param name="safe-curie"/>
-	<analyze-string select="$safe-curie" regex="^\[([^\]]+)\]$">
-	    <matching-substring>
-		<value-of select="krextor:curie-to-uri($focus, regex-group(1))"/>
-	    </matching-substring>
-	    <non-matching-substring>
-		<value-of select="."/>
-	    </non-matching-substring>
-	</analyze-string>
-    </function>
-
     <template match="/">
 	<apply-imports>
 	    <with-param name="krextor:base-uri" select="/html/head/base[1]/@href" tunnel="yes"/>
 	</apply-imports>
+    </template>
+
+    <template match="krextor:curie" mode="krextor:resolve-prefixless-curie" as="text()">
+	<sequence select="if (text() = (
+		'alternate',
+		'appendix',
+		'bookmark',
+		'cite',
+		'chapter',
+		'contents',
+		'copyright',
+		'first',
+		'glossary',
+		'help',
+		'icon',
+		'index',
+		'last',
+		'license',
+		'meta',
+		'next',
+		'p3pv1',
+		'prev',
+		'role',
+		'section',
+		'stylesheet',
+		'subsection',
+		'start',
+		'top',
+		'up'
+	    )) then concat('http://www.w3.org/1999/xhtml/vocab#', $localname)
+	    else ()"/>
     </template>
 
     <!-- FIXME restrict to those elements where @about is actually allowed -->
