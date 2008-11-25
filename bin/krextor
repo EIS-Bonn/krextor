@@ -4,8 +4,6 @@
 # 
 # (c) Christoph Lange and KWARC 2008
 
-SAXON_JAR=$HOME/svn/omdoc.org/trunk/thirdParty/saxon/saxon9.jar
-
 function help {
 cat <<EOF
 Syntax: krextor IN..OUT FILE
@@ -49,14 +47,14 @@ do
     KREXTOR_BIN="$(readlink -f $KREXTOR_BIN)"
 done
 KREXTOR_HOME="$(dirname "$KREXTOR_BIN")"
-KREXTOR_HOME="$(cd "$KREXTOR_HOME/../src" ; pwd)"
+KREXTOR_HOME="$(cd "$KREXTOR_HOME/.." ; pwd)"
 
-transformer="$KREXTOR_HOME/transform-$xml-$rdf.xsl"
+transformer="$KREXTOR_HOME/src/transform-$xml-$rdf.xsl"
 
 if [[ ! -r $transformer ]]
 then
-    xmlExtractor=$KREXTOR_HOME/extract/$xml.xsl
-    rdfOutput=$KREXTOR_HOME/output/$rdf.xsl
+    xmlExtractor=$KREXTOR_HOME/src/extract/$xml.xsl
+    rdfOutput=$KREXTOR_HOME/src/output/$rdf.xsl
 
     if [[ ! -e $xmlExtractor ]]
     then
@@ -82,7 +80,7 @@ EOF
     transformer=/tmp/krextor.$$.xsl
 fi
 
-java -cp ${SAXON_JAR} net.sf.saxon.Transform $infile $transformer
+java -jar ${SAXON_JAR:-$KREXTOR_HOME/lib/saxon/saxon9.jar} $infile $transformer
 
 [[ -e /tmp/krextor.$$.xsl ]] && rm /tmp/krextor.$$.xsl
 
