@@ -1,0 +1,164 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html><head><title>XML source view</title><link rel="stylesheet" type="text/css" href="../../../xmlverbatim.css"/></head><body class="xmlverb-default"><tt>
+<!-- converted by xmlverbatim.xsl 1.1, (c) O. Becker -->
+<div xmlns:xd="http://www.pnp-software.com/XSLTdoc" class="xmlverb-default">&lt;<span class="xmlverb-element-nsprefix">xsl</span>:<span class="xmlverb-element-name"><a name="d34e1">stylesheet</a></span><span class="xmlverb-ns-name"> xmlns:xsl</span>="<span class="xmlverb-ns-uri">http://www.w3.org/1999/XSL/Transform</span>" <span class="xmlverb-attr-name">version</span>="<span class="xmlverb-attr-content">1.0</span>"&gt;<span class="xmlverb-text"><br/>
+<br/>
+<br/>
+</span>&lt;!--<span class="xmlverb-comment"> Copyright 1999 David Carlisle<br/>
+<br/>
+     Render XML in an HTML pre element.<br/>
+<br/>
+<br/>
+     USAGE<br/>
+     =====<br/>
+<br/>
+     include this stylesheet into your main stylesheet via<br/>
+<br/>
+     &lt;xsl:import href="verb.xsl"/&gt;<br/>
+<br/>
+     Then a typical usage might be to render an &lt;example&gt; element twice,<br/>
+     first as literal XML, then secondly styled as normal.<br/>
+<br/>
+     One would use, in your main stylesheet:<br/>
+<br/>
+     &lt;xsl:template  match="example"&gt;<br/>
+     &lt;pre&gt;<br/>
+     &lt;xsl:apply-templates mode="verb"/&gt;<br/>
+     &lt;/pre&gt;<br/>
+     &lt;xsl:apply-templates/&gt;<br/>
+     &lt;/xsl:template&gt;<br/>
+<br/>
+     This would put the contents of the example element (but not `&lt;example&gt;')<br/>
+     in the HTML pre element. If you want the verbatim mode to include the<br/>
+     current, `example' element, modify the above to say<br/>
+     &lt;xsl:apply-templates mode="verb" select="."/&gt;<br/>
+<br/>
+</span>--&gt;<span class="xmlverb-text"><br/>
+<br/>
+</span>&lt;!--<span class="xmlverb-comment">   verb mode </span>--&gt;<span class="xmlverb-text"><br/>
+<br/>
+</span>&lt;!--<span class="xmlverb-comment"> Does not really give verbatim copy of the file as that<br/>
+     information not present in the parsed document, but should<br/>
+     give something that renders in HTML as a well formed XML<br/>
+     document that would parse to give same XML tree as the original<br/>
+</span>--&gt;<span class="xmlverb-text"><br/>
+<br/>
+</span>&lt;!--<span class="xmlverb-comment"> non empty elements and other nodes. </span>--&gt;<span class="xmlverb-text"><br/>
+</span>&lt;<span class="xmlverb-element-nsprefix">xsl</span>:<span class="xmlverb-element-name"><a name="d34e11">template</a></span> <span class="xmlverb-attr-name">mode</span>="<span class="xmlverb-attr-content">verb</span>" <span class="xmlverb-attr-name">match</span>="<span class="xmlverb-attr-content">*[*]|*[text()]|*[comment()]|*[processing-instruction()]</span>"&gt;<span class="xmlverb-text"><br/>
+  </span>&lt;<span class="xmlverb-element-nsprefix">xsl</span>:<span class="xmlverb-element-name"><a name="d34e13">value-of</a></span> <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">concat('&amp;lt;',name(.))</span>" /&gt;<span class="xmlverb-text"><br/>
+  </span>&lt;<span class="xmlverb-element-nsprefix">xsl</span>:<span class="xmlverb-element-name"><a name="d34e15">call-template</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">ns</span>" /&gt;<span class="xmlverb-text"><br/>
+  </span>&lt;<span class="xmlverb-element-nsprefix">xsl</span>:<span class="xmlverb-element-name"><a name="d34e17">apply-templates</a></span> <span class="xmlverb-attr-name">mode</span>="<span class="xmlverb-attr-content">verb</span>" <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">@*</span>" /&gt;<span class="xmlverb-text"><br/>
+  </span>&lt;<span class="xmlverb-element-nsprefix">xsl</span>:<span class="xmlverb-element-name"><a name="d34e19">text</a></span>&gt;<span class="xmlverb-text">&amp;gt;</span>&lt;/<span class="xmlverb-element-nsprefix">xsl</span>:<span class="xmlverb-element-name">text</span>&gt;<span class="xmlverb-text"><br/>
+  </span>&lt;<span class="xmlverb-element-nsprefix">xsl</span>:<span class="xmlverb-element-name"><a name="d34e22">apply-templates</a></span> <span class="xmlverb-attr-name">mode</span>="<span class="xmlverb-attr-content">verb</span>" /&gt;<span class="xmlverb-text"><br/>
+  </span>&lt;<span class="xmlverb-element-nsprefix">xsl</span>:<span class="xmlverb-element-name"><a name="d34e25">value-of</a></span> <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">concat('&amp;lt;/',name(.),'&amp;gt;')</span>" /&gt;<span class="xmlverb-text"><br/>
+</span>&lt;/<span class="xmlverb-element-nsprefix">xsl</span>:<span class="xmlverb-element-name">template</span>&gt;<span class="xmlverb-text"><br/>
+<br/>
+</span>&lt;!--<span class="xmlverb-comment"> empty elements </span>--&gt;<span class="xmlverb-text"><br/>
+</span>&lt;<span class="xmlverb-element-nsprefix">xsl</span>:<span class="xmlverb-element-name"><a name="d34e31">template</a></span> <span class="xmlverb-attr-name">mode</span>="<span class="xmlverb-attr-content">verb</span>" <span class="xmlverb-attr-name">match</span>="<span class="xmlverb-attr-content">*</span>"&gt;<span class="xmlverb-text"><br/>
+  </span>&lt;<span class="xmlverb-element-nsprefix">xsl</span>:<span class="xmlverb-element-name"><a name="d34e33">value-of</a></span> <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">concat('&amp;lt;',name(.))</span>" /&gt;<span class="xmlverb-text"><br/>
+  </span>&lt;<span class="xmlverb-element-nsprefix">xsl</span>:<span class="xmlverb-element-name"><a name="d34e35">call-template</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">ns</span>" /&gt;<span class="xmlverb-text"><br/>
+  </span>&lt;<span class="xmlverb-element-nsprefix">xsl</span>:<span class="xmlverb-element-name"><a name="d34e37">apply-templates</a></span> <span class="xmlverb-attr-name">mode</span>="<span class="xmlverb-attr-content">verb</span>" <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">@*</span>" /&gt;<span class="xmlverb-text"><br/>
+  </span>&lt;<span class="xmlverb-element-nsprefix">xsl</span>:<span class="xmlverb-element-name"><a name="d34e39">text</a></span>&gt;<span class="xmlverb-text">/&amp;gt;</span>&lt;/<span class="xmlverb-element-nsprefix">xsl</span>:<span class="xmlverb-element-name">text</span>&gt;<span class="xmlverb-text"><br/>
+</span>&lt;/<span class="xmlverb-element-nsprefix">xsl</span>:<span class="xmlverb-element-name">template</span>&gt;<span class="xmlverb-text"><br/>
+<br/>
+</span>&lt;<span class="xmlverb-element-nsprefix">xsl</span>:<span class="xmlverb-element-name"><a name="d34e43">template</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">ns</span>"&gt;<span class="xmlverb-text"><br/>
+</span>&lt;<span class="xmlverb-element-nsprefix">xsl</span>:<span class="xmlverb-element-name"><a name="d34e45">variable</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">a</span>" <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">../namespace::*</span>" /&gt;<span class="xmlverb-text"><br/>
+</span>&lt;<span class="xmlverb-element-nsprefix">xsl</span>:<span class="xmlverb-element-name"><a name="d34e47">variable</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">b</span>" <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">namespace::*</span>" /&gt;<span class="xmlverb-text"><br/>
+</span>&lt;<span class="xmlverb-element-nsprefix">xsl</span>:<span class="xmlverb-element-name"><a name="d34e49">for-each</a></span> <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">$b[not(name()='xml')]</span>"&gt;<span class="xmlverb-text"><br/>
+</span>&lt;<span class="xmlverb-element-nsprefix">xsl</span>:<span class="xmlverb-element-name"><a name="d34e51">variable</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">n</span>" <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">name()</span>" /&gt;<span class="xmlverb-text"><br/>
+</span>&lt;<span class="xmlverb-element-nsprefix">xsl</span>:<span class="xmlverb-element-name"><a name="d34e53">variable</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">v</span>" <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">.</span>" /&gt;<span class="xmlverb-text"><br/>
+</span>&lt;<span class="xmlverb-element-nsprefix">xsl</span>:<span class="xmlverb-element-name"><a name="d34e55">if</a></span> <span class="xmlverb-attr-name">test</span>="<span class="xmlverb-attr-content">not($a[name()=$n and . = $v])</span>"&gt;<span class="xmlverb-text"><br/>
+</span>&lt;<span class="xmlverb-element-nsprefix">xsl</span>:<span class="xmlverb-element-name"><a name="d34e57">text</a></span> /&gt;<span class="xmlverb-text"> xmlns</span>&lt;<span class="xmlverb-element-nsprefix">xsl</span>:<span class="xmlverb-element-name"><a name="d34e59">if</a></span> <span class="xmlverb-attr-name">test</span>="<span class="xmlverb-attr-content">$n</span>"&gt;<span class="xmlverb-text">:</span>&lt;/<span class="xmlverb-element-nsprefix">xsl</span>:<span class="xmlverb-element-name">if</span>&gt;&lt;<span class="xmlverb-element-nsprefix">xsl</span>:<span class="xmlverb-element-name"><a name="d34e61">value-of</a></span> <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">$n</span>" /&gt;<span class="xmlverb-text">="</span>&lt;<span class="xmlverb-element-nsprefix">xsl</span>:<span class="xmlverb-element-name"><a name="d34e63">value-of</a></span> <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">$v</span>" /&gt;<span class="xmlverb-text">"</span>&lt;<span class="xmlverb-element-nsprefix">xsl</span>:<span class="xmlverb-element-name"><a name="d34e65">text</a></span> /&gt;<span class="xmlverb-text"><br/>
+</span>&lt;/<span class="xmlverb-element-nsprefix">xsl</span>:<span class="xmlverb-element-name">if</span>&gt;<span class="xmlverb-text"><br/>
+</span>&lt;/<span class="xmlverb-element-nsprefix">xsl</span>:<span class="xmlverb-element-name">for-each</span>&gt;<span class="xmlverb-text"><br/>
+</span>&lt;!--<span class="xmlverb-comment"><br/>
+ This should work (and does with saxon, but not with xalan) so instead do the above.<br/>
+<br/>
+  &lt;xsl:for-each select="namespace::*[not(name()='xml')]"&gt;<br/>
+  &lt;xsl:if test="not(../../namespace::*[name()=name(current()) and (. = current())])"&gt;<br/>
+  &lt;xsl:text/&gt; xmlns&lt;xsl:if test="name()"&gt;:&lt;/xsl:if&gt;&lt;xsl:value-of<br/>
+  select="name()"/&gt;="&lt;xsl:value-of select="."/&gt;"&lt;xsl:text/&gt;<br/>
+  &lt;/xsl:if&gt;<br/>
+  &lt;/xsl:for-each&gt;<br/>
+</span>--&gt;<span class="xmlverb-text"><br/>
+</span>&lt;/<span class="xmlverb-element-nsprefix">xsl</span>:<span class="xmlverb-element-name">template</span>&gt;<span class="xmlverb-text"><br/>
+<br/>
+</span>&lt;!--<span class="xmlverb-comment"> attributes<br/>
+     Output always surrounds attribute value by "<br/>
+     so we need to make sure no literal " appear in the value  </span>--&gt;<span class="xmlverb-text"><br/>
+</span>&lt;<span class="xmlverb-element-nsprefix">xsl</span>:<span class="xmlverb-element-name"><a name="d34e74">template</a></span> <span class="xmlverb-attr-name">mode</span>="<span class="xmlverb-attr-content">verb</span>" <span class="xmlverb-attr-name">match</span>="<span class="xmlverb-attr-content">@*</span>"&gt;<span class="xmlverb-text"><br/>
+  </span>&lt;<span class="xmlverb-element-nsprefix">xsl</span>:<span class="xmlverb-element-name"><a name="d34e76">value-of</a></span> <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">concat(' ',name(.),'=')</span>" /&gt;<span class="xmlverb-text"><br/>
+  </span>&lt;<span class="xmlverb-element-nsprefix">xsl</span>:<span class="xmlverb-element-name"><a name="d34e78">text</a></span>&gt;<span class="xmlverb-text">"</span>&lt;/<span class="xmlverb-element-nsprefix">xsl</span>:<span class="xmlverb-element-name">text</span>&gt;<span class="xmlverb-text"><br/>
+  </span>&lt;<span class="xmlverb-element-nsprefix">xsl</span>:<span class="xmlverb-element-name"><a name="d34e81">call-template</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">string-replace</span>"&gt;<span class="xmlverb-text"><br/>
+    </span>&lt;<span class="xmlverb-element-nsprefix">xsl</span>:<span class="xmlverb-element-name"><a name="d34e83">with-param</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">from</span>" <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">'&amp;quot;'</span>" /&gt;<span class="xmlverb-text"><br/>
+    </span>&lt;<span class="xmlverb-element-nsprefix">xsl</span>:<span class="xmlverb-element-name"><a name="d34e85">with-param</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">to</span>" <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">'&amp;amp;quot;'</span>" /&gt;<span class="xmlverb-text"> <br/>
+    </span>&lt;<span class="xmlverb-element-nsprefix">xsl</span>:<span class="xmlverb-element-name"><a name="d34e87">with-param</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">string</span>" <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">.</span>" /&gt;<span class="xmlverb-text"><br/>
+  </span>&lt;/<span class="xmlverb-element-nsprefix">xsl</span>:<span class="xmlverb-element-name">call-template</span>&gt;<span class="xmlverb-text"><br/>
+  </span>&lt;<span class="xmlverb-element-nsprefix">xsl</span>:<span class="xmlverb-element-name"><a name="d34e90">text</a></span>&gt;<span class="xmlverb-text">"</span>&lt;/<span class="xmlverb-element-nsprefix">xsl</span>:<span class="xmlverb-element-name">text</span>&gt;<span class="xmlverb-text"><br/>
+</span>&lt;/<span class="xmlverb-element-nsprefix">xsl</span>:<span class="xmlverb-element-name">template</span>&gt;<span class="xmlverb-text"><br/>
+<br/>
+<br/>
+</span>&lt;!--<span class="xmlverb-comment"> pis </span>--&gt;<span class="xmlverb-text"><br/>
+</span>&lt;<span class="xmlverb-element-nsprefix">xsl</span>:<span class="xmlverb-element-name"><a name="d34e96">template</a></span> <span class="xmlverb-attr-name">mode</span>="<span class="xmlverb-attr-content">verb</span>" <span class="xmlverb-attr-name">match</span>="<span class="xmlverb-attr-content">processing-instruction()</span>"&gt;<span class="xmlverb-text"><br/>
+  </span>&lt;<span class="xmlverb-element-nsprefix">xsl</span>:<span class="xmlverb-element-name"><a name="d34e98">value-of</a></span> <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">concat('&amp;lt;?',name(.),' ',.,'?&amp;gt;')</span>" /&gt;<span class="xmlverb-text"><br/>
+</span>&lt;/<span class="xmlverb-element-nsprefix">xsl</span>:<span class="xmlverb-element-name">template</span>&gt;<span class="xmlverb-text"><br/>
+<br/>
+</span>&lt;!--<span class="xmlverb-comment"> only works if parser passes on comment nodes </span>--&gt;<span class="xmlverb-text"><br/>
+</span>&lt;<span class="xmlverb-element-nsprefix">xsl</span>:<span class="xmlverb-element-name"><a name="d34e104">template</a></span> <span class="xmlverb-attr-name">mode</span>="<span class="xmlverb-attr-content">verb</span>" <span class="xmlverb-attr-name">match</span>="<span class="xmlverb-attr-content">comment()</span>"&gt;<span class="xmlverb-text"><br/>
+  </span>&lt;<span class="xmlverb-element-nsprefix">xsl</span>:<span class="xmlverb-element-name"><a name="d34e106">value-of</a></span> <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">concat('&amp;lt;!--',.,'--&amp;gt;')</span>" /&gt;<span class="xmlverb-text"><br/>
+</span>&lt;/<span class="xmlverb-element-nsprefix">xsl</span>:<span class="xmlverb-element-name">template</span>&gt;<span class="xmlverb-text"><br/>
+<br/>
+</span>&lt;!--<span class="xmlverb-comment"> text elements<br/>
+     need to replace &amp; and &lt; by entity references<br/>
+     do &gt; as well,  just for balance </span>--&gt;<span class="xmlverb-text"><br/>
+</span>&lt;<span class="xmlverb-element-nsprefix">xsl</span>:<span class="xmlverb-element-name"><a name="d34e111">template</a></span> <span class="xmlverb-attr-name">mode</span>="<span class="xmlverb-attr-content">verb</span>" <span class="xmlverb-attr-name">match</span>="<span class="xmlverb-attr-content">text()</span>"&gt;<span class="xmlverb-text"><br/>
+  </span>&lt;<span class="xmlverb-element-nsprefix">xsl</span>:<span class="xmlverb-element-name"><a name="d34e113">call-template</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">string-replace</span>"&gt;<span class="xmlverb-text"><br/>
+    </span>&lt;<span class="xmlverb-element-nsprefix">xsl</span>:<span class="xmlverb-element-name"><a name="d34e115">with-param</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">to</span>" <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">'&amp;amp;gt;'</span>" /&gt;<span class="xmlverb-text"><br/>
+    </span>&lt;<span class="xmlverb-element-nsprefix">xsl</span>:<span class="xmlverb-element-name"><a name="d34e117">with-param</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">from</span>" <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">'&amp;gt;'</span>" /&gt;<span class="xmlverb-text"> <br/>
+    </span>&lt;<span class="xmlverb-element-nsprefix">xsl</span>:<span class="xmlverb-element-name"><a name="d34e119">with-param</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">string</span>"&gt;<span class="xmlverb-text"><br/>
+      </span>&lt;<span class="xmlverb-element-nsprefix">xsl</span>:<span class="xmlverb-element-name"><a name="d34e121">call-template</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">string-replace</span>"&gt;<span class="xmlverb-text"><br/>
+        </span>&lt;<span class="xmlverb-element-nsprefix">xsl</span>:<span class="xmlverb-element-name"><a name="d34e123">with-param</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">to</span>" <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">'&amp;amp;lt;'</span>" /&gt;<span class="xmlverb-text"><br/>
+        </span>&lt;<span class="xmlverb-element-nsprefix">xsl</span>:<span class="xmlverb-element-name"><a name="d34e125">with-param</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">from</span>" <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">'&amp;lt;'</span>" /&gt;<span class="xmlverb-text"> <br/>
+        </span>&lt;<span class="xmlverb-element-nsprefix">xsl</span>:<span class="xmlverb-element-name"><a name="d34e127">with-param</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">string</span>"&gt;<span class="xmlverb-text"><br/>
+          </span>&lt;<span class="xmlverb-element-nsprefix">xsl</span>:<span class="xmlverb-element-name"><a name="d34e129">call-template</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">string-replace</span>"&gt;<span class="xmlverb-text"><br/>
+            </span>&lt;<span class="xmlverb-element-nsprefix">xsl</span>:<span class="xmlverb-element-name"><a name="d34e131">with-param</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">to</span>" <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">'&amp;amp;amp;'</span>" /&gt;<span class="xmlverb-text"><br/>
+            </span>&lt;<span class="xmlverb-element-nsprefix">xsl</span>:<span class="xmlverb-element-name"><a name="d34e133">with-param</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">from</span>" <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">'&amp;amp;'</span>" /&gt;<span class="xmlverb-text"> <br/>
+            </span>&lt;<span class="xmlverb-element-nsprefix">xsl</span>:<span class="xmlverb-element-name"><a name="d34e135">with-param</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">string</span>" <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">.</span>" /&gt;<span class="xmlverb-text"><br/>
+          </span>&lt;/<span class="xmlverb-element-nsprefix">xsl</span>:<span class="xmlverb-element-name">call-template</span>&gt;<span class="xmlverb-text"><br/>
+        </span>&lt;/<span class="xmlverb-element-nsprefix">xsl</span>:<span class="xmlverb-element-name">with-param</span>&gt;<span class="xmlverb-text"><br/>
+      </span>&lt;/<span class="xmlverb-element-nsprefix">xsl</span>:<span class="xmlverb-element-name">call-template</span>&gt;<span class="xmlverb-text"><br/>
+    </span>&lt;/<span class="xmlverb-element-nsprefix">xsl</span>:<span class="xmlverb-element-name">with-param</span>&gt;<span class="xmlverb-text"><br/>
+  </span>&lt;/<span class="xmlverb-element-nsprefix">xsl</span>:<span class="xmlverb-element-name">call-template</span>&gt;<span class="xmlverb-text"><br/>
+</span>&lt;/<span class="xmlverb-element-nsprefix">xsl</span>:<span class="xmlverb-element-name">template</span>&gt;<span class="xmlverb-text"><br/>
+<br/>
+<br/>
+</span>&lt;!--<span class="xmlverb-comment"> end  verb mode </span>--&gt;<span class="xmlverb-text"><br/>
+<br/>
+</span>&lt;!--<span class="xmlverb-comment"> replace all occurences of the character(s) `from'<br/>
+     by the string `to' in the string `string'.</span>--&gt;<span class="xmlverb-text"><br/>
+</span>&lt;<span class="xmlverb-element-nsprefix">xsl</span>:<span class="xmlverb-element-name"><a name="d34e147">template</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">string-replace</span>"&gt;<span class="xmlverb-text"><br/>
+  </span>&lt;<span class="xmlverb-element-nsprefix">xsl</span>:<span class="xmlverb-element-name"><a name="d34e149">param</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">string</span>" /&gt;<span class="xmlverb-text"><br/>
+  </span>&lt;<span class="xmlverb-element-nsprefix">xsl</span>:<span class="xmlverb-element-name"><a name="d34e151">param</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">from</span>" /&gt;<span class="xmlverb-text"><br/>
+  </span>&lt;<span class="xmlverb-element-nsprefix">xsl</span>:<span class="xmlverb-element-name"><a name="d34e153">param</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">to</span>" /&gt;<span class="xmlverb-text"><br/>
+  </span>&lt;<span class="xmlverb-element-nsprefix">xsl</span>:<span class="xmlverb-element-name"><a name="d34e155">choose</a></span>&gt;<span class="xmlverb-text"><br/>
+    </span>&lt;<span class="xmlverb-element-nsprefix">xsl</span>:<span class="xmlverb-element-name"><a name="d34e157">when</a></span> <span class="xmlverb-attr-name">test</span>="<span class="xmlverb-attr-content">contains($string,$from)</span>"&gt;<span class="xmlverb-text"><br/>
+      </span>&lt;<span class="xmlverb-element-nsprefix">xsl</span>:<span class="xmlverb-element-name"><a name="d34e159">value-of</a></span> <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">substring-before($string,$from)</span>" /&gt;<span class="xmlverb-text"><br/>
+      </span>&lt;<span class="xmlverb-element-nsprefix">xsl</span>:<span class="xmlverb-element-name"><a name="d34e161">value-of</a></span> <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">$to</span>" /&gt;<span class="xmlverb-text"><br/>
+      </span>&lt;<span class="xmlverb-element-nsprefix">xsl</span>:<span class="xmlverb-element-name"><a name="d34e163">call-template</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">string-replace</span>"&gt;<span class="xmlverb-text"><br/>
+      </span>&lt;<span class="xmlverb-element-nsprefix">xsl</span>:<span class="xmlverb-element-name"><a name="d34e165">with-param</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">string</span>" <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">substring-after($string,$from)</span>" /&gt;<span class="xmlverb-text"><br/>
+      </span>&lt;<span class="xmlverb-element-nsprefix">xsl</span>:<span class="xmlverb-element-name"><a name="d34e167">with-param</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">from</span>" <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">$from</span>" /&gt;<span class="xmlverb-text"><br/>
+      </span>&lt;<span class="xmlverb-element-nsprefix">xsl</span>:<span class="xmlverb-element-name"><a name="d34e169">with-param</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">to</span>" <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">$to</span>" /&gt;<span class="xmlverb-text"><br/>
+      </span>&lt;/<span class="xmlverb-element-nsprefix">xsl</span>:<span class="xmlverb-element-name">call-template</span>&gt;<span class="xmlverb-text"><br/>
+    </span>&lt;/<span class="xmlverb-element-nsprefix">xsl</span>:<span class="xmlverb-element-name">when</span>&gt;<span class="xmlverb-text"><br/>
+    </span>&lt;<span class="xmlverb-element-nsprefix">xsl</span>:<span class="xmlverb-element-name"><a name="d34e173">otherwise</a></span>&gt;<span class="xmlverb-text"><br/>
+      </span>&lt;<span class="xmlverb-element-nsprefix">xsl</span>:<span class="xmlverb-element-name"><a name="d34e175">value-of</a></span> <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">$string</span>" /&gt;<span class="xmlverb-text"><br/>
+    </span>&lt;/<span class="xmlverb-element-nsprefix">xsl</span>:<span class="xmlverb-element-name">otherwise</span>&gt;<span class="xmlverb-text"><br/>
+  </span>&lt;/<span class="xmlverb-element-nsprefix">xsl</span>:<span class="xmlverb-element-name">choose</span>&gt;<span class="xmlverb-text"><br/>
+</span>&lt;/<span class="xmlverb-element-nsprefix">xsl</span>:<span class="xmlverb-element-name">template</span>&gt;<span class="xmlverb-text"><br/>
+<br/>
+</span>&lt;/<span class="xmlverb-element-nsprefix">xsl</span>:<span class="xmlverb-element-name">stylesheet</span>&gt;<br/>
+</div>
+</tt><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>v
+         </body></html>

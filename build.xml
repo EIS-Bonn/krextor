@@ -1,0 +1,32 @@
+<project name="Krextor" default="xsltdoc" basedir=".">
+	<description>ant build file for the Krextor program</description>
+
+	<target name="xsltdoc">
+		<!-- <delete dir="doc" /> -->
+		<copy todir="doc/xsltdoc">
+			<fileset dir="lib/xsltdoc/css">
+				<filename name="*.css" />
+			</fileset>
+		</copy>
+		<java fork="true" jar="lib/saxon/saxon9.jar">
+			<arg value="lib/xsltdoc/xsl/XSLTdocConfig.xml" />
+			<arg value="lib/xsltdoc/xsl/xsltdoc.xsl" />
+		</java>
+	</target>
+
+	<target name="dist" depends="xsltdoc" description="...">
+	</target>
+	
+	<target name="test">
+	</target>
+
+	<!--
+	<target name="testUtil">
+		<xslt style="xsl/test/utilTest.xsl" in="xsl/test/dummy.xml" out="xsl/test/testResult.txt">
+		</xslt>
+	</target>
+	-->
+</project>
+<!--
+vim:sw=8:sts=8
+-->

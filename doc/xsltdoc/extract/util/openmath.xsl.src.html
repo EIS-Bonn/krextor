@@ -1,0 +1,49 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html><head><title>XML source view</title><link rel="stylesheet" type="text/css" href="../../xmlverbatim.css"/></head><body class="xmlverb-default"><tt>
+<!-- converted by xmlverbatim.xsl 1.1, (c) O. Becker -->
+<div xmlns:xd="http://www.pnp-software.com/XSLTdoc" class="xmlverb-default">&lt;!--<span class="xmlverb-comment"><br/>
+    *  Copyright (C) 2008<br/>
+    *  Christoph Lange<br/>
+    *  Jacobs University Bremen<br/>
+    *<br/>
+    *   Krextor is free software; you can redistribute it and/or<br/>
+    *         modify it under the terms of the GNU Lesser General Public<br/>
+    *         License as published by the Free Software Foundation; either<br/>
+    *         version 2 of the License, or (at your option) any later version.<br/>
+    *<br/>
+    *         This program is distributed in the hope that it will be useful,<br/>
+    *         but WITHOUT ANY WARRANTY; without even the implied warranty of<br/>
+    *         MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU<br/>
+    *         Lesser General Public License for more details.<br/>
+    *<br/>
+    *         You should have received a copy of the GNU Lesser General Public<br/>
+    *         License along with this library; if not, write to the<br/>
+    *         Free Software Foundation, Inc., 59 Temple Place - Suite 330,<br/>
+    *         Boston, MA 02111-1307, USA.<br/>
+    * <br/>
+</span>--&gt;<br/>
+&lt;!--<span class="xmlverb-comment"><br/>
+        This stylesheet contains some shared utility functions for OpenMath<br/>
+        symbols.<br/>
+</span>--&gt;<br/>
+&lt;<span class="xmlverb-element-nsprefix">xsl</span>:<span class="xmlverb-element-name"><a name="d19e3">stylesheet</a></span><span class="xmlverb-ns-name"> xmlns:xsl</span>="<span class="xmlverb-ns-uri">http://www.w3.org/1999/XSL/Transform</span>"<span class="xmlverb-ns-name"> xmlns:om</span>="<span class="xmlverb-ns-uri">http://www.openmath.org/OpenMath</span>" <span class="xmlverb-attr-name">exclude-result-prefixes</span>="<span class="xmlverb-attr-content">om</span>" <span class="xmlverb-attr-name">version</span>="<span class="xmlverb-attr-content">2.0</span>"&gt;<span class="xmlverb-text"><br/>
+<br/>
+    </span>&lt;<span class="xmlverb-element-nsprefix">xsl</span>:<span class="xmlverb-element-name"><a name="d19e5">function</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">om:cdbase-or-default</span>"&gt;<span class="xmlverb-text"><br/>
+        </span>&lt;<span class="xmlverb-element-nsprefix">xsl</span>:<span class="xmlverb-element-name"><a name="d19e7">param</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">cdbase</span>" /&gt;<span class="xmlverb-text"><br/>
+        </span>&lt;<span class="xmlverb-element-nsprefix">xsl</span>:<span class="xmlverb-element-name"><a name="d19e9">sequence</a></span> <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">if ($cdbase) then $cdbase else 'http://www.openmath.org/cd'</span>" /&gt;<span class="xmlverb-text"><br/>
+    </span>&lt;/<span class="xmlverb-element-nsprefix">xsl</span>:<span class="xmlverb-element-name">function</span>&gt;<span class="xmlverb-text"><br/>
+<br/>
+    </span>&lt;!--<span class="xmlverb-comment"> Canonical URI for a symbol (OpenMath 2.0 standard, section 2.3) </span>--&gt;<span class="xmlverb-text"><br/>
+    </span>&lt;<span class="xmlverb-element-nsprefix">xsl</span>:<span class="xmlverb-element-name"><a name="d19e14">function</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">om:symbol-uri</span>"&gt;<span class="xmlverb-text"><br/>
+        </span>&lt;<span class="xmlverb-element-nsprefix">xsl</span>:<span class="xmlverb-element-name"><a name="d19e16">param</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">cdbase</span>" /&gt;<span class="xmlverb-text"><br/>
+        </span>&lt;<span class="xmlverb-element-nsprefix">xsl</span>:<span class="xmlverb-element-name"><a name="d19e18">param</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">cd</span>" /&gt;<span class="xmlverb-text"><br/>
+        </span>&lt;<span class="xmlverb-element-nsprefix">xsl</span>:<span class="xmlverb-element-name"><a name="d19e20">param</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">name</span>" /&gt;<span class="xmlverb-text"><br/>
+        </span>&lt;<span class="xmlverb-element-nsprefix">xsl</span>:<span class="xmlverb-element-name"><a name="d19e22">sequence</a></span> <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">concat(om:cdbase-or-default($cdbase), '/', $cd, '#', $name)</span>" /&gt;<span class="xmlverb-text"><br/>
+    </span>&lt;/<span class="xmlverb-element-nsprefix">xsl</span>:<span class="xmlverb-element-name">function</span>&gt;<span class="xmlverb-text"><br/>
+<br/>
+</span>&lt;/<span class="xmlverb-element-nsprefix">xsl</span>:<span class="xmlverb-element-name">stylesheet</span>&gt;<br/>
+</div>
+</tt><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>v
+         </body></html>

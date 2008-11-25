@@ -1,0 +1,72 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html><head><title>XML source view</title><link rel="stylesheet" type="text/css" href="../xmlverbatim.css"/></head><body class="xmlverb-default"><tt>
+<!-- converted by xmlverbatim.xsl 1.1, (c) O. Becker -->
+<div xmlns:xd="http://www.pnp-software.com/XSLTdoc" class="xmlverb-default">&lt;!--<span class="xmlverb-comment"><br/>
+    *  Copyright (C) 2008<br/>
+    *  Christoph Lange<br/>
+    *  Jacobs University Bremen<br/>
+    *<br/>
+    *   Krextor is free software; you can redistribute it and/or<br/>
+    *         modify it under the terms of the GNU Lesser General Public<br/>
+    *         License as published by the Free Software Foundation; either<br/>
+    *         version 2 of the License, or (at your option) any later version.<br/>
+    *<br/>
+    *         This program is distributed in the hope that it will be useful,<br/>
+    *         but WITHOUT ANY WARRANTY; without even the implied warranty of<br/>
+    *         MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU<br/>
+    *         Lesser General Public License for more details.<br/>
+    *<br/>
+    *         You should have received a copy of the GNU Lesser General Public<br/>
+    *         License along with this library; if not, write to the<br/>
+    *         Free Software Foundation, Inc., 59 Temple Place - Suite 330,<br/>
+    *         Boston, MA 02111-1307, USA.<br/>
+    * <br/>
+</span>--&gt;<br/>
+&lt;!--<span class="xmlverb-comment"><br/>
+        This stylesheet extracts OWL and RDFS ontologies from OMDoc documents.<br/>
+</span>--&gt;<br/>
+&lt;<span class="xmlverb-element-nsprefix">xsl</span>:<span class="xmlverb-element-name"><a name="d22e3">stylesheet</a></span><span class="xmlverb-ns-name"> xmlns:xsl</span>="<span class="xmlverb-ns-uri">http://www.w3.org/1999/XSL/Transform</span>"<span class="xmlverb-ns-name"> xmlns:om</span>="<span class="xmlverb-ns-uri">http://www.openmath.org/OpenMath</span>"<span class="xmlverb-ns-name"> xmlns:krextor</span>="<span class="xmlverb-ns-uri">http://kwarc.info/projects/krextor</span>"<span class="xmlverb-ns-name"> xmlns</span>="<span class="xmlverb-ns-uri">http://omdoc.org/ns</span>" <span class="xmlverb-attr-name">xpath-default-namespace</span>="<span class="xmlverb-attr-content">http://omdoc.org/ns</span>" <span class="xmlverb-attr-name">version</span>="<span class="xmlverb-attr-content">2.0</span>"&gt;<span class="xmlverb-text"><br/>
+<br/>
+    </span>&lt;<span class="xmlverb-element-nsprefix">xsl</span>:<span class="xmlverb-element-name"><a name="d22e5">import</a></span> <span class="xmlverb-attr-name">href</span>="<span class="xmlverb-attr-content">util/rdfa.xsl</span>" /&gt;<span class="xmlverb-text"><br/>
+<br/>
+    </span>&lt;<span class="xmlverb-element-nsprefix">xsl</span>:<span class="xmlverb-element-name"><a name="d22e7">strip-space</a></span> <span class="xmlverb-attr-name">elements</span>="<span class="xmlverb-attr-content">*</span>" /&gt;<span class="xmlverb-text"><br/>
+    <br/>
+    </span>&lt;<span class="xmlverb-element-nsprefix">xsl</span>:<span class="xmlverb-element-name"><a name="d22e9">template</a></span> <span class="xmlverb-attr-name">match</span>="<span class="xmlverb-attr-content">symbol</span>"&gt;<span class="xmlverb-text"><br/>
+        </span>&lt;<span class="xmlverb-element-nsprefix">xsl</span>:<span class="xmlverb-element-name"><a name="d22e11">param</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">krextor:sem-web-base</span>" <span class="xmlverb-attr-name">tunnel</span>="<span class="xmlverb-attr-content">yes</span>" /&gt;<span class="xmlverb-text"><br/>
+        </span>&lt;<span class="xmlverb-element-nsprefix">xsl</span>:<span class="xmlverb-element-name"><a name="d22e13">call-template</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">krextor:create-resource</span>" /&gt;<span class="xmlverb-text"><br/>
+    </span>&lt;/<span class="xmlverb-element-nsprefix">xsl</span>:<span class="xmlverb-element-name">template</span>&gt;<span class="xmlverb-text"><br/>
+<br/>
+    </span>&lt;<span class="xmlverb-element-nsprefix">xsl</span>:<span class="xmlverb-element-name"><a name="d22e16">template</a></span> <span class="xmlverb-attr-name">match</span>="<span class="xmlverb-attr-content">symbol/type[@system='owl'][om:OMOBJ/om:OMS]</span>"&gt;<span class="xmlverb-text"><br/>
+        </span>&lt;<span class="xmlverb-element-nsprefix">xsl</span>:<span class="xmlverb-element-name"><a name="d22e18">call-template</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">krextor:add-uri-property</span>"&gt;<span class="xmlverb-text"><br/>
+            </span>&lt;<span class="xmlverb-element-nsprefix">xsl</span>:<span class="xmlverb-element-name"><a name="d22e20">with-param</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">property</span>" <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'</span>" /&gt;<span class="xmlverb-text"><br/>
+            </span>&lt;<span class="xmlverb-element-nsprefix">xsl</span>:<span class="xmlverb-element-name"><a name="d22e22">with-param</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">object</span>" <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">concat('NS-URL-OF-', om:OMOBJ/om:OMS/@cd, '/', om:OMOBJ/om:OMS/@name)</span>" /&gt;<span class="xmlverb-text"><br/>
+        </span>&lt;/<span class="xmlverb-element-nsprefix">xsl</span>:<span class="xmlverb-element-name">call-template</span>&gt;<span class="xmlverb-text"><br/>
+    </span>&lt;/<span class="xmlverb-element-nsprefix">xsl</span>:<span class="xmlverb-element-name">template</span>&gt;<span class="xmlverb-text"><br/>
+<br/>
+    </span>&lt;!--<span class="xmlverb-comment"> Try to find the ontology namespace (special metadata field<br/>
+         omdoc:semwebbase) </span>--&gt;<span class="xmlverb-text"><br/>
+    </span>&lt;<span class="xmlverb-element-nsprefix">xsl</span>:<span class="xmlverb-element-name"><a name="d22e29">template</a></span> <span class="xmlverb-attr-name">match</span>="<span class="xmlverb-attr-content">theory</span>"&gt;<span class="xmlverb-text"><br/>
+        </span>&lt;<span class="xmlverb-element-nsprefix">xsl</span>:<span class="xmlverb-element-name"><a name="d22e31">variable</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">sem-web-base</span>"&gt;<span class="xmlverb-text"><br/>
+            </span>&lt;<span class="xmlverb-element-nsprefix">xsl</span>:<span class="xmlverb-element-name"><a name="d22e33">variable</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">link</span>"&gt;<span class="xmlverb-text"><br/>
+                </span>&lt;<span class="xmlverb-element-nsprefix">xsl</span>:<span class="xmlverb-element-name"><a name="d22e35">value-of</a></span> <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">metadata/link[krextor:curie-to-uri(., @rel) eq 'http://omdoc.org/nssemWebBase']</span>" /&gt;<span class="xmlverb-text"><br/>
+            </span>&lt;/<span class="xmlverb-element-nsprefix">xsl</span>:<span class="xmlverb-element-name">variable</span>&gt;<span class="xmlverb-text"><br/>
+            </span>&lt;<span class="xmlverb-element-nsprefix">xsl</span>:<span class="xmlverb-element-name"><a name="d22e38">message</a></span> <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">boolean(trace($link, 'foo'))</span>" /&gt;<span class="xmlverb-text"><br/>
+            </span>&lt;<span class="xmlverb-element-nsprefix">xsl</span>:<span class="xmlverb-element-name"><a name="d22e40">value-of</a></span> <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">if ($link) then $link/@href else ()</span>" /&gt;<span class="xmlverb-text"><br/>
+        </span>&lt;/<span class="xmlverb-element-nsprefix">xsl</span>:<span class="xmlverb-element-name">variable</span>&gt;<span class="xmlverb-text"><br/>
+        </span>&lt;<span class="xmlverb-element-nsprefix">xsl</span>:<span class="xmlverb-element-name"><a name="d22e43">choose</a></span>&gt;<span class="xmlverb-text"><br/>
+            </span>&lt;<span class="xmlverb-element-nsprefix">xsl</span>:<span class="xmlverb-element-name"><a name="d22e45">when</a></span> <span class="xmlverb-attr-name">test</span>="<span class="xmlverb-attr-content">$sem-web-base</span>"&gt;<span class="xmlverb-text"><br/>
+                </span>&lt;<span class="xmlverb-element-nsprefix">xsl</span>:<span class="xmlverb-element-name"><a name="d22e47">apply-templates</a></span>&gt;<span class="xmlverb-text"><br/>
+                    </span>&lt;<span class="xmlverb-element-nsprefix">xsl</span>:<span class="xmlverb-element-name"><a name="d22e49">with-param</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">krextor:sem-web-base</span>" <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">$sem-web-base</span>" <span class="xmlverb-attr-name">tunnel</span>="<span class="xmlverb-attr-content">yes</span>" /&gt;<span class="xmlverb-text"><br/>
+                </span>&lt;/<span class="xmlverb-element-nsprefix">xsl</span>:<span class="xmlverb-element-name">apply-templates</span>&gt;<span class="xmlverb-text"><br/>
+            </span>&lt;/<span class="xmlverb-element-nsprefix">xsl</span>:<span class="xmlverb-element-name">when</span>&gt;<span class="xmlverb-text"><br/>
+            </span>&lt;<span class="xmlverb-element-nsprefix">xsl</span>:<span class="xmlverb-element-name"><a name="d22e53">otherwise</a></span>&gt;<span class="xmlverb-text"><br/>
+                </span>&lt;<span class="xmlverb-element-nsprefix">xsl</span>:<span class="xmlverb-element-name"><a name="d22e55">apply-templates</a></span> /&gt;<span class="xmlverb-text"><br/>
+            </span>&lt;/<span class="xmlverb-element-nsprefix">xsl</span>:<span class="xmlverb-element-name">otherwise</span>&gt;<span class="xmlverb-text"><br/>
+        </span>&lt;/<span class="xmlverb-element-nsprefix">xsl</span>:<span class="xmlverb-element-name">choose</span>&gt;<span class="xmlverb-text"><br/>
+    </span>&lt;/<span class="xmlverb-element-nsprefix">xsl</span>:<span class="xmlverb-element-name">template</span>&gt;<span class="xmlverb-text"><br/>
+</span>&lt;/<span class="xmlverb-element-nsprefix">xsl</span>:<span class="xmlverb-element-name">stylesheet</span>&gt;<br/>
+</div>
+</tt><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>v
+         </body></html>

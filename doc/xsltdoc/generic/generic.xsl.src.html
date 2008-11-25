@@ -1,0 +1,433 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html><head><title>XML source view</title><link rel="stylesheet" type="text/css" href="../xmlverbatim.css"/></head><body class="xmlverb-default"><tt>
+<!-- converted by xmlverbatim.xsl 1.1, (c) O. Becker -->
+<div xmlns:xd="http://www.pnp-software.com/XSLTdoc" class="xmlverb-default">&lt;!--<span class="xmlverb-comment"><br/>
+    *  Copyright (C) 2008<br/>
+    *  Christoph Lange<br/>
+    *  Jacobs University Bremen<br/>
+    *<br/>
+    *   Krextor is free software; you can redistribute it and/or<br/>
+    *         modify it under the terms of the GNU Lesser General Public<br/>
+    *         License as published by the Free Software Foundation; either<br/>
+    *         version 2 of the License, or (at your option) any later version.<br/>
+    *<br/>
+    *         This program is distributed in the hope that it will be useful,<br/>
+    *         but WITHOUT ANY WARRANTY; without even the implied warranty of<br/>
+    *         MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU<br/>
+    *         Lesser General Public License for more details.<br/>
+    *<br/>
+    *         You should have received a copy of the GNU Lesser General Public<br/>
+    *         License along with this library; if not, write to the<br/>
+    *         Free Software Foundation, Inc., 59 Temple Place - Suite 330,<br/>
+    *         Boston, MA 02111-1307, USA.<br/>
+    * <br/>
+</span>--&gt;<br/>
+&lt;!--<span class="xmlverb-comment"><br/>
+This stylesheet provides convenience functions and templates for an RDF<br/>
+extraction from XML languages.  It is independent of any RDF output notation.<br/>
+<br/>
+So far the extraction only works on the toplevel of a document, a restriction<br/>
+influenced by the setting of a semantic wiki, namely SWiM.<br/>
+<br/>
+TODO but sub-pagelevel resources should also be supported, just with the GUI<br/>
+support being a bit restricted. I.e. that you can jump to them (the whole page<br/>
+would be loaded and the respective fragment shown), but you would e.g. not see<br/>
+relationships between fragments in the "references" portlet.<br/>
+</span>--&gt;<br/>
+&lt;<span class="xmlverb-element-name"><a name="d37e3">stylesheet</a></span><span class="xmlverb-ns-name"> xmlns:xi</span>="<span class="xmlverb-ns-uri">http://www.w3.org/2001/XInclude</span>"<span class="xmlverb-ns-name"> xmlns</span>="<span class="xmlverb-ns-uri">http://www.w3.org/1999/XSL/Transform</span>"<span class="xmlverb-ns-name"> xmlns:xs</span>="<span class="xmlverb-ns-uri">http://www.w3.org/2001/XMLSchema</span>"<span class="xmlverb-ns-name"> xmlns:krextor</span>="<span class="xmlverb-ns-uri">http://kwarc.info/projects/krextor</span>" <span class="xmlverb-attr-name">exclude-result-prefixes</span>="<span class="xmlverb-attr-content">krextor xi xs</span>" <span class="xmlverb-attr-name">version</span>="<span class="xmlverb-attr-content">2.0</span>"&gt;<span class="xmlverb-text"><br/>
+    </span>&lt;!--<span class="xmlverb-comment"> Should URIs like document#fragment automatically be generated?<br/>
+         This is a sequence of string values:<br/>
+         * 'xml-id': use the xml:id attribute if available, otherwise nothing<br/>
+         * 'document-root-base': use the base URI if we are on the root<br/>
+           element, otherwise nothing.  Note that for meaningful results you<br/>
+           should not pass a manipulated base URI into create-resource.<br/>
+         * 'generate-id': generate via generate-id() function (always succeeds)<br/>
+         * 'pseudo-xpath': generate an XPath-like expression from the local <br/>
+           names and local positions of the element and its parents (always<br/>
+           succeeds; can lead to clashes if elements from different namespaces<br/>
+           with the same local names are used in the same context or if dashes<br/>
+           are used within element names; inefficient because the whole XPath<br/>
+           from the root is newly computed for every element); example:<br/>
+           doc-section2-para1 = /doc/section[2]/para[1]<br/>
+        <br/>
+         The default setting is ('xml-id' 'document-root-base').  If one method<br/>
+         fails to generate a URI, the next one in the list is tried.<br/>
+<br/>
+         Note that there is no guarantee that generate-id and pseudo-xpath <br/>
+         generate URIs that differ from all xml:ids in the document.  We leave<br/>
+         the responsibility of not creating xml:ids too obscure to the document<br/>
+         author.<br/>
+<br/>
+         Also note that any fragment ID that the base URI of the document<br/>
+         already has is discarded and replaced by the generated fragment ID, if<br/>
+         Krextor is instructed to generate one.  More than one fragment is not<br/>
+         allowed by the URI RFC 3986 (http://www.faqs.org/rfcs/rfc3986.html).<br/>
+         See<br/>
+         http://www.aifb.uni-karlsruhe.de/pipermail/swikig/2006-February/000095.html<br/>
+         for more background on this in a semantic web context.<br/>
+    </span>--&gt;<span class="xmlverb-text"><br/>
+    </span>&lt;<span class="xmlverb-element-name"><a name="d37e7">param</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">autogenerate-fragment-uris</span>" <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">('xml-id', 'document-root-base')</span>" /&gt;<span class="xmlverb-text"><br/>
+<br/>
+    </span>&lt;!--<span class="xmlverb-comment"> Should XIncludes be traversed?  Note: Templates for nodes in XIncluded<br/>
+         documents are matched in "krextor:included" mode. </span>--&gt;<span class="xmlverb-text"><br/>
+    </span>&lt;<span class="xmlverb-element-name"><a name="d37e11">param</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">traverse-xincludes</span>" <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">true()</span>" /&gt;<span class="xmlverb-text"><br/>
+<br/>
+    </span>&lt;<span class="xmlverb-element-name"><a name="d37e13">variable</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">krextor:resources</span>" <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">()</span>" /&gt;<span class="xmlverb-text"><br/>
+    </span>&lt;<span class="xmlverb-element-name"><a name="d37e16">variable</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">krextor:literal-properties</span>" <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">()</span>" /&gt;<span class="xmlverb-text"><br/>
+<br/>
+    </span>&lt;!--<span class="xmlverb-comment"> Checks whether a given node is a text node, an attribute, or an atomic value </span>--&gt;<span class="xmlverb-text"><br/>
+    </span>&lt;<span class="xmlverb-element-name"><a name="d37e20">function</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">krextor:is-text-or-attribute-or-atomic</span>"&gt;<span class="xmlverb-text"><br/>
+        </span>&lt;<span class="xmlverb-element-name"><a name="d37e22">param</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">node</span>" /&gt;<span class="xmlverb-text"><br/>
+        </span>&lt;<span class="xmlverb-element-name"><a name="d37e24">sequence</a></span> <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">$node instance of xs:anyAtomicType or $node instance of text() or $node instance of attribute()</span>" /&gt;<span class="xmlverb-text"><br/>
+    </span>&lt;/<span class="xmlverb-element-name">function</span>&gt;<span class="xmlverb-text"><br/>
+<br/>
+    </span>&lt;!--<span class="xmlverb-comment"> Generates a URI for a fragment of a document; returns the empty sequence if the fragment ID is empty </span>--&gt;<span class="xmlverb-text"><br/>
+    </span>&lt;<span class="xmlverb-element-name"><a name="d37e29">function</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">krextor:fragment-uri-or-null</span>"&gt;<span class="xmlverb-text"><br/>
+        </span>&lt;<span class="xmlverb-element-name"><a name="d37e31">param</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">fragment-id</span>" /&gt;<span class="xmlverb-text"><br/>
+        </span>&lt;<span class="xmlverb-element-name"><a name="d37e33">param</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">base-uri</span>" /&gt;<span class="xmlverb-text"><br/>
+        </span>&lt;<span class="xmlverb-element-name"><a name="d37e35">value-of</a></span> <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">if ($fragment-id) then resolve-uri(concat('#', $fragment-id), $base-uri) else ()</span>" /&gt;<span class="xmlverb-text"><br/>
+    </span>&lt;/<span class="xmlverb-element-name">function</span>&gt;<span class="xmlverb-text"><br/>
+<br/>
+    </span>&lt;!--<span class="xmlverb-comment"> creates an XPath-like string from the path to a node, <br/>
+         e.g. doc-sect1-para2 for /doc/sect[1]/para[2] </span>--&gt;<span class="xmlverb-text"><br/>
+    </span>&lt;<span class="xmlverb-element-name"><a name="d37e41">function</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">krextor:pseudo-xpath</span>"&gt;<span class="xmlverb-text"><br/>
+        </span>&lt;<span class="xmlverb-element-name"><a name="d37e43">param</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">node</span>" /&gt;<span class="xmlverb-text"><br/>
+        </span>&lt;<span class="xmlverb-element-name"><a name="d37e45">value-of</a></span> <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">if ($node/parent::node() instance of document-node()) then local-name($node) else concat( krextor:pseudo-xpath($node/parent::node()), '-', local-name($node), count($node/preceding-sibling::node()) + 1 )</span>" /&gt;<span class="xmlverb-text"><br/>
+    </span>&lt;/<span class="xmlverb-element-name">function</span>&gt;<span class="xmlverb-text"><br/>
+<br/>
+    </span>&lt;!--<span class="xmlverb-comment"> Generates a URI for a resource </span>--&gt;<span class="xmlverb-text"><br/>
+    </span>&lt;<span class="xmlverb-element-name"><a name="d37e50">function</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">krextor:generate-uri</span>"&gt;<span class="xmlverb-text"><br/>
+        </span>&lt;<span class="xmlverb-element-name"><a name="d37e52">param</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">node</span>" /&gt;<span class="xmlverb-text"><br/>
+        </span>&lt;<span class="xmlverb-element-name"><a name="d37e54">param</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">position</span>" /&gt;<span class="xmlverb-text"><br/>
+        </span>&lt;<span class="xmlverb-element-name"><a name="d37e56">param</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">autogenerate-fragment-uri</span>" /&gt;<span class="xmlverb-text"><br/>
+        </span>&lt;<span class="xmlverb-element-name"><a name="d37e58">param</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">base-uri</span>" /&gt;<span class="xmlverb-text"><br/>
+        </span>&lt;<span class="xmlverb-element-name"><a name="d37e60">value-of</a></span> <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">krextor:generate-uri-step( $node, $position, $base-uri, $autogenerate-fragment-uri[1], subsequence($autogenerate-fragment-uri, 2))</span>" /&gt;<span class="xmlverb-text"><br/>
+    </span>&lt;/<span class="xmlverb-element-name">function</span>&gt;<span class="xmlverb-text"><br/>
+<br/>
+    </span>&lt;!--<span class="xmlverb-comment"> Generates a URI for a resource: head/tail implementation of a single step </span>--&gt;<span class="xmlverb-text"><br/>
+    </span>&lt;!--<span class="xmlverb-comment"> TODO revise this using fxsl </span>--&gt;<span class="xmlverb-text"><br/>
+    </span>&lt;<span class="xmlverb-element-name"><a name="d37e67">function</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">krextor:generate-uri-step</span>"&gt;<span class="xmlverb-text"><br/>
+        </span>&lt;<span class="xmlverb-element-name"><a name="d37e69">param</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">node</span>" /&gt;<span class="xmlverb-text"><br/>
+        </span>&lt;<span class="xmlverb-element-name"><a name="d37e71">param</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">position</span>" /&gt;<span class="xmlverb-text"><br/>
+        </span>&lt;<span class="xmlverb-element-name"><a name="d37e73">param</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">base-uri</span>" /&gt;<span class="xmlverb-text"><br/>
+        </span>&lt;<span class="xmlverb-element-name"><a name="d37e75">param</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">head</span>" /&gt;<span class="xmlverb-text"><br/>
+        </span>&lt;<span class="xmlverb-element-name"><a name="d37e77">param</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">tail</span>" /&gt;<span class="xmlverb-text"><br/>
+<br/>
+        </span>&lt;<span class="xmlverb-element-name"><a name="d37e80">variable</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">result</span>" <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">if ($head eq 'document-root-base' and $node/parent::node() instance of document-node()) then $base-uri else if ($head = ('xml-id', 'generate-id', 'pseudo-xpath')) then krextor:fragment-uri-or-null( if ($head eq 'xml-id' and $node/@xml:id) then $node/@xml:id else if ($head eq 'generate-id') then generate-id($node) else if ($head eq 'pseudo-xpath') then krextor:pseudo-xpath($node) else (), $base-uri) else ()</span>" /&gt;<span class="xmlverb-text"><br/>
+        </span>&lt;<span class="xmlverb-element-name"><a name="d37e82">value-of</a></span> <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">if ($result) then $result else if (exists($tail)) then krextor:generate-uri-step( $node, $position, $base-uri, $tail[1], subsequence($tail, 2) ) else ()</span>" /&gt;<span class="xmlverb-text"><br/>
+    </span>&lt;/<span class="xmlverb-element-name">function</span>&gt;<span class="xmlverb-text"><br/>
+<br/>
+    </span>&lt;!--<span class="xmlverb-comment"> Relates the current resource to its parent via some properties or their inverses </span>--&gt;<span class="xmlverb-text"><br/>
+    </span>&lt;<span class="xmlverb-element-name"><a name="d37e88">template</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">krextor:related-via-properties</span>"&gt;<span class="xmlverb-text"><br/>
+        </span>&lt;!--<span class="xmlverb-comment"> The list of properties </span>--&gt;<span class="xmlverb-text"><br/>
+        </span>&lt;<span class="xmlverb-element-name"><a name="d37e92">param</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">properties</span>" <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">()</span>" /&gt;<span class="xmlverb-text"><br/>
+        </span>&lt;!--<span class="xmlverb-comment"> Are these inverse properties? </span>--&gt;<span class="xmlverb-text"><br/>
+        </span>&lt;<span class="xmlverb-element-name"><a name="d37e96">param</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">inverse</span>" <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">false()</span>" /&gt;<span class="xmlverb-text"><br/>
+<br/>
+        </span>&lt;!--<span class="xmlverb-comment"> The identifier of the current resource </span>--&gt;<span class="xmlverb-text"><br/>
+        </span>&lt;<span class="xmlverb-element-name"><a name="d37e101">param</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">blank-node</span>" /&gt;<span class="xmlverb-text"><br/>
+        </span>&lt;<span class="xmlverb-element-name"><a name="d37e103">param</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">generated-blank-node-id</span>" /&gt;<span class="xmlverb-text"><br/>
+        </span>&lt;<span class="xmlverb-element-name"><a name="d37e105">param</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">generated-uri</span>" /&gt;<span class="xmlverb-text"><br/>
+        </span>&lt;<span class="xmlverb-element-name"><a name="d37e107">for-each</a></span> <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">$properties</span>"&gt;<span class="xmlverb-text"><br/>
+            </span>&lt;<span class="xmlverb-element-name"><a name="d37e109">if</a></span> <span class="xmlverb-attr-name">test</span>="<span class="xmlverb-attr-content">.</span>"&gt;<span class="xmlverb-text"><br/>
+                    </span>&lt;<span class="xmlverb-element-name"><a name="d37e111">choose</a></span>&gt;<span class="xmlverb-text"><br/>
+                        </span>&lt;<span class="xmlverb-element-name"><a name="d37e113">when</a></span> <span class="xmlverb-attr-name">test</span>="<span class="xmlverb-attr-content">$blank-node</span>"&gt;<span class="xmlverb-text"><br/>
+                            </span>&lt;<span class="xmlverb-element-name"><a name="d37e115">call-template</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">krextor:add-uri-property</span>"&gt;<span class="xmlverb-text"><br/>
+                                </span>&lt;<span class="xmlverb-element-name"><a name="d37e117">with-param</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">property</span>" <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">.</span>" /&gt;<span class="xmlverb-text"><br/>
+                                </span>&lt;<span class="xmlverb-element-name"><a name="d37e119">with-param</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">inverse</span>" <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">$inverse</span>" /&gt;<span class="xmlverb-text"><br/>
+                                </span>&lt;<span class="xmlverb-element-name"><a name="d37e121">with-param</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">blank</span>" <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">$generated-blank-node-id</span>" /&gt;<span class="xmlverb-text"><br/>
+                            </span>&lt;/<span class="xmlverb-element-name">call-template</span>&gt;<span class="xmlverb-text"><br/>
+                        </span>&lt;/<span class="xmlverb-element-name">when</span>&gt;<span class="xmlverb-text"><br/>
+                        </span>&lt;<span class="xmlverb-element-name"><a name="d37e125">otherwise</a></span>&gt;<span class="xmlverb-text"><br/>
+                            </span>&lt;<span class="xmlverb-element-name"><a name="d37e127">call-template</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">krextor:add-uri-property</span>"&gt;<span class="xmlverb-text"><br/>
+                                </span>&lt;<span class="xmlverb-element-name"><a name="d37e129">with-param</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">property</span>" <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">.</span>" /&gt;<span class="xmlverb-text"><br/>
+                                </span>&lt;<span class="xmlverb-element-name"><a name="d37e131">with-param</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">inverse</span>" <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">$inverse</span>" /&gt;<span class="xmlverb-text"><br/>
+                                </span>&lt;<span class="xmlverb-element-name"><a name="d37e133">with-param</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">object</span>" <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">$generated-uri</span>" /&gt;<span class="xmlverb-text"><br/>
+                            </span>&lt;/<span class="xmlverb-element-name">call-template</span>&gt;<span class="xmlverb-text"><br/>
+                        </span>&lt;/<span class="xmlverb-element-name">otherwise</span>&gt;<span class="xmlverb-text"><br/>
+                    </span>&lt;/<span class="xmlverb-element-name">choose</span>&gt;<span class="xmlverb-text"><br/>
+            </span>&lt;/<span class="xmlverb-element-name">if</span>&gt;<span class="xmlverb-text"><br/>
+        </span>&lt;/<span class="xmlverb-element-name">for-each</span>&gt;<span class="xmlverb-text"><br/>
+    </span>&lt;/<span class="xmlverb-element-name">template</span>&gt;<span class="xmlverb-text"><br/>
+<br/>
+    </span>&lt;!--<span class="xmlverb-comment"><br/>
+    Creates an RDF resource of some type from the current element, and probably<br/>
+    creates related triples having this resource as a subject or object.  Then,<br/>
+    matching extraction templates are applied to the child elements.  A call to<br/>
+    create-resource defines a scope in which the created resource is the<br/>
+    default subject of any other triple created using these templates, unless<br/>
+    another resource is created from some child element.<br/>
+<br/>
+    The type (i.e. a URI of some class in some ontology) has to be specified.<br/>
+    This resource is assumed the default subject of all triples extracted from<br/>
+    descendant elements and attributes using the add-literal-property and<br/>
+    add-uri-property templates.  Optionally, a sequence of properties can be<br/>
+    passed by which this resource is related to the resource created by the<br/>
+    invoking template (in most cases the resource created from the parent XML<br/>
+    element).  Additional properties of this resource can be passed, if it is<br/>
+    not possible to have them generated by templates matching some attributes<br/>
+    or children of this element.<br/>
+    </span>--&gt;<span class="xmlverb-text"><br/>
+    </span>&lt;<span class="xmlverb-element-name"><a name="d37e143">template</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">krextor:create-resource</span>"&gt;<span class="xmlverb-text"><br/>
+        </span>&lt;<span class="xmlverb-element-name"><a name="d37e145">param</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">subject</span>" /&gt;<span class="xmlverb-text"><br/>
+        </span>&lt;<span class="xmlverb-element-name"><a name="d37e147">param</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">related-via-properties</span>" <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">()</span>" /&gt;<span class="xmlverb-text"><br/>
+        </span>&lt;<span class="xmlverb-element-name"><a name="d37e149">param</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">related-via-inverse-properties</span>" <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">()</span>" /&gt;<span class="xmlverb-text"><br/>
+        </span>&lt;<span class="xmlverb-element-name"><a name="d37e151">param</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">type</span>" <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">()</span>" /&gt;<span class="xmlverb-text"><br/>
+        </span>&lt;!--<span class="xmlverb-comment"> additional properties of this resource, encoded as<br/>
+            &lt;krextor:property uri="property-uri" object="object-uri"/&gt;<br/>
+            or<br/>
+            &lt;krextor:property uri="property-uri"&gt;<br/>
+                object-literal<br/>
+            &lt;/krextor:property&gt;<br/>
+            On literal-valued objects, the attribute @language and @datatype<br/>
+            are also allowed.<br/>
+            Support for blank node objects is not yet implemented.<br/>
+        </span>--&gt;<span class="xmlverb-text"><br/>
+        </span>&lt;<span class="xmlverb-element-name"><a name="d37e156">param</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">properties</span>" /&gt;<span class="xmlverb-text"><br/>
+        </span>&lt;!--<span class="xmlverb-comment"> The node set to which apply-templates is applied </span>--&gt;<span class="xmlverb-text"><br/>
+        </span>&lt;!--<span class="xmlverb-comment"> We also process attributes, as they may contain links to other resources </span>--&gt;<span class="xmlverb-text"><br/>
+        </span>&lt;<span class="xmlverb-element-name"><a name="d37e162">param</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">process-next</span>" <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">*|@*</span>" /&gt;<span class="xmlverb-text"><br/>
+        </span>&lt;!--<span class="xmlverb-comment"> We pass the subject URI as a parameter into templates.  This is because we need to tweak the subject URI when processing transcluded documents; in this case, the transcluding document's URI should still be considered the subject URI, instead of the URI of the transcluded document. </span>--&gt;<span class="xmlverb-text"><br/>
+        </span>&lt;<span class="xmlverb-element-name"><a name="d37e166">param</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">subject-uri</span>" <span class="xmlverb-attr-name">tunnel</span>="<span class="xmlverb-attr-content">yes</span>" /&gt;<span class="xmlverb-text"><br/>
+        </span>&lt;!--<span class="xmlverb-comment"> If we are to autogenerate the URI for this node, then we call the krextor:generate-uri function to generate one. Note that if you want to use your own URI generation you have to pass your own <br/>
+          1. The fragment URI of this node, if there is an xml:id attribute<br/>
+          2. The subject URI (assumed to be the one of the document), if we are at the root node<br/>
+          3. Nothing (no RDF will be generated)<br/>
+          </span>--&gt;<span class="xmlverb-text"><br/>
+        </span>&lt;<span class="xmlverb-element-name"><a name="d37e171">param</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">autogenerate-fragment-uri</span>" <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">$autogenerate-fragment-uris</span>" /&gt;<span class="xmlverb-text"><br/>
+        </span>&lt;!--<span class="xmlverb-comment"> Is this a blank node? </span>--&gt;<span class="xmlverb-text"><br/>
+        </span>&lt;<span class="xmlverb-element-name"><a name="d37e175">param</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">blank-node</span>" <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">false()</span>" /&gt;<span class="xmlverb-text"><br/>
+        </span>&lt;<span class="xmlverb-element-name"><a name="d37e177">param</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">blank-node-id</span>" <span class="xmlverb-attr-name">tunnel</span>="<span class="xmlverb-attr-content">yes</span>" /&gt;<span class="xmlverb-text"><br/>
+        </span>&lt;<span class="xmlverb-element-name"><a name="d37e179">variable</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">generated-uri</span>" <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">if ($blank-node) then $subject-uri else if ($subject) then $subject else if (exists($autogenerate-fragment-uri)) then krextor:generate-uri(., position(), $autogenerate-fragment-uri, $subject-uri) else $subject-uri</span>" /&gt;<span class="xmlverb-text"><br/>
+        </span>&lt;!--<span class="xmlverb-comment"> TODO introduce auto-blank node if no xml:id given<br/>
+             if auto-blank-node isn't desired, skip elements without xml:id altogether </span>--&gt;<span class="xmlverb-text"><br/>
+        </span>&lt;<span class="xmlverb-element-name"><a name="d37e184">variable</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">generated-blank-node-id</span>" <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">if ($blank-node) then generate-id() else ''</span>" /&gt;<span class="xmlverb-text"><br/>
+        </span>&lt;<span class="xmlverb-element-name"><a name="d37e186">variable</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">subject</span>" <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">if ($blank-node) then $generated-blank-node-id else $generated-uri</span>" /&gt;<span class="xmlverb-text"><br/>
+        </span>&lt;<span class="xmlverb-element-name"><a name="d37e188">variable</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">subject-type</span>" <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">if ($blank-node) then 'blank' else 'uri'</span>" /&gt;<span class="xmlverb-text"><br/>
+        </span>&lt;<span class="xmlverb-element-name"><a name="d37e190">if</a></span> <span class="xmlverb-attr-name">test</span>="<span class="xmlverb-attr-content">$generated-uri</span>"&gt;<span class="xmlverb-text"><br/>
+            </span>&lt;!--<span class="xmlverb-comment"> Create the triple(s) that instantiates this resource </span>--&gt;<span class="xmlverb-text"><br/>
+            </span>&lt;<span class="xmlverb-element-name"><a name="d37e194">for-each</a></span> <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">$type</span>"&gt;<span class="xmlverb-text"><br/>
+                </span>&lt;<span class="xmlverb-element-name"><a name="d37e196">call-template</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">krextor:output-triple</span>"&gt;<span class="xmlverb-text"><br/>
+                    </span>&lt;<span class="xmlverb-element-name"><a name="d37e198">with-param</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">subject</span>" <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">$subject</span>" /&gt;<span class="xmlverb-text"><br/>
+                    </span>&lt;<span class="xmlverb-element-name"><a name="d37e200">with-param</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">subject-type</span>" <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">$subject-type</span>" /&gt;<span class="xmlverb-text"><br/>
+                    </span>&lt;<span class="xmlverb-element-name"><a name="d37e202">with-param</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">predicate</span>" <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'</span>" /&gt;<span class="xmlverb-text"><br/>
+                    </span>&lt;<span class="xmlverb-element-name"><a name="d37e204">with-param</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">object</span>" <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">.</span>" /&gt;<span class="xmlverb-text"><br/>
+                    </span>&lt;<span class="xmlverb-element-name"><a name="d37e206">with-param</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">object-type</span>" <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">'uri'</span>" /&gt;<span class="xmlverb-text"><br/>
+                </span>&lt;/<span class="xmlverb-element-name">call-template</span>&gt;<span class="xmlverb-text"><br/>
+            </span>&lt;/<span class="xmlverb-element-name">for-each</span>&gt;<span class="xmlverb-text"><br/>
+<br/>
+            </span>&lt;<span class="xmlverb-element-name"><a name="d37e210">if</a></span> <span class="xmlverb-attr-name">test</span>="<span class="xmlverb-attr-content">not(parent::node() instance of document-node())</span>"&gt;<span class="xmlverb-text"><br/>
+                </span>&lt;!--<span class="xmlverb-comment"> Relate this resource to its parent, if it has a parent </span>--&gt;<span class="xmlverb-text"><br/>
+                </span>&lt;<span class="xmlverb-element-name"><a name="d37e214">call-template</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">krextor:related-via-properties</span>"&gt;<span class="xmlverb-text"><br/>
+                    </span>&lt;<span class="xmlverb-element-name"><a name="d37e216">with-param</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">properties</span>" <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">$related-via-properties</span>" /&gt;<span class="xmlverb-text"><br/>
+                    </span>&lt;<span class="xmlverb-element-name"><a name="d37e218">with-param</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">blank-node</span>" <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">$blank-node</span>" /&gt;<span class="xmlverb-text"><br/>
+                    </span>&lt;<span class="xmlverb-element-name"><a name="d37e220">with-param</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">generated-blank-node-id</span>" <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">$generated-blank-node-id</span>" /&gt;<span class="xmlverb-text"><br/>
+                    </span>&lt;<span class="xmlverb-element-name"><a name="d37e222">with-param</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">generated-uri</span>" <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">$generated-uri</span>" /&gt;<span class="xmlverb-text"><br/>
+                </span>&lt;/<span class="xmlverb-element-name">call-template</span>&gt;<span class="xmlverb-text"><br/>
+                </span>&lt;<span class="xmlverb-element-name"><a name="d37e225">call-template</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">krextor:related-via-properties</span>"&gt;<span class="xmlverb-text"><br/>
+                    </span>&lt;<span class="xmlverb-element-name"><a name="d37e227">with-param</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">properties</span>" <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">$related-via-inverse-properties</span>" /&gt;<span class="xmlverb-text"><br/>
+                    </span>&lt;<span class="xmlverb-element-name"><a name="d37e229">with-param</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">inverse</span>" <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">true()</span>" /&gt;<span class="xmlverb-text"><br/>
+                    </span>&lt;<span class="xmlverb-element-name"><a name="d37e231">with-param</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">blank-node</span>" <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">$blank-node</span>" /&gt;<span class="xmlverb-text"><br/>
+                    </span>&lt;<span class="xmlverb-element-name"><a name="d37e233">with-param</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">generated-blank-node-id</span>" <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">$generated-blank-node-id</span>" /&gt;<span class="xmlverb-text"><br/>
+                    </span>&lt;<span class="xmlverb-element-name"><a name="d37e235">with-param</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">generated-uri</span>" <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">$generated-uri</span>" /&gt;<span class="xmlverb-text"><br/>
+                </span>&lt;/<span class="xmlverb-element-name">call-template</span>&gt;<span class="xmlverb-text"><br/>
+            </span>&lt;/<span class="xmlverb-element-name">if</span>&gt;<span class="xmlverb-text"><br/>
+<br/>
+            </span>&lt;!--<span class="xmlverb-comment"> Add additional properties to this resource </span>--&gt;<span class="xmlverb-text"><br/>
+            </span>&lt;<span class="xmlverb-element-name"><a name="d37e241">if</a></span> <span class="xmlverb-attr-name">test</span>="<span class="xmlverb-attr-content">$properties</span>"&gt;<span class="xmlverb-text"><br/>
+                </span>&lt;<span class="xmlverb-element-name"><a name="d37e243">for-each</a></span> <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">$properties/krextor:property[@uri]</span>"&gt;<span class="xmlverb-text"><br/>
+                    </span>&lt;<span class="xmlverb-element-name"><a name="d37e245">variable</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">object</span>" <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">if (@object) then @object else if (text()) then text() else ''</span>" /&gt;<span class="xmlverb-text"><br/>
+                    </span>&lt;<span class="xmlverb-element-name"><a name="d37e247">if</a></span> <span class="xmlverb-attr-name">test</span>="<span class="xmlverb-attr-content">$object</span>"&gt;<span class="xmlverb-text"><br/>
+                        </span>&lt;<span class="xmlverb-element-name"><a name="d37e249">call-template</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">krextor:output-triple</span>"&gt;<span class="xmlverb-text"><br/>
+                            </span>&lt;<span class="xmlverb-element-name"><a name="d37e251">with-param</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">subject</span>" <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">$subject</span>" /&gt;<span class="xmlverb-text"><br/>
+                            </span>&lt;<span class="xmlverb-element-name"><a name="d37e253">with-param</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">subject-type</span>" <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">$subject-type</span>" /&gt;<span class="xmlverb-text"><br/>
+                            </span>&lt;<span class="xmlverb-element-name"><a name="d37e255">with-param</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">predicate</span>" <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">@uri</span>" /&gt;<span class="xmlverb-text"><br/>
+                            </span>&lt;<span class="xmlverb-element-name"><a name="d37e257">with-param</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">object</span>" <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">$object</span>" /&gt;<span class="xmlverb-text"><br/>
+                            </span>&lt;<span class="xmlverb-element-name"><a name="d37e259">with-param</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">object-type</span>" <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">if (@object) then 'uri' else ''</span>" /&gt;<span class="xmlverb-text"><br/>
+                            </span>&lt;<span class="xmlverb-element-name"><a name="d37e262">with-param</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">object-language</span>" <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">@language</span>" /&gt;<span class="xmlverb-text"><br/>
+                            </span>&lt;<span class="xmlverb-element-name"><a name="d37e264">with-param</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">object-datatype</span>" <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">@datatype</span>" /&gt;<span class="xmlverb-text"><br/>
+                        </span>&lt;/<span class="xmlverb-element-name">call-template</span>&gt;<span class="xmlverb-text"><br/>
+                    </span>&lt;/<span class="xmlverb-element-name">if</span>&gt;<span class="xmlverb-text"><br/>
+                </span>&lt;/<span class="xmlverb-element-name">for-each</span>&gt;<span class="xmlverb-text"><br/>
+            </span>&lt;/<span class="xmlverb-element-name">if</span>&gt;<span class="xmlverb-text"><br/>
+<br/>
+            </span>&lt;!--<span class="xmlverb-comment"> Process the children of this element, or whichever nodes desired </span>--&gt;<span class="xmlverb-text"><br/>
+            </span>&lt;<span class="xmlverb-element-name"><a name="d37e273">apply-templates</a></span> <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">$process-next</span>"&gt;<span class="xmlverb-text"><br/>
+                </span>&lt;!--<span class="xmlverb-comment"> pass on the generated subject URI or blank node ID.  For resolving relative URIs, an appended fragment does<br/>
+                     not matter, but for generating property triples for this resource it does. </span>--&gt;<span class="xmlverb-text"><br/>
+                </span>&lt;<span class="xmlverb-element-name"><a name="d37e277">with-param</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">subject-uri</span>" <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">$generated-uri</span>" <span class="xmlverb-attr-name">tunnel</span>="<span class="xmlverb-attr-content">yes</span>" /&gt;<span class="xmlverb-text"><br/>
+                </span>&lt;!--<span class="xmlverb-comment"> Pass the information what type this is; this might help to disambiguate triple generation from children of the element that represents the resource of that type. </span>--&gt;<span class="xmlverb-text"><br/>
+                </span>&lt;<span class="xmlverb-element-name"><a name="d37e281">with-param</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">type</span>" <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">$type</span>" <span class="xmlverb-attr-name">tunnel</span>="<span class="xmlverb-attr-content">yes</span>" /&gt;<span class="xmlverb-text"><br/>
+                </span>&lt;<span class="xmlverb-element-name"><a name="d37e283">with-param</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">blank-node-id</span>" <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">$generated-blank-node-id</span>" <span class="xmlverb-attr-name">tunnel</span>="<span class="xmlverb-attr-content">yes</span>" /&gt;<span class="xmlverb-text"><br/>
+            </span>&lt;/<span class="xmlverb-element-name">apply-templates</span>&gt;<span class="xmlverb-text"><br/>
+        </span>&lt;/<span class="xmlverb-element-name">if</span>&gt;<span class="xmlverb-text"><br/>
+    </span>&lt;/<span class="xmlverb-element-name">template</span>&gt;<span class="xmlverb-text"><br/>
+<br/>
+    </span>&lt;<span class="xmlverb-element-name"><a name="d37e288">template</a></span> <span class="xmlverb-attr-name">match</span>="<span class="xmlverb-attr-content">*</span>" <span class="xmlverb-attr-name">mode</span>="<span class="xmlverb-attr-content">krextor:create-resource</span>"&gt;<span class="xmlverb-text"><br/>
+        </span>&lt;<span class="xmlverb-element-name"><a name="d37e290">variable</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">mapping</span>" <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">$krextor:resources/*[ local-name() eq local-name(current()) and namespace-uri() eq namespace-uri(current())]</span>" /&gt;<span class="xmlverb-text"><br/>
+        </span>&lt;<span class="xmlverb-element-name"><a name="d37e292">call-template</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">krextor:create-resource</span>"&gt;<span class="xmlverb-text"><br/>
+            </span>&lt;<span class="xmlverb-element-name"><a name="d37e294">with-param</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">type</span>" <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">$mapping/@type</span>" /&gt;<span class="xmlverb-text"><br/>
+            </span>&lt;<span class="xmlverb-element-name"><a name="d37e296">with-param</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">related-via-properties</span>" <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">$mapping/@related-via-properties</span>" /&gt;<span class="xmlverb-text"><br/>
+            </span>&lt;<span class="xmlverb-element-name"><a name="d37e298">with-param</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">related-via-inverse-properties</span>" <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">$mapping/@related-via-inverse-properties</span>" /&gt;<span class="xmlverb-text"><br/>
+        </span>&lt;/<span class="xmlverb-element-name">call-template</span>&gt;<span class="xmlverb-text"><br/>
+    </span>&lt;/<span class="xmlverb-element-name">template</span>&gt;<span class="xmlverb-text"><br/>
+<br/>
+    </span>&lt;!--<span class="xmlverb-comment"> Adds a literal-valued property to the resource in whose<br/>
+         create-resource scope this template was called. </span>--&gt;<span class="xmlverb-text"><br/>
+    </span>&lt;<span class="xmlverb-element-name"><a name="d37e304">template</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">krextor:add-literal-property</span>"&gt;<span class="xmlverb-text"><br/>
+        </span>&lt;<span class="xmlverb-element-name"><a name="d37e306">param</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">subject-uri</span>" <span class="xmlverb-attr-name">tunnel</span>="<span class="xmlverb-attr-content">yes</span>" /&gt;<span class="xmlverb-text"><br/>
+        </span>&lt;<span class="xmlverb-element-name"><a name="d37e308">param</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">blank-node-id</span>" <span class="xmlverb-attr-name">tunnel</span>="<span class="xmlverb-attr-content">yes</span>" /&gt;<span class="xmlverb-text"><br/>
+        </span>&lt;<span class="xmlverb-element-name"><a name="d37e310">param</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">property</span>" /&gt;<span class="xmlverb-text"><br/>
+        </span>&lt;!--<span class="xmlverb-comment"> property from incomplete triples </span>--&gt;<span class="xmlverb-text"><br/>
+        </span>&lt;<span class="xmlverb-element-name"><a name="d37e314">param</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">tunneled-property</span>" <span class="xmlverb-attr-name">tunnel</span>="<span class="xmlverb-attr-content">yes</span>" /&gt;<span class="xmlverb-text"><br/>
+        </span>&lt;<span class="xmlverb-element-name"><a name="d37e317">param</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">object</span>" <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">.</span>" /&gt;<span class="xmlverb-text"><br/>
+        </span>&lt;!--<span class="xmlverb-comment"> Is the object a whitespace-separated list? </span>--&gt;<span class="xmlverb-text"><br/>
+        </span>&lt;<span class="xmlverb-element-name"><a name="d37e321">param</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">list</span>" <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">false()</span>" <span class="xmlverb-attr-name">as</span>="<span class="xmlverb-attr-content">xs:boolean</span>" /&gt;<span class="xmlverb-text"><br/>
+        </span>&lt;!--<span class="xmlverb-comment"> Normalize whitespace around the value of the object? </span>--&gt;<span class="xmlverb-text"><br/>
+        </span>&lt;<span class="xmlverb-element-name"><a name="d37e325">param</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">normalize-space</span>" <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">false()</span>" <span class="xmlverb-attr-name">as</span>="<span class="xmlverb-attr-content">xs:boolean</span>" /&gt;<span class="xmlverb-text"><br/>
+        </span>&lt;<span class="xmlverb-element-name"><a name="d37e327">param</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">object-language</span>" <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">''</span>" /&gt;<span class="xmlverb-text"><br/>
+        </span>&lt;<span class="xmlverb-element-name"><a name="d37e330">param</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">object-datatype</span>" <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">''</span>" /&gt;<span class="xmlverb-text"><br/>
+        </span>&lt;<span class="xmlverb-element-name"><a name="d37e332">variable</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">actual-property</span>" <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">if ($property) then $property else $tunneled-property</span>" /&gt;<span class="xmlverb-text"><br/>
+        </span>&lt;<span class="xmlverb-element-name"><a name="d37e334">choose</a></span>&gt;<span class="xmlverb-text"><br/>
+            </span>&lt;!--<span class="xmlverb-comment"> If the "object" is a whitespace-separated list of actual objects, we recursively generate one triple for each object. </span>--&gt;<span class="xmlverb-text"><br/>
+            </span>&lt;<span class="xmlverb-element-name"><a name="d37e338">when</a></span> <span class="xmlverb-attr-name">test</span>="<span class="xmlverb-attr-content">$list</span>"&gt;<span class="xmlverb-text"><br/>
+                </span>&lt;<span class="xmlverb-element-name"><a name="d37e340">for-each</a></span> <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">tokenize($object, '\s+')</span>"&gt;<span class="xmlverb-text"><br/>
+                    </span>&lt;<span class="xmlverb-element-name"><a name="d37e342">call-template</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">krextor:add-literal-property</span>"&gt;<span class="xmlverb-text"><br/>
+                        </span>&lt;<span class="xmlverb-element-name"><a name="d37e344">with-param</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">property</span>" <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">$actual-property</span>" /&gt;<span class="xmlverb-text"><br/>
+                        </span>&lt;<span class="xmlverb-element-name"><a name="d37e346">with-param</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">object</span>" <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">.</span>" /&gt;<span class="xmlverb-text"><br/>
+                        </span>&lt;!--<span class="xmlverb-comment"> Make sure that we don't run into an infinite loop ;-) </span>--&gt;<span class="xmlverb-text"><br/>
+                        </span>&lt;<span class="xmlverb-element-name"><a name="d37e350">with-param</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">list</span>" <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">false()</span>" /&gt;<span class="xmlverb-text"><br/>
+                    </span>&lt;/<span class="xmlverb-element-name">call-template</span>&gt;<span class="xmlverb-text"><br/>
+                </span>&lt;/<span class="xmlverb-element-name">for-each</span>&gt;<span class="xmlverb-text"><br/>
+            </span>&lt;/<span class="xmlverb-element-name">when</span>&gt;<span class="xmlverb-text"><br/>
+            </span>&lt;<span class="xmlverb-element-name"><a name="d37e355">otherwise</a></span>&gt;<span class="xmlverb-text"><br/>
+                </span>&lt;<span class="xmlverb-element-name"><a name="d37e357">call-template</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">krextor:output-triple</span>"&gt;<span class="xmlverb-text"><br/>
+                    </span>&lt;<span class="xmlverb-element-name"><a name="d37e359">with-param</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">subject</span>" <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">if ($blank-node-id) then $blank-node-id else $subject-uri</span>" /&gt;<span class="xmlverb-text"><br/>
+                    </span>&lt;<span class="xmlverb-element-name"><a name="d37e361">with-param</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">subject-type</span>" <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">if ($blank-node-id) then 'blank' else 'uri'</span>" /&gt;<span class="xmlverb-text"><br/>
+                    </span>&lt;<span class="xmlverb-element-name"><a name="d37e363">with-param</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">predicate</span>" <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">$actual-property</span>" /&gt;<span class="xmlverb-text"><br/>
+                    </span>&lt;<span class="xmlverb-element-name"><a name="d37e365">with-param</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">object</span>" <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">if ($normalize-space) then normalize-space($object) else $object</span>" /&gt;<span class="xmlverb-text"><br/>
+                    </span>&lt;<span class="xmlverb-element-name"><a name="d37e367">with-param</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">object-language</span>" <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">$object-language</span>" /&gt;<span class="xmlverb-text"><br/>
+                    </span>&lt;<span class="xmlverb-element-name"><a name="d37e370">with-param</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">object-datatype</span>" <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">$object-datatype</span>" /&gt;<span class="xmlverb-text"><br/>
+                </span>&lt;/<span class="xmlverb-element-name">call-template</span>&gt;<span class="xmlverb-text"><br/>
+            </span>&lt;/<span class="xmlverb-element-name">otherwise</span>&gt;<span class="xmlverb-text"><br/>
+        </span>&lt;/<span class="xmlverb-element-name">choose</span>&gt;<span class="xmlverb-text"><br/>
+    </span>&lt;/<span class="xmlverb-element-name">template</span>&gt;<span class="xmlverb-text">    <br/>
+<br/>
+    </span>&lt;<span class="xmlverb-element-name"><a name="d37e377">template</a></span> <span class="xmlverb-attr-name">match</span>="<span class="xmlverb-attr-content">*|@*</span>" <span class="xmlverb-attr-name">mode</span>="<span class="xmlverb-attr-content">krextor:add-literal-property</span>"&gt;<span class="xmlverb-text"><br/>
+        </span>&lt;<span class="xmlverb-element-name"><a name="d37e379">variable</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">mapping</span>" <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">$krextor:literal-properties/*[ local-name() eq local-name(current()) and namespace-uri() eq namespace-uri(current()) and (not(current() instance of attribute()) or @krextor-attribute)]</span>" /&gt;<span class="xmlverb-text"><br/>
+        </span>&lt;<span class="xmlverb-element-name"><a name="d37e381">call-template</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">krextor:add-literal-property</span>"&gt;<span class="xmlverb-text"><br/>
+            </span>&lt;<span class="xmlverb-element-name"><a name="d37e383">with-param</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">property</span>" <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">$mapping/@property</span>" /&gt;<span class="xmlverb-text"><br/>
+            </span>&lt;<span class="xmlverb-element-name"><a name="d37e385">with-param</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">list</span>" <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">boolean($mapping/@list)</span>" /&gt;<span class="xmlverb-text"><br/>
+            </span>&lt;<span class="xmlverb-element-name"><a name="d37e387">with-param</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">normalize-space</span>" <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">$mapping/@normalize-space</span>" /&gt;<span class="xmlverb-text"><br/>
+        </span>&lt;/<span class="xmlverb-element-name">call-template</span>&gt;<span class="xmlverb-text"><br/>
+    </span>&lt;/<span class="xmlverb-element-name">template</span>&gt;<span class="xmlverb-text"><br/>
+<br/>
+    </span>&lt;!--<span class="xmlverb-comment"> Adds a URI-valued property to the resource in whose create-resource<br/>
+         scope this template was called. </span>--&gt;<span class="xmlverb-text"><br/>
+    </span>&lt;<span class="xmlverb-element-name"><a name="d37e393">template</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">krextor:add-uri-property</span>"&gt;<span class="xmlverb-text"><br/>
+        </span>&lt;<span class="xmlverb-element-name"><a name="d37e395">param</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">subject-uri</span>" <span class="xmlverb-attr-name">tunnel</span>="<span class="xmlverb-attr-content">yes</span>" /&gt;<span class="xmlverb-text"><br/>
+        </span>&lt;<span class="xmlverb-element-name"><a name="d37e397">param</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">blank-node-id</span>" <span class="xmlverb-attr-name">tunnel</span>="<span class="xmlverb-attr-content">yes</span>" /&gt;<span class="xmlverb-text"><br/>
+        </span>&lt;<span class="xmlverb-element-name"><a name="d37e399">param</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">property</span>" /&gt;<span class="xmlverb-text"><br/>
+        </span>&lt;!--<span class="xmlverb-comment"> property from incomplete triples </span>--&gt;<span class="xmlverb-text"><br/>
+        </span>&lt;<span class="xmlverb-element-name"><a name="d37e403">param</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">tunneled-property</span>" <span class="xmlverb-attr-name">tunnel</span>="<span class="xmlverb-attr-content">yes</span>" /&gt;<span class="xmlverb-text"><br/>
+        </span>&lt;!--<span class="xmlverb-comment"> Should the property be applied in inverse direction? </span>--&gt;<span class="xmlverb-text"><br/>
+        </span>&lt;<span class="xmlverb-element-name"><a name="d37e408">param</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">inverse</span>" <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">false()</span>" /&gt;<span class="xmlverb-text"><br/>
+        </span>&lt;!--<span class="xmlverb-comment"> inverse information from incomplete triples </span>--&gt;<span class="xmlverb-text"><br/>
+        </span>&lt;<span class="xmlverb-element-name"><a name="d37e412">param</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">tunneled-inverse</span>" <span class="xmlverb-attr-name">tunnel</span>="<span class="xmlverb-attr-content">yes</span>" /&gt;<span class="xmlverb-text"><br/>
+        </span>&lt;!--<span class="xmlverb-comment"> Is the object a whitespace-separated list? </span>--&gt;<span class="xmlverb-text"><br/>
+        </span>&lt;<span class="xmlverb-element-name"><a name="d37e416">param</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">list</span>" <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">false()</span>" /&gt;<span class="xmlverb-text"><br/>
+        </span>&lt;!--<span class="xmlverb-comment"> Currently we assume that, if no explicit link target is given, we are either:<br/>
+        1. in the root element R of an XIncluded document and that a relationship between the parent of the xi:include and the XIncluded document is to be expressed.<br/>
+        2. or we are in an attribute or a text node or any item of a whitespace-separated list,<br/>
+           and a relationship between the current subject URI and the URIref in the attribute value is to be expressed. </span>--&gt;<span class="xmlverb-text"><br/>
+        </span>&lt;<span class="xmlverb-element-name"><a name="d37e421">param</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">object</span>" <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">if (krextor:is-text-or-attribute-or-atomic(.)) then if ($list) then . else resolve-uri(., $subject-uri) else if (parent::node() instance of document-node()) then base-uri() else ''</span>" /&gt;<span class="xmlverb-text"><br/>
+        </span>&lt;!--<span class="xmlverb-comment"> node ID, if the object is a blank node </span>--&gt;<span class="xmlverb-text"><br/>
+        </span>&lt;<span class="xmlverb-element-name"><a name="d37e425">param</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">blank</span>" /&gt;<span class="xmlverb-text"><br/>
+        </span>&lt;<span class="xmlverb-element-name"><a name="d37e427">if</a></span> <span class="xmlverb-attr-name">test</span>="<span class="xmlverb-attr-content">($blank or $object) and ($property or $tunneled-property)</span>"&gt;<span class="xmlverb-text"><br/>
+            </span>&lt;<span class="xmlverb-element-name"><a name="d37e429">variable</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">actual-object</span>" <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">if ($blank) then $blank else $object</span>" /&gt;<span class="xmlverb-text"><br/>
+            </span>&lt;<span class="xmlverb-element-name"><a name="d37e431">variable</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">actual-property</span>" <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">if ($property) then $property else $tunneled-property</span>" /&gt;<span class="xmlverb-text"><br/>
+            </span>&lt;<span class="xmlverb-element-name"><a name="d37e433">variable</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">actual-inverse</span>" <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">if ($property) then $inverse else $tunneled-inverse</span>" /&gt;<span class="xmlverb-text"><br/>
+            </span>&lt;<span class="xmlverb-element-name"><a name="d37e435">choose</a></span>&gt;<span class="xmlverb-text"><br/>
+                </span>&lt;!--<span class="xmlverb-comment"> If the "object" is a whitespace-separated list of actual objects, we recursively generate one triple for each object. </span>--&gt;<span class="xmlverb-text"><br/>
+                </span>&lt;<span class="xmlverb-element-name"><a name="d37e439">when</a></span> <span class="xmlverb-attr-name">test</span>="<span class="xmlverb-attr-content">$list</span>"&gt;<span class="xmlverb-text"><br/>
+                    </span>&lt;<span class="xmlverb-element-name"><a name="d37e441">for-each</a></span> <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">tokenize($actual-object, '\s+')</span>"&gt;<span class="xmlverb-text"><br/>
+                        </span>&lt;<span class="xmlverb-element-name"><a name="d37e443">call-template</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">krextor:add-uri-property</span>"&gt;<span class="xmlverb-text"><br/>
+                            </span>&lt;<span class="xmlverb-element-name"><a name="d37e445">with-param</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">property</span>" <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">$actual-property</span>" /&gt;<span class="xmlverb-text"><br/>
+                            </span>&lt;<span class="xmlverb-element-name"><a name="d37e447">with-param</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">inverse</span>" <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">$actual-inverse</span>" /&gt;<span class="xmlverb-text"><br/>
+                            </span>&lt;!--<span class="xmlverb-comment"> Make sure that we don't run into an infinite loop ;-) </span>--&gt;<span class="xmlverb-text"><br/>
+                            </span>&lt;<span class="xmlverb-element-name"><a name="d37e451">with-param</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">list</span>" <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">false()</span>" /&gt;<span class="xmlverb-text"><br/>
+                        </span>&lt;/<span class="xmlverb-element-name">call-template</span>&gt;<span class="xmlverb-text"><br/>
+                    </span>&lt;/<span class="xmlverb-element-name">for-each</span>&gt;<span class="xmlverb-text"><br/>
+                </span>&lt;/<span class="xmlverb-element-name">when</span>&gt;<span class="xmlverb-text"><br/>
+                </span>&lt;<span class="xmlverb-element-name"><a name="d37e456">otherwise</a></span>&gt;<span class="xmlverb-text"><br/>
+                    </span>&lt;<span class="xmlverb-element-name"><a name="d37e458">choose</a></span>&gt;<span class="xmlverb-text"><br/>
+                        </span>&lt;<span class="xmlverb-element-name"><a name="d37e460">when</a></span> <span class="xmlverb-attr-name">test</span>="<span class="xmlverb-attr-content">$actual-inverse</span>"&gt;<span class="xmlverb-text"><br/>
+                            </span>&lt;<span class="xmlverb-element-name"><a name="d37e462">call-template</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">krextor:output-triple</span>"&gt;<span class="xmlverb-text"><br/>
+                                </span>&lt;<span class="xmlverb-element-name"><a name="d37e464">with-param</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">subject</span>" <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">$actual-object</span>" /&gt;<span class="xmlverb-text"><br/>
+                                </span>&lt;<span class="xmlverb-element-name"><a name="d37e466">with-param</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">subject-type</span>" <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">if ($blank) then 'blank' else 'uri'</span>" /&gt;<span class="xmlverb-text"><br/>
+                                </span>&lt;<span class="xmlverb-element-name"><a name="d37e468">with-param</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">predicate</span>" <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">$actual-property</span>" /&gt;<span class="xmlverb-text"><br/>
+                                </span>&lt;<span class="xmlverb-element-name"><a name="d37e470">with-param</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">object</span>" <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">if ($blank-node-id) then $blank-node-id else $subject-uri</span>" /&gt;<span class="xmlverb-text"><br/>
+                                </span>&lt;<span class="xmlverb-element-name"><a name="d37e472">with-param</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">object-type</span>" <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">if ($blank-node-id) then 'blank' else 'uri'</span>" /&gt;<span class="xmlverb-text"><br/>
+                            </span>&lt;/<span class="xmlverb-element-name">call-template</span>&gt;<span class="xmlverb-text"><br/>
+                        </span>&lt;/<span class="xmlverb-element-name">when</span>&gt;<span class="xmlverb-text"><br/>
+                        </span>&lt;<span class="xmlverb-element-name"><a name="d37e476">otherwise</a></span>&gt;<span class="xmlverb-text"><br/>
+                            </span>&lt;<span class="xmlverb-element-name"><a name="d37e478">call-template</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">krextor:output-triple</span>"&gt;<span class="xmlverb-text"><br/>
+                                </span>&lt;<span class="xmlverb-element-name"><a name="d37e480">with-param</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">subject</span>" <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">if ($blank-node-id) then $blank-node-id else $subject-uri</span>" /&gt;<span class="xmlverb-text"><br/>
+                                </span>&lt;<span class="xmlverb-element-name"><a name="d37e482">with-param</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">subject-type</span>" <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">if ($blank-node-id) then 'blank' else 'uri'</span>" /&gt;<span class="xmlverb-text"><br/>
+                                </span>&lt;<span class="xmlverb-element-name"><a name="d37e484">with-param</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">predicate</span>" <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">$actual-property</span>" /&gt;<span class="xmlverb-text"><br/>
+                                </span>&lt;<span class="xmlverb-element-name"><a name="d37e486">with-param</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">object</span>" <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">$actual-object</span>" /&gt;<span class="xmlverb-text"><br/>
+                                </span>&lt;<span class="xmlverb-element-name"><a name="d37e488">with-param</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">object-type</span>" <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">if ($blank) then 'blank' else 'uri'</span>" /&gt;<span class="xmlverb-text"><br/>
+                            </span>&lt;/<span class="xmlverb-element-name">call-template</span>&gt;<span class="xmlverb-text"><br/>
+                        </span>&lt;/<span class="xmlverb-element-name">otherwise</span>&gt;<span class="xmlverb-text"><br/>
+                    </span>&lt;/<span class="xmlverb-element-name">choose</span>&gt;<span class="xmlverb-text"><br/>
+                </span>&lt;/<span class="xmlverb-element-name">otherwise</span>&gt;<span class="xmlverb-text"><br/>
+            </span>&lt;/<span class="xmlverb-element-name">choose</span>&gt;<span class="xmlverb-text"><br/>
+        </span>&lt;/<span class="xmlverb-element-name">if</span>&gt;<span class="xmlverb-text"><br/>
+    </span>&lt;/<span class="xmlverb-element-name">template</span>&gt;<span class="xmlverb-text">    <br/>
+<br/>
+    </span>&lt;!--<span class="xmlverb-comment"> Creates a property whose values are added by nested template calls </span>--&gt;<span class="xmlverb-text"><br/>
+    </span>&lt;<span class="xmlverb-element-name"><a name="d37e499">template</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">krextor:create-property</span>"&gt;<span class="xmlverb-text"><br/>
+        </span>&lt;<span class="xmlverb-element-name"><a name="d37e501">param</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">property</span>" <span class="xmlverb-attr-name">required</span>="<span class="xmlverb-attr-content">yes</span>" /&gt;<span class="xmlverb-text"><br/>
+        </span>&lt;<span class="xmlverb-element-name"><a name="d37e503">param</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">inverse</span>" <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">false()</span>" /&gt;<span class="xmlverb-text"><br/>
+        </span>&lt;!--<span class="xmlverb-comment"> The node set to which apply-templates is applied </span>--&gt;<span class="xmlverb-text"><br/>
+        </span>&lt;!--<span class="xmlverb-comment"> We also process attributes, as they may contain links to other resources </span>--&gt;<span class="xmlverb-text"><br/>
+        </span>&lt;<span class="xmlverb-element-name"><a name="d37e509">param</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">process-next</span>" <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">*|@*</span>" /&gt;<span class="xmlverb-text"><br/>
+        </span>&lt;<span class="xmlverb-element-name"><a name="d37e512">apply-templates</a></span> <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">$process-next</span>"&gt;<span class="xmlverb-text"><br/>
+            </span>&lt;<span class="xmlverb-element-name"><a name="d37e514">with-param</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">tunneled-property</span>" <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">$property</span>" <span class="xmlverb-attr-name">tunnel</span>="<span class="xmlverb-attr-content">yes</span>" /&gt;<span class="xmlverb-text"><br/>
+            </span>&lt;<span class="xmlverb-element-name"><a name="d37e516">with-param</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">tunneled-inverse</span>" <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">$inverse</span>" <span class="xmlverb-attr-name">tunnel</span>="<span class="xmlverb-attr-content">yes</span>" /&gt;<span class="xmlverb-text"><br/>
+        </span>&lt;/<span class="xmlverb-element-name">apply-templates</span>&gt;<span class="xmlverb-text"><br/>
+    </span>&lt;/<span class="xmlverb-element-name">template</span>&gt;<span class="xmlverb-text"><br/>
+<br/>
+    </span>&lt;!--<span class="xmlverb-comment"> We support the following generic inclusion mechanism for XML documents:<br/>
+    A root element R of a transcluded documents will be treated like a direct child of the parent element P of the xi:include element.  If there is a relevant relationship between P and R, an according triple is generated, with the transcluded document's URI (not the URI of R!) being the object.  The transcluded document is loaded and its root node examined in order to find this out.  Any relationships between elements of the transcluding document and the transcluded document that are not direct relationships between P and R are not considered during RDF extraction.<br/>
+<br/>
+    Note: We're using XInclude because the semantics of &lt;element xlink:type="simple" xlink:show="embed" xlink:href="some-XML-resource"/&gt; is not yet clearly defined in the XLink specification.  Should the root element of the document pointed to replace the pointing element, or should it be transcluded into the pointing element as a child?<br/>
+    </span>--&gt;<span class="xmlverb-text"><br/>
+    </span>&lt;<span class="xmlverb-element-name"><a name="d37e523">template</a></span> <span class="xmlverb-attr-name">match</span>="<span class="xmlverb-attr-content">xi:include</span>"&gt;<span class="xmlverb-text"><br/>
+        </span>&lt;<span class="xmlverb-element-name"><a name="d37e525">if</a></span> <span class="xmlverb-attr-name">test</span>="<span class="xmlverb-attr-content">$traverse-xincludes</span>"&gt;<span class="xmlverb-text"><br/>
+            </span>&lt;<span class="xmlverb-element-name"><a name="d37e527">apply-templates</a></span> <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">document(@href, .)</span>" <span class="xmlverb-attr-name">mode</span>="<span class="xmlverb-attr-content">krextor:included</span>"&gt;<span class="xmlverb-text"><br/>
+                </span>&lt;<span class="xmlverb-element-name"><a name="d37e529">with-param</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">krextor:parent-element</span>" <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">.</span>" <span class="xmlverb-attr-name">tunnel</span>="<span class="xmlverb-attr-content">yes</span>" /&gt;<span class="xmlverb-text"><br/>
+            </span>&lt;/<span class="xmlverb-element-name">apply-templates</span>&gt;<span class="xmlverb-text"><br/>
+        </span>&lt;/<span class="xmlverb-element-name">if</span>&gt;<span class="xmlverb-text"><br/>
+    </span>&lt;/<span class="xmlverb-element-name">template</span>&gt;<span class="xmlverb-text"><br/>
+<br/>
+    </span>&lt;<span class="xmlverb-element-name"><a name="d37e534">template</a></span> <span class="xmlverb-attr-name">match</span>="<span class="xmlverb-attr-content">/</span>" <span class="xmlverb-attr-name">mode</span>="<span class="xmlverb-attr-content">krextor:included</span>"&gt;<span class="xmlverb-text"><br/>
+        </span>&lt;<span class="xmlverb-element-name"><a name="d37e536">apply-templates</a></span> <span class="xmlverb-attr-name">mode</span>="<span class="xmlverb-attr-content">krextor:included</span>" /&gt;<span class="xmlverb-text"><br/>
+    </span>&lt;/<span class="xmlverb-element-name">template</span>&gt;<span class="xmlverb-text"><br/>
+<br/>
+    </span>&lt;<span class="xmlverb-element-name"><a name="d37e539">template</a></span> <span class="xmlverb-attr-name">match</span>="<span class="xmlverb-attr-content">/</span>"&gt;<span class="xmlverb-text"><br/>
+        </span>&lt;<span class="xmlverb-element-name"><a name="d37e541">apply-templates</a></span>&gt;<span class="xmlverb-text"><br/>
+            </span>&lt;<span class="xmlverb-element-name"><a name="d37e543">with-param</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">subject-uri</span>" <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">base-uri()</span>" <span class="xmlverb-attr-name">tunnel</span>="<span class="xmlverb-attr-content">yes</span>" /&gt;<span class="xmlverb-text"><br/>
+        </span>&lt;/<span class="xmlverb-element-name">apply-templates</span>&gt;<span class="xmlverb-text"><br/>
+    </span>&lt;/<span class="xmlverb-element-name">template</span>&gt;<span class="xmlverb-text"><br/>
+<br/>
+    </span>&lt;!--<span class="xmlverb-comment"> No RDF is extracted from attributes that are not matched by the<br/>
+         language-specific templates, nor from text nodes. </span>--&gt;<span class="xmlverb-text"><br/>
+    </span>&lt;<span class="xmlverb-element-name"><a name="d37e549">template</a></span> <span class="xmlverb-attr-name">match</span>="<span class="xmlverb-attr-content">@*|text()</span>" /&gt;<span class="xmlverb-text"><br/>
+    </span>&lt;<span class="xmlverb-element-name"><a name="d37e551">template</a></span> <span class="xmlverb-attr-name">match</span>="<span class="xmlverb-attr-content">@*|text()</span>" <span class="xmlverb-attr-name">mode</span>="<span class="xmlverb-attr-content">krextor:included</span>" /&gt;<span class="xmlverb-text"><br/>
+</span>&lt;/<span class="xmlverb-element-name">stylesheet</span>&gt;<br/>
+</div>
+</tt><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>v
+         </body></html>

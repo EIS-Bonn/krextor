@@ -1,0 +1,99 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html><head><title>XML source view</title><link rel="stylesheet" type="text/css" href="../../xmlverbatim.css"/></head><body class="xmlverb-default"><tt>
+<!-- converted by xmlverbatim.xsl 1.1, (c) O. Becker -->
+<div xmlns:xd="http://www.pnp-software.com/XSLTdoc" class="xmlverb-default">&lt;!--<span class="xmlverb-comment"><br/>
+    *  Copyright (C) 2008<br/>
+    *  Christoph Lange<br/>
+    *  Jacobs University Bremen<br/>
+    *<br/>
+    *   Krextor is free software; you can redistribute it and/or<br/>
+    *         modify it under the terms of the GNU Lesser General Public<br/>
+    *         License as published by the Free Software Foundation; either<br/>
+    *         version 2 of the License, or (at your option) any later version.<br/>
+    *<br/>
+    *         This program is distributed in the hope that it will be useful,<br/>
+    *         but WITHOUT ANY WARRANTY; without even the implied warranty of<br/>
+    *         MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU<br/>
+    *         Lesser General Public License for more details.<br/>
+    *<br/>
+    *         You should have received a copy of the GNU Lesser General Public<br/>
+    *         License along with this library; if not, write to the<br/>
+    *         Free Software Foundation, Inc., 59 Temple Place - Suite 330,<br/>
+    *         Boston, MA 02111-1307, USA.<br/>
+    * <br/>
+</span>--&gt;<br/>
+&lt;<span class="xmlverb-element-name"><a name="d24e2">stylesheet</a></span><span class="xmlverb-ns-name"> xmlns</span>="<span class="xmlverb-ns-uri">http://www.w3.org/1999/XSL/Transform</span>"<span class="xmlverb-ns-name"> xmlns:krextor</span>="<span class="xmlverb-ns-uri">http://kwarc.info/projects/krextor</span>"<span class="xmlverb-ns-name"> xmlns:xd</span>="<span class="xmlverb-ns-uri">http://www.pnp-software.com/XSLTdoc</span>" <span class="xmlverb-attr-name">xpath-default-namespace</span>="<span class="xmlverb-attr-content">http://www.w3.org/1999/xhtml</span>" <span class="xmlverb-attr-name">version</span>="<span class="xmlverb-attr-content">2.0</span>"&gt;<span class="xmlverb-text"><br/>
+<br/>
+    </span>&lt;<span class="xmlverb-element-name"><a name="d24e4">function</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">krextor:default-curie-namespace</span>" /&gt;<span class="xmlverb-text"><br/>
+<br/>
+    </span>&lt;<span class="xmlverb-element-name"><a name="d24e6">function</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">krextor:curie-to-uri</span>"&gt;<span class="xmlverb-text"><br/>
+        </span>&lt;<span class="xmlverb-element-name"><a name="d24e8">param</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">focus</span>" /&gt;<span class="xmlverb-text"><br/>
+        </span>&lt;<span class="xmlverb-element-name"><a name="d24e10">param</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">curie</span>" /&gt;<span class="xmlverb-text"><br/>
+        </span>&lt;<span class="xmlverb-element-name"><a name="d24e12">choose</a></span>&gt;<span class="xmlverb-text"><br/>
+            </span>&lt;<span class="xmlverb-element-name"><a name="d24e14">when</a></span> <span class="xmlverb-attr-name">test</span>="<span class="xmlverb-attr-content">$curie</span>"&gt;<span class="xmlverb-text"><br/>
+                </span>&lt;<span class="xmlverb-element-name"><a name="d24e16">analyze-string</a></span> <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">$curie</span>" <span class="xmlverb-attr-name">regex</span>="<span class="xmlverb-attr-content">^(([^:]*):)?(.+)$</span>"&gt;<span class="xmlverb-text"><br/>
+                    </span>&lt;<span class="xmlverb-element-name"><a name="d24e18">matching-substring</a></span>&gt;<span class="xmlverb-text"><br/>
+                        </span>&lt;<span class="xmlverb-element-name"><a name="d24e20">variable</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">no-prefix</span>" <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">not(matches(regex-group(1), ':$'))</span>" /&gt;<span class="xmlverb-text"><br/>
+                        </span>&lt;<span class="xmlverb-element-name"><a name="d24e22">variable</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">prefix</span>" <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">regex-group(2)</span>" /&gt;<span class="xmlverb-text"><br/>
+                        </span>&lt;<span class="xmlverb-element-name"><a name="d24e24">variable</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">localname</span>" <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">regex-group(3)</span>" /&gt;<span class="xmlverb-text"><br/>
+                        </span>&lt;<span class="xmlverb-element-name"><a name="d24e26">variable</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">resolved-uri</span>" <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">resolve-QName($curie, $focus)</span>" /&gt;<span class="xmlverb-text"><br/>
+                        </span>&lt;<span class="xmlverb-element-name"><a name="d24e28">choose</a></span>&gt;<span class="xmlverb-text"><br/>
+                            </span>&lt;!--<span class="xmlverb-comment"> the "no prefix" case is special and may not be<br/>
+                                 supported by every host language </span>--&gt;<span class="xmlverb-text"><br/>
+                            </span>&lt;<span class="xmlverb-element-name"><a name="d24e32">when</a></span> <span class="xmlverb-attr-name">test</span>="<span class="xmlverb-attr-content">$no-prefix</span>"&gt;<span class="xmlverb-text"><br/>
+                                </span>&lt;<span class="xmlverb-element-name"><a name="d24e34">variable</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">curie</span>"&gt;<span class="xmlverb-text"><br/>
+                                    </span>&lt;<span class="xmlverb-element-nsprefix">krextor</span>:<span class="xmlverb-element-name"><a name="d24e36">curie</a></span>&gt;<span class="xmlverb-text"><br/>
+                                        </span>&lt;!--<span class="xmlverb-comment"> note that $localname is the same as $curie </span>--&gt;<span class="xmlverb-text"><br/>
+                                        </span>&lt;<span class="xmlverb-element-name"><a name="d24e40">value-of</a></span> <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">$localname</span>" /&gt;<span class="xmlverb-text"><br/>
+                                    </span>&lt;/<span class="xmlverb-element-nsprefix">krextor</span>:<span class="xmlverb-element-name">curie</span>&gt;<span class="xmlverb-text"><br/>
+                                </span>&lt;/<span class="xmlverb-element-name">variable</span>&gt;<span class="xmlverb-text"><br/>
+                                </span>&lt;<span class="xmlverb-element-name"><a name="d24e44">apply-templates</a></span> <span class="xmlverb-attr-name">mode</span>="<span class="xmlverb-attr-content">krextor:resolve-prefixless-curie</span>" <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">$curie</span>" /&gt;<span class="xmlverb-text"><br/>
+                            </span>&lt;/<span class="xmlverb-element-name">when</span>&gt;<span class="xmlverb-text"><br/>
+                            </span>&lt;<span class="xmlverb-element-name"><a name="d24e47">otherwise</a></span>&gt;<span class="xmlverb-text"><br/>
+                                </span>&lt;!--<span class="xmlverb-comment"> the "empty prefix" case is special and may not be<br/>
+                                     supported by every host language </span>--&gt;<span class="xmlverb-text"><br/>
+                                </span>&lt;<span class="xmlverb-element-name"><a name="d24e51">variable</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">namespace-uri</span>" <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">if ($prefix eq '') then krextor:default-curie-namespace($focus) else namespace-uri-from-QName($resolved-uri)</span>" /&gt;<span class="xmlverb-text"><br/>
+                                    <br/>
+                                </span>&lt;<span class="xmlverb-element-name"><a name="d24e53">sequence</a></span> <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">if ($namespace-uri) then concat($namespace-uri, local-name-from-QName($resolved-uri)) else ()</span>" /&gt;<span class="xmlverb-text"><br/>
+                            </span>&lt;/<span class="xmlverb-element-name">otherwise</span>&gt;<span class="xmlverb-text"><br/>
+                        </span>&lt;/<span class="xmlverb-element-name">choose</span>&gt;<span class="xmlverb-text"><br/>
+                    </span>&lt;/<span class="xmlverb-element-name">matching-substring</span>&gt;<span class="xmlverb-text"><br/>
+                </span>&lt;/<span class="xmlverb-element-name">analyze-string</span>&gt;<span class="xmlverb-text"><br/>
+            </span>&lt;/<span class="xmlverb-element-name">when</span>&gt;<span class="xmlverb-text"><br/>
+            </span>&lt;<span class="xmlverb-element-name"><a name="d24e60">otherwise</a></span>&gt;<span class="xmlverb-text"><br/>
+                </span>&lt;<span class="xmlverb-element-name"><a name="d24e62">sequence</a></span> <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">()</span>" /&gt;<span class="xmlverb-text"><br/>
+            </span>&lt;/<span class="xmlverb-element-name">otherwise</span>&gt;<span class="xmlverb-text"><br/>
+        </span>&lt;/<span class="xmlverb-element-name">choose</span>&gt;<span class="xmlverb-text"><br/>
+    </span>&lt;/<span class="xmlverb-element-name">function</span>&gt;<span class="xmlverb-text"><br/>
+<br/>
+    </span>&lt;<span class="xmlverb-element-name"><a name="d24e67">function</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">krextor:curies-to-uris</span>"&gt;<span class="xmlverb-text"><br/>
+        </span>&lt;<span class="xmlverb-element-name"><a name="d24e69">param</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">focus</span>" /&gt;<span class="xmlverb-text"><br/>
+        </span>&lt;<span class="xmlverb-element-name"><a name="d24e71">param</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">curie</span>" /&gt;<span class="xmlverb-text"><br/>
+        </span>&lt;<span class="xmlverb-element-name"><a name="d24e73">choose</a></span>&gt;<span class="xmlverb-text"><br/>
+            </span>&lt;<span class="xmlverb-element-name"><a name="d24e75">when</a></span> <span class="xmlverb-attr-name">test</span>="<span class="xmlverb-attr-content">matches($curie, ' ')</span>"&gt;<span class="xmlverb-text"><br/>
+                </span>&lt;<span class="xmlverb-element-name"><a name="d24e77">sequence</a></span> <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">for $c in tokenize($curie, '\s+') return krextor:curie-to-uri($focus, $c)</span>" /&gt;<span class="xmlverb-text"><br/>
+            </span>&lt;/<span class="xmlverb-element-name">when</span>&gt;<span class="xmlverb-text"><br/>
+            </span>&lt;<span class="xmlverb-element-name"><a name="d24e80">otherwise</a></span>&gt;<span class="xmlverb-text"><br/>
+                </span>&lt;<span class="xmlverb-element-name"><a name="d24e82">sequence</a></span> <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">krextor:curie-to-uri($focus, $curie)</span>" /&gt;<span class="xmlverb-text"><br/>
+            </span>&lt;/<span class="xmlverb-element-name">otherwise</span>&gt;<span class="xmlverb-text"><br/>
+        </span>&lt;/<span class="xmlverb-element-name">choose</span>&gt;<span class="xmlverb-text"><br/>
+    </span>&lt;/<span class="xmlverb-element-name">function</span>&gt;<span class="xmlverb-text"><br/>
+<br/>
+    </span>&lt;<span class="xmlverb-element-name"><a name="d24e87">function</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">krextor:safe-curie-to-uri</span>"&gt;<span class="xmlverb-text"><br/>
+        </span>&lt;<span class="xmlverb-element-name"><a name="d24e89">param</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">focus</span>" /&gt;<span class="xmlverb-text"><br/>
+        </span>&lt;<span class="xmlverb-element-name"><a name="d24e91">param</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">safe-curie</span>" /&gt;<span class="xmlverb-text"><br/>
+        </span>&lt;<span class="xmlverb-element-name"><a name="d24e93">analyze-string</a></span> <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">$safe-curie</span>" <span class="xmlverb-attr-name">regex</span>="<span class="xmlverb-attr-content">^\[([^\]]+)\]$</span>"&gt;<span class="xmlverb-text"><br/>
+            </span>&lt;<span class="xmlverb-element-name"><a name="d24e95">matching-substring</a></span>&gt;<span class="xmlverb-text"><br/>
+                </span>&lt;<span class="xmlverb-element-name"><a name="d24e97">value-of</a></span> <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">krextor:curie-to-uri($focus, regex-group(1))</span>" /&gt;<span class="xmlverb-text"><br/>
+            </span>&lt;/<span class="xmlverb-element-name">matching-substring</span>&gt;<span class="xmlverb-text"><br/>
+            </span>&lt;<span class="xmlverb-element-name"><a name="d24e100">non-matching-substring</a></span>&gt;<span class="xmlverb-text"><br/>
+                </span>&lt;<span class="xmlverb-element-name"><a name="d24e102">value-of</a></span> <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">.</span>" /&gt;<span class="xmlverb-text"><br/>
+            </span>&lt;/<span class="xmlverb-element-name">non-matching-substring</span>&gt;<span class="xmlverb-text"><br/>
+        </span>&lt;/<span class="xmlverb-element-name">analyze-string</span>&gt;<span class="xmlverb-text"><br/>
+    </span>&lt;/<span class="xmlverb-element-name">function</span>&gt;<span class="xmlverb-text"><br/>
+</span>&lt;/<span class="xmlverb-element-name">stylesheet</span>&gt;<br/>
+</div>
+</tt><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>v
+         </body></html>
