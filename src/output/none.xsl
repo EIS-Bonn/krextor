@@ -32,8 +32,8 @@ This stylesheet does not create any output.  It is intended for debugging.
     version="2.0">
     <xsl:import href="../generic/generic.xsl"/>
 
-    <!-- Note that text output is possible, too. -->
-    <xsl:output method="xml" encoding="UTF-8" indent="yes" omit-xml-declaration="no"/>
+    <!-- Note that xml output is possible, too. -->
+    <xsl:output method="text" encoding="UTF-8"/>
 
     <!-- creates one RDF triple -->
     <xsl:template name="krextor:output-triple">
