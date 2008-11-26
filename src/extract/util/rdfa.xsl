@@ -41,6 +41,14 @@
 	<param name="focus"/>
     </function>
 
+    <xd:doc type="string">Returns the namespace URI that is bound to the empty prefix.
+	<xd:param name="focus" type="node">the focus node, for the namespace context</xd:param>
+    </xd:doc>
+    <function name="krextor:default-namespace">
+	<param name="focus"/>
+	<value-of select="namespace-uri-from-QName(resolve-QName('dummy', $focus))"/>
+    </function>
+
     <xd:doc type="string">Converts a CURIE to a URI, using the current namespace context.
 	<xd:param name="focus" type="node">the focus node, for the namespace context</xd:param>
 	<xd:param name="curie" type="string">the CURIE</xd:param>
@@ -55,7 +63,6 @@
 			<variable name="no-prefix" select="not(matches(regex-group(1), ':$'))"/>
 			<variable name="prefix" select="regex-group(2)"/>
 			<variable name="localname" select="regex-group(3)"/>
-			<variable name="resolved-uri" select="resolve-QName($curie, $focus)"/>
 			<choose>
 			    <!-- the "no prefix" case is special and may not be
 			         supported by every host language -->
@@ -69,6 +76,10 @@
 				<apply-templates mode="krextor:resolve-prefixless-curie" select="$curie"/>
 			    </when>
 			    <otherwise>
+				<variable name="resolved-uri" select="resolve-QName(
+				    if ($prefix eq '') then $localname
+				    else $curie,
+				    $focus)"/>
 				<!-- the "empty prefix" case is special and may not be
 				     supported by every host language -->
 				<variable name="namespace-uri" select="
