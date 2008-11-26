@@ -26,7 +26,7 @@
     <!ENTITY owl "http://www.w3.org/2002/07/owl#">
     <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#">
     <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#">
-    <!ENTITY omdoc "http://omdoc.org/ns">
+    <!ENTITY odo "http://www.omdoc.org/ontology#">
 ]>
 
 <!--
@@ -42,10 +42,26 @@
     <xsl:import href="util/rdfa.xsl"/>
 
     <xsl:strip-space elements="*"/>
+
+    <!-- Intercept auto-generation of fragment URIs from xml:ids, as this 
+         should not always be done for OMDoc -->
+    <xsl:param name="autogenerate-fragment-uris" select="()"/>
+
+    <xsl:variable name="ontology-namespaces">
+	<!-- TODO collect odo:semWebBase of all imported theories (cf. exincl.xsl) -->
+    </xsl:variable>
+
+    <xsl:function name="krextor:default-curie-namespace">
+	<xsl:param name="focus"/>
+	<xsl:value-of select="krextor:default-namespace($focus)"/>
+    </xsl:function>
     
     <xsl:template match="symbol">
 	<xsl:param name="krextor:sem-web-base" tunnel="yes"/>
-	<xsl:call-template name="krextor:create-resource"/>
+	<xsl:call-template name="krextor:create-resource">
+	    <xsl:with-param name="subject" select="concat($krextor:sem-web-base, @name)"/>
+
+	</xsl:call-template>
     </xsl:template>
 
     <xsl:template match="symbol/type[@system='owl'][om:OMOBJ/om:OMS]">
@@ -56,14 +72,13 @@
     </xsl:template>
 
     <!-- Try to find the ontology namespace (special metadata field
-         omdoc:semwebbase) -->
+         odo:semWebBase) -->
     <xsl:template match="theory">
 	<xsl:variable name="sem-web-base">
-	    <xsl:variable name="link">
-		<xsl:value-of select="metadata/link[krextor:curie-to-uri(., @rel) eq '&omdoc;semWebBase']"/>
+	    <xsl:variable name="link" as="node()*">
+		<xsl:sequence select="metadata/link[krextor:curie-to-uri(., @rel) eq '&odo;semWebBase']"/>
 	    </xsl:variable>
-	    <xsl:message select="boolean(trace($link, 'foo'))"/>
-	    <xsl:value-of select="if ($link) then $link/@href else ()"/>
+	    <xsl:value-of select="if ($link) then $link/@href else ''"/>
 	</xsl:variable>
 	<xsl:choose>
 	    <xsl:when test="$sem-web-base">
