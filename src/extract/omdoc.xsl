@@ -53,8 +53,8 @@
     <!-- Intercept auto-generation of fragment URIs from xml:ids, as this 
          should not always be done for OMDoc -->
     <!-- TODO think about having ('mmt', 'xml-id' ...), i.e. a configuration in
-         the same way as for generic-templates.xsl, with custom handlers for 
-	 values like 'mmt', which generic-templates does not know -->
+	 the same way as for generic.xsl, with custom handlers for values like
+	 'mmt', which generic-templates does not know -->
     <xsl:param name="autogenerate-fragment-uris" select="()"/>
 
     <!-- Default setting if we want fragment URIs to be auto-generated -->
