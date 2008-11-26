@@ -39,6 +39,7 @@ would be loaded and the respective fragment shown), but you would e.g. not see
 relationships between fragments in the "references" portlet.
 -->
 <stylesheet xmlns="http://www.w3.org/1999/XSL/Transform" 
+    xpath-default-namespace="http://www.w3.org/1999/XSL/Transform"
     xmlns:krextor="http://kwarc.info/projects/krextor"
     xmlns:xi="http://www.w3.org/2001/XInclude"
     xmlns:xs="http://www.w3.org/2001/XMLSchema"
@@ -319,10 +320,13 @@ relationships between fragments in the "references" portlet.
 	</if>
     </template>
 
+    <!-- we hope that this slightly speeds up search -->
+    <key name="krextor:resources" match="*" use="resolve-QName(name(), .)"/>
+
     <template match="*" mode="krextor:create-resource">
-	<variable name="mapping" select="$krextor:resources/*[
-		    local-name() eq local-name(current())
-		    and namespace-uri() eq namespace-uri(current())]"/>
+	<!-- variant without key: compare local-name and namespace-uri -->
+	<variable name="mapping" select="key('krextor:resources',
+	    resolve-QName(name(), .), $krextor:resources)"/>
 	<call-template name="krextor:create-resource">
 	    <with-param name="type" select="$mapping/@type"/>
 	    <with-param name="related-via-properties" select="$mapping/@related-via-properties"/>
@@ -375,11 +379,16 @@ relationships between fragments in the "references" portlet.
 	</choose>
     </template>    
 
+    <!-- we hope that this slightly speeds up search -->
+    <key name="krextor:literal-properties" match="*" use="resolve-QName(name(), .)"/>
+
     <template match="*|@*" mode="krextor:add-literal-property">
-	<variable name="mapping" select="$krextor:literal-properties/*[
-		    local-name() eq local-name(current())
-		    and namespace-uri() eq namespace-uri(current())
-		    and (not(current() instance of attribute()) or @krextor-attribute)]"/>
+	<!-- variant without key: compare local-name and namespace-uri -->
+	<variable name="mapping" select="key('krextor:literal-properties',
+	    resolve-QName(name(), .), $krextor:literal-properties)"/>
+	<if test=". instance of attribute() and not($mapping/@krextor:attribute)">
+	    <message terminate="yes">No mapping found for attribute <copy-of select="."/></message>
+	</if>
 	<call-template name="krextor:add-literal-property">
 	    <with-param name="property" select="$mapping/@property"/>
 	    <with-param name="list" select="boolean($mapping/@list)"/>
