@@ -244,7 +244,7 @@
 	<value-of select="krextor:default-namespace($focus)"/>
     </function>
     
-    <xd:doc>Create a resource (usually a class or property) from an OMDoc symbol</xd:doc>
+    <xd:doc>Create a resource from an OMDoc symbol</xd:doc>
     <template match="symbol">
 	<param name="krextor:sem-web-base" tunnel="yes"/>
 	<call-template name="krextor:create-resource">
@@ -252,6 +252,7 @@
 	</call-template>
     </template>
 
+    <xd:doc>Make this resource an instance of some class</xd:doc>
     <template match="symbol/type[@system='owl'][om:OMOBJ/om:OMS]">
 	<call-template name="krextor:add-uri-property">
 	    <with-param name="property" select="'&rdf;type'"/>
@@ -259,13 +260,15 @@
 	</call-template>
     </template>
 
+    <xd:doc>Returns the semantic web URI of a given symbol
+	<xd:param name="sym">a symbol that is expected to have <code>@cd</code> and <code>@name</code> attributes (as in OpenMath)</xd:param>
+    </xd:doc>
     <function name="krextor:ontology-uri">
-	<param name="oms"/>
-	<value-of select="concat($ontology-namespaces/krextor:loc[@theory eq $oms/@cd]/@sem-web-base, $oms/@name)"/>
+	<param name="sym"/>
+	<value-of select="concat($ontology-namespaces/krextor:loc[@theory eq $sym/@cd]/@sem-web-base, $sym/@name)"/>
     </function>
 
-    <xd:doc>Try to find the ontology namespace (special metadata field
-	<code>odo:semWebBase</code>)</xd:doc>
+    <xd:doc>Try to find the ontology namespace (calls <code>krextor:sem-web-base</code>)</xd:doc>
     <template match="theory">
 	<variable name="sem-web-base" select="$ontology-namespaces/krextor:loc[@theory eq current()/@xml:id]/@sem-web-base"/>
 	<choose>
@@ -280,6 +283,10 @@
 	</choose>
     </template>
 
+    <xd:doc>Try to find the ontology namespace of a given theory (special
+	metadata field <code>odo:semWebBase</code>)
+	<xd:param name="theory" type="node">the theory</xd:param>
+    </xd:doc>
     <function name="krextor:sem-web-base">
 	<param name="theory"/>
 	<variable name="link" as="node()*">
