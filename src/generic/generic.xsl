@@ -123,7 +123,7 @@ relationships between fragments in the "references" portlet.
 	<param name="position"/>
 	<param name="autogenerate-fragment-uri"/>
 	<param name="base-uri"/>
-	<value-of select="krextor:generate-uri-step(
+	<value-of select="krextor:generate-uri-until-done(
 	    $node,
 	    $position,
 	    $base-uri,
@@ -131,9 +131,8 @@ relationships between fragments in the "references" portlet.
 	    subsequence($autogenerate-fragment-uri, 2))"/>
     </function>
 
-    <!-- Generates a URI for a resource: head/tail implementation of a single step -->
-    <!-- TODO revise this using fxsl -->
-    <function name="krextor:generate-uri-step">
+    <!-- Generates a URI for a resource: head/tail implementation of a single step of this repeat..until loop -->
+    <function name="krextor:generate-uri-until-done">
 	<param name="node"/>
 	<param name="position"/>
 	<param name="base-uri"/>
@@ -156,7 +155,7 @@ relationships between fragments in the "references" portlet.
 		    $base-uri)
 	    else ()"/>
 	<value-of select="if ($result) then $result
-	    else if (exists($tail)) then krextor:generate-uri-step(
+	    else if (exists($tail)) then krextor:generate-uri-until-done(
 		$node,
 		$position,
 		$base-uri,
@@ -179,22 +178,22 @@ relationships between fragments in the "references" portlet.
 	<param name="generated-uri"/>
 	<for-each select="$properties">
 	    <if test=".">
-		    <choose>
-			<when test="$blank-node">
-			    <call-template name="krextor:add-uri-property">
-				<with-param name="property" select="."/>
-				<with-param name="inverse" select="$inverse"/>
-				<with-param name="blank" select="$generated-blank-node-id"/>
-			    </call-template>
-			</when>
-			<otherwise>
-			    <call-template name="krextor:add-uri-property">
-				<with-param name="property" select="."/>
-				<with-param name="inverse" select="$inverse"/>
-				<with-param name="object" select="$generated-uri"/>
-			    </call-template>
-			</otherwise>
-		    </choose>
+		<choose>
+		    <when test="$blank-node">
+			<call-template name="krextor:add-uri-property">
+			    <with-param name="property" select="."/>
+			    <with-param name="inverse" select="$inverse"/>
+			    <with-param name="blank" select="$generated-blank-node-id"/>
+			</call-template>
+		    </when>
+		    <otherwise>
+			<call-template name="krextor:add-uri-property">
+			    <with-param name="property" select="."/>
+			    <with-param name="inverse" select="$inverse"/>
+			    <with-param name="object" select="$generated-uri"/>
+			</call-template>
+		    </otherwise>
+		</choose>
 	    </if>
 	</for-each>
     </template>
@@ -320,18 +319,33 @@ relationships between fragments in the "references" portlet.
 	</if>
     </template>
 
+    <variable name="krextor:dummy-node">
+	<krextor:dummy-node/>
+    </variable>
+
     <!-- we hope that this slightly speeds up search -->
     <key name="krextor:resources" match="*" use="resolve-QName(name(), .)"/>
 
     <template match="*" mode="krextor:create-resource">
-	<!-- variant without key: compare local-name and namespace-uri -->
-	<variable name="mapping" select="key('krextor:resources',
-	    resolve-QName(name(), .), $krextor:resources)"/>
-	<call-template name="krextor:create-resource">
-	    <with-param name="type" select="$mapping/@type"/>
-	    <with-param name="related-via-properties" select="$mapping/@related-via-properties"/>
-	    <with-param name="related-via-inverse-properties" select="$mapping/@related-via-inverse-properties"/>
-	</call-template>
+	<choose>
+	    <when test="not(empty($krextor:resources))">
+		<!-- variant without key: compare local-name and namespace-uri -->
+		<variable name="mapping" select="key('krextor:resources',
+		    resolve-QName(name(), .),
+		    if (not(empty($krextor:resources)))
+		    then $krextor:resources
+		    else $krextor:dummy-node)"/>
+		<!-- we need this to trap the pre-computation of the key hashes -->
+		<call-template name="krextor:create-resource">
+		    <with-param name="type" select="$mapping/@type"/>
+		    <with-param name="related-via-properties" select="$mapping/@related-via-properties"/>
+		    <with-param name="related-via-inverse-properties" select="$mapping/@related-via-inverse-properties"/>
+		</call-template>
+	    </when>
+	    <otherwise>
+		<message terminate="yes">No mappings from XML elements to resources declared</message>
+	    </otherwise>
+	</choose>
     </template>
 
     <!-- Adds a literal-valued property to the resource in whose
@@ -383,17 +397,28 @@ relationships between fragments in the "references" portlet.
     <key name="krextor:literal-properties" match="*" use="resolve-QName(name(), .)"/>
 
     <template match="*|@*" mode="krextor:add-literal-property">
-	<!-- variant without key: compare local-name and namespace-uri -->
-	<variable name="mapping" select="key('krextor:literal-properties',
-	    resolve-QName(name(), .), $krextor:literal-properties)"/>
-	<if test=". instance of attribute() and not($mapping/@krextor:attribute)">
-	    <message terminate="yes">No mapping found for attribute <copy-of select="."/></message>
-	</if>
-	<call-template name="krextor:add-literal-property">
-	    <with-param name="property" select="$mapping/@property"/>
-	    <with-param name="list" select="boolean($mapping/@list)"/>
-	    <with-param name="normalize-space" select="$mapping/@normalize-space"/>
-	</call-template>
+	<choose>
+	    <when test="not(empty($krextor:literal-properties))">
+		<!-- variant without key: compare local-name and namespace-uri -->
+		<variable name="mapping" select="key('krextor:literal-properties',
+		    resolve-QName(name(), .), 
+		    if (not(empty($krextor:literal-properties)))
+		    then $krextor:literal-properties
+		    else $krextor:dummy-node)"/>
+		<!-- we need this to trap the pre-computation of the key hashes -->
+		<if test=". instance of attribute() and not($mapping/@krextor:attribute)">
+		    <message terminate="yes">No mapping found for attribute <copy-of select="."/></message>
+		</if>
+		<call-template name="krextor:add-literal-property">
+		    <with-param name="property" select="$mapping/@property"/>
+		    <with-param name="list" select="boolean($mapping/@list)"/>
+		    <with-param name="normalize-space" select="$mapping/@normalize-space"/>
+		</call-template>
+	    </when>
+	    <otherwise>
+		<message terminate="yes">No mappings from XML to literal properties declared</message>
+	    </otherwise>
+	</choose>
     </template>
 
     <!-- Adds a URI-valued property to the resource in whose create-resource
