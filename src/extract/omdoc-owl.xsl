@@ -22,7 +22,7 @@
     * 
 -->
 
-<!DOCTYPE xsl:stylesheet [
+<!DOCTYPE stylesheet [
     <!ENTITY owl "http://www.w3.org/2002/07/owl#">
     <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#">
     <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#">
@@ -32,63 +32,259 @@
 <!--
 	This stylesheet extracts OWL and RDFS ontologies from OMDoc documents.
 -->
-<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" 
+<stylesheet
     xpath-default-namespace="http://omdoc.org/ns"
     xmlns:krextor="http://kwarc.info/projects/krextor"
+    xmlns:xd="http://www.pnp-software.com/XSLTdoc"
     xmlns:om="http://www.openmath.org/OpenMath"
-    xmlns="http://omdoc.org/ns"
+    xmlns:odo="http://www.omdoc.org/ontology#"
+    xmlns:omdoc="http://omdoc.org/ns"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema"
+    xmlns:f="http://fxsl.sf.net/"
+    xmlns="http://www.w3.org/1999/XSL/Transform"
+    exclude-result-prefixes="omdoc xs krextor xd om f odo"
     version="2.0">
 
-    <xsl:import href="util/rdfa.xsl"/>
+    <import href="util/omdoc.xsl"/>
+    <import href="util/rdfa.xsl"/>
 
-    <xsl:strip-space elements="*"/>
+    <xd:doc type="stylesheet">
+	<xd:short>Extracts <a href="http://www.w3.org/2004/OWL/">OWL</a> ontologies from <a href="http://www.omdoc.org">OMDoc</a> documents by giving them a special interpretation</xd:short>
+	<xd:author>Christoph Lange</xd:author>
+	<xd:copyright>Christoph Lange, 2008</xd:copyright>
+	<xd:svnId>$Id$</xd:svnId>
+    </xd:doc>
 
-    <!-- Intercept auto-generation of fragment URIs from xml:ids, as this 
-         should not always be done for OMDoc -->
-    <xsl:param name="autogenerate-fragment-uris" select="()"/>
+    <strip-space elements="*"/>
 
-    <xsl:variable name="ontology-namespaces">
-	<!-- TODO collect odo:semWebBase of all imported theories (cf. exincl.xsl) -->
-    </xsl:variable>
+    <param name="debug" select="true()"/>
 
-    <xsl:function name="krextor:default-curie-namespace">
-	<xsl:param name="focus"/>
-	<xsl:value-of select="krextor:default-namespace($focus)"/>
-    </xsl:function>
+    <xd:doc type="string*">Intercept auto-generation of fragment URIs from xml:ids, as this should not always be done for OMDoc</xd:doc>
+    <param name="autogenerate-fragment-uris" select="()"/>
+
+    <xd:doc type="element*">A sequence of mappings of CDs representing semantic web ontologies to their corresponding namespaces</xd:doc>
+    <variable name="ontology-namespaces">
+	<!-- TODO collect odo:semWebBase of all imported theories (cf. exincl.xsl: $tree, make-catalogue) -->
+	<!-- TODO do this on the ref-normal form of the document (cf. $all in exincl.xsl -->
+	<for-each select="/descendant::theory">
+	    <!-- We collect the set of distinct symbols in this theory, not regarding nested theories -->
+	    <variable name="cdus" as="node()*">
+		<for-each-group select="descendant::om:OMS[ancestor::theory[1] is current() and not(ancestor::notation)]/@cd" group-by=".">
+		    <sequence select="."/>
+		</for-each-group>
+	    </variable>
+	    <!-- we determine those symbols whose symbol definition is not in this document -->
+	    <variable name="todo" select="$cdus[not(. = /descendant::theory/@xml:id)]"/>
+
+	    <variable name="catalogue">
+		<!-- we search the import graph, starting with our theory. -->
+		<call-template name="krextor:make-catalogue">
+		    <with-param name="todo" select="$todo"/>
+		    <with-param name="theory" select="."/>
+		</call-template>
+	    </variable>
+
+	    <apply-templates select="$catalogue" mode="krextor:post-process-catalogue">
+		<with-param name="this-theory" select="@xml:id" tunnel="yes"/>
+	    </apply-templates>
+	</for-each>
+    </variable>
+
+    <template match="krextor:sem-web-base[not(preceding-sibling::*)]" mode="krextor:post-process-catalogue">
+	<param name="this-theory" tunnel="yes"/>
+	<krextor:loc theory="{$this-theory}" omdoc="{@omdoc}" sem-web-base="{.}"/>
+    </template>
+
+    <template match="krextor:loc" mode="krextor:post-process-catalogue">
+	<variable name="sem-web-base" as="xs:string">
+	    <variable name="sem-web-base" select="following-sibling::krextor:sem-web-base[@omdoc eq current()/@omdoc]"/>
+	    <value-of select="if ($sem-web-base)
+		then $sem-web-base
+		else if (not(following-sibling::krextor:visited[. eq current()/@omdoc]))
+		then krextor:sem-web-base(document(@omdoc))
+		else ''"/>
+	</variable>
+	<if test="$sem-web-base">
+	    <copy>
+		<copy-of select="@*"/>
+		<attribute name="sem-web-base" select="$sem-web-base"/>
+	    </copy>
+	</if>
+    </template>
+
+    <template match="krextor:visited|krextor:sem-web-base" mode="krextor:post-process-catalogue"/>
+
+    <xd:doc>Recursively examine the locally imported theories and locate all theories that still need a catalogue entry.  Each theory is only visited once.  Returns a set of <code>krextor:loc</code> elements.
+	<xd:param name="todo">the theories that still need a catalogue entry</xd:param>
+	<xd:param name="theory">the theory that is searched for them</xd:param>
+	<xd:param name="base-uri">the base URI of the current theory, against which links to imported theories are resolved</xd:param>
+	<xd:param name="visited">a set of theories already visited</xd:param>
+	<xd:param name="top-level-call" type="boolean">indicates whether this is a top-level or a recursive call</xd:param>
+    </xd:doc>
+    <template name="krextor:make-catalogue">
+	<param name="todo" as="node()*"/>
+	<param name="theory" as="node()*"/>
+	<param name="base-uri"/>
+	<param name="visited" as="node()*" select="()"/>
+	<param name="top-level-call" select="true()"/>
+	
+	<variable name="sem-web-base" select="krextor:sem-web-base($theory)"/>
+	<if test="$sem-web-base">
+	    <krextor:sem-web-base omdoc="{concat(base-uri($theory), '#', $theory/@xml:id)}"><value-of select="$sem-web-base"/></krextor:sem-web-base>
+	</if>
+
+	<!-- We build the local catalogue and put it in  a variable -->
+	<variable name="local-cat">
+	    <!-- search for imports in this theory.
+	    TODO Are we considering nested theories?  If so, we'd need to
+	    search their ancestors as well. -->
+	    <for-each select="$theory/imports">
+		<krextor:loc
+		    theory="{substring-after(@from, '#')}"
+		    omdoc="{resolve-uri(@from, $base-uri)}"/>
+	    </for-each>
+	</variable>
+
+	<!-- those theories that are in the local catalogue of the theory specified by the parameter $theory -->
+	<variable name="incat" select="$todo[. = $local-cat/krextor:loc/@theory]"/>
+
+	<!-- ... and those that aren't -->
+	<variable name="rest" select="$todo except $incat"/>
+
+	<!-- output loc elements for those theories that are imported from
+	other documents and that were searched for (note, this 
+	differs from OMDoc's exincl.xsl) -->
+	<copy-of select="$local-cat/krextor:loc[@theory = $incat]"/>
+
+	<!-- if there are remaining theories that are not in the local catalogue, recurse to them -->
+	<if test="$rest">
+	    <variable name="follow" select="$local-cat/krextor:loc[not(@omdoc = $visited)]/@omdoc"/>
+	    <!-- there is a catalogue of locally imported, still unvisited theories we can follow -->
+	    <if test="$follow">
+		<variable name="result">
+		    <call-template name="krextor:make-catalogue-iteration">
+			<with-param name="todo" select="$rest"/>
+			<with-param name="head" select="$follow[1]"/>
+			<with-param name="tail" select="$follow[position() gt 1]"/>
+			<with-param name="base-uri" select="$base-uri"/>
+			<with-param name="visited" select="$visited"/>
+			<with-param name="top-level-call" select="$top-level-call"/>
+		    </call-template>
+		</variable>
+
+		<copy-of select="$result"/>
+	    </if>
+	</if>
+    </template>
+
+    <xd:doc>
+	<xd:param name="todo">the theories that still need a catalogue entry</xd:param>
+	<xd:param name="head"></xd:param>
+	<xd:param name="tail"></xd:param>
+	<xd:param name="base-uri">the base URI of the current theory, against which links to imported theories are resolved</xd:param>
+	<xd:param name="visited">a set of theories already visited</xd:param>
+	<xd:param name="top-level-call" type="boolean">indicates whether this is a top-level or a recursive call</xd:param>
+    </xd:doc>
+    <template name="krextor:make-catalogue-iteration">
+	<param name="todo" as="node()*"/>
+	<param name="head" as="node()*"/>
+	<param name="tail" as="node()*"/>
+	<param name="base-uri"/>
+	<param name="visited" as="node()*"/>
+	<param name="top-level-call" as="xs:boolean"/>
+
+	<variable name="new-base-uri" select="resolve-uri($head, $base-uri)"/>
+
+	<variable name="recursive-call">
+	    <!-- this generates a set of loc's, followed by a list of visited's -->
+	    <call-template name="krextor:make-catalogue">
+		<with-param name="todo" select="$todo"/>
+		<with-param name="theory" select="document($head, .)"/>
+		<with-param name="base-uri" select="$new-base-uri"/>
+		<with-param name="visited" select="$visited"/>
+		<with-param name="top-level-call" select="false()"/>
+	    </call-template>
+	    <krextor:visited><value-of select="$head"/></krextor:visited>
+	</variable>
+
+	<!-- output the output generated by the recursive call
+	     (loc, visited, and sem-web-base) -->
+	<copy-of select="$recursive-call"/>
+	
+	<!-- prepare next iteration: search still unvisited theories for imports still not found -->
+	<variable name="next-tail" select="$tail[not(. = $recursive-call/krextor:visited)]"/>
+	<variable name="next-todo" select="$todo[not(. = $recursive-call/krextor:loc/@theory)]"/>
+
+	<!-- if there are imports to be found ... -->
+	<if test="$next-todo">
+	    <choose>
+		<!-- ... and unvisited theories to search for them ... -->
+		<when test="$next-tail">
+		    <call-template name="krextor:make-catalogue-iteration">
+			<with-param name="todo" select="$next-todo"/>
+			<with-param name="head" select="$next-tail[1]"/>
+			<with-param name="tail" select="$next-tail[position() gt 1]"/>
+			<with-param name="visited" select="$visited|$recursive-call/visited"/>
+			<with-param name="base-uri" select="$base-uri"/>
+			<with-param name="top-level-call" select="$top-level-call"/>
+		    </call-template>
+		</when>
+		<otherwise>
+		    <if test="$top-level-call">
+			<message terminate="yes">Cannot find locations for the theories <value-of select="$next-todo" separator=","/>!</message>
+		    </if>
+		</otherwise>
+	    </choose>
+	</if>
+    </template>
+
+    <xd:doc>Overridden imported function from <code>util/rdfa.xsl</code></xd:doc>
+    <function name="krextor:default-curie-namespace">
+	<param name="focus"/>
+	<value-of select="krextor:default-namespace($focus)"/>
+    </function>
     
-    <xsl:template match="symbol">
-	<xsl:param name="krextor:sem-web-base" tunnel="yes"/>
-	<xsl:call-template name="krextor:create-resource">
-	    <xsl:with-param name="subject" select="concat($krextor:sem-web-base, @name)"/>
+    <xd:doc>Create a resource (usually a class or property) from an OMDoc symbol</xd:doc>
+    <template match="symbol">
+	<param name="krextor:sem-web-base" tunnel="yes"/>
+	<call-template name="krextor:create-resource">
+	    <with-param name="subject" select="concat($krextor:sem-web-base, @name)"/>
+	</call-template>
+    </template>
 
-	</xsl:call-template>
-    </xsl:template>
+    <template match="symbol/type[@system='owl'][om:OMOBJ/om:OMS]">
+	<call-template name="krextor:add-uri-property">
+	    <with-param name="property" select="'&rdf;type'"/>
+	    <with-param name="object" select="krextor:ontology-uri(om:OMOBJ/om:OMS)"/>
+	</call-template>
+    </template>
 
-    <xsl:template match="symbol/type[@system='owl'][om:OMOBJ/om:OMS]">
-	<xsl:call-template name="krextor:add-uri-property">
-	    <xsl:with-param name="property" select="'&rdf;type'"/>
-	    <xsl:with-param name="object" select="concat('NS-URL-OF-', om:OMOBJ/om:OMS/@cd, '/', om:OMOBJ/om:OMS/@name)"/>
-	</xsl:call-template>
-    </xsl:template>
+    <function name="krextor:ontology-uri">
+	<param name="oms"/>
+	<value-of select="concat($ontology-namespaces/krextor:loc[@theory eq $oms/@cd]/@sem-web-base, $oms/@name)"/>
+    </function>
 
-    <!-- Try to find the ontology namespace (special metadata field
-         odo:semWebBase) -->
-    <xsl:template match="theory">
-	<xsl:variable name="sem-web-base">
-	    <xsl:variable name="link" as="node()*">
-		<xsl:sequence select="metadata/link[krextor:curie-to-uri(., @rel) eq '&odo;semWebBase']"/>
-	    </xsl:variable>
-	    <xsl:value-of select="if ($link) then $link/@href else ''"/>
-	</xsl:variable>
-	<xsl:choose>
-	    <xsl:when test="$sem-web-base">
-		<xsl:apply-templates>
-		    <xsl:with-param name="krextor:sem-web-base" select="$sem-web-base" tunnel="yes"/>
-		</xsl:apply-templates>
-	    </xsl:when>
-	    <xsl:otherwise>
-		<xsl:apply-templates/>
-	    </xsl:otherwise>
-	</xsl:choose>
-    </xsl:template>
-</xsl:stylesheet>
+    <xd:doc>Try to find the ontology namespace (special metadata field
+	<code>odo:semWebBase</code>)</xd:doc>
+    <template match="theory">
+	<variable name="sem-web-base" select="$ontology-namespaces/krextor:loc[@theory eq current()/@xml:id]/@sem-web-base"/>
+	<choose>
+	    <when test="$sem-web-base">
+		<apply-templates>
+		    <with-param name="krextor:sem-web-base" select="$sem-web-base" tunnel="yes"/>
+		</apply-templates>
+	    </when>
+	    <otherwise>
+		<apply-templates/>
+	    </otherwise>
+	</choose>
+    </template>
+
+    <function name="krextor:sem-web-base">
+	<param name="theory"/>
+	<variable name="link" as="node()*">
+	    <sequence select="$theory/metadata/link[krextor:curie-to-uri($theory, @rel) eq '&odo;semWebBase']"/>
+	</variable>
+	<value-of select="if ($link) then $link/@href else ''"/>
+    </function>
+</stylesheet>
