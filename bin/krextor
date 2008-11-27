@@ -84,3 +84,5 @@ java -jar ${SAXON_JAR:-$KREXTOR_HOME/lib/saxon/saxon9.jar} $infile $transformer
 
 [[ -e /tmp/krextor.$$.xsl ]] && rm /tmp/krextor.$$.xsl
 
+exit 0
+
