@@ -22,6 +22,10 @@
     * 
 -->
 
+<!DOCTYPE stylesheet [
+    <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+]>
+
 <stylesheet xmlns="http://www.w3.org/1999/XSL/Transform" 
     xpath-default-namespace="http://www.w3.org/1999/xhtml"
     xmlns:xd="http://www.pnp-software.com/XSLTdoc"
@@ -136,4 +140,71 @@
 	    </non-matching-substring>
 	</analyze-string>
     </function>
+
+    <xd:doc>Extracts a literal-valued property</xd:doc>
+    <template match="*[(@property and node()) or @content]">
+	<variable name="object">
+	    <choose>
+		<when test="@content">
+		    <value-of select="@content"/>
+		</when>
+		<when test="*">
+		    <apply-templates select="*" mode="verb"/>
+		</when>
+		<otherwise>
+		    <value-of select="text()"/>
+		</otherwise>
+	    </choose>
+	</variable>
+	<call-template name="krextor:add-literal-property">
+	    <!-- this function returns NIL if there is no @property attribute.
+	         Then, add-literal-property completes an incomplete triple -->
+	    <with-param name="property" select="krextor:curies-to-uris(., @property)"/>
+	    <with-param name="object" select="$object"/>
+	    <with-param name="object-language" select="@xml:lang"/>
+	    <!-- TODO test with datatype="" -->
+	    <with-param name="object-datatype" select="if (* and not(@datatype eq ''))
+		then '&rdf;XMLLiteral'
+		else if (@datatype) then krextor:curie-to-uri(., @datatype)
+		else ()"/>
+	    <!-- TODO implement other @datatype cases -->
+	</call-template>
+    </template>
+
+    <xd:doc type="stylesheet">Extracts a URI-valued property (<code>rel</code>) whose object is not yet known</xd:doc>
+    <template match="*[@rel and not(@href)]">
+	<call-template name="krextor:create-property">
+	    <with-param name="property" select="krextor:curies-to-uris(., @rel)"/>
+	</call-template>
+    </template>
+
+    <xd:doc type="stylesheet">Extracts a URI-valued inverse property (<code>rev</code>) whose object is not yet known</xd:doc>
+    <template match="*[@rev and not(@href)]">
+	<call-template name="krextor:create-property">
+	    <with-param name="property" select="krextor:curies-to-uris(., @rev)"/>
+	</call-template>
+    </template>
+
+    <xd:doc type="stylesheet">Extracts a URI-valued property</xd:doc>
+    <template match="*[@resource or @href]">
+	<variable name="object" select="(@resource|@href)[1]"/>
+	<if test="@rel">
+	    <call-template name="krextor:add-uri-property">
+		<with-param name="property" select="krextor:curies-to-uris(., @rel)"/>
+		<with-param name="object" select="$object"/>
+	    </call-template>
+	</if>
+	<if test="@rev">
+	    <call-template name="krextor:add-uri-property">
+		<with-param name="property" select="krextor:curies-to-uris(., @rev)"/>
+		<with-param name="object" select="$object"/>
+		<with-param name="inverse" select="true()"/>
+	    </call-template>
+	</if>
+	<if test="not(@rel|@rev)">
+	    <call-template name="krextor:add-uri-property">
+		<with-param name="object" select="$object"/>
+	    </call-template>
+	</if>
+    </template>
 </stylesheet>

@@ -32,22 +32,32 @@
 <stylesheet xmlns="http://www.w3.org/1999/XSL/Transform" 
     xpath-default-namespace="http://www.w3.org/1999/xhtml"
     xmlns:krextor="http://kwarc.info/projects/krextor"
+    xmlns:xd="http://www.pnp-software.com/XSLTdoc"
     xmlns:xs="http://www.w3.org/2001/XMLSchema"
     version="2.0">
 
     <import href="util/rdfa.xsl"/>
     <import href="util/openmath/verb.xsl"/>
+
+    <xd:doc type="stylesheet">
+	<xd:short>Extraction module for <a href="http://www.w3.org/TR/rdfa-primer/">XHTML+RDFa</a>, a language that allows for embedding RDF into XHTML</xd:short>
+	<xd:author>Christoph Lange</xd:author>
+	<xd:copyright>Christoph Lange, 2008</xd:copyright>
+	<xd:svnId>$Id$</xd:svnId>
+    </xd:doc>
     
     <strip-space elements="*"/>
 
     <param name="autogenerate-fragment-uris" select="()"/>
 
+    <xd:doc>Use the base URI from the <code>base</code> element in the <code>head</code>, if present</xd:doc>
     <template match="/">
 	<apply-imports>
 	    <with-param name="krextor:base-uri" select="/html/head/base[1]/@href" tunnel="yes"/>
 	</apply-imports>
     </template>
 
+    <xd:doc>Translates the reserved XHTML link types (as specified in the <a href="http://www.w3.org/TR/rdfa-syntax/#relValues">Metainformation Attributes Module</a>) to URIs</xd:doc>
     <template match="krextor:curie" mode="krextor:resolve-prefixless-curie" as="xs:string">
 	<sequence select="if (. = (
 		'alternate',
@@ -91,74 +101,5 @@
 		@... (some other RDFa properties) -->
 	    <with-param name="process-next" select="*"/>
 	</call-template>
-    </template>
-
-    <template match="*[@property and not(@content|node())]">
-	<call-template name="krextor:create-property">
-	    <with-param name="property" select="krextor:curies-to-uris(., @property)"/>
-	</call-template>
-    </template>
-
-    <template match="*[(@property and node()) or @content]">
-	<variable name="object">
-	    <choose>
-		<when test="@content">
-		    <value-of select="@content"/>
-		</when>
-		<when test="*">
-		    <apply-templates select="*" mode="verb"/>
-		</when>
-		<otherwise>
-		    <value-of select="text()"/>
-		</otherwise>
-	    </choose>
-	</variable>
-	<call-template name="krextor:add-literal-property">
-	    <!-- this function returns NIL if there is no @property attribute.
-	         Then, add-literal-property completes an incomplete triple -->
-	    <with-param name="property" select="krextor:curies-to-uris(., @property)"/>
-	    <with-param name="object" select="$object"/>
-	    <with-param name="object-language" select="@xml:lang"/>
-	    <!-- TODO test with datatype="" -->
-	    <with-param name="object-datatype" select="if (* and not(@datatype eq ''))
-		then '&rdf;XMLLiteral'
-		else if (@datatype) then krextor:curie-to-uri(., @datatype)
-		else ()"/>
-	    <!-- TODO implement other @datatype cases -->
-	</call-template>
-    </template>
-
-    <template match="*[@rel and not(@href)]">
-	<call-template name="krextor:create-property">
-	    <with-param name="property" select="krextor:curies-to-uris(., @rel)"/>
-	</call-template>
-    </template>
-
-    <template match="*[@rev and not(@href)]">
-	<call-template name="krextor:create-property">
-	    <with-param name="property" select="krextor:curies-to-uris(., @rev)"/>
-	</call-template>
-    </template>
-
-    <template match="*[@resource or @href]">
-	<variable name="object" select="(@resource|@href)[1]"/>
-	<if test="@rel">
-	    <call-template name="krextor:add-uri-property">
-		<with-param name="property" select="krextor:curies-to-uris(., @rel)"/>
-		<with-param name="object" select="$object"/>
-	    </call-template>
-	</if>
-	<if test="@rev">
-	    <call-template name="krextor:add-uri-property">
-		<with-param name="property" select="krextor:curies-to-uris(., @rev)"/>
-		<with-param name="object" select="$object"/>
-		<with-param name="inverse" select="true()"/>
-	    </call-template>
-	</if>
-	<if test="not(@rel|@rev)">
-	    <call-template name="krextor:add-uri-property">
-		<with-param name="object" select="$object"/>
-	    </call-template>
-	</if>
     </template>
 </stylesheet>
