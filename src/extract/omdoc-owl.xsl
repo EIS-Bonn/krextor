@@ -268,6 +268,20 @@
 	<value-of select="concat($ontology-namespaces/krextor:loc[@theory eq $sym/@cd]/@sem-web-base, $sym/@name)"/>
     </function>
 
+    <xd:doc>TODO</xd:doc>
+    <template match="axiom[FMP[@logic eq 'owl']/om:OMOBJ/om:OMA]">
+	<apply-templates select="FMP[@logic eq 'owl']/om:OMOBJ/om:OMA" mode="krextor:ontology-axiom"/>
+    </template>
+
+    <template match="om:OMA" mode="krextor:ontology-axiom">
+	<call-template name="krextor:output-triple">
+	    <with-param name="subject" select="krextor:ontology-uri(om:OMS[2])"/>
+	    <with-param name="predicate" select="krextor:ontology-uri(om:OMS[1])"/>
+	    <with-param name="object" select="krextor:ontology-uri(om:OMS[3])"/>
+	    <with-param name="object-type" select="'uri'"/>
+	</call-template>
+    </template>
+
     <xd:doc>Try to find the ontology namespace (calls <code>krextor:sem-web-base</code>)</xd:doc>
     <template match="theory">
 	<variable name="sem-web-base" select="$ontology-namespaces/krextor:loc[@theory eq current()/@xml:id]/@sem-web-base"/>
