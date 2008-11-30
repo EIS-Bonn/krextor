@@ -26,25 +26,22 @@
     <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#">
 ]>
 
-<!--
-This stylesheet provides convenience functions and templates for an RDF
-extraction from XML languages.  It is independent of any RDF output notation.
-
-So far the extraction only works on the toplevel of a document, a restriction
-influenced by the setting of a semantic wiki, namely SWiM.
-
-TODO but sub-pagelevel resources should also be supported, just with the GUI
-support being a bit restricted. I.e. that you can jump to them (the whole page
-would be loaded and the respective fragment shown), but you would e.g. not see
-relationships between fragments in the "references" portlet.
--->
 <stylesheet xmlns="http://www.w3.org/1999/XSL/Transform" 
     xpath-default-namespace="http://www.w3.org/1999/XSL/Transform"
     xmlns:krextor="http://kwarc.info/projects/krextor"
     xmlns:xi="http://www.w3.org/2001/XInclude"
     xmlns:xs="http://www.w3.org/2001/XMLSchema"
-    exclude-result-prefixes="krextor xi xs"
+    xmlns:xd="http://www.pnp-software.com/XSLTdoc"
+    xmlns:f="http://fxsl.sf.net/"
+    exclude-result-prefixes="krextor xi xs f xd"
     version="2.0">
+
+    <import href="util.xsl"/>
+
+    <xd:doc type="stylesheet">
+	<xd:short>Convenience functions and templates for extracting RDF from XML languages, independent both from the XML input language and from the RDF output notation</xd:short>
+	<xd:detail><p>This stylesheet provides convenience functions and templates for an RDF extraction from XML languages.  It is independent of any RDF output notation.</p></xd:detail>
+    </xd:doc>
     <!-- Should URIs like document#fragment automatically be generated?
          This is a sequence of string values:
 	 * 'xml-id': use the xml:id attribute if available, otherwise nothing
@@ -76,7 +73,8 @@ relationships between fragments in the "references" portlet.
 	 http://www.aifb.uni-karlsruhe.de/pipermail/swikig/2006-February/000095.html
 	 for more background on this in a semantic web context.
     -->
-    <param name="autogenerate-fragment-uris" select="('xml-id',
+    <param name="autogenerate-fragment-uris" select="(
+	'xml-id',
 	'document-root-base')"/>
 
     <!-- Should XIncludes be traversed?  Note: Templates for nodes in XIncluded
@@ -86,15 +84,15 @@ relationships between fragments in the "references" portlet.
     <variable name="krextor:resources" select="()"/>
     <variable name="krextor:literal-properties" select="()"/>
 
-    <!-- Checks whether a given node is a text node, an attribute, or an atomic value -->
+    <xd:doc>Checks whether a given node is a text node, an attribute, or an atomic value</xd:doc>
     <function name="krextor:is-text-or-attribute-or-atomic">
 	<param name="node"/>
-	<sequence select="$node instance of xs:anyAtomicType
-	    or $node instance of text()
-	    or $node instance of attribute()"/>
+        <sequence select="$node instance of xs:anyAtomicType
+            or $node instance of text()
+            or $node instance of attribute()"/>
     </function>
 
-    <!-- Generates a URI for a fragment of a document; returns the empty sequence if the fragment ID is empty -->
+    <xd:doc>Generates a URI for a fragment of a document; returns the empty sequence if the fragment ID is empty</xd:doc>
     <function name="krextor:fragment-uri-or-null">
 	<param name="fragment-id"/>
 	<param name="base-uri"/>
@@ -103,8 +101,8 @@ relationships between fragments in the "references" portlet.
 	    else ()"/>
     </function>
 
-    <!-- creates an XPath-like string from the path to a node, 
-         e.g. doc-sect1-para2 for /doc/sect[1]/para[2] -->
+    <xd:doc>creates an XPath-like string from the path to a node, 
+	e.g. <code>doc-sect1-para2</code> for <code>/doc/sect[1]/para[2]</code></xd:doc>
     <function name="krextor:pseudo-xpath">
 	<param name="node"/>
 	<value-of select="if ($node/parent::node() instance of document-node())
@@ -117,47 +115,76 @@ relationships between fragments in the "references" portlet.
 		)"/>
     </function>
 
-    <!-- Generates a URI for a resource -->
+    <xd:doc>Generates a URI for a resource</xd:doc>
     <function name="krextor:generate-uri">
-	<param name="node"/>
-	<param name="position"/>
-	<param name="autogenerate-fragment-uri"/>
-	<param name="base-uri"/>
-	<value-of select="krextor:generate-uri-until-done(
-	    $node,
-	    $position,
-	    $base-uri,
-	    $autogenerate-fragment-uri[1],
-	    subsequence($autogenerate-fragment-uri, 2))"/>
+        <param name="node"/>
+        <param name="autogenerate-fragment-uri"/>
+        <param name="base-uri"/>
+	<!-- What we'd actually like to do is applying a series of _functions_
+	to ($node, $base-uri), but that doesn't work.  It would involve
+	currying, and the FXSL implementation of currying breaks nodes in XML
+	documents -->
+	<value-of select="f:return-first(krextor:generate-uri-impl(), $autogenerate-fragment-uri, ($node, $base-uri))"/>
     </function>
 
-    <!-- Generates a URI for a resource: head/tail implementation of a single step of this repeat..until loop -->
+    <function name="krextor:generate-uri-impl">
+	<param name="autogenerate-fragment-uri"/>
+	<param name="params"/>
+	<variable name="node" select="$params[1]"/>
+	<variable name="base-uri" select="$params[2]"/>
+	<sequence select="
+            if ($autogenerate-fragment-uri eq 'document-root-base'
+                and $node/parent::node() instance of document-node())
+                then $base-uri
+            else if ($autogenerate-fragment-uri = ('xml-id', 'generate-id', 'pseudo-xpath'))
+                then krextor:fragment-uri-or-null(
+                    if ($autogenerate-fragment-uri eq 'xml-id' and $node/@xml:id)
+                        then $node/@xml:id
+                    else if ($autogenerate-fragment-uri eq 'generate-id')
+                        then generate-id($node)
+                    else if ($autogenerate-fragment-uri eq 'pseudo-xpath')
+                        then krextor:pseudo-xpath($node)
+                    else (),
+                    $base-uri)
+            else ()"/>
+    </function>
+
+    <function name="krextor:generate-uri-impl" as="element()">
+	<krextor:generate-uri-impl/>
+    </function>
+
+    <template match="krextor:generate-uri-impl" mode="f:FXSL">
+	<param name="arg1"/>
+	<param name="arg2"/>
+	<sequence select="krextor:generate-uri-impl($arg1, $arg2)"/>
+    </template>
+
+    <xd:doc>Generates a URI for a resource: head/tail implementation of a single step of this <code>repeat..until</code> loop</xd:doc>
     <function name="krextor:generate-uri-until-done">
 	<param name="node"/>
-	<param name="position"/>
 	<param name="base-uri"/>
 	<param name="head"/>
 	<param name="tail"/>
 
+	<!-- TODO parameterize this -->
 	<variable name="result" select="
-	    if ($head eq 'document-root-base'
-		and $node/parent::node() instance of document-node())
-		then $base-uri
-	    else if ($head = ('xml-id', 'generate-id', 'pseudo-xpath'))
-		then krextor:fragment-uri-or-null(
-		    if ($head eq 'xml-id' and $node/@xml:id)
-		        then $node/@xml:id
-		    else if ($head eq 'generate-id')
-			then generate-id($node) 
-		    else if ($head eq 'pseudo-xpath')
-			then krextor:pseudo-xpath($node)
-		    else (),
-		    $base-uri)
-	    else ()"/>
+            if ($head eq 'document-root-base'
+                and $node/parent::node() instance of document-node())
+                then $base-uri
+            else if ($head = ('xml-id', 'generate-id', 'pseudo-xpath'))
+                then krextor:fragment-uri-or-null(
+                    if ($head eq 'xml-id' and $node/@xml:id)
+                        then $node/@xml:id
+                    else if ($head eq 'generate-id')
+                        then generate-id($node)
+                    else if ($head eq 'pseudo-xpath')
+                        then krextor:pseudo-xpath($node)
+                    else (),
+                    $base-uri)
+            else ()"/>
 	<value-of select="if ($result) then $result
 	    else if (exists($tail)) then krextor:generate-uri-until-done(
 		$node,
-		$position,
 		$base-uri,
 		$tail[1],
 		subsequence($tail, 2)
@@ -165,7 +192,7 @@ relationships between fragments in the "references" portlet.
 	    else ()"/>
     </function>
 
-    <!-- Relates the current resource to its parent via some properties or their inverses -->
+    <xd:doc>Relates the current resource to its parent via some properties or their inverses</xd:doc>
     <template name="krextor:related-via-properties">
 	<!-- The list of properties -->
 	<param name="properties" select="()"/>
@@ -198,24 +225,27 @@ relationships between fragments in the "references" portlet.
 	</for-each>
     </template>
 
-    <!--
-    Creates an RDF resource of some type from the current element, and probably
-    creates related triples having this resource as a subject or object.  Then,
-    matching extraction templates are applied to the child elements.  A call to
-    create-resource defines a scope in which the created resource is the
-    default subject of any other triple created using these templates, unless
-    another resource is created from some child element.
-
-    The type (i.e. a URI of some class in some ontology) has to be specified.
-    This resource is assumed the default subject of all triples extracted from
-    descendant elements and attributes using the add-literal-property and
-    add-uri-property templates.  Optionally, a sequence of properties can be
-    passed by which this resource is related to the resource created by the
-    invoking template (in most cases the resource created from the parent XML
-    element).  Additional properties of this resource can be passed, if it is
-    not possible to have them generated by templates matching some attributes
-    or children of this element.
-    -->
+    <xd:doc>
+	<xd:short>Creates an RDF resource from the current element</xd:short>
+	<xd:detail><p>Creates an RDF resource of some type from the current
+		element, and probably creates related triples having this
+		resource as a subject or object.  Then, matching extraction
+		templates are applied to the child elements.  A call to
+		create-resource defines a scope in which the created resource
+		is the default subject of any other triple created using these
+		templates, unless another resource is created from some child
+		element.  The type (i.e. a URI of some class in some ontology)
+		has to be specified.</p>
+	    <p>This resource is assumed the default subject of all triples
+		extracted from descendant elements and attributes using the
+		add-literal-property and add-uri-property templates.
+		Optionally, a sequence of properties can be passed by which
+		this resource is related to the resource created by the
+		invoking template (in most cases the resource created from the
+		parent XML element).  Additional properties of this resource
+		can be passed, if it is not possible to have them generated by
+		templates matching some attributes or children of this
+		element.</p></xd:detail></xd:doc>
     <template name="krextor:create-resource">
 	<param name="subject"/>
 	<param name="related-via-properties" select="()"/>
@@ -249,7 +279,7 @@ relationships between fragments in the "references" portlet.
 	<variable name="generated-uri" select="if ($blank-node) then $subject-uri
 	    else if ($subject) then $subject
 	    else if (exists($autogenerate-fragment-uri)) 
-		then krextor:generate-uri(., position(), $autogenerate-fragment-uri, $subject-uri)
+		then krextor:generate-uri(., $subject-uri, $autogenerate-fragment-uri)
 	    else $subject-uri"/>
 	<!-- TODO introduce auto-blank node if no xml:id given
 	     if auto-blank-node isn't desired, skip elements without xml:id altogether -->
@@ -326,6 +356,7 @@ relationships between fragments in the "references" portlet.
     <!-- we hope that this slightly speeds up search -->
     <key name="krextor:resources" match="*" use="resolve-QName(name(), .)"/>
 
+    <xd:doc>Creates a resource from an element for which a mapping to an ontology class has been declared in the variable <code>krextor:resources</code>.</xd:doc>
     <template match="*" mode="krextor:create-resource">
 	<choose>
 	    <when test="not(empty($krextor:resources))">
@@ -348,8 +379,8 @@ relationships between fragments in the "references" portlet.
 	</choose>
     </template>
 
-    <!-- Adds a literal-valued property to the resource in whose
-         create-resource scope this template was called. -->
+    <xd:doc>Adds a literal-valued property to the resource in whose
+	create-resource scope this template was called.</xd:doc>
     <template name="krextor:add-literal-property">
 	<param name="subject-uri" tunnel="yes"/>
 	<param name="blank-node-id" tunnel="yes"/>
@@ -396,6 +427,7 @@ relationships between fragments in the "references" portlet.
     <!-- we hope that this slightly speeds up search -->
     <key name="krextor:literal-properties" match="*" use="resolve-QName(name(), .)"/>
 
+    <xd:doc>Creates a literal property from a child element or attribute for which a mapping to an ontology property has been declared in the variable <code>krextor:literal-properties</code>.</xd:doc>
     <template match="*|@*" mode="krextor:add-literal-property">
 	<choose>
 	    <when test="not(empty($krextor:literal-properties))">
@@ -421,8 +453,8 @@ relationships between fragments in the "references" portlet.
 	</choose>
     </template>
 
-    <!-- Adds a URI-valued property to the resource in whose create-resource
-         scope this template was called. -->
+    <xd:doc>Adds a URI-valued property to the resource in whose
+	<code>create-resource</code> scope this template was called.</xd:doc>
     <template name="krextor:add-uri-property">
 	<param name="subject-uri" tunnel="yes"/>
 	<param name="blank-node-id" tunnel="yes"/>
@@ -494,7 +526,7 @@ relationships between fragments in the "references" portlet.
 	</if>
     </template>    
 
-    <!-- Creates a property whose values are added by nested template calls -->
+    <xd:doc>Creates a property whose values are added by nested template calls</xd:doc>
     <template name="krextor:create-property">
 	<param name="property" required="yes"/>
 	<param name="inverse" select="false()"/>
@@ -520,19 +552,24 @@ relationships between fragments in the "references" portlet.
 	</if>
     </template>
 
+    <xd:doc>Process the root element of an XIncluded document</xd:doc>
     <template match="/" mode="krextor:included">
 	<apply-templates mode="krextor:included"/>
     </template>
 
+    <xd:doc>Start processing; the current subject is identified by the base URI of the document.</xd:doc>
     <template match="/">
 	<apply-templates>
 	    <with-param name="subject-uri" select="base-uri()" tunnel="yes"/>
 	</apply-templates>
     </template>
 
-    <!-- No RDF is extracted from attributes that are not matched by the
-	 language-specific templates, nor from text nodes. -->
+    <xd:doc>Do not extract RDF from attributes that are not matched by the
+	language-specific templates, no from text nodes.</xd:doc>
     <template match="@*|text()"/>
+
+    <xd:doc>Do not extract RDF from attributes that are not matched by the
+	language-specific templates, no from text nodes (same for XIncluded documents).</xd:doc>
     <template match="@*|text()" mode="krextor:included"/>
 </stylesheet>
 
