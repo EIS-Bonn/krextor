@@ -35,6 +35,7 @@
 <stylesheet
     xpath-default-namespace="http://omdoc.org/ns"
     xmlns:krextor="http://kwarc.info/projects/krextor"
+    xmlns:krextor-genuri="http://kwarc.info/projects/krextor/genuri"
     xmlns:xd="http://www.pnp-software.com/XSLTdoc"
     xmlns:om="http://www.openmath.org/OpenMath"
     xmlns:odo="http://www.omdoc.org/ontology#"
@@ -42,7 +43,7 @@
     xmlns:xs="http://www.w3.org/2001/XMLSchema"
     xmlns:f="http://fxsl.sf.net/"
     xmlns="http://www.w3.org/1999/XSL/Transform"
-    exclude-result-prefixes="omdoc xs krextor xd om f odo"
+    exclude-result-prefixes="omdoc xs krextor xd om f odo krextor-genuri"
     version="2.0">
 
     <import href="util/omdoc.xsl"/>
@@ -59,8 +60,42 @@
 
     <param name="debug" select="true()"/>
 
-    <xd:doc type="string*">Intercept auto-generation of fragment URIs from xml:ids, as this should not always be done for OMDoc</xd:doc>
+    <xd:doc type="string*">TODO</xd:doc>
     <param name="autogenerate-fragment-uris" select="()"/>
+
+    <function name="krextor:ontology-uri" as="xs:string?">
+	<param name="base-uri"/>
+	<param name="name"/>
+	<sequence select="concat($base-uri, $name)"/>
+    </function>
+
+    <template match="krextor-genuri:ontology" as="xs:string?">
+	<param name="base-uri"/>
+	<param name="node"/>
+	<sequence select="krextor:ontology-uri($base-uri, $node/@name)"/>
+    </template>
+
+    <function name="krextor:mmt-uri" as="xs:string?">
+	<param name="base-uri"/>
+	<param name="name"/>
+	<sequence select="concat($base-uri, '/', $name)"/>
+    </function>
+
+    <template match="krextor-genuri:mmt" as="xs:string?">
+	<param name="base-uri"/>
+	<param name="node"/>
+	<sequence select="krextor:mmt-uri($base-uri, $node/@name)"/>
+    </template>
+
+    <template name="krextor:create-ontology-resource">
+	<param name="mmt" tunnel="yes"/>
+	<call-template name="krextor:create-resource">
+	    <with-param name="autogenerate-fragment-uri" select="if ($mmt)
+		then ('mmt')
+		else ('ontology')"/>
+	    <with-param name="mmt" select="$mmt" tunnel="yes"/>
+	</call-template>
+    </template>
 
     <xd:doc type="element*">A sequence of mappings of CDs representing semantic web ontologies to their corresponding namespaces</xd:doc>
     <variable name="ontology-namespaces">
@@ -90,9 +125,15 @@
 	</for-each>
     </variable>
 
-    <template match="krextor:sem-web-base[not(preceding-sibling::*)]" mode="krextor:post-process-catalogue">
+    <template match="/" mode="krextor:post-process-catalogue">
 	<param name="this-theory" tunnel="yes"/>
-	<krextor:loc theory="{$this-theory}" omdoc="{@omdoc}" sem-web-base="{.}"/>
+	<krextor:loc theory="{$this-theory}" omdoc="{concat('#', $this-theory)}">
+	    <variable name="sem-web-base" select="krextor:sem-web-base[not(preceding-sibling::*)]"/>
+	    <if test="$sem-web-base">
+		<attribute name="sem-web-base" select="$sem-web-base"/>
+	    </if>
+	</krextor:loc>
+	<apply-templates select="* except krextor:sem-web-base[not(preceding-sibling::*)]" mode="#current"/>
     </template>
 
     <template match="krextor:loc" mode="krextor:post-process-catalogue">
@@ -129,7 +170,7 @@
 	<param name="top-level-call" select="true()"/>
 	
 	<variable name="sem-web-base" select="krextor:sem-web-base($theory)"/>
-	<if test="$sem-web-base">
+	<if test="$sem-web-base ne ''">
 	    <krextor:sem-web-base omdoc="{concat(base-uri($theory), '#', $theory/@xml:id)}"><value-of select="$sem-web-base"/></krextor:sem-web-base>
 	</if>
 
@@ -246,10 +287,7 @@
     
     <xd:doc>Create a resource from an OMDoc symbol</xd:doc>
     <template match="symbol">
-	<param name="krextor:sem-web-base" tunnel="yes"/>
-	<call-template name="krextor:create-resource">
-	    <with-param name="subject" select="concat($krextor:sem-web-base, @name)"/>
-	</call-template>
+	<call-template name="krextor:create-ontology-resource"/>
     </template>
 
     <xd:doc>Make this resource an instance of some class</xd:doc>
@@ -265,7 +303,10 @@
     </xd:doc>
     <function name="krextor:ontology-uri">
 	<param name="sym"/>
-	<value-of select="concat($ontology-namespaces/krextor:loc[@theory eq $sym/@cd]/@sem-web-base, $sym/@name)"/>
+	<variable name="sem-web-base" select="$ontology-namespaces/krextor:loc[@theory eq $sym/@cd]/@sem-web-base"/>
+	<value-of select="if ($sem-web-base)
+	    then krextor:ontology-uri($sem-web-base, $sym/@name)
+	    else krextor:mmt-uri(concat('MMT-FIXME', '/', $sym/@cd), $sym/@name)"/>
     </function>
 
     <xd:doc>TODO</xd:doc>
@@ -285,27 +326,31 @@
     <xd:doc>Try to find the ontology namespace (calls <code>krextor:sem-web-base</code>)</xd:doc>
     <template match="theory">
 	<variable name="sem-web-base" select="$ontology-namespaces/krextor:loc[@theory eq current()/@xml:id]/@sem-web-base"/>
-	<choose>
-	    <when test="$sem-web-base">
-		<apply-templates>
-		    <with-param name="krextor:sem-web-base" select="$sem-web-base" tunnel="yes"/>
-		</apply-templates>
-	    </when>
-	    <otherwise>
-		<apply-templates/>
-	    </otherwise>
-	</choose>
+	<call-template name="krextor:create-ontology-resource">
+	    <with-param name="subject-uri" select="if (exists($sem-web-base))
+		then $sem-web-base
+		else 'MMT-FIXME'" tunnel="yes"/>
+	    <with-param name="mmt" select="not($sem-web-base)" tunnel="yes"/>
+	</call-template>
     </template>
 
     <xd:doc>Try to find the ontology namespace of a given theory (special
 	metadata field <code>odo:semWebBase</code>)
 	<xd:param name="theory" type="node">the theory</xd:param>
     </xd:doc>
-    <function name="krextor:sem-web-base">
+    <function name="krextor:sem-web-base" as="xs:string">
 	<param name="theory"/>
 	<variable name="link" as="node()*">
 	    <sequence select="$theory/metadata/link[krextor:curie-to-uri($theory, @rel) eq '&odo;semWebBase']"/>
 	</variable>
 	<value-of select="if ($link) then $link/@href else ''"/>
     </function>
+
+    <xd:doc>We don't extract top-level metadata, as they do not correspond to
+	anything in an ontology.</xd:doc>
+    <template match="/omdoc/metadata"/>
+
+    <xd:doc>We don't extract the special annotation of the ontology namespace
+	of a theory, as it is for internal use.</xd:doc>
+    <template match="link[krextor:curie-to-uri(., @rel) eq '&odo;semWebBase']"/>
 </stylesheet>
