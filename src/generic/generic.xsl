@@ -29,11 +29,12 @@
 <stylesheet xmlns="http://www.w3.org/1999/XSL/Transform" 
     xpath-default-namespace="http://www.w3.org/1999/XSL/Transform"
     xmlns:krextor="http://kwarc.info/projects/krextor"
+    xmlns:krextor-genuri="http://kwarc.info/projects/krextor/genuri"
     xmlns:xi="http://www.w3.org/2001/XInclude"
     xmlns:xs="http://www.w3.org/2001/XMLSchema"
     xmlns:xd="http://www.pnp-software.com/XSLTdoc"
     xmlns:f="http://fxsl.sf.net/"
-    exclude-result-prefixes="krextor xi xs f xd"
+    exclude-result-prefixes="krextor xi xs f xd krextor-genuri"
     version="2.0">
 
     <import href="util.xsl"/>
@@ -128,26 +129,42 @@
     </function>
 
     <function name="krextor:generate-uri-impl">
-	<param name="autogenerate-fragment-uri"/>
+	<param name="method"/>
 	<param name="params"/>
 	<variable name="node" select="$params[1]"/>
 	<variable name="base-uri" select="$params[2]"/>
-	<sequence select="
-            if ($autogenerate-fragment-uri eq 'document-root-base'
-                and $node/parent::node() instance of document-node())
-                then $base-uri
-            else if ($autogenerate-fragment-uri = ('xml-id', 'generate-id', 'pseudo-xpath'))
-                then krextor:fragment-uri-or-null(
-                    if ($autogenerate-fragment-uri eq 'xml-id' and $node/@xml:id)
-                        then $node/@xml:id
-                    else if ($autogenerate-fragment-uri eq 'generate-id')
-                        then generate-id($node)
-                    else if ($autogenerate-fragment-uri eq 'pseudo-xpath')
-                        then krextor:pseudo-xpath($node)
-                    else (),
-                    $base-uri)
-            else ()"/>
+	<variable name="method-element">
+	    <element name="{concat('krextor-genuri:', $method)}"/>
+	</variable>
+	<apply-templates select="$method-element/*">
+	    <with-param name="node" select="$node"/>
+	    <with-param name="base-uri" select="$base-uri"/>
+	</apply-templates>
     </function>
+
+    <template match="krextor-genuri:document-root-base" as="xs:string?">
+	<param name="node"/>
+	<param name="base-uri"/>
+	<sequence select="
+	    if ($node/parent::node() instance of document-node())
+	    then $base-uri
+	    else ()"/>
+    </template>
+
+    <template match="krextor-genuri:xml-id|krextor-genuri:generate-id|krextor-genuri:pseudo-xpath" as="xs:string?">
+	<param name="node"/>
+	<param name="base-uri"/>
+	<sequence select="
+	    krextor:fragment-uri-or-null(
+		if (self::krextor-genuri:xml-id and @xml:id)
+		    then @xml:id
+		else if (self::krextor-genuri:generate-id)
+		    then generate-id()
+		else if (self::krextor-genuri:pseudo-xpath)
+		    then krextor:pseudo-xpath(.)
+		else (),
+		$base-uri)"/>
+    </template>
 
     <function name="krextor:generate-uri-impl" as="element()">
 	<krextor:generate-uri-impl/>
@@ -279,7 +296,7 @@
 	<variable name="generated-uri" select="if ($blank-node) then $subject-uri
 	    else if ($subject) then $subject
 	    else if (exists($autogenerate-fragment-uri)) 
-		then krextor:generate-uri(., $subject-uri, $autogenerate-fragment-uri)
+		then krextor:generate-uri(., $autogenerate-fragment-uri, $subject-uri)
 	    else $subject-uri"/>
 	<!-- TODO introduce auto-blank node if no xml:id given
 	     if auto-blank-node isn't desired, skip elements without xml:id altogether -->
