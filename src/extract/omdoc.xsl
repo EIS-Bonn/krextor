@@ -96,6 +96,7 @@
 	    <xsl:call-template name="krextor:create-resource">
 		<!-- If we are not on top level, manipulate the base URI,
 		     either in MMT or in OMDoc 1.2 style -->
+		<!-- FIXME look into omdoc-owl.xsl for a better way of how to do this -->
 		<xsl:with-param name="subject-uri" select="if ($mmt and @name)
 		    then concat($subject-uri, '/', @name)
 		    else $subject-uri" tunnel="yes"/>
