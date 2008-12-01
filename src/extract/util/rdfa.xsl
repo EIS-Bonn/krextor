@@ -171,21 +171,21 @@
 	</call-template>
     </template>
 
-    <xd:doc type="stylesheet">Extracts a URI-valued property (<code>rel</code>) whose object is not yet known</xd:doc>
+    <xd:doc>Extracts a URI-valued property (<code>rel</code>) whose object is not yet known</xd:doc>
     <template match="*[@rel and not(@href)]">
 	<call-template name="krextor:create-property">
 	    <with-param name="property" select="krextor:curies-to-uris(., @rel)"/>
 	</call-template>
     </template>
 
-    <xd:doc type="stylesheet">Extracts a URI-valued inverse property (<code>rev</code>) whose object is not yet known</xd:doc>
+    <xd:doc>Extracts a URI-valued inverse property (<code>rev</code>) whose object is not yet known</xd:doc>
     <template match="*[@rev and not(@href)]">
 	<call-template name="krextor:create-property">
 	    <with-param name="property" select="krextor:curies-to-uris(., @rev)"/>
 	</call-template>
     </template>
 
-    <xd:doc type="stylesheet">Extracts a URI-valued property</xd:doc>
+    <xd:doc>Extracts a URI-valued property</xd:doc>
     <template match="*[@resource or @href]">
 	<variable name="object" select="(@resource|@href)[1]"/>
 	<if test="@rel">

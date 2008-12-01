@@ -314,6 +314,7 @@
 	<apply-templates select="FMP[@logic eq 'owl']/om:OMOBJ/om:OMA" mode="krextor:ontology-axiom"/>
     </template>
 
+    <xd:doc>TODO</xd:doc>
     <template match="om:OMA" mode="krextor:ontology-axiom">
 	<call-template name="krextor:output-triple">
 	    <with-param name="subject" select="krextor:ontology-uri(om:OMS[2])"/>
