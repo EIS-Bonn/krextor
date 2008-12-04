@@ -327,12 +327,19 @@
     <xd:doc>Try to find the ontology namespace (calls <code>krextor:sem-web-base</code>)</xd:doc>
     <template match="theory">
 	<variable name="sem-web-base" select="$ontology-namespaces/krextor:loc[@theory eq current()/@xml:id]/@sem-web-base"/>
-	<call-template name="krextor:create-ontology-resource">
-	    <with-param name="subject-uri" select="if (exists($sem-web-base))
-		then $sem-web-base
-		else 'MMT-FIXME'" tunnel="yes"/>
-	    <with-param name="mmt" select="not($sem-web-base)" tunnel="yes"/>
-	</call-template>
+	<choose>
+	    <when test="exists($sem-web-base)">
+		<call-template name="krextor:create-ontology-resource">
+		    <with-param name="base-uri" select="$sem-web-base"
+			tunnel="yes"/>
+		</call-template>
+	    </when>
+	    <otherwise>
+		<call-template name="krextor:create-ontology-resource">
+		    <with-param name="mmt" select="true()" tunnel="yes"/>
+		</call-template>
+	    </otherwise>
+	</choose>
     </template>
 
     <xd:doc>Try to find the ontology namespace of a given theory (special
