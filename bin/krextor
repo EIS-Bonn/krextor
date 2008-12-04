@@ -49,12 +49,12 @@ done
 KREXTOR_HOME="$(dirname "$KREXTOR_BIN")"
 KREXTOR_HOME="$(cd "$KREXTOR_HOME/.." ; pwd)"
 
-transformer="$KREXTOR_HOME/src/transform-$xml-$rdf.xsl"
+transformer="$KREXTOR_HOME/src/xslt/transform-$xml-$rdf.xsl"
 
 if [[ ! -r $transformer ]]
 then
-    xmlExtractor=$KREXTOR_HOME/src/extract/$xml.xsl
-    rdfOutput=$KREXTOR_HOME/src/output/$rdf.xsl
+    xmlExtractor=$KREXTOR_HOME/src/xslt/extract/$xml.xsl
+    rdfOutput=$KREXTOR_HOME/src/xslt/output/$rdf.xsl
 
     if [[ ! -e $xmlExtractor ]]
     then

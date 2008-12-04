@@ -32,9 +32,9 @@
     exclude-result-prefixes="krextor xi xs xd"
     version="2.0">
 
-    <import href="../../lib/fxsl/f/func-apply.xsl"/>
-    <import href="../../lib/fxsl/f/func-apply2.xsl"/>
-    <import href="../../lib/fxsl/f/func-curry.xsl"/>
+    <import href="../../../lib/fxsl/f/func-apply.xsl"/>
+    <import href="../../../lib/fxsl/f/func-apply2.xsl"/>
+    <import href="../../../lib/fxsl/f/func-curry.xsl"/>
 
     <function name="f:return-first">
 	<param name="function"/>
