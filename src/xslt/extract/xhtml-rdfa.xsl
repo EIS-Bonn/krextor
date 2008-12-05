@@ -91,15 +91,45 @@
 
     <!-- FIXME restrict to those elements where @about is actually allowed -->
     <!-- TODO treat @src same as @about -->
-    <template match="*[@about or @typeof]">
-	<call-template name="krextor:create-resource">
-	    <with-param name="subject" select="krextor:safe-curie-to-uri(., @about)"/>
-	    <with-param name="blank-node" select="not(@about)"/>
-	    <with-param name="type" select="krextor:curies-to-uris(., @typeof)"/>
-	    <!-- FIXME actually, this is:
-		@content, or ...
-		@... (some other RDFa properties) -->
-	    <with-param name="process-next" select="*"/>
-	</call-template>
+    <template match="*[@resource or @src or @about or @typeof or @rel]">
+	<variable name="type" select="krextor:curies-to-uris(., @typeof)"/>
+	<variable name="process-next" select="(@* except ((if (@about) then () else (@resource|@rel)|@src|@about|@typeof))|*"/>
+	<variable name="resource" select="if (@about) then @about else @resource"/>
+	<variable name="blank-node-id" select="krextor:safe-curie-to-bnode-id($resource)"/>
+	<variable name="related-via-properties" select="if (@resource and not(@about)) then krextor:curies-to-uris(., @rel) else ()"/>
+	<variable name="related-via-inverse-properties" select="if (@resource and not(@about)) then krextor:curies-to-uris(., @rev) else ()"/>
+	<choose>
+	    <when test="$blank-node-id">
+		<call-template name="krextor:create-resource">
+	rrrrrrrr]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]	    <with-param name="this-blank-node-id" select="$blank-node-id"/>
+		    <with-param name="blank-node" select="true()"/>
+		    <with-param name="type" select="$type"/>
+		    <with-param name="related-via-properties" select="$related-via-properties"/>
+		    <with-param name="related-via-inverse-properties" select="$related-via-inverse-properties"/>
+		    <!-- FIXME actually, this is:
+			@content, or ...
+			@... (some other RDFa properties) -->
+		    <with-param name="process-next" select="$process-next"/>
+		</call-template>
+	    </when>
+	    <otherwise>
+		<call-template name="krextor:create-resource">
+		    <with-param name="subject" select="krextor:safe-curie-to-uri(., $resource)"/>
+		    <with-param name="blank-node" select="not($resource)"/>
+		    <with-param name="type" select="$type"/>
+		    <with-param name="related-via-properties" select="$related-via-properties"/>
+		    <with-param name="related-via-inverse-properties" select="$related-via-inverse-properties"/>
+		    <!-- FIXME actually, this is:
+			@content, or ...
+			@... (some other RDFa properties) -->
+		    <with-param name="process-next" select="$process-next"/>
+		</call-template>
+	    </otherwise>
+	</choose>
+    </template>
+
+    <!-- FIXME restrict to those elements where @about is actually allowed -->
+    <template match="*[not(@resource or @src or @about or @typeof)]">
+	<apply-templates select="@property|@rel|@rev|@href|*"/>
     </template>
 </stylesheet>

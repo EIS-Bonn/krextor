@@ -29,6 +29,7 @@
 <stylesheet xmlns="http://www.w3.org/1999/XSL/Transform" 
     xpath-default-namespace="http://www.w3.org/1999/xhtml"
     xmlns:xd="http://www.pnp-software.com/XSLTdoc"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema"
     xmlns:krextor="http://kwarc.info/projects/krextor"
     version="2.0">
     <xd:doc type="stylesheet">
@@ -51,6 +52,11 @@
     <function name="krextor:default-namespace">
 	<param name="focus"/>
 	<value-of select="namespace-uri-from-QName(resolve-QName('dummy', $focus))"/>
+    </function>
+
+    <function name="krextor:curie-to-uri">
+	<param name="focus" as="attribute()"/>
+	<sequence select="krextor:curie-to-uri($focus/parent::*, $focus)"/>
     </function>
 
     <xd:doc type="string">Converts a CURIE to a URI, using the current namespace context.
@@ -106,6 +112,11 @@
 	</choose>
     </function>
 
+    <function name="krextor:curies-to-uris">
+	<param name="focus" as="attribute()"/>
+	<sequence select="krextor:curies-to-uris($focus/parent::*, $focus)"/>
+    </function>
+
     <xd:doc type="string*">Converts a sequence of CURIEs to a sequence of URIs, using the current namespace context.
 	<xd:param name="focus" type="node">the focus node, for the namespace context</xd:param>
 	<xd:param name="curies" type="string*">the CURIEs</xd:param>
@@ -124,86 +135,127 @@
 	</choose>
     </function>
 
+    <function name="krextor:safe-curie-to-uri">
+	<param name="focus" as="attribute()"/>
+	<sequence select="krextor:safe-curie-to-uri($focus/parent::*, $focus)"/>
+    </function>
+
     <xd:doc type="string">Converts a safe CURIE to a URI, using the current namespace context if the safe CURIE actually is a CURIE.
 	<xd:param name="focus" type="node">the focus node, for the namespace context</xd:param>
 	<xd:param name="safe-curie" type="string*">the safe CURIE</xd:param>
     </xd:doc>
-    <function name="krextor:safe-curie-to-uri">
+    <function name="krextor:safe-curie-to-uri" as="xs:string">
 	<param name="focus"/>
 	<param name="safe-curie"/>
-	<analyze-string select="$safe-curie" regex="^\[([^\]]+)\]$">
-	    <matching-substring>
-		<value-of select="krextor:curie-to-uri($focus, regex-group(1))"/>
-	    </matching-substring>
-	    <non-matching-substring>
-		<value-of select="."/>
-	    </non-matching-substring>
-	</analyze-string>
+	<choose>
+	    <when test="string-length($safe-curie) gt 0">
+		<analyze-string select="$safe-curie" regex="^\[([^\]]+)\]$">
+		    <matching-substring>
+			<value-of select="krextor:curie-to-uri($focus, regex-group(1))"/>
+		    </matching-substring>
+		    <non-matching-substring>
+			<value-of select="$safe-curie"/>
+		    </non-matching-substring>
+		</analyze-string>
+	    </when>
+	    <otherwise>
+		<value-of select="$safe-curie"/>
+	    </otherwise>
+	</choose>
     </function>
 
     <xd:doc>Extracts a literal-valued property</xd:doc>
-    <template match="*[(@property and node()) or @content]">
+    <template match="@property[parent::*/node() or parent::*/@content]">
+	<variable name="parent" select="parent::*"/>
 	<variable name="object">
 	    <choose>
-		<when test="@content">
-		    <value-of select="@content"/>
+		<when test="$parent/@content">
+		    <value-of select="$parent/@content"/>
 		</when>
-		<when test="*">
-		    <apply-templates select="*" mode="verb"/>
+		<when test="$parent/* and (not($parent/@datatype) or krextor:curie-to-uri($parent/@datatype) eq '&rdf;XMLLiteral')">
+		    <!-- reparent the children to enforce namespace node output -->
+		    <variable name="node">
+			<copy-of select="$parent/node()"/>
+		    </variable>
+		    <apply-templates select="$node" mode="verb"/>
 		</when>
 		<otherwise>
-		    <value-of select="text()"/>
+		    <apply-templates select="$parent/node()" mode="krextor:text"/>
 		</otherwise>
 	    </choose>
 	</variable>
 	<call-template name="krextor:add-literal-property">
 	    <!-- this function returns NIL if there is no @property attribute.
 	         Then, add-literal-property completes an incomplete triple -->
-	    <with-param name="property" select="krextor:curies-to-uris(., @property)"/>
+	    <with-param name="property" select="krextor:curies-to-uris(.)"/>
 	    <with-param name="object" select="$object"/>
-	    <with-param name="object-language" select="@xml:lang"/>
+	    <with-param name="object-language" select="ancestor::*/@xml:lang[1]"/>
 	    <!-- TODO test with datatype="" -->
-	    <with-param name="object-datatype" select="if (* and not(@datatype eq ''))
+	    <with-param name="object-datatype" select="if ($parent/* and not($parent/@datatype))
 		then '&rdf;XMLLiteral'
-		else if (@datatype) then krextor:curie-to-uri(., @datatype)
+		else if ($parent/@datatype) then krextor:curie-to-uri($parent, $parent/@datatype)
 		else ()"/>
 	    <!-- TODO implement other @datatype cases -->
 	</call-template>
     </template>
 
+    <template match="text()" mode="krextor:text">
+	<value-of select="."/>
+    </template>
+
+    <template match="*" mode="krextor:text">
+	<apply-templates mode="krextor:text"/>
+    </template>
+
+    <!--
     <xd:doc>Extracts a URI-valued property (<code>rel</code>) whose object is not yet known</xd:doc>
-    <template match="*[@rel and not(@href)]">
+    <template match="@rel[not(parent::*/@resource or parent::*/@href)]">
 	<call-template name="krextor:create-property">
-	    <with-param name="property" select="krextor:curies-to-uris(., @rel)"/>
+	    <with-param name="property" select="krextor:curies-to-uris(.)"/>
 	</call-template>
     </template>
 
     <xd:doc>Extracts a URI-valued inverse property (<code>rev</code>) whose object is not yet known</xd:doc>
-    <template match="*[@rev and not(@href)]">
+    <template match="@rev[not(parent::*/@resource or parent::*/@href)]">
 	<call-template name="krextor:create-property">
-	    <with-param name="property" select="krextor:curies-to-uris(., @rev)"/>
+	    <with-param name="property" select="krextor:curies-to-uris(.)"/>
 	</call-template>
     </template>
+    -->
+
+    <function name="krextor:safe-curie-to-bnode-id" as="xs:string?">
+	<param name="safe-curie"/>
+	<analyze-string select="$safe-curie" regex="^\[_:(.+)\]$">
+	    <matching-substring>
+		<value-of select="regex-group(1)"/>
+	    </matching-substring>
+	</analyze-string>
+    </function>
 
     <xd:doc>Extracts a URI-valued property</xd:doc>
-    <template match="*[@resource or @href]">
-	<variable name="object" select="(@resource|@href)[1]"/>
-	<if test="@rel">
+    <template match="@resource|@href[not(parent::*/@resource)]">
+	<variable name="parent" select="parent::*"/>
+	<variable name="blank" select="if ($parent/@resource) then krextor:safe-curie-to-bnode-id($parent/@resource) else ()"/>
+	<variable name="object" select="if ($parent/@resource and not($blank)) then krextor:safe-curie-to-uri($parent/@resource) else ."/>
+	<if test="$parent/@rel">
 	    <call-template name="krextor:add-uri-property">
-		<with-param name="property" select="krextor:curies-to-uris(., @rel)"/>
+		<with-param name="property" select="krextor:curies-to-uris($parent/@rel)"/>
 		<with-param name="object" select="$object"/>
+		<with-param name="blank" select="$blank"/>
 	    </call-template>
 	</if>
-	<if test="@rev">
+	<if test="$parent/@rev">
 	    <call-template name="krextor:add-uri-property">
-		<with-param name="property" select="krextor:curies-to-uris(., @rev)"/>
-		<with-param name="object" select="$object"/>
+		<with-param name="property" select="krextor:curies-to-uris($parent/@rev)"/>
 		<with-param name="inverse" select="true()"/>
+		<with-param name="object" select="$object"/>
+		<with-param name="blank" select="$blank"/>
 	    </call-template>
 	</if>
-	<if test="not(@rel|@rev)">
+	<if test="not($parent/@rel|$parent/@rev)">
 	    <call-template name="krextor:add-uri-property">
 		<with-param name="object" select="$object"/>
+		<with-param name="blank" select="$blank"/>
 	    </call-template>
 	</if>
     </template>

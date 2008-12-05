@@ -264,7 +264,7 @@
 		templates matching some attributes or children of this
 		element.</p></xd:detail></xd:doc>
     <template name="krextor:create-resource">
-	<param name="subject"/>
+	<param name="subject" select="()" as="xs:string?"/>
 	<param name="related-via-properties" select="()"/>
 	<param name="related-via-inverse-properties" select="()"/>
 	<param name="type" select="()"/>
@@ -293,18 +293,20 @@
 	<!-- Is this a blank node? -->
 	<param name="blank-node" select="false()"/>
 	<param name="blank-node-id" tunnel="yes"/>
+	<param name="this-blank-node-id" select="()" as="xs:string?"/>
 	<variable name="generated-uri" select="if ($blank-node) then $subject-uri
-	    else if ($subject) then $subject
+	    else if (exists($subject)) then $subject
 	    else if (exists($autogenerate-fragment-uri)) 
 		then krextor:generate-uri(., $autogenerate-fragment-uri, $subject-uri)
-	    else $subject-uri"/>
+	    else $subject-uri" as="xs:string?"/>
 	<!-- TODO introduce auto-blank node if no xml:id given
 	     if auto-blank-node isn't desired, skip elements without xml:id altogether -->
-	<variable name="generated-blank-node-id" select="if ($blank-node) then generate-id()
+	<variable name="generated-blank-node-id" select="if ($blank-node) then
+	    if ($this-blank-node-id) then $this-blank-node-id else generate-id()
 	    else ''"/>
 	<variable name="subject" select="if ($blank-node) then $generated-blank-node-id else $generated-uri"/>
 	<variable name="subject-type" select="if ($blank-node) then 'blank' else 'uri'"/>
-	<if test="$generated-uri">
+	<if test="exists($generated-uri)">
 	    <!-- Create the triple(s) that instantiates this resource -->
 	    <for-each select="$type">
 		<call-template name="krextor:output-triple">
@@ -355,7 +357,7 @@
 	    </if>
 
 	    <!-- Process the children of this element, or whichever nodes desired -->
-	    <apply-templates select="$process-next">
+	    <apply-templates select="$process-next" mode="#current">
 		<!-- pass on the generated subject URI or blank node ID.  For resolving relative URIs, an appended fragment does
 		     not matter, but for generating property triples for this resource it does. -->
 		<with-param name="subject-uri" select="$generated-uri" tunnel="yes"/>
@@ -489,7 +491,8 @@
 	2. or we are in an attribute or a text node or any item of a whitespace-separated list,
 	   and a relationship between the current subject URI and the URIref in the attribute value is to be expressed. -->
 	<param name="object" select="if (krextor:is-text-or-attribute-or-atomic(.))
-	       then if ($list) then . else resolve-uri(., $subject-uri)
+	    then if ($list) then . else resolve-uri(., $subject-uri)
+	    (: What is this resolution good for? MMT? :)
 	    else if (parent::node() instance of document-node()) then base-uri()
 	    else ''"/>
 	<!-- node ID, if the object is a blank node -->
@@ -550,7 +553,7 @@
 	<!-- The node set to which apply-templates is applied -->
 	<!-- We also process attributes, as they may contain links to other resources -->
 	<param name="process-next" select="*|@*"/>
-	<apply-templates select="$process-next">
+	<apply-templates select="$process-next" mode="#current">
 	    <with-param name="tunneled-property" select="$property" tunnel="yes"/>
 	    <with-param name="tunneled-inverse" select="$inverse" tunnel="yes"/>
 	</apply-templates>
@@ -576,7 +579,7 @@
 
     <xd:doc>Start processing; the current subject is identified by the base URI of the document.</xd:doc>
     <template match="/">
-	<apply-templates>
+	<apply-templates mode="#current">
 	    <with-param name="subject-uri" select="base-uri()" tunnel="yes"/>
 	</apply-templates>
     </template>

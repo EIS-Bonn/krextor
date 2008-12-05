@@ -2,6 +2,8 @@
 <classpath>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="lib" path="lib/saxon/saxon9.jar"/>
+	<classpathentry kind="lib" path="lib/java/commons-vfs-1.0.jar"/>
+	<classpathentry kind="lib" path="lib/java/xom-1.2b2.jar" sourcepath="/home/clange/java/xom-cvs/src"/>
+	<classpathentry kind="lib" path="lib/saxon/saxon9.jar" sourcepath="/home/clange/java/saxon-svn/bj"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
