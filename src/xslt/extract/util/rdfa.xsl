@@ -207,11 +207,11 @@
 	<apply-templates mode="krextor:text"/>
     </template>
 
-    <!--
     <xd:doc>Extracts a URI-valued property (<code>rel</code>) whose object is not yet known</xd:doc>
     <template match="@rel[not(parent::*/@resource or parent::*/@href)]">
 	<call-template name="krextor:create-property">
 	    <with-param name="property" select="krextor:curies-to-uris(.)"/>
+	    <with-param name="process-next" select="parent::*/*"/>
 	</call-template>
     </template>
 
@@ -219,9 +219,10 @@
     <template match="@rev[not(parent::*/@resource or parent::*/@href)]">
 	<call-template name="krextor:create-property">
 	    <with-param name="property" select="krextor:curies-to-uris(.)"/>
+	    <with-param name="inverse" select="true()"/>
+	    <with-param name="process-next" select="parent::*/*"/>
 	</call-template>
     </template>
-    -->
 
     <function name="krextor:safe-curie-to-bnode-id" as="xs:string?">
 	<param name="safe-curie"/>
@@ -233,7 +234,7 @@
     </function>
 
     <xd:doc>Extracts a URI-valued property</xd:doc>
-    <template match="@resource|@href[not(parent::*/@resource)]">
+    <template match="@resource|@src|@href[not(parent::*/@resource)]">
 	<variable name="parent" select="parent::*"/>
 	<variable name="blank" select="if ($parent/@resource) then krextor:safe-curie-to-bnode-id($parent/@resource) else ()"/>
 	<variable name="object" select="if ($parent/@resource and not($blank)) then krextor:safe-curie-to-uri($parent/@resource) else ."/>

@@ -91,17 +91,32 @@
 
     <!-- FIXME restrict to those elements where @about is actually allowed -->
     <!-- TODO treat @src same as @about -->
-    <template match="*[@resource or @src or @about or @typeof or @rel]">
+    <template match="*[@resource or @src or @about or @href or @typeof or @rel or @rev or @property]">
+	<param name="tunneled-property" tunnel="yes"/>
+	<param name="tunneled-inverse" tunnel="yes"/>
+
 	<variable name="type" select="krextor:curies-to-uris(., @typeof)"/>
-	<variable name="process-next" select="(@* except ((if (@about) then () else (@resource|@rel)|@src|@about|@typeof))|*"/>
-	<variable name="resource" select="if (@about) then @about else @resource"/>
-	<variable name="blank-node-id" select="krextor:safe-curie-to-bnode-id($resource)"/>
-	<variable name="related-via-properties" select="if (@resource and not(@about)) then krextor:curies-to-uris(., @rel) else ()"/>
-	<variable name="related-via-inverse-properties" select="if (@resource and not(@about)) then krextor:curies-to-uris(., @rev) else ()"/>
+	<variable name="process-next" select="
+	    (@* except 
+		((if (exists(@about|@src|@typeof)) then () else (@resource|@rel|@href))|@src|@about|@typeof))
+	    |(if (@property) then () else *)"/>
+	<variable name="resource" select="if (exists(@about)) then @about else if (@src) then @src else if (@resource) then @resource else @href"/>
+	<variable name="blank-node-id" select="if (exists($resource)) then krextor:safe-curie-to-bnode-id($resource) else ()"/>
+	<variable name="related-via-properties" select="(
+	    if (not(exists(@about|@src|@typeof))) then krextor:curies-to-uris(., @rel) else (),
+	    if ($tunneled-property and not($tunneled-inverse)) then $tunneled-property else ())"/>
+	<variable name="related-via-inverse-properties" select="(
+	    if (not(exists(@about|@src|@typeof))) then krextor:curies-to-uris(., @rev) else (),
+	    if ($tunneled-property and $tunneled-inverse) then $tunneled-property else ())"/>
+
 	<choose>
-	    <when test="$blank-node-id">
+	    <when test="not($tunneled-property) and @property and not(exists($resource)) and not(@rel|@rev)">
+		<apply-templates select="@property"/>
+
+	    </when>
+	    <when test="$blank-node-id or not(exists($resource))">
 		<call-template name="krextor:create-resource">
-	rrrrrrrr]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]	    <with-param name="this-blank-node-id" select="$blank-node-id"/>
+		    <with-param name="this-blank-node-id" select="$blank-node-id"/>
 		    <with-param name="blank-node" select="true()"/>
 		    <with-param name="type" select="$type"/>
 		    <with-param name="related-via-properties" select="$related-via-properties"/>
@@ -115,7 +130,7 @@
 	    <otherwise>
 		<call-template name="krextor:create-resource">
 		    <with-param name="subject" select="krextor:safe-curie-to-uri(., $resource)"/>
-		    <with-param name="blank-node" select="not($resource)"/>
+		    <with-param name="blank-node" select="not(exists($resource))"/>
 		    <with-param name="type" select="$type"/>
 		    <with-param name="related-via-properties" select="$related-via-properties"/>
 		    <with-param name="related-via-inverse-properties" select="$related-via-inverse-properties"/>
@@ -129,7 +144,9 @@
     </template>
 
     <!-- FIXME restrict to those elements where @about is actually allowed -->
-    <template match="*[not(@resource or @src or @about or @typeof)]">
-	<apply-templates select="@property|@rel|@rev|@href|*"/>
+    <!--
+    <template match="*[not(@resource or @src or @about or @typeof or @rel or @rev)]">
+	<apply-templates select="@property|@href|*"/>
     </template>
+    -->
 </stylesheet>
