@@ -357,7 +357,7 @@
 	    </if>
 
 	    <!-- Process the children of this element, or whichever nodes desired -->
-	    <apply-templates select="$process-next" mode="#current">
+	    <apply-templates select="$process-next">
 		<!-- pass on the generated subject URI or blank node ID.  For resolving relative URIs, an appended fragment does
 		     not matter, but for generating property triples for this resource it does. -->
 		<with-param name="subject-uri" select="$generated-uri" tunnel="yes"/>
@@ -403,12 +403,12 @@
     <template name="krextor:add-literal-property">
 	<param name="subject-uri" tunnel="yes"/>
 	<param name="blank-node-id" tunnel="yes"/>
-	<param name="property"/>
+	<param name="property" as="xs:string*"/>
 	<!-- property from incomplete triples -->
-	<param name="tunneled-property" tunnel="yes"/>
+	<param name="tunneled-property" as="xs:string*" tunnel="yes"/>
 	<param name="object" select="."/>
 	<!-- Is the object a whitespace-separated list? -->
-	<param name="list" select="false()" as="xs:boolean"/>
+	<param name="object-is-list" select="false()" as="xs:boolean"/>
 	<!-- Normalize whitespace around the value of the object? -->
 	<param name="normalize-space" select="false()" as="xs:boolean"/>
 	<param name="object-language" select="''"/>
@@ -417,17 +417,18 @@
 	    else $tunneled-property"/>
 	<choose>
 	    <!-- If the "object" is a whitespace-separated list of actual objects, we recursively generate one triple for each object. -->
-	    <when test="$list">
+	    <when test="$object-is-list">
 		<for-each select="tokenize($object, '\s+')">
 		    <call-template name="krextor:add-literal-property">
 			<with-param name="property" select="$actual-property"/>
 			<with-param name="object" select="."/>
 			<!-- Make sure that we don't run into an infinite loop ;-) -->
-			<with-param name="list" select="false()"/>
+			<with-param name="object-is-list" select="false()"/>
 		    </call-template>
 		</for-each>
 	    </when>
 	    <otherwise>
+		<!-- TODO check if property is sequence of more than 1 -->
 		<call-template name="krextor:output-triple">
 		    <with-param name="subject" select="if ($blank-node-id) then $blank-node-id
 			else $subject-uri"/>
@@ -462,7 +463,7 @@
 		</if>
 		<call-template name="krextor:add-literal-property">
 		    <with-param name="property" select="$mapping/@property"/>
-		    <with-param name="list" select="boolean($mapping/@list)"/>
+		    <with-param name="object-is-list" select="boolean($mapping/@list)"/>
 		    <with-param name="normalize-space" select="$mapping/@normalize-space"/>
 		</call-template>
 	    </when>
@@ -485,13 +486,13 @@
 	<!-- inverse information from incomplete triples -->
 	<param name="tunneled-inverse" tunnel="yes"/>
 	<!-- Is the object a whitespace-separated list? -->
-	<param name="list" select="false()"/>
+	<param name="object-is-list" select="false()"/>
 	<!-- Currently we assume that, if no explicit link target is given, we are either:
 	1. in the root element R of an XIncluded document and that a relationship between the parent of the xi:include and the XIncluded document is to be expressed.
 	2. or we are in an attribute or a text node or any item of a whitespace-separated list,
 	   and a relationship between the current subject URI and the URIref in the attribute value is to be expressed. -->
 	<param name="object" select="if (krextor:is-text-or-attribute-or-atomic(.))
-	    then if ($list) then . else resolve-uri(., $subject-uri)
+	    then if ($object-is-list) then . else resolve-uri(., $subject-uri)
 	    (: What is this resolution good for? MMT? :)
 	    else if (parent::node() instance of document-node()) then base-uri()
 	    else ''"/>
@@ -506,13 +507,13 @@
 		else $tunneled-inverse"/>
 	    <choose>
 		<!-- If the "object" is a whitespace-separated list of actual objects, we recursively generate one triple for each object. -->
-		<when test="$list">
+		<when test="$object-is-list">
 		    <for-each select="tokenize($actual-object, '\s+')">
 			<call-template name="krextor:add-uri-property">
 			    <with-param name="property" select="$actual-property"/>
 			    <with-param name="inverse" select="$actual-inverse"/>
 			    <!-- Make sure that we don't run into an infinite loop ;-) -->
-			    <with-param name="list" select="false()"/>
+			    <with-param name="object-is-list" select="false()"/>
 			</call-template>
 		    </for-each>
 		</when>
@@ -553,7 +554,7 @@
 	<!-- The node set to which apply-templates is applied -->
 	<!-- We also process attributes, as they may contain links to other resources -->
 	<param name="process-next" select="*|@*"/>
-	<apply-templates select="$process-next" mode="#current">
+	<apply-templates select="$process-next">
 	    <with-param name="tunneled-property" select="$property" tunnel="yes"/>
 	    <with-param name="tunneled-inverse" select="$inverse" tunnel="yes"/>
 	</apply-templates>
@@ -579,7 +580,7 @@
 
     <xd:doc>Start processing; the current subject is identified by the base URI of the document.</xd:doc>
     <template match="/">
-	<apply-templates mode="#current">
+	<apply-templates>
 	    <with-param name="subject-uri" select="base-uri()" tunnel="yes"/>
 	</apply-templates>
     </template>
