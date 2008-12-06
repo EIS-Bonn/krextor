@@ -156,12 +156,12 @@
 	<param name="base-uri"/>
 	<sequence select="
 	    krextor:fragment-uri-or-null(
-		if (self::krextor-genuri:xml-id and @xml:id)
-		    then @xml:id
+		if (self::krextor-genuri:xml-id and $node/@xml:id)
+		    then $node/@xml:id
 		else if (self::krextor-genuri:generate-id)
-		    then generate-id()
+		    then generate-id($node)
 		else if (self::krextor-genuri:pseudo-xpath)
-		    then krextor:pseudo-xpath(.)
+		    then krextor:pseudo-xpath($node)
 		else (),
 		$base-uri)"/>
     </template>
