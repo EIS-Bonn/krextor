@@ -24,7 +24,7 @@
     * 
 -->
 
-<!DOCTYPE xsl:stylesheet [
+<!DOCTYPE stylesheet [
     <!ENTITY odo "http://www.omdoc.org/ontology#">
     <!ENTITY dc "http://purl.org/dc/elements/1.1/">
     <!ENTITY sdoc "http://salt.semanticauthoring.org/onto/abstract-document-ontology#">
@@ -36,7 +36,7 @@
 
 	See https://svn.omdoc.org/repos/omdoc/trunk/owl for the corresponding ontology.
 -->
-<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" 
+<stylesheet xmlns="http://www.w3.org/1999/XSL/Transform" 
     xpath-default-namespace="http://omdoc.org/ns"
     xmlns:krextor="http://kwarc.info/projects/krextor"
     xmlns:omdoc="http://omdoc.org/ns"
@@ -48,95 +48,95 @@
          document-wise physical children and mathematical/rhetorical logical children -->
 
     <!-- Specifies whether MMT-style URLs (OMDoc 1.3) should be generated -->
-    <xsl:param name="mmt" select="false()"/>
+    <param name="mmt" select="false()"/>
 
     <!-- Intercept auto-generation of fragment URIs from xml:ids, as this 
          should not always be done for OMDoc -->
     <!-- TODO think about having ('mmt', 'xml-id' ...), i.e. a configuration in
 	 the same way as for generic.xsl, with custom handlers for values like
 	 'mmt', which generic-templates does not know -->
-    <xsl:param name="autogenerate-fragment-uris" select="()"/>
+    <param name="autogenerate-fragment-uris" select="()"/>
 
     <!-- Default setting if we want fragment URIs to be auto-generated -->
-    <xsl:param name="autogenerate-fragment-uris-omdoc-default" select="(
+    <param name="autogenerate-fragment-uris-omdoc-default" select="(
 	'xml-id',
 	'document-root-base')"/>
     <!-- Other settings for testing -->
     <!--
-    <xsl:param name="autogenerate-fragment-uris-omdoc-default" select="(
+    <param name="autogenerate-fragment-uris-omdoc-default" select="(
 	'pseudo-xpath'
 	)"/>
     -->
 
-    <xsl:param name="use-root-xmlid" select="false()"/>
+    <param name="use-root-xmlid" select="false()"/>
 
-    <xsl:include href="util/openmath.xsl"/>
+    <include href="util/openmath.xsl"/>
 	
-    <xsl:template name="krextor:create-omdoc-resource">
-	<xsl:param name="type"/>
-	<xsl:param name="related-via-properties" select="()"/>
-	<xsl:param name="related-via-inverse-properties" select="()"/>
-	<xsl:param name="formality-degree"/>
-	<xsl:param name="subject-uri" tunnel="yes"/>
+    <template name="krextor:create-omdoc-resource">
+	<param name="type"/>
+	<param name="related-via-properties" select="()"/>
+	<param name="related-via-inverse-properties" select="()"/>
+	<param name="formality-degree"/>
+	<param name="subject-uri" tunnel="yes"/>
 	<!-- the URI of the current document section resource -->
-	<xsl:param name="document-base" tunnel="yes"/>
+	<param name="document-base" tunnel="yes"/>
 	<!-- the URI of the current mathematical or rhetorical structure -->
-	<xsl:param name="knowledge-base" tunnel="yes"/>
+	<param name="knowledge-base" tunnel="yes"/>
 	<!-- a list of values from ('document', 'knowledge'), specifying
 	     whether a document section or a mathematical/rhetorical structure
 	     resource should be generated from this element -->
-	     <!-- <xsl:param name="ontologies" required="yes"/> -->
-	<xsl:param name="ontologies" required="no"/>
-	<xsl:param name="mmt" select="$mmt and @name"/>
-	<xsl:param name="use-document-uri" select="not($use-root-xmlid) and self::node() = /"/>
-	<xsl:param name="process-next" select="*|@*"/>
-	<xsl:param name="blank-node" select="false()"/>
+	     <!-- <param name="ontologies" required="yes"/> -->
+	<param name="ontologies" required="no"/>
+	<param name="mmt" select="$mmt and @name"/>
+	<param name="use-document-uri" select="not($use-root-xmlid) and self::node() = /"/>
+	<param name="process-next" select="*|@*"/>
+	<param name="blank-node" select="false()"/>
 	<!-- Check if we can generate a URI for the current element -->
-	<xsl:if test="$mmt or $use-document-uri or @xml:id">
-	    <xsl:call-template name="krextor:create-resource">
+	<if test="$mmt or $use-document-uri or @xml:id">
+	    <call-template name="krextor:create-resource">
 		<!-- If we are not on top level, manipulate the base URI,
 		     either in MMT or in OMDoc 1.2 style -->
 		<!-- FIXME look into omdoc-owl.xsl for a better way of how to do this -->
-		<xsl:with-param name="subject-uri" select="if ($mmt and @name)
+		<with-param name="subject-uri" select="if ($mmt and @name)
 		    then concat($subject-uri, '/', @name)
 		    else $subject-uri" tunnel="yes"/>
-		<xsl:with-param name="autogenerate-fragment-uri" select="if (not($mmt) and not($use-document-uri))
+		<with-param name="autogenerate-fragment-uri" select="if (not($mmt) and not($use-document-uri))
 		    then $autogenerate-fragment-uris-omdoc-default
 		    else ()"/>
-		<xsl:with-param name="properties">
-		    <xsl:if test="$formality-degree">
+		<with-param name="properties">
+		    <if test="$formality-degree">
 			<krextor:property uri="&odo;formalityDegree" object="{$formality-degree}"/>
-		    </xsl:if>
-		</xsl:with-param>
-		<xsl:with-param name="type" select="$type"/>
-		<xsl:with-param name="blank-node" select="$blank-node"/>
-		<xsl:with-param name="related-via-properties" select="$related-via-properties"/>
-		<xsl:with-param name="related-via-inverse-properties" select="$related-via-inverse-properties"/>
-		<xsl:with-param name="process-next" select="$process-next"/>
-	    </xsl:call-template>
-	</xsl:if>
-    </xsl:template>
+		    </if>
+		</with-param>
+		<with-param name="type" select="$type"/>
+		<with-param name="blank-node" select="$blank-node"/>
+		<with-param name="related-via-properties" select="$related-via-properties"/>
+		<with-param name="related-via-inverse-properties" select="$related-via-inverse-properties"/>
+		<with-param name="process-next" select="$process-next"/>
+	    </call-template>
+	</if>
+    </template>
 
     <!-- Transforms e.g. false-conjecture -> FalseConjecture -->
-    <xsl:function name="omdoc:capitalize-type">
-	<xsl:param name="type"/>
-	<xsl:variable name="capitalized-tokens">
-	    <xsl:for-each select="tokenize($type, '-')">
-		<xsl:analyze-string select="." regex="^(.)">
-		    <xsl:matching-substring>
-			<xsl:value-of select="upper-case(regex-group(1))"/>
-		    </xsl:matching-substring>
-		    <xsl:non-matching-substring>
-			<xsl:value-of select="."/>
-		    </xsl:non-matching-substring>
-		</xsl:analyze-string>
-	    </xsl:for-each>
-	</xsl:variable>
-	<xsl:value-of select="string-join($capitalized-tokens, '')"/>
-    </xsl:function>
+    <function name="omdoc:capitalize-type">
+	<param name="type"/>
+	<variable name="capitalized-tokens">
+	    <for-each select="tokenize($type, '-')">
+		<analyze-string select="." regex="^(.)">
+		    <matching-substring>
+			<value-of select="upper-case(regex-group(1))"/>
+		    </matching-substring>
+		    <non-matching-substring>
+			<value-of select="."/>
+		    </non-matching-substring>
+		</analyze-string>
+	    </for-each>
+	</variable>
+	<value-of select="string-join($capitalized-tokens, '')"/>
+    </function>
 	<!-- TODO: There can also be @for for the rhetorical types but it's not yet completely clear where
 		the @for should point to and how to model it in the ontology. -->
-	<xsl:variable name="salt-rhetorical-block-types" select="
+	<variable name="salt-rhetorical-block-types" select="
 	    'introduction',
 	    'background',
 	    'motivation',
@@ -146,11 +146,11 @@
 	    'results',
 	    'discussion',
 	    'conclusion'"/>
-	<xsl:variable name="salt-rhetorical-block-types-all" select="
+	<variable name="salt-rhetorical-block-types-all" select="
 	    $salt-rhetorical-block-types,
 	    'abstract',
 	    'entities'"/>
-	<xsl:variable name="salt-rhetorical-relation-types" select="
+	<variable name="salt-rhetorical-relation-types" select="
 	    'antithesis',
 	    'circumstance',
 	    'concession',
@@ -166,7 +166,7 @@
 	    'solutionhood'
 	    "/>
 
-	<xsl:variable name="omdoc-assertion-types" select="
+	<variable name="omdoc-assertion-types" select="
 	    'theorem',
 	    'lemma',
 	    'corollary',
@@ -179,7 +179,7 @@
 	    'assumption',
 	    'rule'
 	    "/>
-	<xsl:variable name="omdoc-statement-types" select="
+	<variable name="omdoc-statement-types" select="
 	    $omdoc-assertion-types,
 	    'axiom',
 	    'definition',
@@ -191,387 +191,387 @@
 	    (: TODO: notation :)
 	    "/>
 	
-	<xsl:template match="omdoc:*/@theory">
-		<xsl:call-template name="krextor:add-uri-property">
-			<xsl:with-param name="property" select="'&odo;theoryOf'"/>
-		</xsl:call-template>
-	</xsl:template>
+	<template match="omdoc:*/@theory">
+		<call-template name="krextor:add-uri-property">
+			<with-param name="property" select="'&odo;theoryOf'"/>
+		</call-template>
+	</template>
 	
-	<xsl:template match="omdoc">
-		<xsl:call-template name="krextor:create-omdoc-resource">
-			<xsl:with-param name="type" select="'&odo;Document'"/>
-			<xsl:with-param name="ontologies" select="'document'"/>
-		</xsl:call-template>
-	</xsl:template>
+	<template match="omdoc">
+		<call-template name="krextor:create-omdoc-resource">
+			<with-param name="type" select="'&odo;Document'"/>
+			<with-param name="ontologies" select="'document'"/>
+		</call-template>
+	</template>
 	
 	<!--Do we actually need a separate class for tgroup?-->
-	<xsl:template match="omgroup|tgroup">
-	    <xsl:call-template name="krextor:create-omdoc-resource">
+	<template match="omgroup|tgroup">
+	    <call-template name="krextor:create-omdoc-resource">
 		<!-- FIXME documentUnit, rhetoricalBlock? -->
-		<xsl:with-param name="type" select="
+		<with-param name="type" select="
 			if (@type = $salt-rhetorical-block-types-all) then concat('&sr;', omdoc:capitalize-type(@type))
 			else '&odo;DocumentUnit'"/>
-		<xsl:with-param name="related-via-properties" select="if (self::tgroup and parent::theory) then '&odo;homeTheoryOf' else '' , if(parent::omdoc) then '&sdoc;hasComposite' else '&sdoc;hasPart'"/>
-	    </xsl:call-template>
-	</xsl:template>
+		<with-param name="related-via-properties" select="if (self::tgroup and parent::theory) then '&odo;homeTheoryOf' else '' , if(parent::omdoc) then '&sdoc;hasComposite' else '&sdoc;hasPart'"/>
+	    </call-template>
+	</template>
 	
-	<xsl:template match="ref">
-		<xsl:call-template name="krextor:create-omdoc-resource">
+	<template match="ref">
+		<call-template name="krextor:create-omdoc-resource">
 		    <!-- FIXME documentUnit -->
-			<xsl:with-param name="type" select="'&odo;Reference'"/>
-			<xsl:with-param name="related-via-properties" select="'&odo;hasPart'"/>
-		</xsl:call-template>
-	</xsl:template>
+			<with-param name="type" select="'&odo;Reference'"/>
+			<with-param name="related-via-properties" select="'&odo;hasPart'"/>
+		</call-template>
+	</template>
 	
-	<xsl:template match="ref/@xref">
-		<xsl:call-template name="krextor:add-uri-property">
-			<xsl:with-param name="property" select="'&odo;hasReference'"/>
-		</xsl:call-template>
-	</xsl:template>
+	<template match="ref/@xref">
+		<call-template name="krextor:add-uri-property">
+			<with-param name="property" select="'&odo;hasReference'"/>
+		</call-template>
+	</template>
 		
-	<xsl:template match="metadata/*">
-		<xsl:call-template name="krextor:add-literal-property">
-			<xsl:with-param name="property" select="concat(namespace-uri(), local-name())"/>
-		</xsl:call-template>
-	</xsl:template>
+	<template match="metadata/*">
+		<call-template name="krextor:add-literal-property">
+			<with-param name="property" select="concat(namespace-uri(), local-name())"/>
+		</call-template>
+	</template>
 
 	
-	<xsl:template match="theory">	
-    		<xsl:call-template name="krextor:create-omdoc-resource">
+	<template match="theory">	
+    		<call-template name="krextor:create-omdoc-resource">
 		    <!-- FIXME documentUnit, mathematicalBlock -->
-    			<xsl:with-param name="related-via-properties" select="if (parent::theory) then '&odo;homeTheoryOf' else '&odo;hasPart' , if (parent::omdoc) then '&sdoc;hasComposite' else '&sdoc;hasPart'"/>
-	   		<xsl:with-param name="type" select="'&odo;Theory'"/>
-		</xsl:call-template>
+    			<with-param name="related-via-properties" select="if (parent::theory) then '&odo;homeTheoryOf' else '&odo;hasPart' , if (parent::omdoc) then '&sdoc;hasComposite' else '&sdoc;hasPart'"/>
+	   		<with-param name="type" select="'&odo;Theory'"/>
+		</call-template>
 	<!-- TODO make this the home theory of any statement-level child
 	and any subtheory, which is not in an XIncluded or ref-included document
 	Probably use a separate mode for that, to be able to match e.g.
 	match="definition" mode="child" and generate containsDefinition from that,
 	instead of a generic contains relationship. -->
-	</xsl:template>
+	</template>
 
-    <xsl:template match="theory/@meta">
-	<xsl:call-template name="krextor:add-uri-property">
-	    <xsl:with-param name="property" select="'&odo;metaTheory'"/>
-	</xsl:call-template>
-    </xsl:template>
+    <template match="theory/@meta">
+	<call-template name="krextor:add-uri-property">
+	    <with-param name="property" select="'&odo;metaTheory'"/>
+	</call-template>
+    </template>
 
     <!-- A plain OMDoc 1.2 import without morphism -->
-    <xsl:template match="imports[not(*)]">
-	<xsl:call-template name="krextor:add-uri-property">
-	    <xsl:with-param name="property" select="'&odo;imports'"/>
-	    <xsl:with-param name="object" select="@from"/>
-	</xsl:call-template>
-    </xsl:template>
+    <template match="imports[not(*)]">
+	<call-template name="krextor:add-uri-property">
+	    <with-param name="property" select="'&odo;imports'"/>
+	    <with-param name="object" select="@from"/>
+	</call-template>
+    </template>
 
     <!-- An MMT (OMDoc 1.3) import -->
-    <xsl:template match="import">
-	<xsl:call-template name="krextor:create-omdoc-resource">
+    <template match="import">
+	<call-template name="krextor:create-omdoc-resource">
 	    <!-- FIXME mathematicalBlock. Is it a document unit? -->
-	    <xsl:with-param name="type" select="'&odo;Import'"/>
-		<xsl:with-param name="related-via-properties" select="if (parent::theory) then '&odo;homeTheoryOf' else '&odo;hasImport' , if (parent::tgroup) then '&sdoc;hasComposite' else '&sdoc;hasPart'"/>
-	</xsl:call-template>
-    </xsl:template>    
+	    <with-param name="type" select="'&odo;Import'"/>
+		<with-param name="related-via-properties" select="if (parent::theory) then '&odo;homeTheoryOf' else '&odo;hasImport' , if (parent::tgroup) then '&sdoc;hasComposite' else '&sdoc;hasPart'"/>
+	</call-template>
+    </template>    
 
-    <xsl:template match="imports/@from">
-	<xsl:call-template name="krextor:add-uri-property">
-	    <xsl:with-param name="property" select="'&odo;imports'"/>
-	</xsl:call-template>
-    </xsl:template>
+    <template match="imports/@from">
+	<call-template name="krextor:add-uri-property">
+	    <with-param name="property" select="'&odo;imports'"/>
+	</call-template>
+    </template>
 	
 	
-    <xsl:template match="omtext/@verbalizes">
-		<xsl:call-template name="krextor:add-uri-property">
-			<xsl:with-param name="list" select="true()"/>
-			<xsl:with-param name="property" select="'&odo;verbalizes'"/>
-		</xsl:call-template>
-	</xsl:template>
+    <template match="omtext/@verbalizes">
+		<call-template name="krextor:add-uri-property">
+			<with-param name="list" select="true()"/>
+			<with-param name="property" select="'&odo;verbalizes'"/>
+		</call-template>
+	</template>
 	
-	<xsl:template match="FMP/@logic">
-		<xsl:call-template name="krextor:add-literal-property">
-			<xsl:with-param name="property" select="'&odo;logic'"/>
-		</xsl:call-template>
-	</xsl:template>
+	<template match="FMP/@logic">
+		<call-template name="krextor:add-literal-property">
+			<with-param name="property" select="'&odo;logic'"/>
+		</call-template>
+	</template>
 	
-	<xsl:template match="CMP/@xml:lang">
-		<xsl:call-template name="krextor:add-literal-property">
-			<xsl:with-param name="property" select="'&dc;language'"/>
-		</xsl:call-template>
-	</xsl:template>
+	<template match="CMP/@xml:lang">
+		<call-template name="krextor:add-literal-property">
+			<with-param name="property" select="'&dc;language'"/>
+		</call-template>
+	</template>
 
-	<xsl:template match="om:OMOBJ//om:OMS">
-		<xsl:call-template name="krextor:add-uri-property">
-			<xsl:with-param name="property" select="'&odo;usesSymbol'"/>
+	<template match="om:OMOBJ//om:OMS">
+		<call-template name="krextor:add-uri-property">
+			<with-param name="property" select="'&odo;usesSymbol'"/>
 			<!-- use the innermost cdbase attribute. At least the OMOBJ must have a cdbase attribute,
 				or otherwise the default is assumed -->
-			<xsl:with-param name="object" select="om:symbol-uri((ancestor-or-self::om:*/@cdbase)[last()], @cd, @name)"/>
-		</xsl:call-template>
-	</xsl:template>
+			<with-param name="object" select="om:symbol-uri((ancestor-or-self::om:*/@cdbase)[last()], @cd, @name)"/>
+		</call-template>
+	</template>
 
     <!-- TODO: MMT imports: add Theory-hasImport-Import-importsFrom-Theory -->
 
     <!-- TODO adapt to further progress of the MMT (OMDoc 1.3) specification -->
-    <xsl:template match="symbol[not(@role)]">
-	<xsl:call-template name="krextor:create-omdoc-resource">
+    <template match="symbol[not(@role)]">
+	<call-template name="krextor:create-omdoc-resource">
 	    <!-- FIXME mathematicalBlock. Is it a document unit? -->
-		<xsl:with-param name="related-via-properties" select="if (parent::proof) then '&odo;hasStep' else if (parent::theory) then '&odo;homeTheoryOf' else '&odo;hasPart' , if (parent::tgroup) then '&sdoc;hasComposite' else '&sdoc;hasPart'"/>
-	    <xsl:with-param name="type" select="'&odo;Symbol'"/>
-		<xsl:with-param name="formality-degree" select="'&odo;Formal'"/>
-	</xsl:call-template>
-    </xsl:template>
+		<with-param name="related-via-properties" select="if (parent::proof) then '&odo;hasStep' else if (parent::theory) then '&odo;homeTheoryOf' else '&odo;hasPart' , if (parent::tgroup) then '&sdoc;hasComposite' else '&sdoc;hasPart'"/>
+	    <with-param name="type" select="'&odo;Symbol'"/>
+		<with-param name="formality-degree" select="'&odo;Formal'"/>
+	</call-template>
+    </template>
 
     <!-- TODO adapt to further progress of the MMT (OMDoc 1.3) specification -->
-    <xsl:template match="symbol[@role='axiom']|axiom">
-	<xsl:call-template name="krextor:create-omdoc-resource">
+    <template match="symbol[@role='axiom']|axiom">
+	<call-template name="krextor:create-omdoc-resource">
 	    <!-- FIXME documentUnit, mathematicalBlock (can contain CMPs) -->
-		<xsl:with-param name="related-via-properties" select="if (parent::proof) then '&odo;hasStep' else if (parent::theory) then '&odo;homeTheoryOf' else '&odo;hasPart' , if (parent::tgroup) then '&sdoc;hasComposite' else '&sdoc;hasPart'"/>
-	    <xsl:with-param name="type" select="'&odo;Axiom'"/>
-	    <xsl:with-param name="formality-degree" select="'&odo;Formal'"/>
-	</xsl:call-template>
-    </xsl:template>
+		<with-param name="related-via-properties" select="if (parent::proof) then '&odo;hasStep' else if (parent::theory) then '&odo;homeTheoryOf' else '&odo;hasPart' , if (parent::tgroup) then '&sdoc;hasComposite' else '&sdoc;hasPart'"/>
+	    <with-param name="type" select="'&odo;Axiom'"/>
+	    <with-param name="formality-degree" select="'&odo;Formal'"/>
+	</call-template>
+    </template>
 
-    <xsl:template match="definition[@name or @xml:id]">
-	<xsl:call-template name="krextor:create-omdoc-resource">
+    <template match="definition[@name or @xml:id]">
+	<call-template name="krextor:create-omdoc-resource">
 	    <!-- FIXME documentUnit, mathematicalBlock -->
-		<xsl:with-param name="related-via-properties" select="if (parent::proof) then '&odo;hasStep' else if (parent::theory) then '&odo;homeTheoryOf' else '&odo;hasPart' , if (parent::tgroup) then '&sdoc;hasComposite' else '&sdoc;hasPart'"/>
-	    <xsl:with-param name="type" select="'&odo;Definition'"/>
-		<xsl:with-param name="formality-degree" select="'&odo;Formal'"/>
-	</xsl:call-template>
-    </xsl:template>
+		<with-param name="related-via-properties" select="if (parent::proof) then '&odo;hasStep' else if (parent::theory) then '&odo;homeTheoryOf' else '&odo;hasPart' , if (parent::tgroup) then '&sdoc;hasComposite' else '&sdoc;hasPart'"/>
+	    <with-param name="type" select="'&odo;Definition'"/>
+		<with-param name="formality-degree" select="'&odo;Formal'"/>
+	</call-template>
+    </template>
 
-	<xsl:template match="definition/@for|omtext[@type='definition']/@for">
-	<xsl:call-template name="krextor:add-uri-property">
-	    <xsl:with-param name="property" select="'&odo;defines'"/>
-	</xsl:call-template>
-	</xsl:template>
+	<template match="definition/@for|omtext[@type='definition']/@for">
+	<call-template name="krextor:add-uri-property">
+	    <with-param name="property" select="'&odo;defines'"/>
+	</call-template>
+	</template>
 	
-	<xsl:template match="example/@for|omtext[@type='example']/@for">
-		<xsl:call-template name="krextor:add-uri-property">
-			<xsl:with-param name="property" select="'&odo;exemplifies'"/>
-		</xsl:call-template>
-	</xsl:template>
+	<template match="example/@for|omtext[@type='example']/@for">
+		<call-template name="krextor:add-uri-property">
+			<with-param name="property" select="'&odo;exemplifies'"/>
+		</call-template>
+	</template>
 	
 
-    <xsl:template match="alternative">
-	<xsl:call-template name="krextor:create-omdoc-resource">
+    <template match="alternative">
+	<call-template name="krextor:create-omdoc-resource">
 	    <!-- FIXME documentUnit, mathematicalBlock -->
-		<xsl:with-param name="related-via-properties" select="if (parent::theory) then '&odo;homeTheoryOf' else '&odo;hasPart' , if (parent::omdoc) then '&sdoc;hasComposite' else '&sdoc;hasPart'"/>
-	    <xsl:with-param name="type" select="'&odo;AlternativeDefinition'"/>
-		<xsl:with-param name="formality-degree" select="'&odo;Formal'"/>
-	</xsl:call-template>
-    </xsl:template>
+		<with-param name="related-via-properties" select="if (parent::theory) then '&odo;homeTheoryOf' else '&odo;hasPart' , if (parent::omdoc) then '&sdoc;hasComposite' else '&sdoc;hasPart'"/>
+	    <with-param name="type" select="'&odo;AlternativeDefinition'"/>
+		<with-param name="formality-degree" select="'&odo;Formal'"/>
+	</call-template>
+    </template>
 
-    <xsl:template match="type[not(parent::symbol)]">
-	<xsl:call-template name="krextor:create-omdoc-resource">
+    <template match="type[not(parent::symbol)]">
+	<call-template name="krextor:create-omdoc-resource">
 	    <!-- FIXME documentUnit, mathematicalBlock -->
-		<xsl:with-param name="related-via-properties" select="if (parent::theory) then '&odo;homeTheoryOf' else '&odo;hasPart' , if (parent::omdoc) then '&sdoc;hasComposite' else '&sdoc;hasPart'"/>
-	    <xsl:with-param name="type" select="'&odo;TypeAssertion'"/>
-		<xsl:with-param name="formality-degree" select="'&odo;Formal'"/>
-	</xsl:call-template>
-    </xsl:template>
+		<with-param name="related-via-properties" select="if (parent::theory) then '&odo;homeTheoryOf' else '&odo;hasPart' , if (parent::omdoc) then '&sdoc;hasComposite' else '&sdoc;hasPart'"/>
+	    <with-param name="type" select="'&odo;TypeAssertion'"/>
+		<with-param name="formality-degree" select="'&odo;Formal'"/>
+	</call-template>
+    </template>
 
-    <xsl:template match="assertion">
-	<xsl:call-template name="krextor:create-omdoc-resource">
+    <template match="assertion">
+	<call-template name="krextor:create-omdoc-resource">
 	    <!-- FIXME documentUnit, mathematicalBlock -->
-		<xsl:with-param name="related-via-properties" select="if (parent::theory) then '&odo;homeTheoryOf' else '&odo;hasPart' , if (parent::omdoc) then '&sdoc;hasComposite' else '&sdoc;hasPart'"/>
-	    <xsl:with-param name="type" select="concat('&odo;',
+		<with-param name="related-via-properties" select="if (parent::theory) then '&odo;homeTheoryOf' else '&odo;hasPart' , if (parent::omdoc) then '&sdoc;hasComposite' else '&sdoc;hasPart'"/>
+	    <with-param name="type" select="concat('&odo;',
 		if (@type = $omdoc-assertion-types) then omdoc:capitalize-type(@type)
 		else 'Assertion')"/>
-	    <xsl:with-param name="formality-degree" select="'&odo;Formal'"/>
-	</xsl:call-template>
-    </xsl:template>
+	    <with-param name="formality-degree" select="'&odo;Formal'"/>
+	</call-template>
+    </template>
 
-    <xsl:template match="example">
-	<xsl:call-template name="krextor:create-omdoc-resource">
+    <template match="example">
+	<call-template name="krextor:create-omdoc-resource">
 	    <!-- FIXME documentUnit, mathematicalBlock -->
-		<xsl:with-param name="related-via-properties" select="if (parent::theory) then '&odo;homeTheoryOf' else '&odo;hasPart' , if (parent::omdoc) then '&sdoc;hasComposite' else '&sdoc;hasPart'"/>
-	    <xsl:with-param name="type" select="'&odo;Example'"/>
-		<xsl:with-param name="formality-degree" select="'&odo;Formal'"/>
-	</xsl:call-template>
-    </xsl:template>
+		<with-param name="related-via-properties" select="if (parent::theory) then '&odo;homeTheoryOf' else '&odo;hasPart' , if (parent::omdoc) then '&sdoc;hasComposite' else '&sdoc;hasPart'"/>
+	    <with-param name="type" select="'&odo;Example'"/>
+		<with-param name="formality-degree" select="'&odo;Formal'"/>
+	</call-template>
+    </template>
 
-    <xsl:template match="proof">
-	<xsl:call-template name="krextor:create-omdoc-resource">
+    <template match="proof">
+	<call-template name="krextor:create-omdoc-resource">
 	    <!-- FIXME documentUnit, mathematicalBlock -->
-		<xsl:with-param name="related-via-properties" select="if (parent::method[parent::derive]) then '&odo;justifiedBy' else if (parent::theory) then '&odo;homeTheoryOf' else  '&odo;hasPart' , if (parent::omdoc) then '&sdoc;hasComposite' else '&sdoc;hasPart'"/>
-	    <xsl:with-param name="type" select="'&odo;Proof'"/>
-	    <xsl:with-param name="formality-degree" select="'&odo;Formal'"/>
-	</xsl:call-template>
-    </xsl:template>
+		<with-param name="related-via-properties" select="if (parent::method[parent::derive]) then '&odo;justifiedBy' else if (parent::theory) then '&odo;homeTheoryOf' else  '&odo;hasPart' , if (parent::omdoc) then '&sdoc;hasComposite' else '&sdoc;hasPart'"/>
+	    <with-param name="type" select="'&odo;Proof'"/>
+	    <with-param name="formality-degree" select="'&odo;Formal'"/>
+	</call-template>
+    </template>
 	
-	<xsl:template match="proofobject">
-		<xsl:call-template name="krextor:create-omdoc-resource">
-			<xsl:with-param name="related-via-properties" select="if (parent::method[parent::derive]) then '&odo;justifiedBy' else if (parent::theory) then '&odo;homeTheoryOf' else  '&odo;hasPart' , if (parent::omdoc) then '&sdoc;hasComposite' else '&sdoc;hasPart'"/>
-			<xsl:with-param name="type" select="'&odo;Proof'"/>
-			<xsl:with-param name="formality-degree" select="'&odo;Computerized'"/>
-		</xsl:call-template>
-	</xsl:template>
+	<template match="proofobject">
+		<call-template name="krextor:create-omdoc-resource">
+			<with-param name="related-via-properties" select="if (parent::method[parent::derive]) then '&odo;justifiedBy' else if (parent::theory) then '&odo;homeTheoryOf' else  '&odo;hasPart' , if (parent::omdoc) then '&sdoc;hasComposite' else '&sdoc;hasPart'"/>
+			<with-param name="type" select="'&odo;Proof'"/>
+			<with-param name="formality-degree" select="'&odo;Computerized'"/>
+		</call-template>
+	</template>
     
-	<xsl:template match="proof/@for|omtext[@type='proof']/@for">
-	<xsl:call-template name="krextor:add-uri-property">
-	   	<xsl:with-param name="property" select="'&odo;proves'"/>
-	</xsl:call-template>
-    </xsl:template>
+	<template match="proof/@for|omtext[@type='proof']/@for">
+	<call-template name="krextor:add-uri-property">
+	   	<with-param name="property" select="'&odo;proves'"/>
+	</call-template>
+    </template>
 	
     <!--TODO omtext/@type='assumption' may have the inductive attribute-->
-    <xsl:template match="omtext">
-    	<xsl:variable name="has-mathematical-type" select="@type = $omdoc-statement-types"/>"
-	<xsl:call-template name="krextor:create-omdoc-resource">
+    <template match="omtext">
+    	<variable name="has-mathematical-type" select="@type = $omdoc-statement-types"/>"
+	<call-template name="krextor:create-omdoc-resource">
 	    <!-- FIXME documentUnit, (mathematicalBlock|rhetoricalBlock)?
 	    maybe split into multiple templates -->
-	    <xsl:with-param name="related-via-properties" select="if (parent::theory and $has-mathematical-type) then '&odo;homeTheoryOf'
+	    <with-param name="related-via-properties" select="if (parent::theory and $has-mathematical-type) then '&odo;homeTheoryOf'
 	    	else if (parent::proof) then '&odo;hasStep' else '&odo;hasPart' ,
 	    	if (parent::omdoc) then '&sdoc;hasComposite' else '&sdoc;hasPart'"/>
-	    <xsl:with-param name="type" select="
+	    <with-param name="type" select="
 		if ($has-mathematical-type) then concat('&odo;', omdoc:capitalize-type(@type))
 		else if (@type = $salt-rhetorical-block-types) then concat('&sr;', omdoc:capitalize-type(@type))
 		else if (@type eq 'derive') then '&odo;DerivationStep'
 		else if (parent::proof) then '&odo;ProofText'
 		else '&odo;Statement'"/>
-	    <xsl:with-param name="formality-degree" select="'&odo;Informal'"/>
-	</xsl:call-template>
-    </xsl:template>
+	    <with-param name="formality-degree" select="'&odo;Informal'"/>
+	</call-template>
+    </template>
 
-    <xsl:template match="CMP|FMP">
-	<xsl:call-template name="krextor:create-omdoc-resource">
+    <template match="CMP|FMP">
+	<call-template name="krextor:create-omdoc-resource">
 	    <!-- FIXME documentUnit, mathematicalBlock -->
-	    <xsl:with-param name="related-via-properties" select="'&odo;hasProperty' , '&sdoc;hasInformationChunk'"/>
-	    <xsl:with-param name="type" select="'&odo;Property'"/>
-	    <xsl:with-param name="formality-degree" select="if (self::CMP) then '&odo;Informal' else '&odo;Formal'"/>
-	</xsl:call-template>
-    </xsl:template>
+	    <with-param name="related-via-properties" select="'&odo;hasProperty' , '&sdoc;hasInformationChunk'"/>
+	    <with-param name="type" select="'&odo;Property'"/>
+	    <with-param name="formality-degree" select="if (self::CMP) then '&odo;Informal' else '&odo;Formal'"/>
+	</call-template>
+    </template>
 	
-	<xsl:template match="FMP/assumption|omtext[@type='assumption']/@for">
-		<xsl:call-template name="krextor:create-omdoc-resource">
+	<template match="FMP/assumption|omtext[@type='assumption']/@for">
+		<call-template name="krextor:create-omdoc-resource">
 	    <!-- FIXME mathematicalBlock -->
-			<xsl:with-param name="related-via-properties" select="'&odo;assumes'"/>
-			<xsl:with-param name="type" select="'&odo;AssumptionElement'"/>
-		</xsl:call-template>
-	</xsl:template>
+			<with-param name="related-via-properties" select="'&odo;assumes'"/>
+			<with-param name="type" select="'&odo;AssumptionElement'"/>
+		</call-template>
+	</template>
 	
-	<xsl:template match="FMP/conclusion">
-		<xsl:call-template name="krextor:create-omdoc-resource">
+	<template match="FMP/conclusion">
+		<call-template name="krextor:create-omdoc-resource">
 	    <!-- FIXME mathematicalBlock -->
-			<xsl:with-param name="related-via-properties" select="'&odo;concludes'"/>
-			<xsl:with-param name="type" select="'&odo;ConclusionElement'"/>
-		</xsl:call-template>
-	</xsl:template>
+			<with-param name="related-via-properties" select="'&odo;concludes'"/>
+			<with-param name="type" select="'&odo;ConclusionElement'"/>
+		</call-template>
+	</template>
 	
-	<xsl:template match="CMP//term[@role='definiendum']">
-		<xsl:call-template name="krextor:add-uri-property">
-			<xsl:with-param name="property" select="'&odo;defines'"/>
-			<xsl:with-param name="object" select="om:symbol-uri((ancestor-or-self::om:*/@cdbase)[last()], @cd, @name)"/>
-		</xsl:call-template>
-	</xsl:template>
+	<template match="CMP//term[@role='definiendum']">
+		<call-template name="krextor:add-uri-property">
+			<with-param name="property" select="'&odo;defines'"/>
+			<with-param name="object" select="om:symbol-uri((ancestor-or-self::om:*/@cdbase)[last()], @cd, @name)"/>
+		</call-template>
+	</template>
 	
-	<xsl:template match="CMP//term[@role='definiens']">
-		<xsl:call-template name="krextor:add-uri-property">
-			<xsl:with-param name="property" select="'&odo;usesSymbol'"/>
-			<xsl:with-param name="object" select="om:symbol-uri((ancestor-or-self::om:*/@cdbase)[last()], @cd, @name)"/>
-		</xsl:call-template>
-	</xsl:template>
+	<template match="CMP//term[@role='definiens']">
+		<call-template name="krextor:add-uri-property">
+			<with-param name="property" select="'&odo;usesSymbol'"/>
+			<with-param name="object" select="om:symbol-uri((ancestor-or-self::om:*/@cdbase)[last()], @cd, @name)"/>
+		</call-template>
+	</template>
 	
-        <xsl:template match="phrase[@type eq 'nucleus']">
+        <template match="phrase[@type eq 'nucleus']">
 	    <!-- Here, we just create the resource.
 	         As it can be used in multiple rhetorical relations, we do that in a second pass -->
-	    <xsl:call-template name="krextor:create-omdoc-resource">
+	    <call-template name="krextor:create-omdoc-resource">
 		<!-- FIXME rhetoricalBlock.  No documentUnit, as below InformationChunk level -->
-		<xsl:with-param name="type" select="'&sr;Nucleus'"/>
-	    </xsl:call-template>
-	</xsl:template>
+		<with-param name="type" select="'&sr;Nucleus'"/>
+	    </call-template>
+	</template>
 	
-        <xsl:template match="phrase[@type eq 'nucleus']" mode="second-pass">
-	    <xsl:param name="_omdoc-second-pass" tunnel="yes"/>
-	    <xsl:call-template name="krextor:create-omdoc-resource">
+        <template match="phrase[@type eq 'nucleus']" mode="second-pass">
+	    <param name="_omdoc-second-pass" tunnel="yes"/>
+	    <call-template name="krextor:create-omdoc-resource">
 		<!-- Here, we do not actually create the resource but abuse that
 		     template to create an additional link from the rhetorical relation
 		     to it. -->
-		<xsl:with-param name="related-via-properties" select="'&odo;hasNucleus'"/>
-	    </xsl:call-template>
-	</xsl:template>
+		<with-param name="related-via-properties" select="'&odo;hasNucleus'"/>
+	    </call-template>
+	</template>
 
-	<xsl:template match="phrase[@type eq 'satellite']" mode="second-pass">
-	    <xsl:call-template name="krextor:create-omdoc-resource">
+	<template match="phrase[@type eq 'satellite']" mode="second-pass">
+	    <call-template name="krextor:create-omdoc-resource">
 		<!-- FIXME rhetoricalBlock.  No documentUnit, as below InformationChunk level -->
-		<xsl:with-param name="related-via-properties" select="'&odo;hasSatellite'"/>
-		<xsl:with-param name="type" select="'&sr;Satellite'"/>
-	    </xsl:call-template>
-	</xsl:template>
+		<with-param name="related-via-properties" select="'&odo;hasSatellite'"/>
+		<with-param name="type" select="'&sr;Satellite'"/>
+	    </call-template>
+	</template>
 
-	<xsl:template match="phrase[@type eq 'satellite']/@for" mode="second-pass">
-	    <xsl:apply-templates select="document(.)" mode="second-pass"/>
-	</xsl:template>
+	<template match="phrase[@type eq 'satellite']/@for" mode="second-pass">
+	    <apply-templates select="document(.)" mode="second-pass"/>
+	</template>
 
 	<!-- We start processing phrases and rhetorical relations here -->
-        <xsl:template match="phrase[@type eq 'satellite']">
-	    <xsl:param name="_omdoc-second-pass" tunnel="yes"/>
-	    <xsl:choose>
-		<xsl:when test="$_omdoc-second-pass">
-		    <xsl:apply-templates select=".|@for" mode="second-pass">
-			<xsl:with-param name="_omdoc-second-pass" select="false()" tunnel="yes"/>
-		    </xsl:apply-templates>
-		</xsl:when>
-		<xsl:otherwise>
-		    <xsl:call-template name="krextor:create-omdoc-resource">
+        <template match="phrase[@type eq 'satellite']">
+	    <param name="_omdoc-second-pass" tunnel="yes"/>
+	    <choose>
+		<when test="$_omdoc-second-pass">
+		    <apply-templates select=".|@for" mode="second-pass">
+			<with-param name="_omdoc-second-pass" select="false()" tunnel="yes"/>
+		    </apply-templates>
+		</when>
+		<otherwise>
+		    <call-template name="krextor:create-omdoc-resource">
 		<!-- FIXME rhetoricalBlock.  No documentUnit, as below InformationChunk level -->
-			<xsl:with-param name="related-via-inverse-properties" select="'&sr;partOfRhetoricalStructure'"/>
-			<xsl:with-param name="type" select="concat('&sr;',
+			<with-param name="related-via-inverse-properties" select="'&sr;partOfRhetoricalStructure'"/>
+			<with-param name="type" select="concat('&sr;',
 				if (@relation = $salt-rhetorical-relation-types) then omdoc:capitalize-type(@relation)
 				else 'RhetoricalRelation')"/>
-			<xsl:with-param name="blank-node" select="true()"/>
-			<xsl:with-param name="process-next" select="."/>
-			<xsl:with-param name="_omdoc-second-pass" select="true()" tunnel="yes"/>
-		    </xsl:call-template>
-		</xsl:otherwise>
-	    </xsl:choose>
-	</xsl:template>
+			<with-param name="blank-node" select="true()"/>
+			<with-param name="process-next" select="."/>
+			<with-param name="_omdoc-second-pass" select="true()" tunnel="yes"/>
+		    </call-template>
+		</otherwise>
+	    </choose>
+	</template>
 
-	<xsl:template match="derive/method/premise">
+	<template match="derive/method/premise">
 		<!-- TODO @rank -->
 		<!-- enforce the following template to be called -->
-		<xsl:apply-templates select="@xref" mode="#current"/>
-	</xsl:template>
+		<apply-templates select="@xref" mode="#current"/>
+	</template>
 	
-	<xsl:template match="derive/method/premise/@xref">
-		<xsl:call-template name="krextor:add-uri-property">
-			<xsl:with-param name="property" select="'&odo;justifiedBy'"/>
-			<!--<xsl:with-param name="formality-degree" select="'&odo;Informal'"/>-->
-		</xsl:call-template>
-	</xsl:template>
+	<template match="derive/method/premise/@xref">
+		<call-template name="krextor:add-uri-property">
+			<with-param name="property" select="'&odo;justifiedBy'"/>
+			<!--<with-param name="formality-degree" select="'&odo;Informal'"/>-->
+		</call-template>
+	</template>
 	
-	<xsl:template match="derive[@type='conclusion']">
-		<xsl:call-template name="krextor:create-omdoc-resource">
+	<template match="derive[@type='conclusion']">
+		<call-template name="krextor:create-omdoc-resource">
 		    <!-- FIXME documentUnit, mathematicalBlock -->
-			<xsl:with-param name="related-via-properties" select="'&odo;hasStep' , '&sdoc;hasPart'"/>
-			<xsl:with-param name="type" select="'&odo;DerivedConclusion'"/>
-			<xsl:with-param name="formality-degree" select="'&odo;Formal'"/>
-		</xsl:call-template>
-	</xsl:template>
+			<with-param name="related-via-properties" select="'&odo;hasStep' , '&sdoc;hasPart'"/>
+			<with-param name="type" select="'&odo;DerivedConclusion'"/>
+			<with-param name="formality-degree" select="'&odo;Formal'"/>
+		</call-template>
+	</template>
 	
-	<xsl:template match="derive[@type='gap']">
-		<xsl:call-template name="krextor:create-omdoc-resource">
+	<template match="derive[@type='gap']">
+		<call-template name="krextor:create-omdoc-resource">
 		    <!-- FIXME documentUnit, mathematicalBlock -->
-			<xsl:with-param name="related-via-properties" select="'&odo;hasStep' , '&sdoc;hasPart'"/>
-			<xsl:with-param name="type" select="'&odo;Gap'"/>
-			<xsl:with-param name="formality-degree" select="'&odo;Formal'"/>
-		</xsl:call-template>
-	</xsl:template>
+			<with-param name="related-via-properties" select="'&odo;hasStep' , '&sdoc;hasPart'"/>
+			<with-param name="type" select="'&odo;Gap'"/>
+			<with-param name="formality-degree" select="'&odo;Formal'"/>
+		</call-template>
+	</template>
 	
-	<xsl:template match="derive[not(@type='conclusion') and not(@type='gap')]">
-		<xsl:call-template name="krextor:create-omdoc-resource">
+	<template match="derive[not(@type='conclusion') and not(@type='gap')]">
+		<call-template name="krextor:create-omdoc-resource">
 		    <!-- FIXME documentUnit, mathematicalBlock -->
-			<xsl:with-param name="related-via-properties" select="'&odo;hasStep' , '&sdoc;hasPart'"/>
-			<xsl:with-param name="type" select="'&odo;DerivationStep'"/>
-			<xsl:with-param name="formality-degree" select="'&odo;Formal'"/>
-		</xsl:call-template>
-	</xsl:template> 
+			<with-param name="related-via-properties" select="'&odo;hasStep' , '&sdoc;hasPart'"/>
+			<with-param name="type" select="'&odo;DerivationStep'"/>
+			<with-param name="formality-degree" select="'&odo;Formal'"/>
+		</call-template>
+	</template> 
 	
-	<xsl:template match="hypothesis">
-		<xsl:call-template name="krextor:create-omdoc-resource">
+	<template match="hypothesis">
+		<call-template name="krextor:create-omdoc-resource">
 		    <!-- FIXME documentUnit, mathematicalBlock -->
-			<xsl:with-param name="related-via-properties" select="'&odo;hasStep' , '&sdoc;hasPart'"/>
-			<xsl:with-param name="type" select="'&odo;Hypothesis'"/>
-			<xsl:with-param name="formality-degree" select="'&odo;Formal'"/>
-		</xsl:call-template>
-	</xsl:template>
+			<with-param name="related-via-properties" select="'&odo;hasStep' , '&sdoc;hasPart'"/>
+			<with-param name="type" select="'&odo;Hypothesis'"/>
+			<with-param name="formality-degree" select="'&odo;Formal'"/>
+		</call-template>
+	</template>
 	
-</xsl:stylesheet>
+</stylesheet>
