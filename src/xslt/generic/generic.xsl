@@ -267,7 +267,7 @@
 	<param name="subject" select="()" as="xs:string?"/>
 	<param name="related-via-properties" select="()"/>
 	<param name="related-via-inverse-properties" select="()"/>
-	<param name="type" select="()"/>
+	<param name="type" select="()" as="xs:string*"/>
 	<!-- additional properties of this resource, encoded as
 	    <krextor:property uri="property-uri" object="object-uri"/>
 	    or
@@ -357,6 +357,8 @@
 	    </if>
 
 	    <!-- Process the children of this element, or whichever nodes desired -->
+	    <message>TUNNELING BLANK NODE ID</message>
+	    <message select="$generated-blank-node-id"/>
 	    <apply-templates select="$process-next">
 		<!-- pass on the generated subject URI or blank node ID.  For resolving relative URIs, an appended fragment does
 		     not matter, but for generating property triples for this resource it does. -->
@@ -413,7 +415,7 @@
 	<param name="normalize-space" select="false()" as="xs:boolean"/>
 	<param name="object-language" select="''"/>
 	<param name="object-datatype" select="''"/>
-	<variable name="actual-property" select="if ($property) then $property
+	<variable name="actual-property" select="if (exists($property)) then $property
 	    else $tunneled-property"/>
 	<choose>
 	    <!-- If the "object" is a whitespace-separated list of actual objects, we recursively generate one triple for each object. -->
@@ -428,18 +430,19 @@
 		</for-each>
 	    </when>
 	    <otherwise>
-		<!-- TODO check if property is sequence of more than 1 -->
-		<call-template name="krextor:output-triple">
-		    <with-param name="subject" select="if ($blank-node-id) then $blank-node-id
-			else $subject-uri"/>
-		    <with-param name="subject-type" select="if ($blank-node-id) then 'blank'
-			else 'uri'"/>
-		    <with-param name="predicate" select="$actual-property"/>
-		    <with-param name="object" select="if ($normalize-space) then normalize-space($object)
-			else $object"/>
-		    <with-param name="object-language" select="$object-language"/>
-		    <with-param name="object-datatype" select="$object-datatype"/>
-		</call-template>
+		<for-each select="$actual-property">
+		    <call-template name="krextor:output-triple">
+			<with-param name="subject" select="trace(if (trace($blank-node-id, 'bnode-id')) then $blank-node-id
+			    else $subject-uri, 'subject')"/>
+			<with-param name="subject-type" select="if ($blank-node-id) then 'blank'
+			    else 'uri'"/>
+			<with-param name="predicate" select="."/>
+			<with-param name="object" select="if ($normalize-space) then normalize-space($object)
+			    else $object"/>
+			<with-param name="object-language" select="$object-language"/>
+			<with-param name="object-datatype" select="$object-datatype"/>
+		    </call-template>
+		</for-each>
 	    </otherwise>
 	</choose>
     </template>    
@@ -478,9 +481,9 @@
     <template name="krextor:add-uri-property">
 	<param name="subject-uri" tunnel="yes"/>
 	<param name="blank-node-id" tunnel="yes"/>
-	<param name="property"/>
+	<param name="property" as="xs:string*"/>
 	<!-- property from incomplete triples -->
-	<param name="tunneled-property" tunnel="yes"/>
+	<param name="tunneled-property" as="xs:string*" tunnel="yes"/>
 	<!-- Should the property be applied in inverse direction? -->
 	<param name="inverse" select="false()"/>
 	<!-- inverse information from incomplete triples -->
@@ -497,13 +500,13 @@
 	    else if (parent::node() instance of document-node()) then base-uri()
 	    else ''"/>
 	<!-- node ID, if the object is a blank node -->
-	<param name="blank"/>
-	<if test="($blank or $object) and ($property or $tunneled-property)">
-	    <variable name="actual-object" select="if ($blank) then $blank
-		else $object"/>
-	    <variable name="actual-property" select="if ($property) then $property
+	<param name="blank" as="xs:string?"/>
+	<if test="(trace($blank, 'blank?') or trace($object, 'object')) and (exists($property) or exists($tunneled-property))">
+	    <variable name="actual-object" select="trace(if ($blank) then $blank
+		else $object, 'actual object')"/>
+	    <variable name="actual-property" select="if (exists($property)) then $property
 		else $tunneled-property"/>
-	    <variable name="actual-inverse" select="if ($property) then $inverse
+	    <variable name="actual-inverse" select="if (exists($property)) then $inverse
 		else $tunneled-inverse"/>
 	    <choose>
 		<!-- If the "object" is a whitespace-separated list of actual objects, we recursively generate one triple for each object. -->
@@ -520,26 +523,30 @@
 		<otherwise>
 		    <choose>
 			<when test="$actual-inverse">
-			    <call-template name="krextor:output-triple">
-				<with-param name="subject" select="$actual-object"/>
-				<with-param name="subject-type" select="if ($blank) then 'blank' else 'uri'"/>
-				<with-param name="predicate" select="$actual-property"/>
-				<with-param name="object" select="if ($blank-node-id) then $blank-node-id
-				    else $subject-uri"/>
-				<with-param name="object-type" select="if ($blank-node-id) then 'blank'
-				    else 'uri'"/>
-			    </call-template>
+			    <for-each select="$actual-property">
+				<call-template name="krextor:output-triple">
+				    <with-param name="subject" select="$actual-object"/>
+				    <with-param name="subject-type" select="if ($blank) then 'blank' else 'uri'"/>
+				    <with-param name="predicate" select="."/>
+				    <with-param name="object" select="if ($blank-node-id) then $blank-node-id
+					else $subject-uri"/>
+				    <with-param name="object-type" select="if ($blank-node-id) then 'blank'
+					else 'uri'"/>
+				</call-template>
+			    </for-each>
 			</when>
 			<otherwise>
-			    <call-template name="krextor:output-triple">
-				<with-param name="subject" select="if ($blank-node-id) then $blank-node-id
-				    else $subject-uri"/>
-				<with-param name="subject-type" select="if ($blank-node-id) then 'blank'
-				    else 'uri'"/>
-				<with-param name="predicate" select="$actual-property"/>
-				<with-param name="object" select="$actual-object"/>
-				<with-param name="object-type" select="if ($blank) then 'blank' else 'uri'"/>
-			    </call-template>
+			    <for-each select="$actual-property">
+				<call-template name="krextor:output-triple">
+				    <with-param name="subject" select="if ($blank-node-id) then $blank-node-id
+					else $subject-uri"/>
+				    <with-param name="subject-type" select="if ($blank-node-id) then 'blank'
+					else 'uri'"/>
+				    <with-param name="predicate" select="."/>
+				    <with-param name="object" select="$actual-object"/>
+				    <with-param name="object-type" select="trace(if ($blank) then 'blank' else 'uri', 'object-type')"/>
+				</call-template>
+			    </for-each>
 			</otherwise>
 		    </choose>
 		</otherwise>
@@ -554,6 +561,8 @@
 	<!-- The node set to which apply-templates is applied -->
 	<!-- We also process attributes, as they may contain links to other resources -->
 	<param name="process-next" select="*|@*"/>
+	<message>INCOMPLETE TRIPLE</message>
+	<message select="$property"/>
 	<apply-templates select="$process-next">
 	    <with-param name="tunneled-property" select="$property" tunnel="yes"/>
 	    <with-param name="tunneled-inverse" select="$inverse" tunnel="yes"/>
@@ -580,8 +589,10 @@
 
     <xd:doc>Start processing; the current subject is identified by the base URI of the document.</xd:doc>
     <template match="/">
+	<param name="krextor:base-uri" select="base-uri()" tunnel="yes"/>
 	<apply-templates>
-	    <with-param name="subject-uri" select="base-uri()" tunnel="yes"/>
+	    <with-param name="subject-uri" select="$krextor:base-uri" tunnel="yes"/>
+	    <with-param name="krextor:base-uri" select="$krextor:base-uri" tunnel="yes"/>
 	</apply-templates>
     </template>
 

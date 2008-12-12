@@ -165,7 +165,7 @@
     </function>
 
     <xd:doc>Extracts a literal-valued property</xd:doc>
-    <template match="@property[parent::*/node() or parent::*/@content]">
+    <template match="@property">
 	<variable name="parent" select="parent::*"/>
 	<variable name="object">
 	    <choose>
@@ -184,6 +184,8 @@
 		</otherwise>
 	    </choose>
 	</variable>
+	<message>adding</message>
+	<message select="."/>
 	<call-template name="krextor:add-literal-property">
 	    <!-- this function returns NIL if there is no @property attribute.
 	         Then, add-literal-property completes an incomplete triple -->
@@ -209,19 +211,51 @@
 
     <xd:doc>Extracts a URI-valued property (<code>rel</code>) whose object is not yet known</xd:doc>
     <template match="@rel[not(parent::*/@resource or parent::*/@href)]">
+	<param name="subject-uri" tunnel="yes"/>
+	<message>REL</message>
+	<message select="."/>
+	<message>PARENT</message>
+	<message select="parent::*/*"/>
+	<message>NEXT</message>
+	<message select="parent::*/*"/>
+	<!--
 	<call-template name="krextor:create-property">
 	    <with-param name="property" select="krextor:curies-to-uris(.)"/>
 	    <with-param name="process-next" select="parent::*/*"/>
+	</call-template>
+	-->
+	<variable name="property" select="krextor:curies-to-uris(.)"/>
+	<call-template name="krextor:create-resource">
+	    <with-param name="blank-node" select="not(parent::*/@about)"/>
+	    <with-param name="related-via-properties" select="if(parent::*/@about) then () else $property"/>
+	    <with-param name="process-next" select="parent::*/*"/>
+	    <with-param name="tunneled-property" select="$property" tunnel="yes"/>
 	</call-template>
     </template>
 
     <xd:doc>Extracts a URI-valued inverse property (<code>rev</code>) whose object is not yet known</xd:doc>
     <template match="@rev[not(parent::*/@resource or parent::*/@href)]">
+	<!--
 	<call-template name="krextor:create-property">
 	    <with-param name="property" select="krextor:curies-to-uris(.)"/>
 	    <with-param name="inverse" select="true()"/>
 	    <with-param name="process-next" select="parent::*/*"/>
 	</call-template>
+	-->
+	<variable name="property" select="krextor:curies-to-uris(.)"/>
+	<call-template name="krextor:create-resource">
+	    <with-param name="blank-node" select="not(parent::*/@about)"/>
+	    <with-param name="related-via-inverse-properties" select="if(parent::*/@about) then () else $property"/>
+	    <with-param name="process-next" select="parent::*/*"/>
+	    <with-param name="tunneled-property" select="$property" tunnel="yes"/>
+	    <with-param name="tunneled-inverse" select="true()" tunnel="yes"/>
+	</call-template>
+    </template>
+
+    <template match="@rel|@rev">
+	<message>PIVOTING RESOURCE</message>
+	<variable name="parent" select="parent::*"/>
+	<apply-templates select="$parent/@resource|$parent/@href"/>
     </template>
 
     <function name="krextor:safe-curie-to-bnode-id" as="xs:string?">
@@ -238,6 +272,12 @@
 	<variable name="parent" select="parent::*"/>
 	<variable name="blank" select="if ($parent/@resource) then krextor:safe-curie-to-bnode-id($parent/@resource) else ()"/>
 	<variable name="object" select="if ($parent/@resource and not($blank)) then krextor:safe-curie-to-uri($parent/@resource) else ."/>
+	<message>ME</message>
+	<message select="."/>
+	<message>OBJECT</message>
+	<message select="$object"/>
+	<message>BLANK</message>
+	<message select="$blank"/>
 	<if test="$parent/@rel">
 	    <call-template name="krextor:add-uri-property">
 		<with-param name="property" select="krextor:curies-to-uris($parent/@rel)"/>
@@ -258,6 +298,12 @@
 		<with-param name="object" select="$object"/>
 		<with-param name="blank" select="$blank"/>
 	    </call-template>
+	</if>
+	<if test="$parent/*">
+	    <apply-templates select="$parent/*">
+		<with-param name="subject-uri" select="$object" tunnel="yes"/>
+		<with-param name="blank-node-id" select="()" tunnel="yes"/>
+	    </apply-templates>
 	</if>
     </template>
 </stylesheet>
