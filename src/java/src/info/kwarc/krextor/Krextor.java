@@ -51,6 +51,10 @@ public class Krextor {
 	 * XML namespace URI
 	 */
 	public static final String XMLNS_XML = "http://www.w3.org/XML/1998/namespace";
+	/**
+	 * RDF namespace URI
+	 */
+	public static final String XMLNS_RDF = "http://www.w3.org/1999/02/22-rdf-syntax-ns#";
 
 	static {
 		// use Saxon as XSLT transformer
@@ -306,16 +310,24 @@ public class Krextor {
 						// literal
 						objectType = NodeType.LITERAL;
 
-						object = "";
-						for (int j = 0; j < n_object.getChildCount(); j++) {
-							if (n_object.getChild(j) instanceof Text) {
-								Text txt = (Text) n_object.getChild(j);
-								object += txt.getValue();
-							}
-						}
 						objectLanguage = n_object.getAttributeValue("lang",
 								XMLNS_XML);
 						objectDatatype = n_object.getAttributeValue("datatype");
+
+						boolean xmlLiteral = (XMLNS_RDF + "XMLLiteral").equals(objectDatatype);
+
+						object = "";
+						for (int j = 0; j < n_object.getChildCount(); j++) {
+							String serial= "";
+							Node child = n_object.getChild(j);
+							if (xmlLiteral) {
+								serial = child.toXML();
+							} else if (child instanceof Text) {
+								Text txt = (Text) child;
+								serial = txt.getValue();
+							}
+							object += serial;
+						}
 					}
 				}
 
