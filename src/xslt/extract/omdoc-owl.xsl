@@ -23,10 +23,11 @@
 -->
 
 <!DOCTYPE stylesheet [
-    <!ENTITY owl "http://www.w3.org/2002/07/owl#">
+    <!ENTITY owl  "http://www.w3.org/2002/07/owl#">
     <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#">
-    <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#">
-    <!ENTITY odo "http://www.omdoc.org/ontology#">
+    <!ENTITY rdf  "http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+    <!ENTITY xsd  "http://www.w3.org/2001/XMLSchema#" >
+    <!ENTITY odo  "http://www.omdoc.org/ontology#">
 ]>
 
 <!--
@@ -43,7 +44,7 @@
     xmlns:xs="http://www.w3.org/2001/XMLSchema"
     xmlns:f="http://fxsl.sf.net/"
     xmlns="http://www.w3.org/1999/XSL/Transform"
-    exclude-result-prefixes="omdoc xs krextor xd om f odo krextor-genuri"
+    exclude-result-prefixes="#all"
     version="2.0">
 
     <import href="util/omdoc.xsl"/>
@@ -78,7 +79,7 @@
     <function name="krextor:mmt-uri" as="xs:string?">
 	<param name="base-uri"/>
 	<param name="name"/>
-	<sequence select="concat($base-uri, '/', $name)"/>
+	<sequence select="concat($base-uri, '?', $name)"/>
     </function>
 
     <template match="krextor-genuri:mmt" as="xs:string?">
@@ -89,11 +90,13 @@
 
     <template name="krextor:create-ontology-resource">
 	<param name="mmt" tunnel="yes"/>
+	<param name="type" select="()"/>
 	<call-template name="krextor:create-resource">
 	    <with-param name="autogenerate-fragment-uri" select="if ($mmt)
 		then ('mmt')
 		else ('ontology')"/>
 	    <with-param name="mmt" select="$mmt" tunnel="yes"/>
+	    <with-param name="type" select="$type"/>
 	</call-template>
     </template>
 
@@ -284,6 +287,8 @@
 	<param name="focus"/>
 	<value-of select="krextor:default-namespace($focus)"/>
     </function>
+
+    <!-- regular templates matching OMDoc start here -->
     
     <xd:doc>Create a resource from an OMDoc symbol</xd:doc>
     <template match="symbol">
@@ -291,11 +296,10 @@
     </template>
 
     <xd:doc>Make this resource an instance of some class</xd:doc>
-    <template match="symbol/type[@system='owl'][om:OMOBJ/om:OMS]">
-	<call-template name="krextor:add-uri-property">
-	    <with-param name="property" select="'&rdf;type'"/>
-	    <with-param name="object" select="krextor:ontology-uri(om:OMOBJ/om:OMS)"/>
-	</call-template>
+    <template match="symbol/type[@system='owl']/om:OMOBJ">
+	<apply-templates select="om:*[1]">
+	    <with-param name="related-via-properties" select="'&rdf;type'" tunnel="yes"/>
+	</apply-templates>
     </template>
 
     <xd:doc>Returns the semantic web URI of a given symbol
@@ -306,37 +310,121 @@
 	<variable name="sem-web-base" select="$ontology-namespaces/krextor:loc[@theory eq $sym/@cd]/@sem-web-base"/>
 	<value-of select="if ($sem-web-base)
 	    then krextor:ontology-uri($sem-web-base, $sym/@name)
-	    else krextor:mmt-uri(concat('MMT-FIXME', '/', $sym/@cd), $sym/@name)"/>
+	    else krextor:mmt-uri('MMT-FIXME', concat($sym/@cd, '?', $sym/@name))"/>
     </function>
 
-    <xd:doc>TODO</xd:doc>
-    <template match="axiom[FMP[@logic eq 'owl']/om:OMOBJ/om:OMA]">
-	<apply-templates select="FMP[@logic eq 'owl']/om:OMOBJ/om:OMA" mode="krextor:ontology-axiom"/>
+    <function name="krextor:ontology-uri-or-blank">
+	<param name="sym"/>
+	<value-of select="if ($sym/self::om:OMS)
+	    then krextor:ontology-uri($sym)
+	    else ()"/>
+    </function>
+
+    <xd:doc>Creates an RDF triple for a single OWL axiom given as a predicate(subject, object) triple</xd:doc>
+    <template match="axiom/FMP[@logic eq 'owl']/om:OMOBJ/om:OMA[count(om:*) eq 3]">
+	<variable name="predicate-object-rewritten">
+	    <krextor:dummy>
+		<om:OMA>
+		    <copy-of select="om:*[1]"/><!-- predicate -->
+		    <copy-of select="om:*[3]"/><!-- object -->
+		</om:OMA>
+	    </krextor:dummy>
+	</variable>
+	<call-template name="krextor:create-resource">
+	    <!-- TODO automate this by overriding create-resource -->
+	    <with-param name="subject" select="krextor:ontology-uri-or-blank(om:*[2])"/>
+	    <with-param name="process-next" select="om:*[2][not(self::om:OMS)]
+		|$predicate-object-rewritten/*"/>
+	</call-template>
     </template>
 
-    <xd:doc>TODO</xd:doc>
-    <template match="om:OMA" mode="krextor:ontology-axiom">
-	<call-template name="krextor:output-triple">
-	    <with-param name="subject" select="krextor:ontology-uri(om:OMS[2])"/>
-	    <with-param name="predicate" select="krextor:ontology-uri(om:OMS[1])"/>
-	    <with-param name="object" select="krextor:ontology-uri(om:OMS[3])"/>
-	    <with-param name="object-type" select="'uri'"/>
+    <template match="krextor:dummy/om:OMA[count(om:*) eq 2][om:*[1][self::om:OMS]]">
+	<call-template name="krextor:create-resource">
+	    <with-param name="related-via-properties" select="krextor:ontology-uri(om:*[1])" tunnel="yes"/>
+	    <with-param name="subject" select="krextor:ontology-uri-or-blank(om:*[2])"/>
+	    <with-param name="process-next" select="om:*[2][not(self::om:OMS)]"/>
+	</call-template>
+    </template>
+
+    <template match="definition[@type eq 'simple']">
+	<variable name="symbol" select="document(@for)"/>
+	<if test="$symbol">
+	    <variable name="symbol-oms">
+		<om:OMS cd="{parent::theory/@name}" name="$symbol/@name"/>
+	    </variable>
+	    <call-template name="krextor:create-resource">
+		<with-param name="subject" select="krextor:ontology-uri($symbol)"/>
+	    </call-template>
+	</if>
+    </template>
+
+    <template match="om:OMOBJ[parent::definition[@type eq 'simple']]">
+	<choose>
+	    <when test="om:*[1][self::om:OMS]">
+		<call-template name="krextor:create-resource">
+		    <with-param name="related-via-properties" select="'&owl;equivalentClass'" tunnel="yes"/>
+		    <with-param name="subject" select="krextor:ontology-uri(om:*[1])"/>
+		</call-template>
+	    </when>
+	    <otherwise>
+		<call-template name="krextor:create-resource">
+		    <with-param name="blank-node" select="true()"/>
+		    <with-param name="process-next" select="om:*[1]"/>
+		    <with-param name="related-via-properties" select="'&owl;equivalentClass'" tunnel="yes"/>
+		</call-template>
+	    </otherwise>
+	</choose>
+    </template>
+
+    <template match="om:OMA[om:*[1][self::om:OMS[@cd eq 'owl' and @name eq 'intersectionOf']]]">
+	<call-template name="krextor:create-resource">
+	    <with-param name="related-via-properties" select="'&owl;intersectionOf'" tunnel="yes"/>
+	    <with-param name="collection" select="true()"/>
+	    <with-param name="process-next" select="om:*[position() ge 2]"/>
+	</call-template>
+    </template>
+
+    <template match="om:OMA[count(om:*) eq 3][om:*[1][self::om:OMS[@cd eq 'owl' and @name eq 'Restriction']]][om:*[2][self::om:OMS]]">
+	<call-template name="krextor:create-resource">
+	    <with-param name="type" select="'&owl;Restriction'"/>
+	    <with-param name="properties">
+		<krextor:property uri="&owl;onProperty" object="{krextor:ontology-uri(om:*[2])}"/>
+	    </with-param>
+	    <with-param name="blank-node" select="true()"/>
+	    <with-param name="process-next" select="om:*[3]"/>
+	</call-template>
+    </template>
+
+    <template match="om:OMA[om:*[1][self::om:OMS[@cd eq 'owl' and @name = ('minCardinality', 'maxCardinality', 'cardinality')]]][om:*[2][self::om:OMI]]">
+	<call-template name="krextor:add-literal-property">
+	    <with-param name="property" select="krextor:ontology-uri(om:*[1])"/>
+	    <with-param name="object" select="om:*[2]/text()"/>
+	    <with-param name="object-datatype" select="'&xsd;nonNegativeInteger'"/>
+	</call-template>
+    </template>
+
+    <template match="om:OMS">
+	<call-template name="krextor:create-resource">
+	    <with-param name="subject" select="krextor:ontology-uri(.)"/>
 	</call-template>
     </template>
 
     <xd:doc>Try to find the ontology namespace (calls <code>krextor:sem-web-base</code>)</xd:doc>
     <template match="theory">
 	<variable name="sem-web-base" select="$ontology-namespaces/krextor:loc[@theory eq current()/@xml:id]/@sem-web-base"/>
+	<variable name="type" select="'&owl;Ontology'"/>
 	<choose>
 	    <when test="exists($sem-web-base)">
 		<call-template name="krextor:create-ontology-resource">
 		    <with-param name="base-uri" select="$sem-web-base"
 			tunnel="yes"/>
+		    <with-param name="type" select="$type"/>
 		</call-template>
 	    </when>
 	    <otherwise>
 		<call-template name="krextor:create-ontology-resource">
 		    <with-param name="mmt" select="true()" tunnel="yes"/>
+		    <with-param name="type" select="$type"/>
 		</call-template>
 	    </otherwise>
 	</choose>
