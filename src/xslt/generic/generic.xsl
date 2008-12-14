@@ -265,8 +265,8 @@
 		element.</p></xd:detail></xd:doc>
     <template name="krextor:create-resource">
 	<param name="subject" select="()" as="xs:string?"/>
-	<param name="related-via-properties" select="()"/>
-	<param name="related-via-inverse-properties" select="()"/>
+	<param name="related-via-properties" select="()" tunnel="yes"/>
+	<param name="related-via-inverse-properties" select="()" tunnel="yes"/>
 	<param name="type" select="()" as="xs:string*"/>
 	<!-- additional properties of this resource, encoded as
 	    <krextor:property uri="property-uri" object="object-uri"/>
@@ -292,21 +292,43 @@
 	<param name="autogenerate-fragment-uri" select="$autogenerate-fragment-uris"/>
 	<!-- Is this a blank node? -->
 	<param name="blank-node" select="false()"/>
-	<param name="blank-node-id" tunnel="yes"/>
 	<param name="this-blank-node-id" select="()" as="xs:string?"/>
+	<!-- is the object an RDF collection? -->
+	<param name="collection" select="false()"/>
+
 	<variable name="generated-uri" select="if ($blank-node) then $subject-uri
 	    else if (exists($subject)) then $subject
 	    else if (exists($autogenerate-fragment-uri)) 
 		then krextor:generate-uri(., $autogenerate-fragment-uri, $subject-uri)
 	    else $subject-uri" as="xs:string?"/>
+	<variable name="generated-blank-node" select="$blank-node or $collection"/>
 	<!-- TODO introduce auto-blank node if no xml:id given
 	     if auto-blank-node isn't desired, skip elements without xml:id altogether -->
-	<variable name="generated-blank-node-id" select="if ($blank-node) then
-	    if ($this-blank-node-id) then $this-blank-node-id else generate-id()
+	<variable name="generated-blank-node-id" select="
+	    if ($generated-blank-node) then
+		concat(if ($collection and not(starts-with($this-blank-node-id, 'collection-'))) then 'collection-' else '',
+		    if ($this-blank-node-id) then $this-blank-node-id else generate-id())
 	    else ''"/>
-	<variable name="subject" select="if ($blank-node) then $generated-blank-node-id else $generated-uri"/>
-	<variable name="subject-type" select="if ($blank-node) then 'blank' else 'uri'"/>
+	<variable name="subject" select="if ($generated-blank-node) then $generated-blank-node-id else $generated-uri"/>
+	<variable name="subject-type" select="if ($generated-blank-node) then 'blank' else 'uri'"/>
 	<if test="exists($generated-uri)">
+	    <if test="not(parent::node() instance of document-node())">
+		<!-- Relate this resource to its parent, if it has a parent -->
+		<call-template name="krextor:related-via-properties">
+		    <with-param name="properties" select="$related-via-properties"/>
+		    <with-param name="blank-node" select="$generated-blank-node"/>
+		    <with-param name="generated-blank-node-id" select="$generated-blank-node-id"/>
+		    <with-param name="generated-uri" select="$generated-uri"/>
+		</call-template>
+		<call-template name="krextor:related-via-properties">
+		    <with-param name="properties" select="$related-via-inverse-properties"/>
+		    <with-param name="inverse" select="true()"/>
+		    <with-param name="blank-node" select="$generated-blank-node"/>
+		    <with-param name="generated-blank-node-id" select="$generated-blank-node-id"/>
+		    <with-param name="generated-uri" select="$generated-uri"/>
+		</call-template>
+	    </if>
+
 	    <!-- Create the triple(s) that instantiates this resource -->
 	    <for-each select="$type">
 		<call-template name="krextor:output-triple">
@@ -317,23 +339,6 @@
 		    <with-param name="object-type" select="'uri'"/>
 		</call-template>
 	    </for-each>
-
-	    <if test="not(parent::node() instance of document-node())">
-		<!-- Relate this resource to its parent, if it has a parent -->
-		<call-template name="krextor:related-via-properties">
-		    <with-param name="properties" select="$related-via-properties"/>
-		    <with-param name="blank-node" select="$blank-node"/>
-		    <with-param name="generated-blank-node-id" select="$generated-blank-node-id"/>
-		    <with-param name="generated-uri" select="$generated-uri"/>
-		</call-template>
-		<call-template name="krextor:related-via-properties">
-		    <with-param name="properties" select="$related-via-inverse-properties"/>
-		    <with-param name="inverse" select="true()"/>
-		    <with-param name="blank-node" select="$blank-node"/>
-		    <with-param name="generated-blank-node-id" select="$generated-blank-node-id"/>
-		    <with-param name="generated-uri" select="$generated-uri"/>
-		</call-template>
-	    </if>
 
 	    <!-- Add additional properties to this resource -->
 	    <if test="$properties">
@@ -356,17 +361,25 @@
 		</for-each>
 	    </if>
 
-	    <!-- Process the children of this element, or whichever nodes desired -->
-	    <message>TUNNELING BLANK NODE ID</message>
-	    <message select="$generated-blank-node-id"/>
-	    <apply-templates select="$process-next">
-		<!-- pass on the generated subject URI or blank node ID.  For resolving relative URIs, an appended fragment does
-		     not matter, but for generating property triples for this resource it does. -->
-		<with-param name="subject-uri" select="$generated-uri" tunnel="yes"/>
-		<!-- Pass the information what type this is; this might help to disambiguate triple generation from children of the element that represents the resource of that type. -->
-		<with-param name="type" select="$type" tunnel="yes"/>
-		<with-param name="blank-node-id" select="$generated-blank-node-id" tunnel="yes"/>
-	    </apply-templates>
+	    <choose>
+		<when test="$collection">
+		    <call-template name="krextor:create-collection">
+			<with-param name="blank-node-id" select="$generated-blank-node-id" tunnel="yes"/>
+			<with-param name="rest" select="$process-next"/>
+		    </call-template>
+		</when>
+		<otherwise>
+		    <!-- Process the children of this element, or whichever nodes desired -->
+		    <apply-templates select="$process-next">
+			<!-- pass on the generated subject URI or blank node ID.  For resolving relative URIs, an appended fragment does
+			     not matter, but for generating property triples for this resource it does. -->
+			<with-param name="subject-uri" select="$generated-uri" tunnel="yes"/>
+			<!-- Pass the information what type this is; this might help to disambiguate triple generation from children of the element that represents the resource of that type. -->
+			<with-param name="type" select="$type" tunnel="yes"/>
+			<with-param name="blank-node-id" select="$generated-blank-node-id" tunnel="yes"/>
+		    </apply-templates>
+		</otherwise>
+	    </choose>
 	</if>
     </template>
 
@@ -408,6 +421,7 @@
 	<param name="property" as="xs:string*"/>
 	<!-- property from incomplete triples -->
 	<param name="tunneled-property" as="xs:string*" tunnel="yes"/>
+	<!-- TODO consider allowing XML literals here (move code from RDFa here) -->
 	<param name="object" select="."/>
 	<!-- Is the object a whitespace-separated list? -->
 	<param name="object-is-list" select="false()" as="xs:boolean"/>
@@ -432,8 +446,8 @@
 	    <otherwise>
 		<for-each select="$actual-property">
 		    <call-template name="krextor:output-triple">
-			<with-param name="subject" select="trace(if (trace($blank-node-id, 'bnode-id')) then $blank-node-id
-			    else $subject-uri, 'subject')"/>
+			<with-param name="subject" select="if ($blank-node-id) then $blank-node-id
+			    else $subject-uri"/>
 			<with-param name="subject-type" select="if ($blank-node-id) then 'blank'
 			    else 'uri'"/>
 			<with-param name="predicate" select="."/>
@@ -501,9 +515,9 @@
 	    else ''"/>
 	<!-- node ID, if the object is a blank node -->
 	<param name="blank" as="xs:string?"/>
-	<if test="(trace($blank, 'blank?') or trace($object, 'object')) and (exists($property) or exists($tunneled-property))">
-	    <variable name="actual-object" select="trace(if ($blank) then $blank
-		else $object, 'actual object')"/>
+	<if test="($blank or $object) and (exists($property) or exists($tunneled-property))">
+	    <variable name="actual-object" select="if ($blank) then $blank
+		else $object"/>
 	    <variable name="actual-property" select="if (exists($property)) then $property
 		else $tunneled-property"/>
 	    <variable name="actual-inverse" select="if (exists($property)) then $inverse
@@ -544,7 +558,7 @@
 					else 'uri'"/>
 				    <with-param name="predicate" select="."/>
 				    <with-param name="object" select="$actual-object"/>
-				    <with-param name="object-type" select="trace(if ($blank) then 'blank' else 'uri', 'object-type')"/>
+				    <with-param name="object-type" select="if ($blank) then 'blank' else 'uri'"/>
 				</call-template>
 			    </for-each>
 			</otherwise>
@@ -561,12 +575,45 @@
 	<!-- The node set to which apply-templates is applied -->
 	<!-- We also process attributes, as they may contain links to other resources -->
 	<param name="process-next" select="*|@*"/>
-	<message>INCOMPLETE TRIPLE</message>
-	<message select="$property"/>
 	<apply-templates select="$process-next">
 	    <with-param name="tunneled-property" select="$property" tunnel="yes"/>
 	    <with-param name="tunneled-inverse" select="$inverse" tunnel="yes"/>
 	</apply-templates>
+    </template>
+
+    <xd:doc>Creates an rdf Collection</xd:doc>
+    <template name="krextor:create-collection">
+	<param name="rest"/>
+	<param name="blank-node-id" tunnel="yes"/>
+	<param name="collection-id" select="()" tunnel="yes"/>
+	<param name="collection-index" select="1" tunnel="yes"/>
+	<variable name="new-collection-id" select="if (exists($collection-id)) then $collection-id else $blank-node-id"/>
+	<variable name="subject" select="concat($new-collection-id, '-', $collection-index)"/>
+	<apply-templates select="$rest[1]">
+	    <with-param name="blank-node-id" select="$blank-node-id" tunnel="yes"/>
+	    <!-- if a resource is created from the first element, make it the first resource of this collection -->
+	    <with-param name="related-via-properties" select="'&rdf;first'" tunnel="yes"/>
+	</apply-templates>
+	<choose>
+	    <when test="$rest[2]">
+		<call-template name="krextor:create-resource">
+		    <with-param name="blank-node-id" select="$blank-node-id" tunnel="yes"/>
+		    <with-param name="this-blank-node-id" select="$subject"/>
+		    <with-param name="related-via-properties" select="'&rdf;rest'" tunnel="yes"/>
+		    <with-param name="collection" select="true()"/>
+		    <with-param name="process-next" select="$rest[position() ge 2]"/>
+		    <with-param name="collection-id" select="$new-collection-id" tunnel="yes"/>
+		    <with-param name="collection-index" select="$collection-index + 1" tunnel="yes"/>
+		</call-template>
+	    </when>
+	    <otherwise>
+		<call-template name="krextor:create-resource">
+		    <with-param name="subject-uri" select="'&rdf;nil'" tunnel="yes"/>
+		    <with-param name="related-via-properties" select="'&rdf;rest'" tunnel="yes"/>
+		    <with-param name="process-next" select="()"/>
+		</call-template>
+	    </otherwise>
+	</choose>
     </template>
 
     <!-- We support the following generic inclusion mechanism for XML documents:
