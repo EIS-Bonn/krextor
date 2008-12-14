@@ -22,6 +22,10 @@
     * 
 -->
 
+<!DOCTYPE stylesheet [
+    <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+]>
+
 <!--
 This stylesheet provides low-level triple-creation functions and templates for
 an RDF/RXR extraction from XML languages.
@@ -87,7 +91,14 @@ http://ilrt.org/discovery/2004/03/rxr/
 			<if test="$object-datatype">
 			    <attribute name="datatype" select="$object-datatype"/>
 			</if>
-			<value-of select="$object"/>
+			<choose>
+			    <when test="$object-datatype eq '&rdf;XMLLiteral'">
+				<copy-of select="$object"/>
+			    </when>
+			    <otherwise>
+				<value-of select="$object"/>
+			    </otherwise>
+			</choose>
 		    </otherwise>
 		</choose>
 	    </rxr:object>

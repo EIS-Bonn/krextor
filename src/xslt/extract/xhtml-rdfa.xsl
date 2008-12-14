@@ -37,7 +37,6 @@
     version="2.0">
 
     <import href="util/rdfa.xsl"/>
-    <import href="util/openmath/verb.xsl"/>
 
     <xd:doc type="stylesheet">
 	<xd:short>Extraction module for <a href="http://www.w3.org/TR/rdfa-primer/">XHTML+RDFa</a>, a language that allows for embedding RDF into XHTML</xd:short>
@@ -152,19 +151,16 @@
 	<message select="$related-via-inverse-properties"/>
 
 	<variable name="no-subject" select="trace(not(exists($new-subject))
-		and not(@resource|@rel|@rev), 'no subject!')"/>
+		and not(@resource|@rel|@rev|@property), 'no subject!')"/>
 	<variable name="blank" select="$blank-node-id
 	    or $no-subject
-	    or (@typeof and not($about-given or (@resource and not(@rel or @rev))))"/>
+	    or (@typeof and not($about-given or ((@src or @resource) and not(@rel or @rev))))"/>
 
 	<message>BLANK</message>
 	<message select="$blank"/>
 
 	<choose>
-	    <when test="not(exists($tunneled-property)) and not(exists($new-subject)) and not(@typeof)">
-	    <!--
 	    <when test="not(exists($new-subject)) and not(@typeof)">
-	    -->
 		<message>ADDING PROPERTY</message>
 		<message>FOR</message>
 		<message select="."/>
