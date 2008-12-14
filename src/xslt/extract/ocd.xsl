@@ -145,7 +145,7 @@
 
     <xsl:template match="property">
 	<xsl:call-template name="krextor:create-resource">
-	    <xsl:with-param name="related-via-properties" select="'&omo;hasProperty'"/>
+	    <xsl:with-param name="related-via-properties" select="'&omo;hasProperty'" tunnel="yes"/>
 	    <xsl:with-param name="type" select="'&omo;Property'"/>
 	    <!-- FIXME remove when OpenMath 3 is stable, as then we'll always
 	    have CMPs and FMPs inside properties, no longer ones that are
@@ -158,7 +158,7 @@
 	<xsl:call-template name="krextor:create-resource">
 	    <!-- This is for OpenMath 2 backwards compatibility.  In OpenMath 3, this
 		 will only be a child of property. -->
-	    <xsl:with-param name="related-via-properties" select="if (parent::CDDefinition) then '&omo;hasCommentedProperty' else '&omo;hasCommentedPart'"/>
+	    <xsl:with-param name="related-via-properties" select="if (parent::CDDefinition) then '&omo;hasCommentedProperty' else '&omo;hasCommentedPart'" tunnel="yes"/>
 	    <xsl:with-param name="type" select="'&omo;CommentedProperty'"/>
 	</xsl:call-template>
     </xsl:template>    
@@ -169,7 +169,7 @@
 	<xsl:call-template name="krextor:create-resource">
 	    <!-- This is for OpenMath 2 backwards compatibility.  In OpenMath 3, this
 		 will only be a child of property. -->
-	    <xsl:with-param name="related-via-properties" select="if (parent::CDDefinition) then '&omo;hasFormalProperty' else '&omo;hasFormalPart'"/>
+	    <xsl:with-param name="related-via-properties" select="if (parent::CDDefinition) then '&omo;hasFormalProperty' else '&omo;hasFormalPart'" tunnel="yes"/>
 	    <xsl:with-param name="type" select="'&omo;FormalProperty'"/>
 	</xsl:call-template>
     </xsl:template>    
@@ -227,7 +227,7 @@
 	</xsl:if>
 
 	<xsl:call-template name="krextor:create-resource">
-	    <xsl:with-param name="related-via-properties" select="'&omo;containsNotationDefinition'"/>
+	    <xsl:with-param name="related-via-properties" select="'&omo;containsNotationDefinition'" tunnel="yes"/>
 	    <xsl:with-param name="type" select="'&omo;Notation'"/>
 	</xsl:call-template>
     </xsl:template>

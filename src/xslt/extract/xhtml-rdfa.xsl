@@ -179,8 +179,8 @@
 		    <with-param name="this-blank-node-id" select="$blank-node-id"/>
 		    <with-param name="blank-node" select="true()"/>
 		    <with-param name="type" select="$type"/>
-		    <with-param name="related-via-properties" select="$related-via-properties"/>
-		    <with-param name="related-via-inverse-properties" select="$related-via-inverse-properties"/>
+		    <with-param name="related-via-properties" select="$related-via-properties" tunnel="yes"/>
+		    <with-param name="related-via-inverse-properties" select="$related-via-inverse-properties" tunnel="yes"/>
 		    <!-- FIXME actually, this is:
 			@content, or ...
 			@... (some other RDFa properties) -->
@@ -196,8 +196,8 @@
 		    <with-param name="subject" select="if ($new-subject) then krextor:safe-curie-to-uri(., $new-subject) else ()"/>
 		    <with-param name="blank-node" select="$no-subject"/>
 		    <with-param name="type" select="$type"/>
-		    <with-param name="related-via-properties" select="$related-via-properties"/>
-		    <with-param name="related-via-inverse-properties" select="$related-via-inverse-properties"/>
+		    <with-param name="related-via-properties" select="$related-via-properties" tunnel="yes"/>
+		    <with-param name="related-via-inverse-properties" select="$related-via-inverse-properties" tunnel="yes"/>
 		    <!-- FIXME actually, this is:
 			@content, or ...
 			@... (some other RDFa properties) -->

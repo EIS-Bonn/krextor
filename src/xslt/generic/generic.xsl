@@ -403,8 +403,8 @@
 		<!-- we need this to trap the pre-computation of the key hashes -->
 		<call-template name="krextor:create-resource">
 		    <with-param name="type" select="$mapping/@type"/>
-		    <with-param name="related-via-properties" select="$mapping/@related-via-properties"/>
-		    <with-param name="related-via-inverse-properties" select="$mapping/@related-via-inverse-properties"/>
+		    <with-param name="related-via-properties" select="$mapping/@related-via-properties" tunnel="yes"/>
+		    <with-param name="related-via-inverse-properties" select="$mapping/@related-via-inverse-properties" tunnel="yes"/>
 		</call-template>
 	    </when>
 	    <otherwise>

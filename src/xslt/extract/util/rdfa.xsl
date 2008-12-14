@@ -227,7 +227,7 @@
 	<variable name="property" select="krextor:curies-to-uris(.)"/>
 	<call-template name="krextor:create-resource">
 	    <with-param name="blank-node" select="not(parent::*/@about)"/>
-	    <with-param name="related-via-properties" select="if(parent::*/@about) then () else $property"/>
+	    <with-param name="related-via-properties" select="if(parent::*/@about) then () else $property" tunnel="yes"/>
 	    <with-param name="process-next" select="parent::*/*"/>
 	    <with-param name="tunneled-property" select="$property" tunnel="yes"/>
 	</call-template>
@@ -245,7 +245,7 @@
 	<variable name="property" select="krextor:curies-to-uris(.)"/>
 	<call-template name="krextor:create-resource">
 	    <with-param name="blank-node" select="not(parent::*/@about)"/>
-	    <with-param name="related-via-inverse-properties" select="if(parent::*/@about) then () else $property"/>
+	    <with-param name="related-via-inverse-properties" select="if(parent::*/@about) then () else $property" tunnel="yes"/>
 	    <with-param name="process-next" select="parent::*/*"/>
 	    <with-param name="tunneled-property" select="$property" tunnel="yes"/>
 	    <with-param name="tunneled-inverse" select="true()" tunnel="yes"/>
