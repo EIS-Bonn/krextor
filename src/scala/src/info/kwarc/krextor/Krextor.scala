@@ -34,8 +34,8 @@ object Krextor {
   
   def process(n : Node, baseURI : String) : Unit = {
     n match {
-      case t @ <omtext>{ _* }</omtext> =>
-        createResource(n, t \ "@type", baseURI)
+      case t @ <omtext>{ _* }</omtext> if t \ "@type" == "definition" =>
+        createResource(t, t \ "@type", baseURI)
       case _ => ;
     }
   }
