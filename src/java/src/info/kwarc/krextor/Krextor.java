@@ -71,6 +71,7 @@ public class Krextor {
 
 		// trying how to implement catalog URI resolution, which would be nice
 		// to have for FXSL
+		// TODO get this right: https://trac.kwarc.info/krextor/ticket/13
 		factory = TransformerFactory.newInstance();
 		Configuration saxonConfiguration = new Configuration();
 		saxonConfiguration
@@ -79,7 +80,6 @@ public class Krextor {
 					public SequenceIterator resolve(String href, String base,
 							net.sf.saxon.expr.XPathContext context)
 							throws XPathException {
-						// TODO Auto-generated method stub
 						return null;
 					}
 
@@ -208,8 +208,6 @@ public class Krextor {
 			Document inputDocument) throws XSLException {
 		XSLTransform transform = new XSLTransform(getTransformer(inputFormat,
 				outputFormat));
-		// FIXME remove this hard-coded setting
-		transform.setParameter("absolute-uris", true);
 		Nodes nodes = transform.transform(inputDocument);
 		return XSLTransform.toDocument(nodes);
 	}
@@ -262,6 +260,7 @@ public class Krextor {
 
 			// TODO figure out how to circumvent RXR and make the XSLT directly
 			// output into the callback
+			// https://trac.kwarc.info/krextor/ticket/11
 			Document document = extract(inputFormat, "rxr", inputDocument);
 
 			System.out.println(document.toXML());
