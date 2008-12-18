@@ -164,9 +164,14 @@
 	</choose>
     </function>
 
-    <template match="node()|@*" mode="identity">
+    <xd:doc>Add a possibly given XML language to any top-level element.</xd:doc>
+    <template match="node()|@*" mode="krextor:prepare-xml-literal">
+	<param name="lang"/>
 	<copy>
-	    <apply-templates select="node()|@*" mode="identity"/>
+	    <if test="$lang">
+		<attribute name="xml:lang" select="$lang"/>
+	    </if>
+	    <apply-templates select="node()|@*" mode="krextor:prepare-xml-literal"/>
 	</copy>
     </template>
 
@@ -175,16 +180,21 @@
 	<variable name="parent" select="parent::*"/>
 	<variable name="object">
 	    <choose>
+		<!-- @content -->
 		<when test="$parent/@content">
 		    <value-of select="$parent/@content"/>
 		</when>
+		<!-- XML literal -->
 		<when test="$parent/* and (not($parent/@datatype) or krextor:curie-to-uri($parent/@datatype) eq '&rdf;XMLLiteral')">
-		    <!-- reparent the children to enforce namespace node output -->
+		    <!-- reparent node to facilitate processing -->
 		    <variable name="node">
 			<copy-of select="$parent/node()"/>
 		    </variable>
-		    <apply-templates select="$node" mode="identity"/>
+		    <apply-templates select="$node" mode="krextor:prepare-xml-literal">
+			<with-param name="lang" select="ancestor::*/@xml:lang[1]"/>
+		    </apply-templates>
 		</when>
+		<!-- XML content but no XMLLiteral datatype given -->
 		<otherwise>
 		    <apply-templates select="$parent/node()" mode="krextor:text"/>
 		</otherwise>
