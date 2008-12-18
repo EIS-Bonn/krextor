@@ -43,6 +43,9 @@
 	<xd:short>Convenience functions and templates for extracting RDF from XML languages, independent both from the XML input language and from the RDF output notation</xd:short>
 	<xd:detail><p>This stylesheet provides convenience functions and templates for an RDF extraction from XML languages.  It is independent of any RDF output notation.</p></xd:detail>
     </xd:doc>
+
+    <xd:doc>Enable debug output?</xd:doc>
+    <param name="debug" select="false()"/>
     <!-- Should URIs like document#fragment automatically be generated?
          This is a sequence of string values:
 	 * 'xml-id': use the xml:id attribute if available, otherwise nothing

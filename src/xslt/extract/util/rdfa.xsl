@@ -200,8 +200,12 @@
 		</otherwise>
 	    </choose>
 	</variable>
-	<message>adding</message>
-	<message select="."/>
+
+	<if test="$debug">
+	    <message>adding</message>
+	    <message select="."/>
+	</if>
+
 	<call-template name="krextor:add-literal-property">
 	    <!-- this function returns NIL if there is no @property attribute.
 	         Then, add-literal-property completes an incomplete triple -->
@@ -228,13 +232,17 @@
     <xd:doc>Extracts a URI-valued property (<code>rel</code>) whose object is not yet known</xd:doc>
     <template match="@rel[not(parent::*/@resource or parent::*/@href)]">
 	<param name="subject-uri" tunnel="yes"/>
-	<message>@rel[not(parent::*/@resource or parent::*/@href)]</message>
-	<message>REL</message>
-	<message select="."/>
-	<message>PARENT</message>
-	<message select="parent::*/*"/>
-	<message>NEXT</message>
-	<message select="parent::*/*"/>
+
+	<if test="$debug">
+	    <message>@rel[not(parent::*/@resource or parent::*/@href)]</message>
+	    <message>REL</message>
+	    <message select="."/>
+	    <message>PARENT</message>
+	    <message select="parent::*/*"/>
+	    <message>NEXT</message>
+	    <message select="parent::*/*"/>
+	</if>
+
 	<!--
 	<call-template name="krextor:create-property">
 	    <with-param name="property" select="krextor:curies-to-uris(.)"/>
@@ -271,7 +279,10 @@
     </template>
 
     <template match="@rel|@rev">
-	<message>PIVOTING RESOURCE</message>
+	<if test="$debug">
+	    <message>PIVOTING RESOURCE</message>
+	</if>
+
 	<variable name="parent" select="parent::*"/>
 	<apply-templates select="$parent/@resource|$parent/@href"/>
     </template>
@@ -290,12 +301,16 @@
 	<variable name="parent" select="parent::*"/>
 	<variable name="blank" select="if ($parent/@resource) then krextor:safe-curie-to-bnode-id($parent/@resource) else ()"/>
 	<variable name="object" select="if ($parent/@resource and not($blank)) then krextor:safe-curie-to-uri($parent/@resource) else ."/>
-	<message>ME</message>
-	<message select="."/>
-	<message>OBJECT</message>
-	<message select="$object"/>
-	<message>BLANK</message>
-	<message select="$blank"/>
+
+	<if test="$debug">
+	    <message>ME</message>
+	    <message select="."/>
+	    <message>OBJECT</message>
+	    <message select="$object"/>
+	    <message>BLANK</message>
+	    <message select="$blank"/>
+	</if>
+
 	<if test="$parent/@rel">
 	    <call-template name="krextor:add-uri-property">
 		<with-param name="property" select="krextor:curies-to-uris($parent/@rel)"/>

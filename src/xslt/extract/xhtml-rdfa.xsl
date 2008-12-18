@@ -107,8 +107,10 @@
 	<param name="tunneled-property" as="xs:string*" tunnel="yes"/>
 	<param name="tunneled-inverse" tunnel="yes"/>
 
-	<message>ME</message>
-	<message select="."/>
+	<if test="$debug">
+	    <message>ME</message>
+	    <message select="."/>
+	</if>
 
 	<variable name="type" select="krextor:curies-to-uris(., @typeof)"/>
 	<variable name="process-next" select="
@@ -138,17 +140,19 @@
 	    if (not(exists(@about|@src|@typeof))) then krextor:curies-to-uris(., @rev) else (),
 	    if (exists($tunneled-property) and $tunneled-inverse) then $tunneled-property else ())"/>
 
-	<message>SUBJECT</message>
-	<message select="trace($new-subject, 'subject')"/>
+	<if test="$debug">
+	    <message>SUBJECT</message>
+	    <message select="trace($new-subject, 'subject')"/>
 
-	<message>TYPE</message>
-	<message select="$type"/>
+	    <message>TYPE</message>
+	    <message select="$type"/>
 
-	<message>RELATED VIA</message>
-	<message>PROPERTIES</message>
-	<message select="$related-via-properties"/>
-	<message>INVERSE PROPERTIES</message>
-	<message select="$related-via-inverse-properties"/>
+	    <message>RELATED VIA</message>
+	    <message>PROPERTIES</message>
+	    <message select="$related-via-properties"/>
+	    <message>INVERSE PROPERTIES</message>
+	    <message select="$related-via-inverse-properties"/>
+	</if>
 
 	<variable name="no-subject" select="trace(not(exists($new-subject))
 		and not(@resource|@rel|@rev|@property), 'no subject!')"/>
@@ -156,21 +160,29 @@
 	    or $no-subject
 	    or (@typeof and not($about-given or ((@src or @resource) and not(@rel or @rev))))"/>
 
-	<message>BLANK</message>
-	<message select="$blank"/>
+	<if test="$debug">
+	    <message>BLANK</message>
+	    <message select="$blank"/>
+	</if>
 
 	<choose>
 	    <when test="not(exists($new-subject)) and not(@typeof)">
-		<message>ADDING PROPERTY</message>
-		<message>FOR</message>
-		<message select="."/>
+		<if test="$debug">
+		    <message>ADDING PROPERTY</message>
+		    <message>FOR</message>
+		    <message select="."/>
+		</if>
+
 		<apply-templates select="trace(@property|@rel|@rev, 'prop')"/>
 	    </when>
 	    <when test="$blank">
-		<message>CREATING BNODE</message>
-		<message select="$blank-node-id"/>
-		<message>NEXT</message>
-		<message select="$process-next"/>
+		<if test="$debug">
+		    <message>CREATING BNODE</message>
+		    <message select="$blank-node-id"/>
+		    <message>NEXT</message>
+		    <message select="$process-next"/>
+		</if>
+
 		<call-template name="krextor:create-resource">
 		    <with-param name="this-blank-node-id" select="$blank-node-id"/>
 		    <with-param name="blank-node" select="true()"/>
@@ -184,10 +196,13 @@
 		</call-template>
 	    </when>
 	    <otherwise>
-		<message>CREATING RESOURCE</message>
-		<message select="$new-subject"/>
-		<message>NEXT</message>
-		<message select="$process-next"/>
+		<if test="$debug">
+		    <message>CREATING RESOURCE</message>
+		    <message select="$new-subject"/>
+		    <message>NEXT</message>
+		    <message select="$process-next"/>
+		</if>
+
 		<call-template name="krextor:create-resource">
 		    <with-param name="subject" select="if ($new-subject) then krextor:safe-curie-to-uri(., $new-subject) else ()"/>
 		    <with-param name="blank-node" select="$no-subject"/>
