@@ -48,7 +48,6 @@
     version="2.0">
 
     <import href="util/omdoc.xsl"/>
-    <import href="util/rdfa.xsl"/>
 
     <xd:doc type="stylesheet">
 	<xd:short>Extracts <a href="http://www.w3.org/2004/OWL/">OWL</a> ontologies from <a href="http://www.omdoc.org">OMDoc</a> documents by giving them a special interpretation</xd:short>

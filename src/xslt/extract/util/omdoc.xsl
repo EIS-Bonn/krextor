@@ -24,10 +24,14 @@
 
 <stylesheet xmlns="http://www.w3.org/1999/XSL/Transform" 
     xpath-default-namespace="http://omdoc.org/ns"
+    xmlns:dc="http://purl.org/dc/elements/1.1/"
+    xmlns:cc="http://creativecommons.org/ns#"
     xmlns:xd="http://www.pnp-software.com/XSLTdoc"
     xmlns:krextor="http://kwarc.info/projects/krextor"
     xmlns:f="http://fxsl.sf.net/"
     version="2.0">
+
+    <import href="rdfa.xsl"/>
 
     <xd:doc type="stylesheet">
 	<xd:short>A collection of utility functions for <a href="http://www.omdoc.org">OMDoc</a> support</xd:short>
@@ -35,5 +39,30 @@
 	<xd:copyright>Christoph Lange, 2008</xd:copyright>
 	<xd:svnId>$Id: rdfa.xsl 557 2008-11-26 00:04:50Z clange $</xd:svnId>
     </xd:doc>
+		
+    <xd:doc>Support for legacy hard-coded DC and CC metadata</xd:doc>
+    <template match="metadata/dc:*|metadata/cc:*">
+	    <call-template name="krextor:add-literal-property">
+		    <with-param name="property" select="concat(namespace-uri(), local-name())"/>
+	    </call-template>
+    </template>
 
+    <template match="meta">
+	<apply-templates select="@property"/>
+    </template>
+
+    <template match="link">
+	<apply-templates select="@rel|@rev"/>
+    </template>
+
+    <template match="resource">
+	<variable name="type" select="krextor:curies-to-uris(., @typeof)"/>
+	<variable name="blank-node-id" select="if (@about) then krextor:safe-curie-to-bnode-id(@about) else ()"/>
+	<call-template name="krextor:create-resource">
+	    <with-param name="this-blank-node-id" select="$blank-node-id"/>
+	    <with-param name="blank-node" select="true()"/>
+	    <with-param name="type" select="$type"/>
+            <with-param name="process-next" select="*"/>
+        </call-template>
+    </template>
 </stylesheet>

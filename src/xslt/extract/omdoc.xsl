@@ -44,6 +44,8 @@
     exclude-result-prefixes="omdoc om krextor"
     version="2.0">
 
+    <import href="util/omdoc.xsl"/>
+    
     <!-- TODO think about a two-pass processing of resources that can have both
          document-wise physical children and mathematical/rhetorical logical children -->
 
@@ -224,12 +226,6 @@
 			<with-param name="property" select="'&odo;hasReference'"/>
 		</call-template>
 	</template>
-		
-	<template match="metadata/*">
-		<call-template name="krextor:add-literal-property">
-			<with-param name="property" select="concat(namespace-uri(), local-name())"/>
-		</call-template>
-	</template>
 
 	
 	<template match="theory">	
@@ -277,7 +273,7 @@
 	
     <template match="omtext/@verbalizes">
 		<call-template name="krextor:add-uri-property">
-			<with-param name="list" select="true()"/>
+			<with-param name="object-is-list" select="true()"/>
 			<with-param name="property" select="'&odo;verbalizes'"/>
 		</call-template>
 	</template>
