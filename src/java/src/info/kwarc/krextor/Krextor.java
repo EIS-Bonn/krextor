@@ -42,11 +42,11 @@ public class Krextor {
 	/**
 	 * XSLT namespace URI
 	 */
-	private final static String XMLNS_XSLT = "http://www.w3.org/1999/XSL/Transform";
+	public final static String XMLNS_XSLT = "http://www.w3.org/1999/XSL/Transform";
 	/**
 	 * RXR (Regular XML RDF) namespace URI
 	 */
-	private final static String XMLNS_RXR = "http://ilrt.org/discovery/2004/03/rxr/";
+	public final static String XMLNS_RXR = "http://ilrt.org/discovery/2004/03/rxr/";
 	/**
 	 * XML namespace URI
 	 */
@@ -224,6 +224,7 @@ public class Krextor {
 	 * @return the desired component as a XOM node, or <code>null</code> if
 	 *         there is not exactly one
 	 */
+	/*
 	private Element queryTripleComponent(Node triple, String component) {
 		Nodes nodes = triple.query("rxr:" + component, xPathContext);
 		if (nodes.size() != 1) {
@@ -235,6 +236,7 @@ public class Krextor {
 			return (Element) nodes.get(0);
 		}
 	}
+	*/
 
 	/**
 	 * Extract RDF from an input XML document in a given input format and notify a callback for every RDF triple extracted
@@ -250,26 +252,27 @@ public class Krextor {
 	public void extract(String inputFormat, Document inputDocument,
 			TripleAdder callback) throws KrextorException {
 		try {
+
+			XSLTransform transform = new XSLTransform(getTransformer(inputFormat, "java"));
+			transform.setParameter("triple-adder", callback);
+			/* Nodes nodes = */ transform.transform(inputDocument);
+			
+			/* old code: extract to RXR and then parse RXR 
 			String subject = null;
-			NodeType subjectType = null;
+			String subjectType = null;
 			String predicate = null;
 			String object = null;
-			NodeType objectType = null;
+			String objectType = null;
 			String objectLanguage = null;
 			String objectDatatype = null;
 
-			// TODO figure out how to circumvent RXR and make the XSLT directly
-			// output into the callback
-			// https://trac.kwarc.info/krextor/ticket/11
 			Document document = extract(inputFormat, "rxr", inputDocument);
-
-			System.out.println(document.toXML());
 
 			Nodes triples = document.query("//rxr:triple", xPathContext);
 			for (int i = 0; i < triples.size(); i++) {
 				Node current = triples.get(i);
 
-				/* determine the subject */
+			 	// determine the subject
 				Element n_subject = queryTripleComponent(current, "subject");
 				if (n_subject != null) {
 					if (n_subject.getAttribute("uri") != null) {
@@ -284,7 +287,7 @@ public class Krextor {
 					}
 				}
 
-				/* determine the predicate */
+				// determine the predicate
 				Element n_predicate = queryTripleComponent(current, "predicate");
 				if (n_predicate != null) {
 					if (n_predicate.getAttribute("uri") != null) {
@@ -295,7 +298,7 @@ public class Krextor {
 					}
 				}
 
-				/* determine the object */
+				// determine the object
 				Element n_object = queryTripleComponent(current, "object");
 				if (n_object != null) {
 					if (n_object.getAttribute("uri") != null) {
@@ -337,7 +340,7 @@ public class Krextor {
 					// 
 				}
 			}
-
+			*/
 		} catch (XSLException ex) {
 			throw new KrextorException("An error occurred during RDF extraction, ex");
 		}
