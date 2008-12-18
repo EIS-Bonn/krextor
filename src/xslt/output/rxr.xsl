@@ -46,15 +46,15 @@ http://ilrt.org/discovery/2004/03/rxr/
     <!-- creates one RDF triple -->
     <template name="krextor:output-triple">
 	<!-- value of the subject -->
-	<param name="subject" required="yes"/>
+	<param name="subject"/>
 	<!-- type of the subject: either 'uri' or 'blank' -->
-	<param name="subject-type" select="'uri'"/>
+	<param name="subject-type"/>
 
 	<!-- value of the predicate -->
-	<param name="predicate" required="yes"/>
+	<param name="predicate"/>
 
 	<!-- value of the object -->
-	<param name="object" required="yes"/>
+	<param name="object"/>
 	<!-- type of the object: either 'uri' or 'blank',
 	     or nothing for literal objects -->
 	<param name="object-type"/>
@@ -64,15 +64,9 @@ http://ilrt.org/discovery/2004/03/rxr/
 	<!-- datatype of the (literal) object -->
 	<param name="object-datatype"/>
 
-	<!-- We accept a static base URI (as, e.g., defined by base/@href in XHTML), against which every URL is resolved -->
-	<param name="krextor:base-uri" tunnel="yes"/>
-
 	<rxr:triple>
 	    <rxr:subject>
-		<attribute name="{$subject-type}" select="
-		    if ($subject-type eq 'uri' and $krextor:base-uri)
-		    then resolve-uri($subject, $krextor:base-uri)
-		    else $subject"/>
+		<attribute name="{$subject-type}" select="$subject"/>
 	    </rxr:subject>
 	    <rxr:predicate uri="{$predicate}"/>
 	    <rxr:object>
@@ -81,10 +75,7 @@ http://ilrt.org/discovery/2004/03/rxr/
 		</if>
 		<choose>
 		    <when test="$object-type">
-			<attribute name="{$object-type}" select="
-			    if ($object-type eq 'uri' and $krextor:base-uri)
-			    then resolve-uri($object, $krextor:base-uri)
-			    else $object"/>
+			<attribute name="{$object-type}" select="$object"/>
 		    </when>
 		    <otherwise>
 			<!-- literal object -->

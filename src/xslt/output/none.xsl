@@ -38,15 +38,15 @@ This stylesheet does not create any output.  It is intended for debugging.
     <!-- creates one RDF triple -->
     <xsl:template name="krextor:output-triple">
 	<!-- value of the subject -->
-	<xsl:param name="subject" required="yes"/>
+	<xsl:param name="subject"/>
 	<!-- type of the subject: either 'uri' or 'blank' -->
-	<xsl:param name="subject-type" select="'uri'"/>
+	<xsl:param name="subject-type"/>
 
 	<!-- value of the predicate -->
-	<xsl:param name="predicate" required="yes"/>
+	<xsl:param name="predicate"/>
 
 	<!-- value of the object -->
-	<xsl:param name="object" required="yes"/>
+	<xsl:param name="object"/>
 	<!-- type of the object: either 'uri' or 'blank',
 	     or nothing for literal objects -->
 	<xsl:param name="object-type"/>

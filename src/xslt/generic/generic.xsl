@@ -212,6 +212,56 @@
 	    else ()"/>
     </function>
 
+    <xd:doc>Calls the output module template that outputs one RDF triple; URIs
+	are resolved against the base URI before, if there is a base
+	URI.</xd:doc>
+    <template name="krextor:output-triple-impl">
+	<!-- value of the subject -->
+	<param name="subject" required="yes"/>
+	<!-- type of the subject: either 'uri' or 'blank' -->
+	<param name="subject-type" select="'uri'"/>
+
+	<!-- value of the predicate -->
+	<param name="predicate" required="yes"/>
+
+	<!-- value of the object -->
+	<param name="object" required="yes"/>
+	<!-- type of the object: either 'uri' or 'blank',
+	     or nothing for literal objects -->
+	<param name="object-type"/>
+	<!-- language annotation is only supported on the object,
+	     but neither on triples nor on graphs, as in RXR -->
+	<param name="object-language"/>
+	<!-- datatype of the (literal) object -->
+	<param name="object-datatype"/>
+
+	<!-- We accept a static base URI (as, e.g., defined by base/@href in XHTML), against which every URL is resolved -->
+	<param name="krextor:base-uri" tunnel="yes"/>
+
+	<!-- Some sanity checks -->
+	<if test="not($subject-type = ('uri', 'blank'))">
+	    <message terminate="yes" select="concat('Invalid subject type: ', $subject-type)"/>
+	</if>
+	<if test="not($object-type = ('uri', 'blank', ''))">
+	    <message terminate="yes" select="concat('Invalid object type: ', $subject-type)"/>
+	</if>
+
+	<!-- Call the output module -->
+	<call-template name="krextor:output-triple">
+	    <with-param name="subject" select="if ($subject-type eq 'uri' and $krextor:base-uri)
+		then resolve-uri($subject, $krextor:base-uri)
+		else $subject"/>
+	    <with-param name="subject-type" select="$subject-type"/>
+	    <with-param name="predicate" select="$predicate"/>
+	    <with-param name="object" select="if ($object-type eq 'uri' and $krextor:base-uri)
+		then resolve-uri($object, $krextor:base-uri)
+		else $object"/>
+	    <with-param name="object-type" select="$object-type"/>
+	    <with-param name="object-language" select="$object-language"/>
+	    <with-param name="object-datatype" select="$object-datatype"/>
+	</call-template>
+    </template>
+
     <xd:doc>Relates the current resource to its parent via some properties or their inverses</xd:doc>
     <template name="krextor:related-via-properties">
 	<!-- The list of properties -->
@@ -334,7 +384,7 @@
 
 	    <!-- Create the triple(s) that instantiates this resource -->
 	    <for-each select="$type">
-		<call-template name="krextor:output-triple">
+		<call-template name="krextor:output-triple-impl">
 		    <with-param name="subject" select="$subject"/>
 		    <with-param name="subject-type" select="$subject-type"/>
 		    <with-param name="predicate" select="'&rdf;type'"/>
@@ -350,7 +400,7 @@
 			else if (text()) then text()
 			else ''"/>
 		    <if test="$object">
-			<call-template name="krextor:output-triple">
+			<call-template name="krextor:output-triple-impl">
 			    <with-param name="subject" select="$subject"/>
 			    <with-param name="subject-type" select="$subject-type"/>
 			    <with-param name="predicate" select="@uri"/>
@@ -448,7 +498,7 @@
 	    </when>
 	    <otherwise>
 		<for-each select="$actual-property">
-		    <call-template name="krextor:output-triple">
+		    <call-template name="krextor:output-triple-impl">
 			<with-param name="subject" select="if ($blank-node-id) then $blank-node-id
 			    else $subject-uri"/>
 			<with-param name="subject-type" select="if ($blank-node-id) then 'blank'
@@ -541,7 +591,7 @@
 		    <choose>
 			<when test="$actual-inverse">
 			    <for-each select="$actual-property">
-				<call-template name="krextor:output-triple">
+				<call-template name="krextor:output-triple-impl">
 				    <with-param name="subject" select="$actual-object"/>
 				    <with-param name="subject-type" select="if ($blank) then 'blank' else 'uri'"/>
 				    <with-param name="predicate" select="."/>
@@ -554,7 +604,7 @@
 			</when>
 			<otherwise>
 			    <for-each select="$actual-property">
-				<call-template name="krextor:output-triple">
+				<call-template name="krextor:output-triple-impl">
 				    <with-param name="subject" select="if ($blank-node-id) then $blank-node-id
 					else $subject-uri"/>
 				    <with-param name="subject-type" select="if ($blank-node-id) then 'blank'

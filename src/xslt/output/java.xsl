@@ -45,15 +45,13 @@
 
     <xd:doc>Calls the Java callback for one triple</xd:doc>
     <template name="krextor:output-triple">
-	<param name="subject" required="yes"/>
-	<param name="subject-type" select="'uri'"/>
-	<param name="predicate" required="yes"/>
-	<param name="object" required="yes"/>
+	<param name="subject"/>
+	<param name="subject-type"/>
+	<param name="predicate"/>
+	<param name="object"/>
 	<param name="object-type"/>
 	<param name="object-language"/>
 	<param name="object-datatype"/>
-
-	<param name="krextor:base-uri" tunnel="yes"/>
 
 	<variable name="object">
 	    <choose>
