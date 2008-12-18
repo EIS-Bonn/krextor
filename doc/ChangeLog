@@ -1,3 +1,12 @@
+2008-12-18 Krextor 0.3
+    * input formats: XHTML+RDFa, OMDoc interpreted as OWL, lots of OpenMath
+      improvements
+    * output modules: Turtle
+    * shorthand syntax for defining simple extraction rules
+    * Shell script frontend
+    * API: Java wrapper
+    * XSLTs mostly documented using XSLTdoc
+
 2008-07-10 Krextor 0.2
     * support for blank nodes, inverse properties, multilingual literals,
       datatypes; more flexible processing order
