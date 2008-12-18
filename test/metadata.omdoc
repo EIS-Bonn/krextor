@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<omdoc xml:id="metadata"
+xmlns="http://omdoc.org/ns"
+xmlns:om="http://www.openmath.org/OpenMath"
+xmlns:dc="http://purl.org/dc/elements/1.1/"
+xmlns:rev="http://omdoc.org/ontology/revision#"
+xmlns:chg="http://omdoc.org/ontology/change#"
+xmlns:cc="http://creativecommons.org/ns#"
+xmlns:marcrel="http://www.loc.gov/loc.terms/relators/"
+xmlns:event="http://purl.org/NET/c4dm/event.owl#"
+version="1.6">
+  <metadata>
+    <meta property="dc:title">Proof of Fermats Last Theorem</meta>
+    <link rel="dc:creator" href="http://dbpedia.org/page/Pierre_de_Fermat"/>
+    <link rel="marcrel:AUT" href="http://math.princeton.edu/~awiles/foaf.rdf#me"/>
+    <link rel="marcrel:EDT" href="http://kwarc.info/kohlhase/foaf.rdf#me"/>
+    <link rel="rev:created_by_act" resource="[_:creation]"/>
+    <link rel="rev:current_version" resource="[_:current]"/>
+    <link rel="rev:has_version">
+      <resource about="_:v1" typeof="rev:Revision">
+        <link rel="rev:content" href="fermats-last-theorem?rev=1"/>
+        <link rel="rev:created_by_act">
+          <resource about="_:creation" typeof="chg:Creation">
+            <link rel="event:agent" href="http://dbpedia.org/page/Pierre_de_Fermat"/>
+            <dc:date>1637-06-13T00:00:00</dc:date>
+          </resource>
+        </link>
+      </resource>
+    </link>
+    <!-- revision 2 (Wiles's proof) left out to save space -->
+    <link rel="rev:has_version">
+      <resource about="_:current" typeof="rev:Revision">
+        <link rel="rev:content" href="fermats-last-theorem?rev=3"/>
+        <link rel="rev:created_by_act">
+          <resource typeof="chg:Import">
+            <link rel="event:agent" href="http://kwarc.info/kohlhase/foaf.rdf#me"/>
+            <dc:date>2006-08-28T00:00:00</dc:date>
+            <link rel="rev:prior_version" resource="[_:v2]"/>
+          </resource>
+        </link>
+      </resource>
+    </link>
+    <link rel="cc:license">
+      <!-- Anonymous resource (bnode) -->
+      <meta property="cc:jurisdiction" content="de"/>
+      <link rel="cc:permits">
+        <resource about="cc:Reproduction"/>
+        <resource about="cc:Distribution"/>
+      </link>
+      <!-- left out cc:requires -->
+    </link>
+  </metadata>
+</omdoc>
