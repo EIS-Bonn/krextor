@@ -30,9 +30,10 @@
     <File href="extract/omdoc.xsl"/>
     <File href="extract/xhtml-rdfa.xsl"/>
     <File href="generic/generic.xsl"/>
+    <File href="output/java.xsl"/>
     <File href="output/none.xsl"/>
-    <File href="output/turtle.xsl"/>
     <File href="output/rxr.xsl"/>
+    <File href="output/turtle.xsl"/>
     <File href="transform-ocd-rxr.xsl"/>
     <File href="transform-omdoc-rxr.xsl"/>
   </RootStylesheets>
