@@ -33,7 +33,7 @@
     xmlns:krextor="http://kwarc.info/projects/krextor"
     version="2.0">
     <xd:doc type="stylesheet">
-	<xd:short>A collection of templates and utility functions for generic <a href="http://www.w3.org/TR/rdfa-primer/">RDFa</a> support, independently of the host language</xd:short>
+	A collection of templates and utility functions for generic <a href="http://www.w3.org/TR/rdfa-primer/">RDFa</a> support, independently of the host language
 	<xd:author>Christoph Lange</xd:author>
 	<xd:copyright>Christoph Lange, 2008</xd:copyright>
 	<xd:svnId>$Id$</xd:svnId>

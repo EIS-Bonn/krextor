@@ -26,14 +26,6 @@
     <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#">
 ]>
 
-<!--
-This stylesheet provides low-level triple-creation functions and templates for
-an RDF/RXR extraction from XML languages.
-
-Specification of RXR:
-http://www.idealliance.org/papers/dx_xmle04/papers/03-08-03/03-08-03.html
-http://ilrt.org/discovery/2004/03/rxr/
--->
 <stylesheet xmlns="http://www.w3.org/1999/XSL/Transform" 
     xmlns:rxr="http://ilrt.org/discovery/2004/03/rxr/"
     xmlns:krextor="http://kwarc.info/projects/krextor"
@@ -41,9 +33,22 @@ http://ilrt.org/discovery/2004/03/rxr/
     version="2.0">
     <import href="../generic/generic.xsl"/>
 
+    <xd:doc type="stylesheet">
+	<xd:short>Output module for RDF/RXR</xd:short>
+	<xd:detail>This is an output module for the RDF notation RXR (Regular XML RDF).  References:
+	    <ul>
+		<li><a href="http://www.idealliance.org/papers/dx_xmle04/papers/03-08-03/03-08-03.html">David Beckett: Modernising Semantic Web Markup</a></li>
+		<li><a href="http://ilrt.org/discovery/2004/03/rxr/">XML schemas for RXR</a></li>
+	    </ul>
+	</xd:detail>
+	<xd:author>Christoph Lange</xd:author>
+	<xd:copyright>Christoph Lange, 2008</xd:copyright>
+	<xd:svnId>$Id$</xd:svnId>
+    </xd:doc>
+
     <output method="xml" encoding="UTF-8" indent="yes" omit-xml-declaration="no"/>
 
-    <!-- creates one RDF triple -->
+    <xd:doc>creates one RDF triple</xd:doc>
     <template name="krextor:output-triple">
 	<!-- value of the subject -->
 	<param name="subject"/>

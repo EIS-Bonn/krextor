@@ -22,21 +22,23 @@
     * 
 -->
 
-<!--
-	This stylesheet contains some shared utility functions for OpenMath
-	symbols.
--->
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" 
     xmlns:om="http://www.openmath.org/OpenMath"
-    exclude-result-prefixes="om"
+    xmlns:xd="http://www.pnp-software.com/XSLTdoc"
+    exclude-result-prefixes="#all"
     version="2.0">
+    <xd:doc type="stylesheet">A collection of utility functions for <a href="http://www.openmath.org">OpenMath</a> symbols
+	<xd:author>Christoph Lange</xd:author>
+	<xd:copyright>Christoph Lange, 2008</xd:copyright>
+	<xd:svnId>$Id$</xd:svnId>
+    </xd:doc>
 
     <xsl:function name="om:cdbase-or-default">
 	<xsl:param name="cdbase"/>
 	<xsl:sequence select="if ($cdbase) then $cdbase else 'http://www.openmath.org/cd'"/>
     </xsl:function>
 
-    <!-- Canonical URI for a symbol (OpenMath 2.0 standard, section 2.3) -->
+    <xd:doc>Canonical URI for a symbol (OpenMath 2.0 standard, section 2.3)</xd:doc>
     <xsl:function name="om:symbol-uri">
 	<xsl:param name="cdbase"/>
 	<xsl:param name="cd"/>

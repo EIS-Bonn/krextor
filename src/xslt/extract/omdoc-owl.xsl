@@ -30,9 +30,6 @@
     <!ENTITY odo  "http://www.omdoc.org/ontology#">
 ]>
 
-<!--
-	This stylesheet extracts OWL and RDFS ontologies from OMDoc documents.
--->
 <stylesheet
     xpath-default-namespace="http://omdoc.org/ns"
     xmlns:krextor="http://kwarc.info/projects/krextor"
@@ -50,7 +47,7 @@
     <import href="util/omdoc.xsl"/>
 
     <xd:doc type="stylesheet">
-	<xd:short>Extracts <a href="http://www.w3.org/2004/OWL/">OWL</a> ontologies from <a href="http://www.omdoc.org">OMDoc</a> documents by giving them a special interpretation</xd:short>
+	Extracts <a href="http://www.w3.org/2004/OWL/">OWL</a> ontologies from <a href="http://www.omdoc.org">OMDoc</a> documents by giving them a special interpretation
 	<xd:author>Christoph Lange</xd:author>
 	<xd:copyright>Christoph Lange, 2008</xd:copyright>
 	<xd:svnId>$Id$</xd:svnId>
@@ -60,7 +57,6 @@
 
     <param name="debug" select="true()"/>
 
-    <xd:doc type="string*">TODO</xd:doc>
     <param name="autogenerate-fragment-uris" select="()"/>
 
     <function name="krextor:ontology-uri" as="xs:string?">
@@ -101,7 +97,6 @@
 
     <xd:doc type="element*">A sequence of mappings of CDs representing semantic web ontologies to their corresponding namespaces</xd:doc>
     <variable name="ontology-namespaces">
-	<!-- TODO collect odo:semWebBase of all imported theories (cf. exincl.xsl: $tree, make-catalogue) -->
 	<!-- TODO do this on the ref-normal form of the document (cf. $all in exincl.xsl -->
 	<for-each select="/descendant::theory">
 	    <!-- We collect the set of distinct symbols in this theory, not regarding nested theories -->
@@ -312,6 +307,9 @@
 	    else krextor:mmt-uri('MMT-FIXME', concat($sym/@cd, '?', $sym/@name))"/>
     </function>
 
+    <xd:doc>Returns a semantic web URI for the given symbol, if the parameter is a symbol, otherwise the empty sequence.
+	<xd:param name="sym">a symbol that is expected to have <code>@cd</code> and <code>@name</code> attributes (as in OpenMath)</xd:param>
+    </xd:doc>
     <function name="krextor:ontology-uri-or-blank">
 	<param name="sym"/>
 	<value-of select="if ($sym/self::om:OMS)
@@ -345,6 +343,7 @@
 	</call-template>
     </template>
 
+    <xd:doc>Initiates the creation of a class definition</xd:doc>
     <template match="definition[@type eq 'simple']">
 	<variable name="symbol" select="document(@for)"/>
 	<if test="$symbol">
@@ -357,6 +356,8 @@
 	</if>
     </template>
 
+    <xd:doc>Completes a class definition (via <i>owl:equivalentClass</i>) using
+	the definiens</xd:doc>
     <template match="om:OMOBJ[parent::definition[@type eq 'simple']]">
 	<choose>
 	    <when test="om:*[1][self::om:OMS]">
@@ -375,6 +376,7 @@
 	</choose>
     </template>
 
+    <xd:doc><i>owl:intersectionOf</i> constructor</xd:doc>
     <template match="om:OMA[om:*[1][self::om:OMS[@cd eq 'owl' and @name eq 'intersectionOf']]]">
 	<call-template name="krextor:create-resource">
 	    <with-param name="related-via-properties" select="'&owl;intersectionOf'" tunnel="yes"/>
@@ -383,6 +385,7 @@
 	</call-template>
     </template>
 
+    <xd:doc><i>owl:Restriction</i> constructor</xd:doc>
     <template match="om:OMA[count(om:*) eq 3][om:*[1][self::om:OMS[@cd eq 'owl' and @name eq 'Restriction']]][om:*[2][self::om:OMS]]">
 	<call-template name="krextor:create-resource">
 	    <with-param name="type" select="'&owl;Restriction'"/>
@@ -394,6 +397,7 @@
 	</call-template>
     </template>
 
+    <xd:doc>Sets the cardinality of a property restriction</xd:doc>
     <template match="om:OMA[om:*[1][self::om:OMS[@cd eq 'owl' and @name = ('minCardinality', 'maxCardinality', 'cardinality')]]][om:*[2][self::om:OMI]]">
 	<call-template name="krextor:add-literal-property">
 	    <with-param name="property" select="krextor:ontology-uri(om:*[1])"/>
@@ -402,6 +406,7 @@
 	</call-template>
     </template>
 
+    <xd:doc>Creates a resource from an individual symbol</xd:doc>
     <template match="om:OMS">
 	<call-template name="krextor:create-resource">
 	    <with-param name="subject" select="krextor:ontology-uri(.)"/>

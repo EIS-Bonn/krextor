@@ -28,15 +28,6 @@
     <!ENTITY dc "http://purl.org/dc/elements/1.1/">
 ]>
 
-<!--
-	This stylesheet extracts RDF from OpenMath content dictionaries (CDs).
-	Currently, RDF is only extracted from top-level elements. CDs are assumed
-	to be split into fragments of interest, which are XIncluded by their parents.
-
-	Existing metadata vocabularies are reused, as documented in the ontology.
-
-	See https://svn.openmath.org/OpenMath3/owl for the corresponding ontology.
--->
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" 
     xpath-default-namespace="http://www.openmath.org/OpenMathCD"
     xmlns:krextor="http://kwarc.info/projects/krextor"
@@ -47,15 +38,28 @@
     xmlns:ocdg="http://www.openmath.org/OpenMathCDG"
     xmlns:m="http://www.w3.org/1998/Math/MathML"
     xmlns:mcd="http://www.w3.org/ns/mathml-cd"
+    xmlns:xd="http://www.pnp-software.com/XSLTdoc"
     xmlns:xi="http://www.w3.org/2001/XInclude"
-    exclude-result-prefixes="om cd ocds ocdg mcd krextor m xi"
+    exclude-result-prefixes="#all"
     version="2.0">
+
+    <xd:doc type="stylesheet">
+	<xd:short>Extraction module for <a href="http://www.openmath.org">OpenMath</a> content dictionaries (CDs)</xd:short>
+	<xd:detail>
+	    <p>This stylesheet extracts RDF from <a href="http://www.openmath.org">OpenMath</a> content dictionaries (CDs).  Currently, RDF is only extracted from top-level elements. CDs are assumed to be split into fragments of interest, which are XIncluded by their parents.  This corresponds to the way OpenMath CDs are used in the semantic wiki <a href="http://kwarc.info/projects/swim/">SWiM</a>.</p>
+	    <p>Existing metadata vocabularies are reused, as documented in the ontology.</p>
+	    <p>See <a href="https://svn.openmath.org/OpenMath3/owl">https://svn.openmath.org/OpenMath3/owl</a> for the corresponding ontology.</p>
+	</xd:detail>
+	<xd:author>Christoph Lange</xd:author>
+	<xd:copyright>Christoph Lange, 2008</xd:copyright>
+	<xd:svnId>$Id$</xd:svnId>
+    </xd:doc>
 
     <xsl:include href="util/openmath.xsl"/>
 
     <xsl:strip-space elements="*"/>
     
-    <!-- Easy XML -> RDF mappings -->
+    <xd:doc>Easy XML -> RDF mappings</xd:doc>
     <xsl:variable name="krextor:resources">
 	<CD type="&omo;ContentDictionary"/>
 	<CDDefinition type="&omo;SymbolDefinition"
@@ -163,8 +167,6 @@
 	</xsl:call-template>
     </xsl:template>    
 
-    <!-- This is for OpenMath 2 backwards compatibility.  In OpenMath 3, this
-         will be a child of property. -->
     <xsl:template match="FMP">
 	<xsl:call-template name="krextor:create-resource">
 	    <!-- This is for OpenMath 2 backwards compatibility.  In OpenMath 3, this
@@ -203,10 +205,7 @@
 	</xsl:call-template>
     </xsl:template>
 
-    <!--
-    Determine the symbol that a prototype matches.  Returns a dummy element
-    with @cdbase, @cd, and @name attributes.
-    -->
+    <xd:doc>Determine the symbol that a prototype matches.  Returns a dummy element with @cdbase, @cd, and @name attributes.</xd:doc>
     <xsl:function name="krextor:matched-symbol">
 	<!-- the mcd:prototype element -->
 	<xsl:param name="prototype"/>
@@ -291,8 +290,7 @@
 	</xsl:call-template>
     </xsl:template>
 
-    <!-- This is for OpenMath 2 backwards compatibility.  In OpenMath 3, this
-         will be a child of property. -->
+    <xd:doc>This is for OpenMath 2 backwards compatibility.  In OpenMath 3, this will be a child of property.</xd:doc>
     <xsl:template match="CMP" mode="krextor:included">
 	<!-- FIXME remove when OpenMath 3 is stable, as then we'll always
 	have CMPs and FMPs inside properties, no longer ones that are
@@ -303,8 +301,7 @@
 	</xsl:call-template>
     </xsl:template>
 
-    <!-- This is for OpenMath 2 backwards compatibility.  In OpenMath 3, this
-         will be a child of property. -->
+    <xd:doc>This is for OpenMath 2 backwards compatibility.  In OpenMath 3, this will be a child of property.</xd:doc>
     <xsl:template match="FMP" mode="krextor:included">
 	<!-- FIXME remove when OpenMath 3 is stable, as then we'll always
 	have CMPs and FMPs inside properties, no longer ones that are

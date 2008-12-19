@@ -36,7 +36,11 @@
     <import href="../extract/util/openmath/verb.xsl"/>
     <import href="../generic/generic.xsl"/>
 
-    <xd:doc type="stylesheet">This stylesheet does not output anything but calls back a Java method that processes every triple.</xd:doc>
+    <xd:doc type="stylesheet">This stylesheet does not output anything but calls back a Java method that processes every triple.
+	<xd:author>Christoph Lange</xd:author>
+	<xd:copyright>Christoph Lange, 2008</xd:copyright>
+	<xd:svnId>$Id$</xd:svnId>
+    </xd:doc>
 
     <xd:doc>The callback object</xd:doc>
     <param name="triple-adder" required="yes" as="jt:info.kwarc.krextor.TripleAdder"/>

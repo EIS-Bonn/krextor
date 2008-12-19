@@ -33,8 +33,7 @@
 
     <import href="rdfa.xsl"/>
 
-    <xd:doc type="stylesheet">
-	<xd:short>A collection of utility functions for <a href="http://www.omdoc.org">OMDoc</a> support</xd:short>
+    <xd:doc type="stylesheet">A collection of utility functions for <a href="http://www.omdoc.org">OMDoc</a> support
 	<xd:author>Christoph Lange</xd:author>
 	<xd:copyright>Christoph Lange, 2008</xd:copyright>
 	<xd:svnId>$Id: rdfa.xsl 557 2008-11-26 00:04:50Z clange $</xd:svnId>

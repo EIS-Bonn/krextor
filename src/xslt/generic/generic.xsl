@@ -34,7 +34,7 @@
     xmlns:xs="http://www.w3.org/2001/XMLSchema"
     xmlns:xd="http://www.pnp-software.com/XSLTdoc"
     xmlns:f="http://fxsl.sf.net/"
-    exclude-result-prefixes="krextor xi xs f xd krextor-genuri"
+    exclude-result-prefixes="#all"
     version="2.0">
 
     <import href="util.xsl"/>
@@ -42,6 +42,9 @@
     <xd:doc type="stylesheet">
 	<xd:short>Convenience functions and templates for extracting RDF from XML languages, independent both from the XML input language and from the RDF output notation</xd:short>
 	<xd:detail><p>This stylesheet provides convenience functions and templates for an RDF extraction from XML languages.  It is independent of any RDF output notation.</p></xd:detail>
+	<xd:author>Christoph Lange</xd:author>
+	<xd:copyright>Christoph Lange, 2008</xd:copyright>
+	<xd:svnId>$Id$</xd:svnId>
     </xd:doc>
 
     <xd:doc>Enable debug output?</xd:doc>
@@ -440,7 +443,7 @@
 	<krextor:dummy-node/>
     </variable>
 
-    <!-- we hope that this slightly speeds up search -->
+    <xd:doc>we hope that this slightly speeds up search</xd:doc>
     <key name="krextor:resources" match="*" use="resolve-QName(name(), .)"/>
 
     <xd:doc>Creates a resource from an element for which a mapping to an ontology class has been declared in the variable <code>krextor:resources</code>.</xd:doc>
@@ -514,7 +517,7 @@
 	</choose>
     </template>    
 
-    <!-- we hope that this slightly speeds up search -->
+    <xd:doc>we hope that this slightly speeds up search</xd:doc>
     <key name="krextor:literal-properties" match="*" use="resolve-QName(name(), .)"/>
 
     <xd:doc>Creates a literal property from a child element or attribute for which a mapping to an ontology property has been declared in the variable <code>krextor:literal-properties</code>.</xd:doc>
@@ -669,11 +672,13 @@
 	</choose>
     </template>
 
-    <!-- We support the following generic inclusion mechanism for XML documents:
-    A root element R of a transcluded documents will be treated like a direct child of the parent element P of the xi:include element.  If there is a relevant relationship between P and R, an according triple is generated, with the transcluded document's URI (not the URI of R!) being the object.  The transcluded document is loaded and its root node examined in order to find this out.  Any relationships between elements of the transcluding document and the transcluded document that are not direct relationships between P and R are not considered during RDF extraction.
-
-    Note: We're using XInclude because the semantics of <element xlink:type="simple" xlink:show="embed" xlink:href="some-XML-resource"/> is not yet clearly defined in the XLink specification.  Should the root element of the document pointed to replace the pointing element, or should it be transcluded into the pointing element as a child?
-    -->
+    <xd:doc>
+	<xd:short>Follows an XInclude (generally supported by Krextor)</xd:short>
+	<xd:detail>
+	    <p>Krextor supports the following generic inclusion mechanism for XML documents: A root element R of a transcluded documents will be treated like a direct child of the parent element P of the xi:include element.  If there is a relevant relationship between P and R, an according triple is generated, with the transcluded document's URI (not the URI of R!) being the object.  The transcluded document is loaded and its root node examined in order to find this out.  Any relationships between elements of the transcluding document and the transcluded document that are not direct relationships between P and R are not considered during RDF extraction.</p>
+	    <p>Note: We're using XInclude because the semantics of <![CDATA[<element xlink:type="simple" xlink:show="embed" xlink:href="some-XML-resource"/>]]> is not yet clearly defined in the XLink specification.  Should the root element of the document pointed to replace the pointing element, or should it be transcluded into the pointing element as a child?</p>
+	</xd:detail>
+    </xd:doc>
     <template match="xi:include">
 	<if test="$traverse-xincludes">
 	    <apply-templates select="document(@href, .)" mode="krextor:included">

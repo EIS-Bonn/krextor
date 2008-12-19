@@ -22,20 +22,24 @@
     * 
 -->
 
-<!--
-This stylesheet does not create any output.  It is intended for debugging.
--->
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" 
     xmlns:rxr="http://ilrt.org/discovery/2004/03/rxr/"
     xmlns:krextor="http://kwarc.info/projects/krextor"
-    exclude-result-prefixes="krextor"
+    xmlns:xd="http://www.pnp-software.com/XSLTdoc"
+    exclude-result-prefixes="krextor xd"
     version="2.0">
     <xsl:import href="../generic/generic.xsl"/>
+
+    <xd:doc type="stylesheet">This stylesheet does not create any output.  It is intended for debugging.
+	<xd:author>Christoph Lange</xd:author>
+	<xd:copyright>Christoph Lange, 2008</xd:copyright>
+	<xd:svnId>$Id$</xd:svnId>
+    </xd:doc>
 
     <!-- Note that xml output is possible, too. -->
     <xsl:output method="text" encoding="UTF-8"/>
 
-    <!-- creates one RDF triple -->
+    <xd:doc>creates one RDF triple</xd:doc>
     <xsl:template name="krextor:output-triple">
 	<!-- value of the subject -->
 	<xsl:param name="subject"/>

@@ -26,9 +26,6 @@
     <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#">
 ]>
 
-<!--
-    This stylesheet extracts RDF from XHTML documents annotated with RDFa.
--->
 <stylesheet xmlns="http://www.w3.org/1999/XSL/Transform" 
     xpath-default-namespace="http://www.w3.org/1999/xhtml"
     xmlns:krextor="http://kwarc.info/projects/krextor"
@@ -39,7 +36,7 @@
     <import href="util/rdfa.xsl"/>
 
     <xd:doc type="stylesheet">
-	<xd:short>Extraction module for <a href="http://www.w3.org/TR/rdfa-primer/">XHTML+RDFa</a>, a language that allows for embedding RDF into XHTML</xd:short>
+	Extraction module for <a href="http://www.w3.org/TR/rdfa-primer/">XHTML+RDFa</a>, a language that allows for embedding RDF into XHTML
 	<xd:author>Christoph Lange</xd:author>
 	<xd:copyright>Christoph Lange, 2008</xd:copyright>
 	<xd:svnId>$Id$</xd:svnId>

@@ -22,24 +22,27 @@
     * 
 -->
 
-<!--
-This stylesheet provides low-level triple-creation functions and templates for
-a Turtle extraction from XML languages.
-
-Specification of Turtle:
-http://www.dajobe.org/2004/01/turtle/
--->
 <stylesheet xmlns="http://www.w3.org/1999/XSL/Transform" 
     xmlns:rxr="http://ilrt.org/discovery/2004/03/rxr/"
     xmlns:krextor="http://kwarc.info/projects/krextor"
     xmlns:xs="http://www.w3.org/2001/XMLSchema"
-    exclude-result-prefixes="krextor"
+    exclude-result-prefixes="#all"
     version="2.0">
     <import href="../generic/generic.xsl"/>
-
-    <!-- We obtain the RDF graph as RXR and then regroup the triples
-         by subject and predicate -->
     <import href="rxr.xsl"/>
+
+    <xd:doc type="stylesheet">
+	<xd:short>Output module for Turtle</xd:short>
+	<xd:detail>This stylesheet provides low-level triple-creation functions
+	    and templates for a Turtle extraction from XML languages.
+	    <ul>
+		<li><a href="http://www.dajobe.org/2004/01/turtle/">Specification of Turtle</a></li>
+	    </ul>
+	</xd:detail>
+	<xd:author>Christoph Lange</xd:author>
+	<xd:copyright>Christoph Lange, 2008</xd:copyright>
+	<xd:svnId>$Id$</xd:svnId>
+    </xd:doc>
 
     <output method="text" encoding="UTF-8"/>
 
@@ -60,8 +63,10 @@ http://www.dajobe.org/2004/01/turtle/
 	</choose>
     </function>
 
-    <!-- Consider outputting some @prefixes -->
+    <xd:doc>We obtain the RDF graph as RXR and then regroup the triples
+	by subject and predicate</xd:doc>
     <template match="/">
+	<!-- TODO Consider outputting some @prefixes -->
 	<variable name="rxr">
 	    <apply-imports/>
 	</variable>
