@@ -27,9 +27,10 @@
 ]>
 
 <stylesheet xmlns="http://www.w3.org/1999/XSL/Transform" 
+    xmlns:xd="http://www.pnp-software.com/XSLTdoc"
     xmlns:rxr="http://ilrt.org/discovery/2004/03/rxr/"
     xmlns:krextor="http://kwarc.info/projects/krextor"
-    exclude-result-prefixes="krextor"
+    exclude-result-prefixes="krextor xd"
     version="2.0">
     <import href="../generic/generic.xsl"/>
 
