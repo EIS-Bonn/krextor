@@ -24,6 +24,7 @@
 
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" 
     xmlns:om="http://www.openmath.org/OpenMath"
+    xmlns:m="http://www.w3.org/1998/Math/MathML"
     xmlns:xd="http://www.pnp-software.com/XSLTdoc"
     exclude-result-prefixes="#all"
     version="2.0">
@@ -32,6 +33,25 @@
 	<xd:copyright>Christoph Lange, 2008</xd:copyright>
 	<xd:svnId>$Id$</xd:svnId>
     </xd:doc>
+
+    <xd:doc>Determine the symbol that a prototype matches.  Returns a dummy element with @cdbase, @cd, and @name attributes.</xd:doc>
+    <xsl:function name="om:matched-symbol">
+    <!-- the mcd:prototype element -->
+    <xsl:param name="prototype"/>
+    <xsl:variable name="symbol" select="$prototype/(
+        (: FIXME is this correct, or too simple? :)
+        descendant::om:OMS
+        (: TODO make OpenMath and MathML handling completely equivalent :)
+        |descendant::m:csymbol|m:semantics/m:annotation-xml)[1]"/>
+    <om:_>
+        <xsl:for-each select="('cdbase', 'cd', 'name')">
+        <xsl:variable name="attribute" select="$symbol/@*[local-name() eq current()]"/>
+        <xsl:if test="$attribute">
+            <xsl:attribute name="{current()}" select="$attribute"/>
+        </xsl:if>
+        </xsl:for-each>
+    </om:_>
+    </xsl:function>
 
     <xsl:function name="om:cdbase-or-default">
 	<xsl:param name="cdbase"/>

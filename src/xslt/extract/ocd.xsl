@@ -205,21 +205,6 @@
 	</xsl:call-template>
     </xsl:template>
 
-    <xd:doc>Determine the symbol that a prototype matches.  Returns a dummy element with @cdbase, @cd, and @name attributes.</xd:doc>
-    <xsl:function name="krextor:matched-symbol">
-	<!-- the mcd:prototype element -->
-	<xsl:param name="prototype"/>
-	<xsl:variable name="symbol" select="$prototype/((.|om:OMA|om:OMBIND|om:OMATTR/om:OMATP)/om:OMS|(.|m:apply|m:bind)/m:csymbol|m:semantics/m:annotation-xml)[1]"/>
-	<krextor:_>
-	    <xsl:for-each select="('cdbase', 'cd', 'name')">
-		<xsl:variable name="attribute" select="$symbol/@*[local-name() eq current()]"/>
-		<xsl:if test="$attribute">
-		    <xsl:attribute name="{current()}" select="$attribute"/>
-		</xsl:if>
-	    </xsl:for-each>
-	</krextor:_>
-    </xsl:function>
-
     <xsl:template match="mcd:notation">
 	<xsl:if test="parent::mcd:notations and not(preceding-sibling::mcd:notation)">
 	    <xsl:apply-templates select="." mode="krextor:link-notation-to-cd"/>
@@ -242,7 +227,7 @@
 	the same cdbase and cd, therefore we look up these targets from the
 	first child.
 	-->
-	<xsl:variable name="symbol" select="krextor:matched-symbol(mcd:prototype[1])"/>
+	<xsl:variable name="symbol" select="om:matched-symbol(mcd:prototype[1])"/>
 	<xsl:call-template name="krextor:add-uri-property">
 	    <!-- implicit subject is the notation dictionary -->
 	    <xsl:with-param name="property" select="'&omo;containsNotationsFor'"/>
@@ -252,7 +237,7 @@
     </xsl:template>
 
     <xsl:template match="mcd:prototype[not(preceding-sibling::mcd:prototype)]">
-	<xsl:variable name="symbol" select="krextor:matched-symbol(.)"/>
+	<xsl:variable name="symbol" select="om:matched-symbol(.)"/>
 	<xsl:call-template name="krextor:add-uri-property">
 	    <!-- the mcd:notation is the subject -->
 	    <xsl:with-param name="property" select="'&omo;rendersSymbol'"/>
