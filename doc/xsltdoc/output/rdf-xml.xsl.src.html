@@ -1,0 +1,148 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html><head><title>XML source view</title><link rel="stylesheet" type="text/css" href="../xmlverbatim.css"/></head><body class="xmlverb-default"><tt>
+<!-- converted by xmlverbatim.xsl 1.1, (c) O. Becker -->
+<div xmlns:xd="http://www.pnp-software.com/XSLTdoc" class="xmlverb-default">&lt;!--<span class="xmlverb-comment"><br/>
+    *  Copyright (C) 2008<br/>
+    *  Christoph Lange<br/>
+    *  Jacobs University Bremen<br/>
+    *<br/>
+    *   Krextor is free software; you can redistribute it and/or<br/>
+    *         modify it under the terms of the GNU Lesser General Public<br/>
+    *         License as published by the Free Software Foundation; either<br/>
+    *         version 2 of the License, or (at your option) any later version.<br/>
+    *<br/>
+    *         This program is distributed in the hope that it will be useful,<br/>
+    *         but WITHOUT ANY WARRANTY; without even the implied warranty of<br/>
+    *         MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU<br/>
+    *         Lesser General Public License for more details.<br/>
+    *<br/>
+    *         You should have received a copy of the GNU Lesser General Public<br/>
+    *         License along with this library; if not, write to the<br/>
+    *         Free Software Foundation, Inc., 59 Temple Place - Suite 330,<br/>
+    *         Boston, MA 02111-1307, USA.<br/>
+    * <br/>
+</span>--&gt;<br/>
+&lt;<span class="xmlverb-element-name"><a name="d88e2">stylesheet</a></span><span class="xmlverb-ns-name"> xmlns:rxr</span>="<span class="xmlverb-ns-uri">http://ilrt.org/discovery/2004/03/rxr/</span>"<span class="xmlverb-ns-name"> xmlns</span>="<span class="xmlverb-ns-uri">http://www.w3.org/1999/XSL/Transform</span>"<span class="xmlverb-ns-name"> xmlns:rdf</span>="<span class="xmlverb-ns-uri">http://www.w3.org/1999/02/22-rdf-syntax-ns#</span>"<span class="xmlverb-ns-name"> xmlns:xs</span>="<span class="xmlverb-ns-uri">http://www.w3.org/2001/XMLSchema</span>"<span class="xmlverb-ns-name"> xmlns:krextor</span>="<span class="xmlverb-ns-uri">http://kwarc.info/projects/krextor</span>"<span class="xmlverb-ns-name"> xmlns:xd</span>="<span class="xmlverb-ns-uri">http://www.pnp-software.com/XSLTdoc</span>" <span class="xmlverb-attr-name">exclude-result-prefixes</span>="<span class="xmlverb-attr-content">#all</span>" <span class="xmlverb-attr-name">version</span>="<span class="xmlverb-attr-content">2.0</span>"&gt;<span class="xmlverb-text"><br/>
+    </span>&lt;<span class="xmlverb-element-name"><a name="d88e4">import</a></span> <span class="xmlverb-attr-name">href</span>="<span class="xmlverb-attr-content">../generic/generic.xsl</span>" /&gt;<span class="xmlverb-text"><br/>
+    </span>&lt;<span class="xmlverb-element-name"><a name="d88e6">import</a></span> <span class="xmlverb-attr-name">href</span>="<span class="xmlverb-attr-content">rxr.xsl</span>" /&gt;<span class="xmlverb-text"><br/>
+<br/>
+    </span><div class="xd">
+    &lt;<span class="xmlverb-element-nsprefix">xd</span>:<span class="xmlverb-element-name"><a name="d88e8">doc</a></span> <span class="xmlverb-attr-name">type</span>="<span class="xmlverb-attr-content">stylesheet</span>"&gt;<span class="xmlverb-text"><br/>
+        </span>&lt;<span class="xmlverb-element-nsprefix">xd</span>:<span class="xmlverb-element-name"><a name="d88e10">short</a></span>&gt;<span class="xmlverb-text">Output module for RDF/XML</span>&lt;/<span class="xmlverb-element-nsprefix">xd</span>:<span class="xmlverb-element-name">short</span>&gt;<span class="xmlverb-text"><br/>
+        </span>&lt;<span class="xmlverb-element-nsprefix">xd</span>:<span class="xmlverb-element-name"><a name="d88e13">detail</a></span>&gt;<span class="xmlverb-text">This stylesheet provides low-level triple-creation functions<br/>
+            and templates for an RDF/XML extraction from XML languages.<br/>
+            </span>&lt;<span class="xmlverb-element-name"><a name="d88e15">ul</a></span>&gt;<span class="xmlverb-text"><br/>
+                </span>&lt;<span class="xmlverb-element-name"><a name="d88e17">li</a></span>&gt;&lt;<span class="xmlverb-element-name"><a name="d88e18">a</a></span> <span class="xmlverb-attr-name">href</span>="<span class="xmlverb-attr-content">http://www.w3.org/TR/2004/REC-rdf-syntax-grammar-20040210/</span>"&gt;<span class="xmlverb-text">Specification of RDF/XML</span>&lt;/<span class="xmlverb-element-name">a</span>&gt;&lt;/<span class="xmlverb-element-name">li</span>&gt;<span class="xmlverb-text"><br/>
+            </span>&lt;/<span class="xmlverb-element-name">ul</span>&gt;<span class="xmlverb-text"><br/>
+        </span>&lt;/<span class="xmlverb-element-nsprefix">xd</span>:<span class="xmlverb-element-name">detail</span>&gt;<span class="xmlverb-text"><br/>
+        </span>&lt;<span class="xmlverb-element-nsprefix">xd</span>:<span class="xmlverb-element-name"><a name="d88e23">author</a></span>&gt;<span class="xmlverb-text">Christoph Lange</span>&lt;/<span class="xmlverb-element-nsprefix">xd</span>:<span class="xmlverb-element-name">author</span>&gt;<span class="xmlverb-text"><br/>
+        </span>&lt;<span class="xmlverb-element-nsprefix">xd</span>:<span class="xmlverb-element-name"><a name="d88e26">copyright</a></span>&gt;<span class="xmlverb-text">Christoph Lange, 2009</span>&lt;/<span class="xmlverb-element-nsprefix">xd</span>:<span class="xmlverb-element-name">copyright</span>&gt;<span class="xmlverb-text"><br/>
+        </span>&lt;<span class="xmlverb-element-nsprefix">xd</span>:<span class="xmlverb-element-name"><a name="d88e29">svnId</a></span>&gt;<span class="xmlverb-text">$Id: turtle.xsl 611 2008-12-19 00:18:49Z clange $</span>&lt;/<span class="xmlverb-element-nsprefix">xd</span>:<span class="xmlverb-element-name">svnId</span>&gt;<span class="xmlverb-text"><br/>
+    </span>&lt;/<span class="xmlverb-element-nsprefix">xd</span>:<span class="xmlverb-element-name">doc</span>&gt;</div><span class="xmlverb-text"><br/>
+<br/>
+    </span>&lt;<span class="xmlverb-element-name"><a name="d88e33">output</a></span> <span class="xmlverb-attr-name">method</span>="<span class="xmlverb-attr-content">xml</span>" <span class="xmlverb-attr-name">encoding</span>="<span class="xmlverb-attr-content">UTF-8</span>" <span class="xmlverb-attr-name">indent</span>="<span class="xmlverb-attr-content">yes</span>" <span class="xmlverb-attr-name">omit-xml-declaration</span>="<span class="xmlverb-attr-content">no</span>" /&gt;<span class="xmlverb-text"><br/>
+<br/>
+    </span>&lt;<span class="xmlverb-element-name"><a name="d88e35">function</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">krextor:rdf-xml-grouping-key</span>" <span class="xmlverb-attr-name">as</span>="<span class="xmlverb-attr-content">xs:string*</span>"&gt;<span class="xmlverb-text"><br/>
+        </span>&lt;<span class="xmlverb-element-name"><a name="d88e37">param</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">attribute</span>" /&gt;<span class="xmlverb-text"><br/>
+        </span>&lt;<span class="xmlverb-element-name"><a name="d88e39">sequence</a></span> <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">local-name($attribute)</span>" /&gt;<span class="xmlverb-text"><br/>
+        </span>&lt;<span class="xmlverb-element-name"><a name="d88e41">sequence</a></span> <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">$attribute</span>" /&gt;<span class="xmlverb-text"><br/>
+    </span>&lt;/<span class="xmlverb-element-name">function</span>&gt;<span class="xmlverb-text"><br/>
+<br/>
+    </span><div class="xd">
+    &lt;<span class="xmlverb-element-nsprefix">xd</span>:<span class="xmlverb-element-name"><a name="d88e45">doc</a></span>&gt;<span class="xmlverb-text">Split a given URI into a sequence of namespace prefix and localname; the substring up to and including the last </span>&lt;<span class="xmlverb-element-name"><a name="d88e47">code</a></span>&gt;<span class="xmlverb-text">#</span>&lt;/<span class="xmlverb-element-name">code</span>&gt;<span class="xmlverb-text"> or </span>&lt;<span class="xmlverb-element-name"><a name="d88e50">code</a></span>&gt;<span class="xmlverb-text">/</span>&lt;/<span class="xmlverb-element-name">code</span>&gt;<span class="xmlverb-text"> is treated as the namespace prefix.</span>&lt;/<span class="xmlverb-element-nsprefix">xd</span>:<span class="xmlverb-element-name">doc</span>&gt;</div><span class="xmlverb-text"><br/>
+    </span>&lt;<span class="xmlverb-element-name"><a name="d88e54">function</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">krextor:split-prefix-localname</span>"&gt;<span class="xmlverb-text"><br/>
+        </span>&lt;<span class="xmlverb-element-name"><a name="d88e56">param</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">uri</span>" /&gt;<span class="xmlverb-text"><br/>
+        </span>&lt;<span class="xmlverb-element-name"><a name="d88e58">analyze-string</a></span> <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">$uri</span>" <span class="xmlverb-attr-name">regex</span>="<span class="xmlverb-attr-content">^(.*[/#])([^/#]*)$</span>"&gt;<span class="xmlverb-text"><br/>
+            </span>&lt;<span class="xmlverb-element-name"><a name="d88e60">matching-substring</a></span>&gt;<span class="xmlverb-text"><br/>
+                </span>&lt;<span class="xmlverb-element-name"><a name="d88e62">sequence</a></span> <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">regex-group(1), regex-group(2)</span>" /&gt;<span class="xmlverb-text"><br/>
+            </span>&lt;/<span class="xmlverb-element-name">matching-substring</span>&gt;<span class="xmlverb-text"><br/>
+            </span>&lt;<span class="xmlverb-element-name"><a name="d88e65">non-matching-substring</a></span>&gt;<span class="xmlverb-text"><br/>
+                </span>&lt;<span class="xmlverb-element-name"><a name="d88e67">sequence</a></span> <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">'', $uri</span>" /&gt;<span class="xmlverb-text"><br/>
+            </span>&lt;/<span class="xmlverb-element-name">non-matching-substring</span>&gt;<span class="xmlverb-text"><br/>
+        </span>&lt;/<span class="xmlverb-element-name">analyze-string</span>&gt;<span class="xmlverb-text">        <br/>
+    </span>&lt;/<span class="xmlverb-element-name">function</span>&gt;<span class="xmlverb-text"><br/>
+<br/>
+    </span><div class="xd">
+    &lt;<span class="xmlverb-element-nsprefix">xd</span>:<span class="xmlverb-element-name"><a name="d88e72">doc</a></span>&gt;<span class="xmlverb-text">Process a single triple, but only output predicate and object.  We assume that the enclosing </span>&lt;<span class="xmlverb-element-name"><a name="d88e74">code</a></span>&gt;<span class="xmlverb-text">rdf:Description</span>&lt;/<span class="xmlverb-element-name">code</span>&gt;<span class="xmlverb-text"> for the subject has already been created, for this triple and all other triples with the same subject.<br/>
+        </span>&lt;<span class="xmlverb-element-nsprefix">xd</span>:<span class="xmlverb-element-name"><a name="d88e77">param</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">namespaces</span>" <span class="xmlverb-attr-name">type</span>="<span class="xmlverb-attr-content">node</span>"&gt;<span class="xmlverb-text">Prefix to namespace URI mappings to respect (XML data structure)</span>&lt;/<span class="xmlverb-element-nsprefix">xd</span>:<span class="xmlverb-element-name">param</span>&gt;<span class="xmlverb-text"><br/>
+    </span>&lt;/<span class="xmlverb-element-nsprefix">xd</span>:<span class="xmlverb-element-name">doc</span>&gt;</div><span class="xmlverb-text"><br/>
+    </span>&lt;<span class="xmlverb-element-name"><a name="d88e81">template</a></span> <span class="xmlverb-attr-name">match</span>="<span class="xmlverb-attr-content">rxr:triple</span>"&gt;<span class="xmlverb-text"><br/>
+        </span>&lt;<span class="xmlverb-element-name"><a name="d88e83">param</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">namespaces</span>" /&gt;<span class="xmlverb-text"><br/>
+<br/>
+        </span>&lt;<span class="xmlverb-element-name"><a name="d88e85">variable</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">split-predicate-uri</span>" <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">krextor:split-prefix-localname(rxr:predicate/@uri)</span>" /&gt;<span class="xmlverb-text"><br/>
+        </span>&lt;<span class="xmlverb-element-name"><a name="d88e87">variable</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">namespace-prefix</span>" <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">$namespaces/*[@uri eq $split-predicate-uri[1]][1]/@prefix</span>" /&gt;<span class="xmlverb-text"><br/>
+        </span>&lt;!--<span class="xmlverb-comment"> output the predicate(s) with their objects </span>--&gt;<span class="xmlverb-text"><br/>
+        </span>&lt;<span class="xmlverb-element-name"><a name="d88e91">element</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">{$namespace-prefix}:{$split-predicate-uri[2]}</span>" <span class="xmlverb-attr-name">namespace</span>="<span class="xmlverb-attr-content">{$split-predicate-uri[1]}</span>"&gt;<span class="xmlverb-text"><br/>
+            </span>&lt;<span class="xmlverb-element-name"><a name="d88e93">if</a></span> <span class="xmlverb-attr-name">test</span>="<span class="xmlverb-attr-content">rxr:object/@xml:lang</span>"&gt;<span class="xmlverb-text"><br/>
+                </span>&lt;<span class="xmlverb-element-name"><a name="d88e95">attribute</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">xml:lang</span>" <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">rxr:object/@xml:lang</span>" /&gt;<span class="xmlverb-text"><br/>
+            </span>&lt;/<span class="xmlverb-element-name">if</span>&gt;<span class="xmlverb-text"><br/>
+            </span>&lt;<span class="xmlverb-element-name"><a name="d88e98">if</a></span> <span class="xmlverb-attr-name">test</span>="<span class="xmlverb-attr-content">rxr:object/@datatype</span>"&gt;<span class="xmlverb-text"><br/>
+                </span>&lt;<span class="xmlverb-element-name"><a name="d88e100">choose</a></span>&gt;<span class="xmlverb-text"><br/>
+                    </span>&lt;<span class="xmlverb-element-name"><a name="d88e102">when</a></span> <span class="xmlverb-attr-name">test</span>="<span class="xmlverb-attr-content">rxr:object/@datatype eq 'http://www.w3.org/1999/02/22-rdf-syntax-ns#XMLLiteral'</span>"&gt;<span class="xmlverb-text"><br/>
+                        </span>&lt;<span class="xmlverb-element-name"><a name="d88e104">attribute</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">rdf:parseType</span>"&gt;<span class="xmlverb-text">Literal</span>&lt;/<span class="xmlverb-element-name">attribute</span>&gt;<span class="xmlverb-text"><br/>
+                    </span>&lt;/<span class="xmlverb-element-name">when</span>&gt;<span class="xmlverb-text"><br/>
+                    </span>&lt;<span class="xmlverb-element-name"><a name="d88e108">otherwise</a></span>&gt;<span class="xmlverb-text"><br/>
+                        </span>&lt;<span class="xmlverb-element-name"><a name="d88e110">attribute</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">rdf:datatype</span>" <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">rxr:object/@datatype</span>" /&gt;<span class="xmlverb-text"><br/>
+                    </span>&lt;/<span class="xmlverb-element-name">otherwise</span>&gt;<span class="xmlverb-text"><br/>
+                </span>&lt;/<span class="xmlverb-element-name">choose</span>&gt;<span class="xmlverb-text"><br/>
+            </span>&lt;/<span class="xmlverb-element-name">if</span>&gt;<span class="xmlverb-text"><br/>
+            </span>&lt;<span class="xmlverb-element-name"><a name="d88e115">choose</a></span>&gt;<span class="xmlverb-text"><br/>
+                </span>&lt;<span class="xmlverb-element-name"><a name="d88e117">when</a></span> <span class="xmlverb-attr-name">test</span>="<span class="xmlverb-attr-content">rxr:object/@uri</span>"&gt;<span class="xmlverb-text"><br/>
+                    </span>&lt;<span class="xmlverb-element-name"><a name="d88e119">attribute</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">rdf:resource</span>" <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">rxr:object/@uri</span>" /&gt;<span class="xmlverb-text"><br/>
+                </span>&lt;/<span class="xmlverb-element-name">when</span>&gt;<span class="xmlverb-text"><br/>
+                </span>&lt;<span class="xmlverb-element-name"><a name="d88e122">when</a></span> <span class="xmlverb-attr-name">test</span>="<span class="xmlverb-attr-content">rxr:object/@blank</span>"&gt;<span class="xmlverb-text"><br/>
+                    </span>&lt;<span class="xmlverb-element-name"><a name="d88e124">attribute</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">rdf:nodeID</span>" <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">rxr:object/@blank</span>" /&gt;<span class="xmlverb-text"><br/>
+                </span>&lt;/<span class="xmlverb-element-name">when</span>&gt;<span class="xmlverb-text"><br/>
+                </span>&lt;<span class="xmlverb-element-name"><a name="d88e127">otherwise</a></span>&gt;<span class="xmlverb-text"><br/>
+                    </span>&lt;<span class="xmlverb-element-name"><a name="d88e129">copy-of</a></span> <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">rxr:object/node()</span>" /&gt;<span class="xmlverb-text"><br/>
+                </span>&lt;/<span class="xmlverb-element-name">otherwise</span>&gt;<span class="xmlverb-text"><br/>
+            </span>&lt;/<span class="xmlverb-element-name">choose</span>&gt;<span class="xmlverb-text"><br/>
+        </span>&lt;/<span class="xmlverb-element-name">element</span>&gt;<span class="xmlverb-text"><br/>
+    </span>&lt;/<span class="xmlverb-element-name">template</span>&gt;<span class="xmlverb-text"><br/>
+<br/>
+    </span><div class="xd">
+    &lt;<span class="xmlverb-element-nsprefix">xd</span>:<span class="xmlverb-element-name"><a name="d88e135">doc</a></span>&gt;<span class="xmlverb-text">We obtain the RDF graph as RXR and then regroup the triples<br/>
+        by subject</span>&lt;/<span class="xmlverb-element-nsprefix">xd</span>:<span class="xmlverb-element-name">doc</span>&gt;</div><span class="xmlverb-text"><br/>
+    </span>&lt;<span class="xmlverb-element-name"><a name="d88e138">template</a></span> <span class="xmlverb-attr-name">match</span>="<span class="xmlverb-attr-content">/</span>"&gt;<span class="xmlverb-text"><br/>
+        </span>&lt;<span class="xmlverb-element-name"><a name="d88e140">variable</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">rxr</span>"&gt;<span class="xmlverb-text"><br/>
+            </span>&lt;<span class="xmlverb-element-name"><a name="d88e142">apply-imports</a></span> /&gt;<span class="xmlverb-text"><br/>
+        </span>&lt;/<span class="xmlverb-element-name">variable</span>&gt;<span class="xmlverb-text"><br/>
+        </span>&lt;!--<span class="xmlverb-comment"> generate namespace prefixes for all predicate URIs </span>--&gt;<span class="xmlverb-text"><br/>
+        </span>&lt;<span class="xmlverb-element-name"><a name="d88e147">variable</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">namespaces</span>"&gt;<span class="xmlverb-text"><br/>
+            </span>&lt;<span class="xmlverb-element-nsprefix">krextor</span>:<span class="xmlverb-element-name"><a name="d88e149">namespace</a></span> <span class="xmlverb-attr-name">prefix</span>="<span class="xmlverb-attr-content">rdf</span>" <span class="xmlverb-attr-name">uri</span>="<span class="xmlverb-attr-content">http://www.w3.org/1999/02/22-rdf-syntax-ns#</span>" /&gt;<span class="xmlverb-text"><br/>
+            </span>&lt;<span class="xmlverb-element-name"><a name="d88e151">for-each-group</a></span> <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">$rxr/rxr:graph/rxr:triple/rxr:predicate</span>" <span class="xmlverb-attr-name">group-by</span>="<span class="xmlverb-attr-content">krextor:split-prefix-localname(@uri)[1]</span>"&gt;<span class="xmlverb-text"><br/>
+                </span>&lt;<span class="xmlverb-element-nsprefix">krextor</span>:<span class="xmlverb-element-name"><a name="d88e153">namespace</a></span> <span class="xmlverb-attr-name">prefix</span>="<span class="xmlverb-attr-content">ns{position()}</span>" <span class="xmlverb-attr-name">uri</span>="<span class="xmlverb-attr-content">{current-grouping-key()}</span>" /&gt;<span class="xmlverb-text"><br/>
+            </span>&lt;/<span class="xmlverb-element-name">for-each-group</span>&gt;<span class="xmlverb-text"><br/>
+        </span>&lt;/<span class="xmlverb-element-name">variable</span>&gt;<span class="xmlverb-text"><br/>
+<br/>
+        </span>&lt;<span class="xmlverb-element-nsprefix">rdf</span>:<span class="xmlverb-element-name"><a name="d88e157">RDF</a></span>&gt;<span class="xmlverb-text"><br/>
+            </span>&lt;!--<span class="xmlverb-comment"> output generated namespace prefixes </span>--&gt;<span class="xmlverb-text"><br/>
+            </span>&lt;<span class="xmlverb-element-name"><a name="d88e161">for-each</a></span> <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">$namespaces/*</span>"&gt;<span class="xmlverb-text"><br/>
+                </span>&lt;<span class="xmlverb-element-name"><a name="d88e163">namespace</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">{@prefix}</span>" <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">@uri</span>" /&gt;<span class="xmlverb-text"><br/>
+            </span>&lt;/<span class="xmlverb-element-name">for-each</span>&gt;<span class="xmlverb-text"><br/>
+<br/>
+            </span>&lt;<span class="xmlverb-element-name"><a name="d88e166">for-each-group</a></span> <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">$rxr/rxr:graph/rxr:triple[rxr:subject/@blank]</span>" <span class="xmlverb-attr-name">group-by</span>="<span class="xmlverb-attr-content">rxr:subject/@blank</span>"&gt;<span class="xmlverb-text"><br/>
+                </span>&lt;!--<span class="xmlverb-comment"> output the subject (blank node) </span>--&gt;<span class="xmlverb-text"><br/>
+                </span>&lt;<span class="xmlverb-element-nsprefix">rdf</span>:<span class="xmlverb-element-name"><a name="d88e170">Description</a></span> <span class="xmlverb-attr-name">rdf:nodeID</span>="<span class="xmlverb-attr-content">{current-grouping-key()}</span>"&gt;<span class="xmlverb-text"><br/>
+                    </span>&lt;<span class="xmlverb-element-name"><a name="d88e172">apply-templates</a></span> <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">current-group()</span>"&gt;<span class="xmlverb-text"><br/>
+                        </span>&lt;<span class="xmlverb-element-name"><a name="d88e174">with-param</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">namespaces</span>" <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">$namespaces</span>" /&gt;<span class="xmlverb-text"><br/>
+                    </span>&lt;/<span class="xmlverb-element-name">apply-templates</span>&gt;<span class="xmlverb-text"><br/>
+                </span>&lt;/<span class="xmlverb-element-nsprefix">rdf</span>:<span class="xmlverb-element-name">Description</span>&gt;<span class="xmlverb-text"><br/>
+            </span>&lt;/<span class="xmlverb-element-name">for-each-group</span>&gt;<span class="xmlverb-text"><br/>
+<br/>
+            </span>&lt;<span class="xmlverb-element-name"><a name="d88e179">for-each-group</a></span> <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">$rxr/rxr:graph/rxr:triple[rxr:subject/@uri]</span>" <span class="xmlverb-attr-name">group-by</span>="<span class="xmlverb-attr-content">rxr:subject/@uri</span>"&gt;<span class="xmlverb-text"><br/>
+                </span>&lt;!--<span class="xmlverb-comment"> output the subject (URI node) </span>--&gt;<span class="xmlverb-text"><br/>
+                </span>&lt;<span class="xmlverb-element-nsprefix">rdf</span>:<span class="xmlverb-element-name"><a name="d88e183">Description</a></span> <span class="xmlverb-attr-name">rdf:about</span>="<span class="xmlverb-attr-content">{current-grouping-key()}</span>"&gt;<span class="xmlverb-text"><br/>
+                    </span>&lt;<span class="xmlverb-element-name"><a name="d88e185">apply-templates</a></span> <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">current-group()</span>"&gt;<span class="xmlverb-text"><br/>
+                        </span>&lt;<span class="xmlverb-element-name"><a name="d88e187">with-param</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">namespaces</span>" <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">$namespaces</span>" /&gt;<span class="xmlverb-text"><br/>
+                    </span>&lt;/<span class="xmlverb-element-name">apply-templates</span>&gt;<span class="xmlverb-text"><br/>
+                </span>&lt;/<span class="xmlverb-element-nsprefix">rdf</span>:<span class="xmlverb-element-name">Description</span>&gt;<span class="xmlverb-text"><br/>
+            </span>&lt;/<span class="xmlverb-element-name">for-each-group</span>&gt;<span class="xmlverb-text"><br/>
+        </span>&lt;/<span class="xmlverb-element-nsprefix">rdf</span>:<span class="xmlverb-element-name">RDF</span>&gt;<span class="xmlverb-text"><br/>
+    </span>&lt;/<span class="xmlverb-element-name">template</span>&gt;<span class="xmlverb-text"><br/>
+</span>&lt;/<span class="xmlverb-element-name">stylesheet</span>&gt;<br/>
+</div>
+</tt><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>v
+         </body></html>

@@ -46,20 +46,7 @@
 
     <param name="autogenerate-fragment-uris" select="()"/>
 
-    <xd:doc>Use the base URI from the <code>base</code> element in the <code>head</code>, if present</xd:doc>
-    <template match="/">
-	<variable name="base-uri" select="/html/head/base[1]/@href"/>
-	<choose>
-	    <when test="$base-uri">
-		<apply-imports>
-		    <with-param name="krextor:base-uri" select="$base-uri" tunnel="yes"/>
-		</apply-imports>
-	    </when>
-	    <otherwise>
-		<apply-imports/>
-	    </otherwise>
-	</choose>
-    </template>
+    <include href="util/html-base.xsl"/>
 
     <function name="krextor:default-curie-namespace">
 	<param name="focus"/>

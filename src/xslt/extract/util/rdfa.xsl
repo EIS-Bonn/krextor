@@ -211,9 +211,9 @@
 	         Then, add-literal-property completes an incomplete triple -->
 	    <with-param name="property" select="krextor:curies-to-uris(.)"/>
 	    <with-param name="object" select="$object"/>
-	    <with-param name="object-language" select="ancestor::*/@xml:lang[1]"/>
+	    <with-param name="language" select="ancestor::*/@xml:lang[1]"/>
 	    <!-- TODO test with datatype="" -->
-	    <with-param name="object-datatype" select="if ($parent/* and not($parent/@datatype))
+	    <with-param name="datatype" select="if ($parent/* and not($parent/@datatype))
 		then '&rdf;XMLLiteral'
 		else if ($parent/@datatype) then krextor:curie-to-uri($parent, $parent/@datatype)
 		else ()"/>

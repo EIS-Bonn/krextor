@@ -25,6 +25,7 @@
 
   <!-- The stylesheets to document -->
   <RootStylesheets>
+    <File href="extract/hcalendar.xsl"/>
     <File href="extract/ocd.xsl"/>
     <File href="extract/omdoc-owl.xsl"/>
     <File href="extract/omdoc.xsl"/>
@@ -32,6 +33,7 @@
     <File href="generic/generic.xsl"/>
     <File href="output/java.xsl"/>
     <File href="output/none.xsl"/>
+    <File href="output/rdf-xml.xsl"/>
     <File href="output/rxr.xsl"/>
     <File href="output/turtle.xsl"/>
     <File href="transform-ocd-rxr.xsl"/>

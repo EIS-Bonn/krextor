@@ -234,9 +234,9 @@
 	<param name="object-type"/>
 	<!-- language annotation is only supported on the object,
 	     but neither on triples nor on graphs, as in RXR -->
-	<param name="object-language"/>
+	<param name="language"/>
 	<!-- datatype of the (literal) object -->
-	<param name="object-datatype"/>
+	<param name="datatype"/>
 
 	<!-- We accept a static base URI (as, e.g., defined by base/@href in XHTML), against which every URL is resolved -->
 	<param name="krextor:base-uri" tunnel="yes"/>
@@ -260,8 +260,8 @@
 		then resolve-uri($object, $krextor:base-uri)
 		else $object"/>
 	    <with-param name="object-type" select="$object-type"/>
-	    <with-param name="object-language" select="$object-language"/>
-	    <with-param name="object-datatype" select="$object-datatype"/>
+	    <with-param name="object-language" select="$language"/>
+	    <with-param name="object-datatype" select="$datatype"/>
 	</call-template>
     </template>
 
@@ -410,8 +410,8 @@
 			    <with-param name="object" select="$object"/>
 			    <with-param name="object-type" select="if (@object) then 'uri'
 				else ''"/>
-			    <with-param name="object-language" select="@language"/>
-			    <with-param name="object-datatype" select="@datatype"/>
+			    <with-param name="language" select="@language"/>
+			    <with-param name="datatype" select="@datatype"/>
 			</call-template>
 		    </if>
 		</for-each>
@@ -483,8 +483,8 @@
 	<param name="object-is-list" select="false()" as="xs:boolean"/>
 	<!-- Normalize whitespace around the value of the object? -->
 	<param name="normalize-space" select="false()" as="xs:boolean"/>
-	<param name="object-language" select="''"/>
-	<param name="object-datatype" select="''"/>
+	<param name="language" select="''"/>
+	<param name="datatype" select="''"/>
 	<variable name="actual-property" select="if (exists($property)) then $property
 	    else $tunneled-property"/>
 	<choose>
@@ -509,8 +509,8 @@
 			<with-param name="predicate" select="."/>
 			<with-param name="object" select="if ($normalize-space) then normalize-space($object)
 			    else $object"/>
-			<with-param name="object-language" select="$object-language"/>
-			<with-param name="object-datatype" select="$object-datatype"/>
+			<with-param name="language" select="$language"/>
+			<with-param name="datatype" select="$datatype"/>
 		    </call-template>
 		</for-each>
 	    </otherwise>

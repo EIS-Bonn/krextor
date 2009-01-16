@@ -402,7 +402,7 @@
 	<call-template name="krextor:add-literal-property">
 	    <with-param name="property" select="krextor:ontology-uri(om:*[1])"/>
 	    <with-param name="object" select="om:*[2]/text()"/>
-	    <with-param name="object-datatype" select="'&xsd;nonNegativeInteger'"/>
+	    <with-param name="datatype" select="'&xsd;nonNegativeInteger'"/>
 	</call-template>
     </template>
 
