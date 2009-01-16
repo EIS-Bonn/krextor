@@ -22,6 +22,10 @@
     * 
 -->
 
+<!DOCTYPE stylesheet [
+    <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+]>
+
 <stylesheet xmlns="http://www.w3.org/1999/XSL/Transform" 
     xmlns:xd="http://www.pnp-software.com/XSLTdoc"
     xmlns:rxr="http://ilrt.org/discovery/2004/03/rxr/"
@@ -64,6 +68,13 @@
 	</choose>
     </function>
 
+    <xd:doc>Generates a pretty-printed predicate (currently only supports displaying <code>rdf:type</code> as “a”).</xd:doc>
+    <function name="krextor:pretty-predicate">
+	<param name="predicate"/>
+	<value-of select="if ($predicate eq '&rdf;type') then 'a'
+	    else concat('&lt;', $predicate, '&gt;')"/>
+    </function>
+
     <xd:doc>We obtain the RDF graph as RXR and then regroup the triples
 	by subject and predicate</xd:doc>
     <template match="/">
@@ -79,7 +90,7 @@
 	    <for-each-group select="current-group()" group-by="rxr:predicate/@uri">
 		<text>&#x9;</text>
 		<!-- output the predicate -->
-		<value-of select="concat('&lt;', current-grouping-key(), '&gt;')"/>
+		<value-of select="krextor:pretty-predicate(current-grouping-key())"/>
 		<text>&#x9;</text>
 		<for-each select="current-group()/rxr:object">
 		    <!-- output the object(s) -->
