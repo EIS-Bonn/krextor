@@ -68,7 +68,8 @@
     <template match="krextor-genuri:ontology" as="xs:string?">
 	<param name="base-uri"/>
 	<param name="node"/>
-	<sequence select="krextor:ontology-uri($base-uri, $node/@name)"/>
+	<sequence select="krextor:ontology-uri($base-uri,
+	    if ($node/self::theory) then '' else $node/@name)"/>
     </template>
 
     <function name="krextor:mmt-uri" as="xs:string?">
@@ -420,7 +421,7 @@
 	<choose>
 	    <when test="exists($sem-web-base)">
 		<call-template name="krextor:create-ontology-resource">
-		    <with-param name="base-uri" select="$sem-web-base"
+		    <with-param name="subject-uri" select="$sem-web-base"
 			tunnel="yes"/>
 		    <with-param name="type" select="$type"/>
 		</call-template>
