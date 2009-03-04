@@ -114,6 +114,7 @@
 		<call-template name="krextor:make-catalogue">
 		    <with-param name="todo" select="$todo"/>
 		    <with-param name="theory" select="."/>
+		    <with-param name="base-uri" select="base-uri()"/>
 		</call-template>
 	    </variable>
 
@@ -297,6 +298,15 @@
 	</apply-templates>
     </template>
 
+    <!-- TODO implement syntactic sugar for property types:
+         https://trac.kwarc.info/krextor/ticket/24
+	 https://trac.kwarc.info/krextor/ticket/28
+    -->
+    
+    <!-- TODO implement syntactic sugar for rdfs:subClassOf and rdfs:subPropertyOf
+         https://trac.kwarc.info/krextor/ticket/25
+    -->
+
     <xd:doc>Returns the semantic web URI of a given symbol
 	<xd:param name="sym">a symbol that is expected to have <code>@cd</code> and <code>@name</code> attributes (as in OpenMath)</xd:param>
     </xd:doc>
@@ -387,6 +397,7 @@
     </template>
 
     <xd:doc><i>owl:Restriction</i> constructor</xd:doc>
+    <!-- TODO formally specify this as an OMDoc axiom: https://trac.kwarc.info/krextor/ticket/27 -->
     <template match="om:OMA[count(om:*) eq 3][om:*[1][self::om:OMS[@cd eq 'owl' and @name eq 'Restriction']]][om:*[2][self::om:OMS]]">
 	<call-template name="krextor:create-resource">
 	    <with-param name="type" select="'&owl;Restriction'"/>
