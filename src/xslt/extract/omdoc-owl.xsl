@@ -291,17 +291,19 @@
 	<call-template name="krextor:create-ontology-resource"/>
     </template>
 
-    <xd:doc>Make this resource an instance of some class</xd:doc>
-    <template match="symbol/type[@system='owl']/om:OMOBJ">
-	<apply-templates select="om:*[1]">
-	    <with-param name="related-via-properties" select="'&rdf;type'" tunnel="yes"/>
-	</apply-templates>
+    <xd:doc>Make this property an instance of some relation type</xd:doc>
+    <template match="symbol/type/om:OMOBJ/om:OMA|symbol/type/om:OMOBJ">
+		<apply-templates select="om:*[1]">		
+			<with-param name="related-via-properties" select="'&rdf;type'" tunnel="yes"/>
+		</apply-templates>
+		<apply-templates select="om:*[2]">		
+			<with-param name="related-via-properties" select="'&rdfs;domain'" tunnel="yes"/>
+		</apply-templates>
+		<apply-templates select="om:*[3]">		
+			<with-param name="related-via-properties" select="'&rdfs;range'" tunnel="yes"/>
+		</apply-templates>    	
     </template>
 
-    <!-- TODO implement syntactic sugar for property types:
-         https://trac.kwarc.info/krextor/ticket/24
-	 https://trac.kwarc.info/krextor/ticket/28
-    -->
     
     <!-- TODO implement syntactic sugar for rdfs:subClassOf and rdfs:subPropertyOf
          https://trac.kwarc.info/krextor/ticket/25
