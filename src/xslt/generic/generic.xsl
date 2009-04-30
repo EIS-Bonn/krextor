@@ -650,6 +650,16 @@
 	    <!-- if a resource is created from the first element, make it the first resource of this collection -->
 	    <with-param name="related-via-properties" select="'&rdf;first'" tunnel="yes"/>
 	</apply-templates>
+    	
+    <call-template name="krextor:output-triple-impl">
+    	<with-param name="subject" select="$blank-node-id"/>
+    	<with-param name="subject-type" select="'blank'"/>
+    	<with-param name="predicate" select="'&rdf;type'"/>
+    	<with-param name="object" select="'&rdf;List'"/>
+    	<with-param name="object-type" select="'uri'"/>
+    </call-template>
+    	
+    	
 	<choose>
 	    <when test="$rest[2]">
 		<call-template name="krextor:create-resource">
