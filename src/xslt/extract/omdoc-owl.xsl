@@ -390,9 +390,9 @@
     </template>
 
     <xd:doc><i>owl:intersectionOf</i> constructor</xd:doc>
-    <template match="om:OMA[om:*[1][self::om:OMS[@cd eq 'owl' and @name eq 'intersectionOf']]]">
+	<template match="om:OMA[om:*[1][self::om:OMS[@cd eq 'owl' and (@name eq 'intersectionOf' or @name eq 'unionOf' or @name eq 'complementOf' or @name eq 'oneOf')]]]">
 	<call-template name="krextor:create-resource">
-	    <with-param name="related-via-properties" select="'&owl;intersectionOf'" tunnel="yes"/>
+		<with-param name="related-via-properties" select="krextor:ontology-uri(om:*[1])" tunnel="yes"/>
 	    <with-param name="collection" select="true()"/>
 	    <with-param name="process-next" select="om:*[position() ge 2]"/>
 	</call-template>
