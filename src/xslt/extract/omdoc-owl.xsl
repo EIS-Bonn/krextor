@@ -361,10 +361,10 @@
 	<variable name="symbol" select="document(@for)"/>
 	<if test="$symbol">
 	    <variable name="symbol-oms">
-		<om:OMS cd="{parent::theory/@name}" name="$symbol/@name"/>
+		<om:OMS cd="{parent::theory/@name}" name="{$symbol/@name}"/>
 	    </variable>
 	    <call-template name="krextor:create-resource">
-		<with-param name="subject" select="krextor:ontology-uri($symbol)"/>
+	    	<with-param name="subject" select="krextor:ontology-uri($symbol-oms/om:OMS)"/>
 	    </call-template>
 	</if>
     </template>
