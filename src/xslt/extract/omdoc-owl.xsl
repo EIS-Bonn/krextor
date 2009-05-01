@@ -330,7 +330,7 @@
     </function>
 
     <xd:doc>Creates an RDF triple for a single OWL axiom given as a predicate(subject, object) triple</xd:doc>
-    <template match="axiom/FMP[@logic eq 'owl']/om:OMOBJ/om:OMA[count(om:*) eq 3]">
+    <template match="axiom/FMP/om:OMOBJ/om:OMA[count(om:*) eq 3]">
 	<variable name="predicate-object-rewritten">
 	    <krextor:dummy>
 		<om:OMA>
