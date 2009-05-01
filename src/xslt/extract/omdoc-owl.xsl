@@ -389,8 +389,8 @@
 	</choose>
     </template>
 
-    <xd:doc><i>owl:intersectionOf</i> constructor</xd:doc>
-	<template match="om:OMA[om:*[1][self::om:OMS[@cd eq 'owl' and (@name eq 'intersectionOf' or @name eq 'unionOf' or @name eq 'complementOf' or @name eq 'oneOf')]]]">
+	<xd:doc><i>owl:intersectionOf, owl:unionOf, owl:complementOf, owl:oneOf</i> constructor</xd:doc>
+	<template match="om:OMA[om:*[1][self::om:OMS[@cd eq 'owl' and (@name = ('intersectionOf', 'complementOf', 'unionOf', 'oneOf')) ]]]">
 	<call-template name="krextor:create-resource">
 		<with-param name="related-via-properties" select="krextor:ontology-uri(om:*[1])" tunnel="yes"/>
 	    <with-param name="collection" select="true()"/>
@@ -419,6 +419,15 @@
 	    <with-param name="datatype" select="'&xsd;nonNegativeInteger'"/>
 	</call-template>
     </template>
+	
+	<xd:doc>Sets the allValuesFrom, someValuesFrom of a property restriction</xd:doc>
+	<template match="om:OMA[om:*[1][self::om:OMS[@cd eq 'owl' and @name = ('allValuesFrom', 'someValuesFrom')]]][om:*[2][self::om:OMS]]">
+		<call-template name="krextor:create-resource">
+			<with-param name="related-via-properties" select="krextor:ontology-uri(om:*[1])" tunnel="yes"/>
+			<with-param name="subject-uri" select="krextor:ontology-uri(om:*[2])" tunnel="yes"/>			
+			<with-param name="process-next" select="om:*[3]"/>
+		</call-template>		
+	</template>
 
     <xd:doc>Creates a resource from an individual symbol</xd:doc>
     <template match="om:OMS">
