@@ -134,8 +134,7 @@
 	</krextor:loc>
 	<apply-templates select="* except krextor:sem-web-base[not(preceding-sibling::*)]" mode="#current"/>
     </template>
-
-    <template match="krextor:loc" mode="krextor:post-process-catalogue">
+<template match="krextor:loc" mode="krextor:post-process-catalogue">
 	<variable name="sem-web-base" as="xs:string">
 	    <variable name="sem-web-base" select="following-sibling::krextor:sem-web-base[@omdoc eq current()/@omdoc]"/>
 	    <value-of select="if ($sem-web-base)
@@ -420,14 +419,23 @@
 	</call-template>
     </template>
 	
-	<xd:doc>Sets the allValuesFrom, someValuesFrom of a property restriction</xd:doc>
-	<template match="om:OMA[om:*[1][self::om:OMS[@cd eq 'owl' and @name = ('allValuesFrom', 'someValuesFrom')]]][om:*[2][self::om:OMS]]">
+	<xd:doc>Sets the allValuesFrom, someValuesFrom, hasValue of a property restriction</xd:doc>
+	<template match="om:OMA[om:*[1][self::om:OMS[@cd eq 'owl' and @name = ('allValuesFrom', 'someValuesFrom', 'hasValue')]]][om:*[2][self::om:OMS]]">
 		<call-template name="krextor:create-resource">
 			<with-param name="related-via-properties" select="krextor:ontology-uri(om:*[1])" tunnel="yes"/>
 			<with-param name="subject-uri" select="krextor:ontology-uri(om:*[2])" tunnel="yes"/>			
 			<with-param name="process-next" select="om:*[3]"/>
 		</call-template>		
 	</template>
+	
+	<xd:doc>Sets hasValue of a DataType property restriction</xd:doc>
+	<template match="om:OMA[om:*[1][self::om:OMS[@cd eq 'owl' and @name = ('hasValue')]]][om:*[2][not(self::om:OMS)]]">
+		<call-template name="krextor:add-literal-property">
+			<with-param name="property" select="krextor:ontology-uri(om:*[1])"/>
+			<with-param name="object" select="om:*[2]/text()"/>
+		</call-template>
+	</template>
+	
 
     <xd:doc>Creates a resource from an individual symbol</xd:doc>
     <template match="om:OMS">
