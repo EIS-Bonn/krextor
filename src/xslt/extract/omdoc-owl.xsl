@@ -291,27 +291,16 @@
     </template>
 
     <xd:doc>Make this property an instance of some relation type</xd:doc>
-    <template match="symbol/type/om:OMOBJ/om:OMA|symbol/type/om:OMOBJ">
-	<!-- TODO first find out whether this is a type eligible for rdf:type (by checking
-	whether we know om:OMS[1]/@cd from $ontology-namespaces)
-	https://trac.kwarc.info/krextor/ticket/47 -->
-		<if test="not(om:*[3] and om:OMS[1]/@cd eq 'rdf' and om:OMS[1]/@name eq 'Property')">
-		    <!-- When domain and range are given, X rdf:type
-		    rdf:Property is redundant, as it is entailed by the RDFS
-		    axiomatic triples, so we don't generate it. -->
-		    <apply-templates select="om:*[1]">		
-			    <with-param name="related-via-properties" select="'&rdf;type'" tunnel="yes"/>
-		    </apply-templates>
-		</if>
-		<if test="om:*[3]">
-		    <!-- Handle rdfs:domain and rdfs:range, but only if they are both given -->
-		    <apply-templates select="om:*[2]">		
-			    <with-param name="related-via-properties" select="'&rdfs;domain'" tunnel="yes"/>
-		    </apply-templates>
-		    <apply-templates select="om:*[3]">		
-			    <with-param name="related-via-properties" select="'&rdfs;range'" tunnel="yes"/>
-		    </apply-templates>    	
-		</if>
+	<template match="symbol/type/om:OMOBJ/om:OMA[krextor:is-ontology(om:*[1]) = true()]|symbol/type/om:OMOBJ[krextor:is-ontology(om:*[1]) = true()]">
+		<apply-templates select="om:*[1]">		
+			<with-param name="related-via-properties" select="'&rdf;type'" tunnel="yes"/>
+		</apply-templates>
+		<apply-templates select="om:*[2]">		
+			<with-param name="related-via-properties" select="'&rdfs;domain'" tunnel="yes"/>
+		</apply-templates>
+		<apply-templates select="om:*[3]">		
+			<with-param name="related-via-properties" select="'&rdfs;range'" tunnel="yes"/>
+		</apply-templates>    	
     </template>
 
     
@@ -339,12 +328,23 @@
 	    then krextor:ontology-uri($sym)
 	    else ()"/>
     </function>
+	
+	
+	<xd:doc>Returns true() if the parameter is a symbol defined in an ontology.
+	<xd:param name="sym">a symbol that is expected to have <code>@cd</code> and <code>@name</code> attributes (as in OpenMath)</xd:param>
+	</xd:doc>
+	<function name="krextor:is-ontology">
+		<param name="sym"/>
+		<variable name="sem-web-base" select="$ontology-namespaces/krextor:loc[@theory eq $sym/@cd]/@sem-web-base"/>
+		<value-of select="if ($sem-web-base)
+			then true()
+			else false()"/>
+	</function>
 
     <xd:doc>Creates an RDF triple for a single OWL axiom given as a predicate(subject, object) triple</xd:doc>
-    <template match="axiom/FMP/om:OMOBJ/om:OMA[count(om:*) eq 3]">
-	<!-- TODO first find out whether this is an OWL axiom (by checking
-	whether we know om:OMS[1]/@cd from $ontology-namespaces)
-	https://trac.kwarc.info/krextor/ticket/47 -->
+	<template match="axiom/FMP/om:OMOBJ/om:OMA[count(om:*) eq 3]">
+    <variable name="sym" select="om:*[1]"/>
+        	
 	<variable name="predicate-object-rewritten">
 	    <krextor:dummy>
 		<om:OMA>
@@ -370,7 +370,7 @@
     </template>
 
     <xd:doc>Initiates the creation of a class definition</xd:doc>
-    <template match="definition[@type eq 'simple']">
+	<template match="definition[@type eq 'simple' and krextor:is-ontology(om:OMOBJ/om:OMA/om:*[1]) = true()]">
 	<variable name="symbol" select="document(@for)"/>
 	<if test="$symbol">
 	    <variable name="symbol-oms">
@@ -384,7 +384,7 @@
 
     <xd:doc>Completes a class definition (via <i>owl:equivalentClass</i>) using
 	the definiens</xd:doc>
-    <template match="om:OMOBJ[parent::definition[@type eq 'simple']]">
+	<template match="om:OMOBJ[parent::definition[@type eq 'simple']  and krextor:is-ontology(om:OMA/om:*[1]) = true()]">
 	<choose>
 	    <when test="om:*[1][self::om:OMS]">
 		<call-template name="krextor:create-resource">
