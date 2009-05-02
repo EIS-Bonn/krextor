@@ -292,15 +292,26 @@
 
     <xd:doc>Make this property an instance of some relation type</xd:doc>
     <template match="symbol/type/om:OMOBJ/om:OMA|symbol/type/om:OMOBJ">
-		<apply-templates select="om:*[1]">		
-			<with-param name="related-via-properties" select="'&rdf;type'" tunnel="yes"/>
-		</apply-templates>
-		<apply-templates select="om:*[2]">		
-			<with-param name="related-via-properties" select="'&rdfs;domain'" tunnel="yes"/>
-		</apply-templates>
-		<apply-templates select="om:*[3]">		
-			<with-param name="related-via-properties" select="'&rdfs;range'" tunnel="yes"/>
-		</apply-templates>    	
+	<!-- TODO first find out whether this is a type eligible for rdf:type (by checking
+	whether we know om:OMS[1]/@cd from $ontology-namespaces)
+	https://trac.kwarc.info/krextor/ticket/47 -->
+		<if test="not(om:*[3] and om:OMS[1]/@cd eq 'rdf' and om:OMS[1]/@name eq 'Property')">
+		    <!-- When domain and range are given, X rdf:type
+		    rdf:Property is redundant, as it is entailed by the RDFS
+		    axiomatic triples, so we don't generate it. -->
+		    <apply-templates select="om:*[1]">		
+			    <with-param name="related-via-properties" select="'&rdf;type'" tunnel="yes"/>
+		    </apply-templates>
+		</if>
+		<if test="om:*[3]">
+		    <!-- Handle rdfs:domain and rdfs:range, but only if they are both given -->
+		    <apply-templates select="om:*[2]">		
+			    <with-param name="related-via-properties" select="'&rdfs;domain'" tunnel="yes"/>
+		    </apply-templates>
+		    <apply-templates select="om:*[3]">		
+			    <with-param name="related-via-properties" select="'&rdfs;range'" tunnel="yes"/>
+		    </apply-templates>    	
+		</if>
     </template>
 
     
@@ -331,6 +342,9 @@
 
     <xd:doc>Creates an RDF triple for a single OWL axiom given as a predicate(subject, object) triple</xd:doc>
     <template match="axiom/FMP/om:OMOBJ/om:OMA[count(om:*) eq 3]">
+	<!-- TODO first find out whether this is an OWL axiom (by checking
+	whether we know om:OMS[1]/@cd from $ontology-namespaces)
+	https://trac.kwarc.info/krextor/ticket/47 -->
 	<variable name="predicate-object-rewritten">
 	    <krextor:dummy>
 		<om:OMA>
