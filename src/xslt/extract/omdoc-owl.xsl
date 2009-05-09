@@ -306,6 +306,9 @@
 	</if>
 	<if test="om:*[3]">
 	    <!-- Handle rdfs:domain and rdfs:range, but only if they are both given -->
+	    <!-- Note that, in this case, we should actually enforce that om:*[1] is
+	         rdf:Property or a subproperty thereof, but during this translation we
+		 don't have access to a reasoner :-( -->
 	    <apply-templates select="om:*[2]">		
 		<with-param name="related-via-properties" select="'&rdfs;domain'" tunnel="yes"/>
 	    </apply-templates>
