@@ -3,7 +3,8 @@
 <!--
     *  Copyright (C) 2008
     *  Christoph Lange
-    *  Jacobs University Bremen
+    *  KWARC, Jacobs University Bremen
+    *  http://kwarc.info/projects/krextor/
     *
     *   Krextor is free software; you can redistribute it and/or
     * 	modify it under the terms of the GNU Lesser General Public
