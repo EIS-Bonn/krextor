@@ -36,13 +36,14 @@
     version="2.0">
     <import href="../generic/generic.xsl"/>
     <import href="rxr.xsl"/>
+    <import href="util/turtle.xsl"/>
 
     <xd:doc type="stylesheet">
 	<xd:short>Output module for Turtle</xd:short>
 	<xd:detail>This stylesheet provides low-level triple-creation functions
 	    and templates for a Turtle extraction from XML languages.
 	    <ul>
-		<li><a href="http://www.dajobe.org/2004/01/turtle/">Specification of Turtle</a></li>
+		<li><a href="http://www.w3.org/TeamSubmission/turtle/">Specification of Turtle</a></li>
 	    </ul>
 	</xd:detail>
 	<xd:author>Christoph Lange</xd:author>
@@ -52,28 +53,24 @@
 
     <output method="text" encoding="UTF-8"/>
 
-    <function name="krextor:node-id-to-turtle" as="xs:string">
-	<param name="element"/>
-	<choose>
-	    <when test="$element/@uri">
-		<value-of select="concat('&lt;', $element/@uri, '&gt;')"/>
-	    </when>
-	    <when test="$element/@blank">
-		<value-of select="concat('_:', $element/@blank)"/>
-	    </when>
-	    <!-- TODO verify bnode syntax -->
-	    <!-- TODO fail in 'else' case -->
-	    <otherwise>
-		<value-of select="''"/>
-	    </otherwise>
-	</choose>
-    </function>
-
     <xd:doc>Generates a pretty-printed predicate (currently only supports displaying <code>rdf:type</code> as “a”).</xd:doc>
     <function name="krextor:pretty-predicate">
 	<param name="predicate"/>
 	<value-of select="if ($predicate eq '&rdf;type') then 'a'
 	    else concat('&lt;', $predicate, '&gt;')"/>
+    </function>
+
+    <xd:doc>TODO</xd:doc>
+    <function name="krextor:rxr-node-to-turtle" as="xs:string">
+	<param name="element"/>
+	<value-of select="krextor:node-id-to-turtle(
+		if ($element/@uri) then $element/@uri
+		else if ($element/@blank) then $element/@blank
+		else '',
+		if ($element/@uri) then 'uri'
+		else if ($element/@blank) then 'blank'
+		else ''
+	    )"/>
     </function>
 
     <xd:doc>We obtain the RDF graph as RXR and then regroup the triples
@@ -84,7 +81,7 @@
 	    <apply-imports/>
 	</variable>
 	<for-each-group select="$rxr/rxr:graph/rxr:triple"
-	    group-by="krextor:node-id-to-turtle(rxr:subject)">
+	    group-by="krextor:rxr-node-to-turtle(rxr:subject)">
 	    <!-- output the subject -->
 	    <value-of select="current-grouping-key()"/>
 	    <text>&#xa;</text>
@@ -96,18 +93,9 @@
 		<for-each select="current-group()/rxr:object">
 		    <!-- output the object(s) -->
 		    <value-of select="if (@uri|@blank) then
-			    krextor:node-id-to-turtle(.)
-			else if (contains(., '&#xa;')) then
-			    concat('&quot;&quot;&quot;', ., '&quot;&quot;&quot;')
-			else concat('&quot;', ., '&quot;')"/>
-		    <choose>
-			<when test="@xml:lang">
-			    <value-of select="concat('@', @xml:lang)"/>
-			</when>
-			<when test="@datatype">
-			    <value-of select="concat('^^&lt;', @datatype, '&gt;')"/>
-			</when>
-		    </choose>
+			    krextor:rxr-node-to-turtle(.)
+			else
+			    krextor:literal-to-turtle(., @xml:lang, @datatype)"/>
 		    <value-of select="if (position() ne last()) then ', ' else ' '"/>
 		</for-each>
 		<value-of select="if (position() ne last()) then ';' else '.'"/>
