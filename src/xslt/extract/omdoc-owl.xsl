@@ -294,8 +294,8 @@
 
     <xd:doc>Make this property an instance of some relation type</xd:doc>
     <template match="
-	symbol/type/om:OMOBJ/om:OMA[krextor:is-ontology-term(.)]
-	|symbol/type/om:OMOBJ[krextor:is-from-ontology(om:OMS[1])]">
+       symbol/type/om:OMOBJ/om:OMA[krextor:is-ontology-term(.)]
+       |symbol/type/om:OMOBJ[krextor:is-from-ontology(om:OMS[1])]">
 	<if test="not(om:*[3] and om:OMS[1]/@cd eq 'rdf' and om:OMS[1]/@name eq 'Property')">
 	    <!-- When domain and range are given, the triple
 	         X rdf:type rdf:Property
@@ -329,7 +329,7 @@
     </xd:doc>
     <function name="krextor:ontology-uri">
 	<param name="sym"/>
-	<variable name="sem-web-base" select="$ontology-namespaces/krextor:loc[@theory eq $sym/@cd]/@sem-web-base"/>
+	<variable name="sem-web-base" select="$ontology-namespaces/krextor:loc[@theory eq $sym/@cd][1]/@sem-web-base"/>
 	<value-of select="if ($sem-web-base)
 	    then krextor:ontology-uri($sem-web-base, $sym/@name)
 	    else krextor:mmt-uri('MMT-FIXME', concat($sym/@cd, '?', $sym/@name))"/>
@@ -394,6 +394,7 @@
     <template match="definition[@type eq 'simple' and krextor:is-ontology-term(om:OMOBJ)]">
 	<variable name="symbol" select="document(@for)"/>
 	<if test="$symbol">
+	    <!-- construct an OpenMath symbol -->
 	    <variable name="symbol-oms">
 		<om:OMS cd="{parent::theory/@xml:id}" name="{$symbol/@name}"/>
 	    </variable>
@@ -403,24 +404,22 @@
 	</if>
     </template>
 
-    <xd:doc>Completes a class definition (via <i>owl:equivalentClass</i>) using
-	the definiens</xd:doc>
-    <template match="om:OMOBJ[parent::definition[@type eq 'simple']  and krextor:is-ontology-term(.)]">
-	<choose>
-	    <when test="om:*[1][self::om:OMS]">
-		<call-template name="krextor:create-resource">
-		    <with-param name="related-via-properties" select="'&owl;equivalentClass'" tunnel="yes"/>
-		    <with-param name="subject" select="krextor:ontology-uri(om:*[1])"/>
-		</call-template>
-	    </when>
-	    <otherwise>
-		<call-template name="krextor:create-resource">
-		    <with-param name="blank-node" select="true()"/>
-		    <with-param name="process-next" select="om:*[1]"/>
-		    <with-param name="related-via-properties" select="'&owl;equivalentClass'" tunnel="yes"/>
-		</call-template>
-	    </otherwise>
-	</choose>
+    <xd:doc>Creates simple equivalence definitions (<i>owl:equivalentClass</i>, <i>owl:equivalentProperty</i>, <i>owl:sameAs</i>)</xd:doc>
+    <template match="om:OMS[parent::om:OMOBJ[parent::definition[@type eq 'simple']]]">
+	<variable name="symbol-type" select="document(parent::om:OMOBJ/parent::definition/@for)/type/om:OMOBJ/descendant::om:OMS[1]"/>
+	<call-template name="krextor:create-resource">
+	    <with-param name="related-via-properties" tunnel="yes">
+		<choose>
+		    <!-- so far, we assume that owl:Class is the only known class type -->
+		    <when test="$symbol-type/@cd eq 'owl' and $symbol-type/@name eq 'Class'">&owl;equivalentClass</when>
+		    <!-- we recognize rdf:Property and owl:*Property as property types -->
+		    <when test="($symbol-type/@cd eq 'rdf' and $symbol-type/@name eq 'Property') or ($symbol-type/@cd eq 'owl' and ends-with($symbol-type/@name, 'Property'))">&owl;equivalentProperty</when>
+		    <!-- symbols of any other type, or without a type, are considered individuals -->
+		    <otherwise>&owl;sameAs</otherwise>
+		</choose>
+	    </with-param>
+	    <with-param name="subject" select="krextor:ontology-uri(.)"/>
+	</call-template>
     </template>
 
 	<xd:doc><i>owl:intersectionOf, owl:unionOf, owl:complementOf, owl:oneOf</i> constructor</xd:doc>
