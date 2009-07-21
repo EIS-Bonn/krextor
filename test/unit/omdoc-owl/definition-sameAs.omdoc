@@ -7,32 +7,24 @@
        xmlns:odo="http://www.omdoc.org/ontology#">
 
 <metadata>
-  <meta property="dc:title">Definition of a class</meta>
+  <meta property="dc:title">Definition of an individual by equivalence</meta>
   <meta property="dc:creator">Christoph Lange</meta>
 </metadata>
 
-<theory name="definition-class" xml:id="definition-class">
+<theory name="definition-sameAs" xml:id="definition-sameAs">
   <metadata>
     <link rel="odo:semWebBase" href="http://kwarc.info/projects/krextor/test#"/>
  </metadata>
 
 <imports from="logics/owl.omdoc#owl"/>
 
-<symbol name="Foo" xml:id="Foo.sym">
-  <type>
-    <OMOBJ xmlns="http://www.openmath.org/OpenMath">
-      <OMS cd="owl" name="Class"/>
-    </OMOBJ>
-  </type>
-</symbol>
+<!-- no type: assumed to be an individual -->
+<symbol name="foo" xml:id="foo.sym"/>
+<symbol name="bar" xml:id="bar.sym"/>
 
-<definition for="#Foo.sym" type="simple">
+<definition for="#foo.sym" type="simple">
   <OMOBJ xmlns="http://www.openmath.org/OpenMath">
-    <OMA>
-      <OMS cd="owl" name="unionOf"/>
-      <OMS cd="owl" name="InverseFunctionalProperty"/>
-      <OMS cd="owl" name="TransitiveProperty"/>
-    </OMA>
+    <OMS cd="definition-sameAs" name="bar"/>
   </OMOBJ>
 </definition>
 

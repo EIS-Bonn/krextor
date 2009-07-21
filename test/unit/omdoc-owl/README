@@ -1,4 +1,4 @@
 Files in this directory:
 *.omdoc -- the unit test cases
-*.n3 -- the expected output
+*.n3 -- the expected output (written manually: not syntactically, but semantically equivalent to what Krextor should output)
 

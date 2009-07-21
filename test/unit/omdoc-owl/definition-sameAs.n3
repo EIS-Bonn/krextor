@@ -1,0 +1,8 @@
+@prefix :     <http://kwarc.info/projects/krextor/test#> .
+@prefix owl:    <http://www.w3.org/2002/07/owl#> .
+
+:
+    a	owl:Ontology .
+
+:foo
+    owl:sameAs :bar .

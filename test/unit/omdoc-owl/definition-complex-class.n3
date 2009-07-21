@@ -1,0 +1,22 @@
+@prefix :     <http://kwarc.info/projects/krextor/test#> .
+@prefix owl:    <http://www.w3.org/2002/07/owl#> .
+@prefix xs :    <http://www.w3.org/2001/XMLSchema#> .
+
+:
+    a	owl:Ontology .
+
+:Person
+    a   owl:Class .
+
+:enrolledIn
+      a       owl:ObjectProperty ;
+      rdfs:domain	:Student ;
+      rdfs:range	owl:Thing .
+
+:Student
+	a	owl:Class ;
+	owl:intersectionOf (:Person [ a	owl:Restriction ;
+		owl:minCardinality	"1"^^xs:nonNegativeInteger ;
+		owl:onProperty	:enrolledIn
+	]) .
+

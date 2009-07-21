@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<omdoc version="1.6"
+       xmlns="http://omdoc.org/ns"
+       xmlns:dc="http://purl.org/dc/elements/1.1/" 
+       xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+       xmlns:odo="http://www.omdoc.org/ontology#">
+
+<metadata>
+  <meta property="dc:title">Definition of a complex class</meta>
+  <meta property="dc:creator">Christoph Lange</meta>
+</metadata>
+
+<theory name="definition-complex-class" xml:id="definition-complex-class">
+  <metadata>
+    <link rel="odo:semWebBase" href="http://kwarc.info/projects/krextor/test#"/>
+ </metadata>
+
+<imports from="logics/owl.omdoc#owl"/>
+
+<symbol name="Student" xml:id="Student.sym">
+  <type>
+    <OMOBJ xmlns="http://www.openmath.org/OpenMath">
+      <OMS cd="owl" name="Class"/>
+    </OMOBJ>
+  </type>
+</symbol>
+
+<!-- type just declared to make this self-contained as an ontology -->
+<symbol name="enrolledIn" xml:id="enrolledIn.sym">
+  <type>
+    <OMOBJ xmlns="http://www.openmath.org/OpenMath">
+      <OMA>
+	<OMS cd="owl" name="ObjectProperty"/>
+	<OMS cd="definition-complex-class" name="Student"/>
+	<OMS cd="owl" name="Thing"/>
+      </OMA>
+    </OMOBJ>
+  </type>
+</symbol>
+
+<symbol name="Person" xml:id="Person.sym">
+  <type>
+    <OMOBJ xmlns="http://www.openmath.org/OpenMath">
+      <OMS cd="owl" name="Class"/>
+    </OMOBJ>
+  </type>
+</symbol>
+
+
+<definition for="#Student.sym" type="simple">
+  <OMOBJ xmlns="http://www.openmath.org/OpenMath">
+    <OMA>
+      <OMS cd="owl" name="intersectionOf"/>
+      <OMS cd="definition-complex-class" name="Person"/>
+      <OMA>
+        <OMS cd="owl" name="Restriction"/>
+        <OMS cd="definition-complex-class" name="enrolledIn"/>
+        <OMA>
+          <OMS cd="owl" name="minCardinality"/>
+	  <OMI>1</OMI>
+	</OMA>
+      </OMA>
+    </OMA>
+  </OMOBJ>
+</definition>
+
+</theory>
+</omdoc>
+
+<!-- vim:sw=2:sts=2
+-->
