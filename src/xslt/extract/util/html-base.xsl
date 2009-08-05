@@ -33,7 +33,7 @@
 	Sets the base URI of the document according to the XHTML specification
 	<xd:author>Christoph Lange</xd:author>
 	<xd:copyright>Christoph Lange, 2009</xd:copyright>
-	<xd:svnId>$Id: rdfa.xsl 610 2008-12-19 00:15:56Z clange $</xd:svnId>
+	<xd:svnId>$Id$</xd:svnId>
     </xd:doc>
 
     <xd:doc>Use the base URI from the <code>base</code> element in the <code>head</code>, if present</xd:doc>

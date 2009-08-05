@@ -39,7 +39,7 @@
 	Extraction module for the <a href="http://microformats.org/wiki/hcalendar">hcalendar</a> microformat
 	<xd:author>Christoph Lange</xd:author>
 	<xd:copyright>Christoph Lange, 2009</xd:copyright>
-	<xd:svnId>$Id: ocd.xsl 614 2008-12-21 22:14:11Z clange $</xd:svnId>
+	<xd:svnId>$Id$</xd:svnId>
     </xd:doc>
 
     <param name="autogenerate-fragment-uris" select="()"/>

@@ -48,7 +48,7 @@
 	</xd:detail>
 	<xd:author>Christoph Lange</xd:author>
 	<xd:copyright>Christoph Lange, 2009</xd:copyright>
-	<xd:svnId>$Id: turtle.xsl 611 2008-12-19 00:18:49Z clange $</xd:svnId>
+	<xd:svnId>$Id$</xd:svnId>
     </xd:doc>
 
     <output method="xml" encoding="UTF-8" indent="yes" omit-xml-declaration="no"/>
