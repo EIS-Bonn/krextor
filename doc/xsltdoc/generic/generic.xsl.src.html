@@ -6,7 +6,8 @@
 <div xmlns:xd="http://www.pnp-software.com/XSLTdoc" class="xmlverb-default">&lt;!--<span class="xmlverb-comment"><br/>
     *  Copyright (C) 2008<br/>
     *  Christoph Lange<br/>
-    *  Jacobs University Bremen<br/>
+    *  KWARC, Jacobs University Bremen<br/>
+    *  http://kwarc.info/projects/krextor/<br/>
     *<br/>
     *   Krextor is free software; you can redistribute it and/or<br/>
     *         modify it under the terms of the GNU Lesser General Public<br/>
@@ -35,7 +36,7 @@
         </span>&lt;<span class="xmlverb-element-nsprefix">xd</span>:<span class="xmlverb-element-name"><a name="d44e11">detail</a></span>&gt;&lt;<span class="xmlverb-element-name"><a name="d44e12">p</a></span>&gt;<span class="xmlverb-text">This stylesheet provides convenience functions and templates for an RDF extraction from XML languages.  It is independent of any RDF output notation.</span>&lt;/<span class="xmlverb-element-name">p</span>&gt;&lt;/<span class="xmlverb-element-nsprefix">xd</span>:<span class="xmlverb-element-name">detail</span>&gt;<span class="xmlverb-text"><br/>
         </span>&lt;<span class="xmlverb-element-nsprefix">xd</span>:<span class="xmlverb-element-name"><a name="d44e15">author</a></span>&gt;<span class="xmlverb-text">Christoph Lange</span>&lt;/<span class="xmlverb-element-nsprefix">xd</span>:<span class="xmlverb-element-name">author</span>&gt;<span class="xmlverb-text"><br/>
         </span>&lt;<span class="xmlverb-element-nsprefix">xd</span>:<span class="xmlverb-element-name"><a name="d44e18">copyright</a></span>&gt;<span class="xmlverb-text">Christoph Lange, 2008</span>&lt;/<span class="xmlverb-element-nsprefix">xd</span>:<span class="xmlverb-element-name">copyright</span>&gt;<span class="xmlverb-text"><br/>
-        </span>&lt;<span class="xmlverb-element-nsprefix">xd</span>:<span class="xmlverb-element-name"><a name="d44e21">svnId</a></span>&gt;<span class="xmlverb-text">$Id: generic.xsl 618 2009-01-16 01:21:28Z clange $</span>&lt;/<span class="xmlverb-element-nsprefix">xd</span>:<span class="xmlverb-element-name">svnId</span>&gt;<span class="xmlverb-text"><br/>
+        </span>&lt;<span class="xmlverb-element-nsprefix">xd</span>:<span class="xmlverb-element-name"><a name="d44e21">svnId</a></span>&gt;<span class="xmlverb-text">$Id: generic.xsl 723 2009-08-05 11:15:04Z clange $</span>&lt;/<span class="xmlverb-element-nsprefix">xd</span>:<span class="xmlverb-element-name">svnId</span>&gt;<span class="xmlverb-text"><br/>
     </span>&lt;/<span class="xmlverb-element-nsprefix">xd</span>:<span class="xmlverb-element-name">doc</span>&gt;</div><span class="xmlverb-text"><br/>
 <br/>
     </span><div class="xd">
@@ -590,7 +591,8 @@
             </span>&lt;<span class="xmlverb-element-name"><a name="d44e826">with-param</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">blank-node-id</span>" <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">$blank-node-id</span>" <span class="xmlverb-attr-name">tunnel</span>="<span class="xmlverb-attr-content">yes</span>" /&gt;<span class="xmlverb-text"><br/>
             </span>&lt;!--<span class="xmlverb-comment"> if a resource is created from the first element, make it the first resource of this collection </span>--&gt;<span class="xmlverb-text"><br/>
             </span>&lt;<span class="xmlverb-element-name"><a name="d44e830">with-param</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">related-via-properties</span>" <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">'http://www.w3.org/1999/02/22-rdf-syntax-ns#first'</span>" <span class="xmlverb-attr-name">tunnel</span>="<span class="xmlverb-attr-content">yes</span>" /&gt;<span class="xmlverb-text"><br/>
-        </span>&lt;/<span class="xmlverb-element-name">apply-templates</span>&gt;<span class="xmlverb-text"><br/>
+        </span>&lt;/<span class="xmlverb-element-name">apply-templates</span>&gt;<span class="xmlverb-text">            <br/>
+            <br/>
         </span>&lt;<span class="xmlverb-element-name"><a name="d44e833">choose</a></span>&gt;<span class="xmlverb-text"><br/>
             </span>&lt;<span class="xmlverb-element-name"><a name="d44e835">when</a></span> <span class="xmlverb-attr-name">test</span>="<span class="xmlverb-attr-content">$rest[2]</span>"&gt;<span class="xmlverb-text"><br/>
                 </span>&lt;<span class="xmlverb-element-name"><a name="d44e837">call-template</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">krextor:create-resource</span>"&gt;<span class="xmlverb-text"><br/>
