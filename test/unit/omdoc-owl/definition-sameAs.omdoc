@@ -22,7 +22,7 @@
 <symbol name="foo" xml:id="foo.sym"/>
 <symbol name="bar" xml:id="bar.sym"/>
 
-<definition for="#foo.sym" type="simple">
+<definition for="foo" type="simple">
   <OMOBJ xmlns="http://www.openmath.org/OpenMath">
     <OMS cd="definition-sameAs" name="bar"/>
   </OMOBJ>

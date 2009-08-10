@@ -48,7 +48,7 @@
 </symbol>
 
 
-<definition for="#Student.sym" type="simple">
+<definition for="Student" type="simple">
   <OMOBJ xmlns="http://www.openmath.org/OpenMath">
     <OMA>
       <OMS cd="owl" name="intersectionOf"/>
