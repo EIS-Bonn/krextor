@@ -392,11 +392,12 @@
 
     <xd:doc>Initiates the creation of a class definition</xd:doc>
     <template match="definition[@type eq 'simple' and krextor:is-ontology-term(om:OMOBJ)]">
-	<variable name="symbol" select="document(@for)"/>
+	<!-- we only consider definitions that define one symbol -->
+	<variable name="symbol" select="ancestor::theory[1]//symbol[@name eq current()/@for]"/>
 	<if test="$symbol">
 	    <!-- construct an OpenMath symbol -->
 	    <variable name="symbol-oms">
-		<om:OMS cd="{parent::theory/@xml:id}" name="{$symbol/@name}"/>
+		<om:OMS cd="{ancestor::theory[1]/@xml:id}" name="{$symbol/@name}"/>
 	    </variable>
 	    <call-template name="krextor:create-resource">
 	    	<with-param name="subject" select="krextor:ontology-uri($symbol-oms/om:OMS)"/>
@@ -406,7 +407,7 @@
 
     <xd:doc>Creates simple equivalence definitions (<i>owl:equivalentClass</i>, <i>owl:equivalentProperty</i>, <i>owl:sameAs</i>)</xd:doc>
     <template match="om:OMS[parent::om:OMOBJ[parent::definition[@type eq 'simple']]]">
-	<variable name="symbol-type" select="document(parent::om:OMOBJ/parent::definition/@for)/type/om:OMOBJ/descendant::om:OMS[1]"/>
+	<variable name="symbol-type" select="ancestor::theory[1]//symbol[@name eq current()/parent::om:OMOBJ/parent::definition/@for]/type/om:OMOBJ/descendant::om:OMS[1]"/>
 	<call-template name="krextor:create-resource">
 	    <with-param name="related-via-properties" tunnel="yes">
 		<choose>

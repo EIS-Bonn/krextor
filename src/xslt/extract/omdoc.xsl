@@ -104,7 +104,7 @@
 	    <call-template name="krextor:create-resource">
 		<!-- If we are not on top level, manipulate the base URI,
 		     either in MMT or in OMDoc 1.2 style -->
-		<!-- FIXME look into omdoc-owl.xsl for a better way of how to do this -->
+		<!-- FIXME look into omdoc-owl.xsl for a better way of how to do this, see https://trac.kwarc.info/krextor/ticket/16 -->
 		<with-param name="subject-uri" select="if ($mmt and @name)
 		    then concat($subject-uri, '/', @name)
 		    else $subject-uri" tunnel="yes"/>
@@ -331,6 +331,7 @@
 
     <!-- TODO adapt to further progress of the MMT (OMDoc 1.6) specification -->
     <template match="symbol[@role='axiom']|axiom">
+	<!-- axiom/@for missing -->
 	<call-template name="krextor:create-omdoc-resource">
 	    <!-- FIXME documentUnit, mathematicalBlock (can contain CMPs) -->
 		<with-param name="related-via-properties" select="if (parent::proof) then '&odo;hasStep' else if (parent::theory) then '&odo;homeTheoryOf' else '&odo;hasPart' , if (parent::tgroup) then '&sdoc;hasComposite' else '&sdoc;hasPart'" tunnel="yes"/>
@@ -349,8 +350,15 @@
     </template>
 
     <template match="definition/@for|omtext[@type='definition']/@for">
+	<!-- TODO MMT URIs not yet supported; fix this together with the
+	improved URI generation, https://trac.kwarc.info/krextor/ticket/16 -->
+	<variable name="symbol-uris" select="for $id in
+	    ancestor::theory//symbol[@name = tokenize(current(), '\s+')]/@xml:id
+	    return concat('#', $id)"/> 
 	<call-template name="krextor:add-uri-property">
 	    <with-param name="property" select="'&odo;defines'"/>
+	    <with-param name="object" select="$symbol-uris"/>
+	    <with-param name="object-is-list" select="true()"/>
 	</call-template>
     </template>
 

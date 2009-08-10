@@ -183,39 +183,6 @@
 	<sequence select="krextor:generate-uri-impl($arg1, $arg2)"/>
     </template>
 
-    <xd:doc>Generates a URI for a resource: head/tail implementation of a single step of this <code>repeat..until</code> loop</xd:doc>
-    <function name="krextor:generate-uri-until-done">
-	<param name="node"/>
-	<param name="base-uri"/>
-	<param name="head"/>
-	<param name="tail"/>
-
-	<!-- TODO parameterize this -->
-	<variable name="result" select="
-            if ($head eq 'document-root-base'
-                and $node/parent::node() instance of document-node())
-                then $base-uri
-            else if ($head = ('xml-id', 'generate-id', 'pseudo-xpath'))
-                then krextor:fragment-uri-or-null(
-                    if ($head eq 'xml-id' and $node/@xml:id)
-                        then $node/@xml:id
-                    else if ($head eq 'generate-id')
-                        then generate-id($node)
-                    else if ($head eq 'pseudo-xpath')
-                        then krextor:pseudo-xpath($node)
-                    else (),
-                    $base-uri)
-            else ()"/>
-	<value-of select="if ($result) then $result
-	    else if (exists($tail)) then krextor:generate-uri-until-done(
-		$node,
-		$base-uri,
-		$tail[1],
-		subsequence($tail, 2)
-	    )
-	    else ()"/>
-    </function>
-
     <xd:doc>Calls the output module template that outputs one RDF triple; URIs
 	are resolved against the base URI before, if there is a base
 	URI.</xd:doc>
@@ -480,7 +447,7 @@
 	<param name="tunneled-property" as="xs:string*" tunnel="yes"/>
 	<!-- TODO consider allowing XML literals here (move code from RDFa here) -->
 	<param name="object" select="."/>
-	<!-- Is the object a whitespace-separated list? -->
+	<!-- Is the object a whitespace-separated list or a sequence? -->
 	<param name="object-is-list" select="false()" as="xs:boolean"/>
 	<!-- Normalize whitespace around the value of the object? -->
 	<param name="normalize-space" select="false()" as="xs:boolean"/>
@@ -489,9 +456,11 @@
 	<variable name="actual-property" select="if (exists($property)) then $property
 	    else $tunneled-property"/>
 	<choose>
-	    <!-- If the "object" is a whitespace-separated list of actual objects, we recursively generate one triple for each object. -->
+	    <!-- If the "object" is a whitespace-separated list or a sequence of actual objects, we recursively generate one triple for each object. -->
 	    <when test="$object-is-list">
-		<for-each select="tokenize($object, '\s+')">
+		<for-each select="if (count($object) gt 0) 
+		    then $object
+		    else tokenize($object, '\s+')">
 		    <call-template name="krextor:add-literal-property">
 			<with-param name="property" select="$actual-property"/>
 			<with-param name="object" select="."/>
@@ -559,7 +528,9 @@
 	<param name="inverse" select="false()"/>
 	<!-- inverse information from incomplete triples -->
 	<param name="tunneled-inverse" tunnel="yes"/>
-	<!-- Is the object a whitespace-separated list? -->
+	<!-- Is the object a whitespace-separated list or a 
+	multi-element sequence?  Use the empty sequence () instead
+	of the empty string in order to pass something that is not an object -->
 	<param name="object-is-list" select="false()"/>
 	<!-- Currently we assume that, if no explicit link target is given, we are either:
 	1. in the root element R of an XIncluded document and that a relationship between the parent of the xi:include and the XIncluded document is to be expressed.
@@ -567,12 +538,14 @@
 	   and a relationship between the current subject URI and the URIref in the attribute value is to be expressed. -->
 	<param name="object" select="if (krextor:is-text-or-attribute-or-atomic(.))
 	    then if ($object-is-list) then . else resolve-uri(., $subject-uri)
-	    (: What is this resolution good for? MMT? :)
+	    (: What is this resolution good for? MMT?
+	       Anyway, if needed, we could also resolve each list
+	       item by for - in - return :)
 	    else if (parent::node() instance of document-node()) then base-uri()
 	    else ''"/>
 	<!-- node ID, if the object is a blank node -->
 	<param name="blank" as="xs:string?"/>
-	<if test="($blank or $object) and (exists($property) or exists($tunneled-property))">
+	<if test="($blank or exists($object)) and (exists($property) or exists($tunneled-property))">
 	    <variable name="actual-object" select="if ($blank) then $blank
 		else $object"/>
 	    <variable name="actual-property" select="if (exists($property)) then $property
@@ -582,7 +555,9 @@
 	    <choose>
 		<!-- If the "object" is a whitespace-separated list of actual objects, we recursively generate one triple for each object. -->
 		<when test="$object-is-list">
-		    <for-each select="tokenize($actual-object, '\s+')">
+		    <for-each select="if (count($actual-object) gt 1)
+			then $actual-object
+			else tokenize($actual-object, '\s+')">
 			<call-template name="krextor:add-uri-property">
 			    <with-param name="property" select="$actual-property"/>
 			    <with-param name="inverse" select="$actual-inverse"/>
