@@ -45,7 +45,7 @@
         (: TODO make OpenMath and MathML handling completely equivalent :)
         |descendant::m:csymbol|m:semantics/m:annotation-xml)[1]"/>
     <om:_>
-        <xsl:for-each select="('cdbase', 'cd', 'name')">
+        <xsl:for-each select="'cdbase', 'cd', 'name'">
         <xsl:variable name="attribute" select="$symbol/@*[local-name() eq current()]"/>
         <xsl:if test="$attribute">
             <xsl:attribute name="{current()}" select="$attribute"/>

@@ -81,9 +81,9 @@
 	 http://www.aifb.uni-karlsruhe.de/pipermail/swikig/2006-February/000095.html
 	 for more background on this in a semantic web context.
     -->
-    <param name="autogenerate-fragment-uris" select="(
+    <param name="autogenerate-fragment-uris" select="
 	'xml-id',
-	'document-root-base')"/>
+	'document-root-base'"/>
 
     <!-- Should XIncludes be traversed?  Note: Templates for nodes in XIncluded
          documents are matched in "krextor:included" mode. -->

@@ -67,14 +67,14 @@
     <param name="autogenerate-fragment-uris" select="()"/>
 
     <!-- Default setting if we want fragment URIs to be auto-generated -->
-    <param name="autogenerate-fragment-uris-omdoc-default" select="(
+    <param name="autogenerate-fragment-uris-omdoc-default" select="
 	'xml-id',
-	'document-root-base')"/>
+	'document-root-base'"/>
     <!-- Other settings for testing -->
     <!--
-    <param name="autogenerate-fragment-uris-omdoc-default" select="(
+    <param name="autogenerate-fragment-uris-omdoc-default" select="
 	'pseudo-xpath'
-	)"/>
+	"/>
     -->
 
     <param name="use-root-xmlid" select="false()"/>

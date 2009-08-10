@@ -118,12 +118,12 @@
 		else if (@src) then @src
 		else ()"/>
 	<variable name="blank-node-id" select="if (exists($new-subject)) then krextor:safe-curie-to-bnode-id($new-subject) else ()"/>
-	<variable name="related-via-properties" select="(
+	<variable name="related-via-properties" select="
 	    if (not(exists(@about|@src|@typeof))) then krextor:curies-to-uris(., @rel) else (),
-	    if (exists($tunneled-property) and not($tunneled-inverse)) then $tunneled-property else ())"/>
-	<variable name="related-via-inverse-properties" select="(
+	    if (exists($tunneled-property) and not($tunneled-inverse)) then $tunneled-property else ()"/>
+	<variable name="related-via-inverse-properties" select="
 	    if (not(exists(@about|@src|@typeof))) then krextor:curies-to-uris(., @rev) else (),
-	    if (exists($tunneled-property) and $tunneled-inverse) then $tunneled-property else ())"/>
+	    if (exists($tunneled-property) and $tunneled-inverse) then $tunneled-property else ()"/>
 
 	<if test="$debug">
 	    <message>SUBJECT</message>
