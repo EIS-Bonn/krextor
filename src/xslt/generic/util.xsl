@@ -37,6 +37,19 @@
     <import href="../lib/fxsl/f/func-apply2.xsl"/>
     <import href="../lib/fxsl/f/func-curry.xsl"/>
 
+    <xd:doc type="stylesheet">
+	<xd:short>Various utility functions</xd:short>
+	<xd:detail><p>This stylesheet provides various utility functions</p></xd:detail>
+	<xd:author>Christoph Lange</xd:author>
+	<xd:copyright>Christoph Lange, 2009</xd:copyright>
+	<xd:svnId>$Id: generic.xsl 723 2009-08-05 11:15:04Z clange $</xd:svnId>
+    </xd:doc>
+
+    <xd:doc>For each element <i>e</i> of a list, apply a given function <i>f</i> to it in the way <i>f(e, …)</i>, and return the first result that evaluates to <code>true</code>.
+	<xd:param name="function">a reference to the function</xd:param>
+	<xd:param name="iterate-params">a sequence representing the list of elements to test</xd:param>
+	<xd:param name="static-params">a sequence of further parameters passed to every call of the function</xd:param>
+    </xd:doc>
     <function name="f:return-first">
 	<param name="function"/>
 	<param name="iterate-params"/>
@@ -48,6 +61,18 @@
 	    $static-params)"/>
     </function>
 
+    <xd:doc>One iteration of the whole loop of running
+	<code>f:return-first</code>.  If the return value of the function, when
+	passed the given first argument and optionally further arguments,
+	evaluates to <code>true</code>, then return that value, otherwise
+	proceed to the next iteration.
+	<xd:param name="function">a reference to the function</xd:param>
+	<xd:param name="head">the first argument to pass to the function</xd:param>
+	<xd:param name="tail">the other elements to use as first argument to
+	    the function each in subsequent function calls if this one did not
+	    succeed</xd:param>
+	<xd:param name="static-params">a sequence of further parameters passed to every call of the function</xd:param>
+    </xd:doc>
     <function name="f:return-first-step">
 	<param name="function"/>
 	<param name="head"/>
