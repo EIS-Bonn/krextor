@@ -60,7 +60,7 @@
 
     <xsl:strip-space elements="*"/>
     
-    <xd:doc>Easy XML -> RDF mappings</xd:doc>
+    <xd:doc>Easy XML → RDF mappings</xd:doc>
     <xsl:variable name="krextor:resources">
 	<CD type="&omo;ContentDictionary"/>
 	<CDDefinition type="&omo;SymbolDefinition"
