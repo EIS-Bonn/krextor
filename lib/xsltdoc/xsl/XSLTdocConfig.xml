@@ -30,9 +30,11 @@
     <File href="extract/omdoc-owl.xsl"/>
     <File href="extract/omdoc.xsl"/>
     <File href="extract/xhtml-rdfa.xsl"/>
+    <File href="extract/xmath.xsl"/>
     <File href="generic/generic.xsl"/>
     <File href="output/java.xsl"/>
     <File href="output/none.xsl"/>
+    <File href="output/ntriples.xsl"/>
     <File href="output/rdf-xml.xsl"/>
     <File href="output/rxr.xsl"/>
     <File href="output/turtle.xsl"/>
