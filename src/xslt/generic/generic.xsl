@@ -50,37 +50,50 @@
 
     <xd:doc>Enable debug output?</xd:doc>
     <param name="debug" select="false()"/>
-    <!-- Should URIs like document#fragment automatically be generated?
-         This is a sequence of string values:
-	 * 'xml-id': use the xml:id attribute if available, otherwise nothing
-	 * 'document-root-base': use the base URI if we are on the root
-	   element, otherwise nothing.  Note that for meaningful results you
-	   should not pass a manipulated base URI into create-resource.
-	 * 'generate-id': generate via generate-id() function (always succeeds)
-	 * 'pseudo-xpath': generate an XPath-like expression from the local 
-	   names and local positions of the element and its parents (always
-	   succeeds; can lead to clashes if elements from different namespaces
-	   with the same local names are used in the same context or if dashes
-	   are used within element names; inefficient because the whole XPath
-	   from the root is newly computed for every element); example:
-	   doc-section2-para1 = /doc/section[2]/para[1]
-	
-	 The default setting is ('xml-id' 'document-root-base').  If one method
-	 fails to generate a URI, the next one in the list is tried.
 
-	 Note that there is no guarantee that generate-id and pseudo-xpath 
-	 generate URIs that differ from all xml:ids in the document.  We leave
-	 the responsibility of not creating xml:ids too obscure to the document
-	 author.
-
-	 Also note that any fragment ID that the base URI of the document
-	 already has is discarded and replaced by the generated fragment ID, if
-	 Krextor is instructed to generate one.  More than one fragment is not
-	 allowed by the URI RFC 3986 (http://www.faqs.org/rfcs/rfc3986.html).
-	 See
-	 http://www.aifb.uni-karlsruhe.de/pipermail/swikig/2006-February/000095.html
-	 for more background on this in a semantic web context.
-    -->
+    <xd:doc>
+	<xd:short>Should URIs like <code>document#fragment</code> automatically be
+	    generated?  Sequence of string values out of <code>xml-id</code>, <code>document-root-base</code>, <code>generate-id</code>, <code>pseudo-xpath</code>, or additional custom values.</xd:short>
+	<xd:detail><p>This parameter is a sequence of string values representing URI generation functions:</p>
+	    <dl>
+		<dt>xml-id</dt>
+		<dd>use the <a href="http://www.w3.org/TR/xml-id/">xml:id</a> attribute if available, otherwise nothing</dd>
+		<dt>document-root-base</dt>
+		<dd>use the base URI if we are on the root element, otherwise nothing.  Note that for meaningful results you should not pass a manipulated base URI into <code>create-resource</code>.</dd>
+		<dt>generate-id</dt>
+		<dd>generate via <a href="http://www.w3.org/TR/xslt20/#generate-id">generate-id()</a> function (always succeeds)</dd>
+		<dt>pseudo-xpath</dt>
+		<dd>generate an <a
+			href="http://www.w3.org/TR/xpath20/">XPath</a>-like
+		    expression from the local names and local positions of the
+		    element and its parents (always succeeds; can lead to clashes
+		    if elements from different namespaces with the same local names
+		    are used in the same context or if dashes are used within
+		    element names; inefficient because the whole XPath
+		    from the root is newly computed for every element); example:
+		    <code>doc-section2-para1</code> =
+		    <code>/doc/section[2]/para[1]</code></dd>
+	    </dl>
+	    <p>The default setting is <code>('xml-id' 'document-root-base')</code>.
+		If one method fails to generate a URI, the next one in the list is
+		tried, until one succeeds; otherwise, no resource is created for
+		the respective node.</p>
+	    <p>Note that there is no guarantee that <code>generate-id</code> and
+		<code>pseudo-xpath</code> generate URIs that differ from all <a
+		    href="http://www.w3.org/TR/xml-id/">xml:id</a>s in the
+		document.  We leave the responsibility of not creating too obscure
+		<code>xml:id</code>s to the document author.</p>
+	    <p>Also note that any fragment ID that the base URI of the document
+		already has is discarded and replaced by the generated fragment ID,
+		if Krextor is instructed to generate one.  More than one fragment
+		is not allowed by the <a
+		    href="http://www.faqs.org/rfcs/rfc3986.html">URI RFC 3986</a>.
+		See <a
+		    href="http://www.aifb.uni-karlsruhe.de/pipermail/swikig/2006-February/000095.html">this
+		    e-mail thread from the Semantic Wiki mailing list</a> for more
+		background on this in a semantic web context.</p>
+	</xd:detail>
+    </xd:doc>
     <param name="autogenerate-fragment-uris" select="
 	'xml-id',
 	'document-root-base'"/>
