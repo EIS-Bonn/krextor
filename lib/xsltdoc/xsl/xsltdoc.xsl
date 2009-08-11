@@ -10,17 +10,17 @@
   <xd:doc type="stylesheet">
     Frontedn for core.xsl
     <xd:author>ibirrer</xd:author>
-    <xd:cvsId>$Id: xsltdoc.xsl 24 2005-01-04 10:13:06Z ibirrer $</xd:cvsId>
+    <xd:cvsId>$Id: xsltdoc.xsl 41 2009-01-10 11:31:18Z ibirrer $</xd:cvsId>
     <xd:copyright>2004, P&amp;P Software GmbH</xd:copyright>
   </xd:doc>
   
   <xsl:output name="xhtml"
-              omit-xml-declaration="yes"
-              method="xml"
+              omit-xml-declaration="no"
+              method="xhtml"
               doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN" 
               doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"
-              indent="no" 
-              encoding="iso-8859-1"/>
+              indent="no"
+              encoding="UTF-8"/>
   
   <xsl:template match="/">
     <xsl:apply-templates>

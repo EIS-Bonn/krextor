@@ -25,7 +25,7 @@
   <xsl:param name="targetDir" select="false()"/>
   
   <xd:doc>
-    You can add additional (custom) css stylesheets here, which override css rules from the standard css file (XSLTdoc.css) or add new rules.  
+    Custom Stylesheets. Add additional (custom) css stylesheets here to override css rules from the standard css file (XSLTdoc.css). 
   </xd:doc>
   <xsl:param name="additionalCSS" as="xs:string*"/>
   
@@ -36,18 +36,18 @@
      This stylesheet
     </xd:detail>
     <xd:author>ibirrer</xd:author>
-    <xd:cvsId>$Id: core.xsl 32 2005-06-17 15:34:40Z ibirrer $</xd:cvsId>
+    <xd:cvsId>$Id: core.xsl 41 2009-01-10 11:31:18Z ibirrer $</xd:cvsId>
     <xd:copyright>2004, P&amp;P Software GmbH</xd:copyright>
   </xd:doc>
   
   <!-- Default output format, normally overwritten by importing stylesheet -->
   <xsl:output name="xhtml"
-              omit-xml-declaration="yes"
-              method="xml"
+              omit-xml-declaration="no"
+              method="xhtml"
               doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN" 
               doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"
-              indent="no" 
-              encoding="iso-8859-1"/>
+              indent="no"
+              encoding="UTF-8"/>
   
   <!-- Output format for logfile -->
   <xsl:output method="xml" indent="yes"/>

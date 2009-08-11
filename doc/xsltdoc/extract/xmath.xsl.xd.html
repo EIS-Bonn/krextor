@@ -1,15 +1,15 @@
-
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html
   PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
-  <head>
-    <meta name="description" content="A Javadoc-like Documentation Tool for for all versions of XSLT (1.0, 1.1, 2.0). Available for free on a GPL licence. "/>
-		<meta name="author" content="P&amp;P Software GmbH"/>
-		<meta name="keywords" content="XSLT, XSLT documentation, XSLT 2.0, Open Source, Documenting XSLT, xsltdoc, xsldoc, Javadoc, Doxygen, xdoc, gpl"/>
+  <head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="description" content="A Javadoc-like Documentation Tool for for all versions of XSLT (1.0, 1.1, 2.0). Available for free on a GPL licence. " />
+		<meta name="author" content="P&amp;P Software GmbH" />
+		<meta name="keywords" content="XSLT, XSLT documentation, XSLT 2.0, Open Source, Documenting XSLT, xsltdoc, xsldoc, Javadoc, Doxygen, xdoc, gpl" />
     <title>
       Krextor RDF Extractor - xmath.xsl
     </title>
-    <link href="../XSLTdoc.css" rel="stylesheet" type="text/css"/>
+    <link href="../XSLTdoc.css" rel="stylesheet" type="text/css" />
   </head>
   <body>
     <div id="navbar">
@@ -19,12 +19,12 @@
     </div>
     <div id="content">
       <div id="stylesheetDetail"><h1>xmath.xsl</h1><div class="detailDoc"><div class="shortDescr">Extraction module for <a href="http://dlmf.nist.gov/LaTeXML">LaTeXML</a>'s XMath format, as required for <a href="http://trac.kwarc.info/lamapun">LaMaPUn</a></div><div class="properties"><div class="property"><div class="propertyCaption">Author:</div><div class="propertyContent">Christoph Lange</div></div><div class="property"><div class="propertyCaption">Copyright:</div><div class="propertyContent">Christoph Lange, 2009</div></div><div class="property"><div class="propertyCaption">SVN Id:</div><div class="propertyContent">$Id: ocd.xsl 723 2009-08-05 11:15:04Z clange $</div></div></div></div></div><div id="parametersSummary"><h2>Parameters Summary</h2><div class="listItem"><div class="declaration"><span class="declName"><a class="declLink" href="#d44e30">autogenerate-fragment-uris</a></span> - <a class="sourceLink" href="xmath.xsl.src.html#d44e24">source</a></div><div class="shortDoc"><div class="shortDescr">The way we want to generate URIs for resources of interest; can be
-	a list of multiple ways</div></div></div></div><div id="matchTemplatesSummary"><h2>Match Templates Summary</h2><div class="listItem"><div class="declaration"><span class="declName"><a class="declLink" href="#d44e62">XMath</a></span> - <a class="sourceLink" href="xmath.xsl.src.html#d44e62">source</a></div><div class="shortDoc"><div class="shortDescr">No short description available</div></div></div><div class="listItem"><div class="declaration"><span class="paramType">xs:string? </span><span class="declName"><a class="declLink" href="#d44e49">krextor-genuri:xmath-index</a></span> (<span class="declCaption">param: </span><span class="paramName">node</span>, <span class="paramName">base-uri</span>) - <a class="sourceLink" href="xmath.xsl.src.html#d44e46">source</a></div><div class="shortDoc"><div class="shortDescr">Our own generation of fragment URIs (index of the XMath element);
+	a list of multiple ways</div></div></div></div><div id="matchTemplatesSummary"><h2>Match Templates Summary</h2><div class="listItem"><div class="declaration"><span class="declName"><a class="declLink" href="#d44e62">XMath</a></span> - <a class="sourceLink" href="xmath.xsl.src.html#d44e62">source</a></div><div class="shortDoc"><div class="shortDescr">No short description available</div></div></div><div class="listItem"><div class="declaration"><span class="paramType">xs:string?Â </span><span class="declName"><a class="declLink" href="#d44e49">krextor-genuri:xmath-index</a></span> (<span class="declCaption">param: </span><span class="paramName">node</span>,Â <span class="paramName">base-uri</span>) - <a class="sourceLink" href="xmath.xsl.src.html#d44e46">source</a></div><div class="shortDoc"><div class="shortDescr">Our own generation of fragment URIs (index of the XMath element);
 	only succeeds if we are on an XMath element</div></div></div></div><div id="functionsSummary"><h2>Functions Summary</h2><div class="listItem"><div class="declaration"><span class="declName"><a class="declLink" href="#d44e38">krextor:xmath-index</a></span> (<span class="declCaption">param: </span><span class="paramName">node</span>) - <a class="sourceLink" href="xmath.xsl.src.html#d44e32">source</a></div><div class="shortDoc"><div class="shortDescr">The index of an XMath element among all XMath elements in the
 	document</div></div></div></div><div id="parametersDetail"><h2>Parameters Detail</h2><div class="listItem"><div class="declaration"><span class="declName"><a name="d44e30">autogenerate-fragment-uris</a></span> - <a class="sourceLink" href="xmath.xsl.src.html#d44e24">source</a></div><div class="detailDoc"><div class="shortDescr">The way we want to generate URIs for resources of interest; can be
 	a list of multiple ways</div><div class="detailDescr">  For every way that is not part of the Krextor
 	core, we have to develop a  template
-	implementing that particular URI generation.</div></div></div></div><div id="matchTemplatesDetail"><h2>Match Templates Detail</h2><div class="listItem"><div class="declaration"><span class="declName"><a name="d44e62">XMath</a></span> - <a class="sourceLink" href="xmath.xsl.src.html#d44e62">source</a></div><div class="detailDoc"><div class="shortDescr">No short description available</div></div></div><div class="listItem"><div class="declaration"><span class="paramType">xs:string? </span><span class="declName"><a name="d44e49">krextor-genuri:xmath-index</a></span> (<span class="declCaption">param: </span><span class="paramName">node</span>, <span class="paramName">base-uri</span>) - <a class="sourceLink" href="xmath.xsl.src.html#d44e46">source</a></div><div class="detailDoc"><div class="shortDescr">Our own generation of fragment URIs (index of the XMath element);
+	implementing that particular URI generation.</div></div></div></div><div id="matchTemplatesDetail"><h2>Match Templates Detail</h2><div class="listItem"><div class="declaration"><span class="declName"><a name="d44e62">XMath</a></span> - <a class="sourceLink" href="xmath.xsl.src.html#d44e62">source</a></div><div class="detailDoc"><div class="shortDescr">No short description available</div></div></div><div class="listItem"><div class="declaration"><span class="paramType">xs:string?Â </span><span class="declName"><a name="d44e49">krextor-genuri:xmath-index</a></span> (<span class="declCaption">param: </span><span class="paramName">node</span>,Â <span class="paramName">base-uri</span>) - <a class="sourceLink" href="xmath.xsl.src.html#d44e46">source</a></div><div class="detailDoc"><div class="shortDescr">Our own generation of fragment URIs (index of the XMath element);
 	only succeeds if we are on an XMath element</div><div class="properties"><div class="property"><div class="propertyCaption">Parameters:</div><div class="propertyContent"><div class="parameterDetail"><span class="paramName">node</span><span class="paramDescr"> - </span></div><div class="parameterDetail"><span class="paramName">base-uri</span><span class="paramDescr"> - </span></div></div></div></div></div></div></div><div id="functionsDetail"><h2>Functions Detail</h2><div class="listItem"><div class="declaration"><span class="declName"><a name="d44e38">krextor:xmath-index</a></span> (<span class="declCaption">param: </span><span class="paramName">node</span>) - <a class="sourceLink" href="xmath.xsl.src.html#d44e32">source</a></div><div class="detailDoc"><div class="shortDescr">The index of an XMath element among all XMath elements in the
 	document</div><div class="detailDescr">  We assume that there are no nested XMath elements, is that
 	correct?
@@ -32,14 +32,14 @@
     </div><div class="properties"><div class="property"><div class="propertyCaption">Parameters:</div><div class="propertyContent"><div class="parameterDetail"><span class="paramName">node</span><span class="paramDescr"> - the node, assumed to be an XMath element</span></div></div></div></div></div></div></div>
     </div>
     <div id="footer">
-      <div style="float:left">Powered By <a target="_blank" href="http://xsltdoc.sf.net">XSLTdoc 1.1</a></div>
+      <div style="float:left">Generated with <a target="_blank" href="http://xsltdoc.sf.net">XSLTdoc 1.2.1</a></div>
       <div style="float:right">
         <a href="http://jigsaw.w3.org/css-validator/">CSS</a>
         |
         <a href="http://validator.w3.org/check?uri=referer">XHTML</a>
-        | © 2005, <a target="_blank" href="http://www.pnp-software.com/">P&amp;P Software</a>
+        | Â© 2009, <a target="_blank" href="http://www.pnp-software.com/">P&amp;P Software</a>
       </div>
-      <div> </div>
+      <div>Â </div>
     </div>
   </body>
 </html>

@@ -1,95 +1,95 @@
-
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html
   PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html><head><title>XML source view</title><link rel="stylesheet" type="text/css" href="../xmlverbatim.css"/></head><body class="xmlverb-default"><tt>
+<html><head><title>XML source view</title><link rel="stylesheet" type="text/css" href="../xmlverbatim.css"></link></head><body class="xmlverb-default"><tt>
 <!-- converted by xmlverbatim.xsl 1.1, (c) O. Becker -->
-<div xmlns:xd="http://www.pnp-software.com/XSLTdoc" class="xmlverb-default">&lt;!--<span class="xmlverb-comment"><br/>
-    *  Copyright (C) 2008<br/>
-    *  Christoph Lange<br/>
-    *  KWARC, Jacobs University Bremen<br/>
-    *  http://kwarc.info/projects/krextor/<br/>
-    *<br/>
-    *   Krextor is free software; you can redistribute it and/or<br/>
-    *         modify it under the terms of the GNU Lesser General Public<br/>
-    *         License as published by the Free Software Foundation; either<br/>
-    *         version 2 of the License, or (at your option) any later version.<br/>
-    *<br/>
-    *         This program is distributed in the hope that it will be useful,<br/>
-    *         but WITHOUT ANY WARRANTY; without even the implied warranty of<br/>
-    *         MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU<br/>
-    *         Lesser General Public License for more details.<br/>
-    *<br/>
-    *         You should have received a copy of the GNU Lesser General Public<br/>
-    *         License along with this library; if not, write to the<br/>
-    *         Free Software Foundation, Inc., 59 Temple Place - Suite 330,<br/>
-    *         Boston, MA 02111-1307, USA.<br/>
-    * <br/>
-</span>--&gt;<br/>
-&lt;<span class="xmlverb-element-name"><a name="d149e2">stylesheet</a></span><span class="xmlverb-ns-name"> xmlns</span>="<span class="xmlverb-ns-uri">http://www.w3.org/1999/XSL/Transform</span>"<span class="xmlverb-ns-name"> xmlns:rxr</span>="<span class="xmlverb-ns-uri">http://ilrt.org/discovery/2004/03/rxr/</span>"<span class="xmlverb-ns-name"> xmlns:xs</span>="<span class="xmlverb-ns-uri">http://www.w3.org/2001/XMLSchema</span>"<span class="xmlverb-ns-name"> xmlns:krextor</span>="<span class="xmlverb-ns-uri">http://kwarc.info/projects/krextor</span>"<span class="xmlverb-ns-name"> xmlns:xd</span>="<span class="xmlverb-ns-uri">http://www.pnp-software.com/XSLTdoc</span>" <span class="xmlverb-attr-name">exclude-result-prefixes</span>="<span class="xmlverb-attr-content">#all</span>" <span class="xmlverb-attr-name">version</span>="<span class="xmlverb-attr-content">2.0</span>"&gt;<span class="xmlverb-text"><br/>
-    </span>&lt;<span class="xmlverb-element-name"><a name="d149e4">import</a></span> <span class="xmlverb-attr-name">href</span>="<span class="xmlverb-attr-content">../generic/generic.xsl</span>" /&gt;<span class="xmlverb-text"><br/>
-    </span>&lt;<span class="xmlverb-element-name"><a name="d149e6">import</a></span> <span class="xmlverb-attr-name">href</span>="<span class="xmlverb-attr-content">rxr.xsl</span>" /&gt;<span class="xmlverb-text"><br/>
-    </span>&lt;<span class="xmlverb-element-name"><a name="d149e8">import</a></span> <span class="xmlverb-attr-name">href</span>="<span class="xmlverb-attr-content">util/turtle.xsl</span>" /&gt;<span class="xmlverb-text"><br/>
-<br/>
-    </span><div class="xd">
-    &lt;<span class="xmlverb-element-nsprefix">xd</span>:<span class="xmlverb-element-name"><a name="d149e10">doc</a></span> <span class="xmlverb-attr-name">type</span>="<span class="xmlverb-attr-content">stylesheet</span>"&gt;<span class="xmlverb-text"><br/>
-        </span>&lt;<span class="xmlverb-element-nsprefix">xd</span>:<span class="xmlverb-element-name"><a name="d149e12">short</a></span>&gt;<span class="xmlverb-text">Output module for Turtle</span>&lt;/<span class="xmlverb-element-nsprefix">xd</span>:<span class="xmlverb-element-name">short</span>&gt;<span class="xmlverb-text"><br/>
-        </span>&lt;<span class="xmlverb-element-nsprefix">xd</span>:<span class="xmlverb-element-name"><a name="d149e15">detail</a></span>&gt;<span class="xmlverb-text">This stylesheet provides low-level triple-creation functions<br/>
-            and templates for a Turtle extraction from XML languages.<br/>
-            </span>&lt;<span class="xmlverb-element-name"><a name="d149e17">ul</a></span>&gt;<span class="xmlverb-text"><br/>
-                </span>&lt;<span class="xmlverb-element-name"><a name="d149e19">li</a></span>&gt;&lt;<span class="xmlverb-element-name"><a name="d149e20">a</a></span> <span class="xmlverb-attr-name">href</span>="<span class="xmlverb-attr-content">http://www.w3.org/TeamSubmission/turtle/</span>"&gt;<span class="xmlverb-text">Specification of Turtle</span>&lt;/<span class="xmlverb-element-name">a</span>&gt;&lt;/<span class="xmlverb-element-name">li</span>&gt;<span class="xmlverb-text"><br/>
-            </span>&lt;/<span class="xmlverb-element-name">ul</span>&gt;<span class="xmlverb-text"><br/>
-        </span>&lt;/<span class="xmlverb-element-nsprefix">xd</span>:<span class="xmlverb-element-name">detail</span>&gt;<span class="xmlverb-text"><br/>
-        </span>&lt;<span class="xmlverb-element-nsprefix">xd</span>:<span class="xmlverb-element-name"><a name="d149e25">author</a></span>&gt;<span class="xmlverb-text">Christoph Lange</span>&lt;/<span class="xmlverb-element-nsprefix">xd</span>:<span class="xmlverb-element-name">author</span>&gt;<span class="xmlverb-text"><br/>
-        </span>&lt;<span class="xmlverb-element-nsprefix">xd</span>:<span class="xmlverb-element-name"><a name="d149e28">copyright</a></span>&gt;<span class="xmlverb-text">Christoph Lange, 2008</span>&lt;/<span class="xmlverb-element-nsprefix">xd</span>:<span class="xmlverb-element-name">copyright</span>&gt;<span class="xmlverb-text"><br/>
-        </span>&lt;<span class="xmlverb-element-nsprefix">xd</span>:<span class="xmlverb-element-name"><a name="d149e31">svnId</a></span>&gt;<span class="xmlverb-text">$Id: turtle.xsl 723 2009-08-05 11:15:04Z clange $</span>&lt;/<span class="xmlverb-element-nsprefix">xd</span>:<span class="xmlverb-element-name">svnId</span>&gt;<span class="xmlverb-text"><br/>
-    </span>&lt;/<span class="xmlverb-element-nsprefix">xd</span>:<span class="xmlverb-element-name">doc</span>&gt;</div><span class="xmlverb-text"><br/>
-<br/>
-    </span>&lt;<span class="xmlverb-element-name"><a name="d149e35">output</a></span> <span class="xmlverb-attr-name">method</span>="<span class="xmlverb-attr-content">text</span>" <span class="xmlverb-attr-name">encoding</span>="<span class="xmlverb-attr-content">UTF-8</span>" /&gt;<span class="xmlverb-text"><br/>
-<br/>
-    </span><div class="xd">
-    &lt;<span class="xmlverb-element-nsprefix">xd</span>:<span class="xmlverb-element-name"><a name="d149e38">doc</a></span>&gt;<span class="xmlverb-text">Generates a pretty-printed predicate (currently only supports displaying </span>&lt;<span class="xmlverb-element-name"><a name="d149e40">code</a></span>&gt;<span class="xmlverb-text">rdf:type</span>&lt;/<span class="xmlverb-element-name">code</span>&gt;<span class="xmlverb-text"> as &#8220;a&#8221;).</span>&lt;/<span class="xmlverb-element-nsprefix">xd</span>:<span class="xmlverb-element-name">doc</span>&gt;</div><span class="xmlverb-text"><br/>
-    </span>&lt;<span class="xmlverb-element-name"><a name="d149e44">function</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">krextor:pretty-predicate</span>"&gt;<span class="xmlverb-text"><br/>
-        </span>&lt;<span class="xmlverb-element-name"><a name="d149e46">param</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">predicate</span>" /&gt;<span class="xmlverb-text"><br/>
-        </span>&lt;<span class="xmlverb-element-name"><a name="d149e48">value-of</a></span> <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">if ($predicate eq 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type') then 'a' else concat('&amp;lt;', $predicate, '&amp;gt;')</span>" /&gt;<span class="xmlverb-text"><br/>
-    </span>&lt;/<span class="xmlverb-element-name">function</span>&gt;<span class="xmlverb-text"><br/>
-<br/>
-    </span><div class="xd">
-    &lt;<span class="xmlverb-element-nsprefix">xd</span>:<span class="xmlverb-element-name"><a name="d149e51">doc</a></span>&gt;<span class="xmlverb-text">TODO</span>&lt;/<span class="xmlverb-element-nsprefix">xd</span>:<span class="xmlverb-element-name">doc</span>&gt;</div><span class="xmlverb-text"><br/>
-    </span>&lt;<span class="xmlverb-element-name"><a name="d149e54">function</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">krextor:rxr-node-to-turtle</span>" <span class="xmlverb-attr-name">as</span>="<span class="xmlverb-attr-content">xs:string</span>"&gt;<span class="xmlverb-text"><br/>
-        </span>&lt;<span class="xmlverb-element-name"><a name="d149e56">param</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">element</span>" /&gt;<span class="xmlverb-text"><br/>
-        </span>&lt;<span class="xmlverb-element-name"><a name="d149e58">value-of</a></span> <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">krextor:node-id-to-turtle( if ($element/@uri) then $element/@uri else if ($element/@blank) then $element/@blank else '', if ($element/@uri) then 'uri' else if ($element/@blank) then 'blank' else '' )</span>" /&gt;<span class="xmlverb-text"><br/>
-    </span>&lt;/<span class="xmlverb-element-name">function</span>&gt;<span class="xmlverb-text"><br/>
-<br/>
-    </span><div class="xd">
-    &lt;<span class="xmlverb-element-nsprefix">xd</span>:<span class="xmlverb-element-name"><a name="d149e61">doc</a></span>&gt;<span class="xmlverb-text">We obtain the RDF graph as RXR and then regroup the triples<br/>
-        by subject and predicate</span>&lt;/<span class="xmlverb-element-nsprefix">xd</span>:<span class="xmlverb-element-name">doc</span>&gt;</div><span class="xmlverb-text"><br/>
-    </span>&lt;<span class="xmlverb-element-name"><a name="d149e64">template</a></span> <span class="xmlverb-attr-name">match</span>="<span class="xmlverb-attr-content">/</span>"&gt;<span class="xmlverb-text"><br/>
-        </span>&lt;!--<span class="xmlverb-comment"> TODO Consider outputting some @prefixes </span>--&gt;<span class="xmlverb-text"><br/>
-        </span>&lt;<span class="xmlverb-element-name"><a name="d149e68">variable</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">rxr</span>"&gt;<span class="xmlverb-text"><br/>
-            </span>&lt;<span class="xmlverb-element-name"><a name="d149e70">apply-imports</a></span> /&gt;<span class="xmlverb-text"><br/>
-        </span>&lt;/<span class="xmlverb-element-name">variable</span>&gt;<span class="xmlverb-text"><br/>
-        </span>&lt;<span class="xmlverb-element-name"><a name="d149e73">for-each-group</a></span> <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">$rxr/rxr:graph/rxr:triple</span>" <span class="xmlverb-attr-name">group-by</span>="<span class="xmlverb-attr-content">krextor:rxr-node-to-turtle(rxr:subject)</span>"&gt;<span class="xmlverb-text"><br/>
-            </span>&lt;!--<span class="xmlverb-comment"> output the subject </span>--&gt;<span class="xmlverb-text"><br/>
-            </span>&lt;<span class="xmlverb-element-name"><a name="d149e77">value-of</a></span> <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">current-grouping-key()</span>" /&gt;<span class="xmlverb-text"><br/>
-            </span>&lt;<span class="xmlverb-element-name"><a name="d149e79">text</a></span>&gt;<span class="xmlverb-text"><br/>
-</span>&lt;/<span class="xmlverb-element-name">text</span>&gt;<span class="xmlverb-text"><br/>
-            </span>&lt;<span class="xmlverb-element-name"><a name="d149e82">for-each-group</a></span> <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">current-group()</span>" <span class="xmlverb-attr-name">group-by</span>="<span class="xmlverb-attr-content">rxr:predicate/@uri</span>"&gt;<span class="xmlverb-text"><br/>
-                </span>&lt;<span class="xmlverb-element-name"><a name="d149e84">text</a></span>&gt;<span class="xmlverb-text">        </span>&lt;/<span class="xmlverb-element-name">text</span>&gt;<span class="xmlverb-text"><br/>
-                </span>&lt;!--<span class="xmlverb-comment"> output the predicate </span>--&gt;<span class="xmlverb-text"><br/>
-                </span>&lt;<span class="xmlverb-element-name"><a name="d149e89">value-of</a></span> <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">krextor:pretty-predicate(current-grouping-key())</span>" /&gt;<span class="xmlverb-text"><br/>
-                </span>&lt;<span class="xmlverb-element-name"><a name="d149e91">text</a></span>&gt;<span class="xmlverb-text">        </span>&lt;/<span class="xmlverb-element-name">text</span>&gt;<span class="xmlverb-text"><br/>
-                </span>&lt;<span class="xmlverb-element-name"><a name="d149e94">for-each</a></span> <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">current-group()/rxr:object</span>"&gt;<span class="xmlverb-text"><br/>
-                    </span>&lt;!--<span class="xmlverb-comment"> output the object(s) </span>--&gt;<span class="xmlverb-text"><br/>
-                    </span>&lt;<span class="xmlverb-element-name"><a name="d149e98">value-of</a></span> <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">if (@uri|@blank) then krextor:rxr-node-to-turtle(.) else krextor:literal-to-turtle(., @xml:lang, @datatype)</span>" /&gt;<span class="xmlverb-text"><br/>
-                    </span>&lt;<span class="xmlverb-element-name"><a name="d149e100">value-of</a></span> <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">if (position() ne last()) then ', ' else ' '</span>" /&gt;<span class="xmlverb-text"><br/>
-                </span>&lt;/<span class="xmlverb-element-name">for-each</span>&gt;<span class="xmlverb-text"><br/>
-                </span>&lt;<span class="xmlverb-element-name"><a name="d149e104">value-of</a></span> <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">if (position() ne last()) then ';' else '.'</span>" /&gt;<span class="xmlverb-text"><br/>
-                </span>&lt;<span class="xmlverb-element-name"><a name="d149e106">text</a></span>&gt;<span class="xmlverb-text"><br/>
-</span>&lt;/<span class="xmlverb-element-name">text</span>&gt;<span class="xmlverb-text"><br/>
-            </span>&lt;/<span class="xmlverb-element-name">for-each-group</span>&gt;<span class="xmlverb-text"><br/>
-        </span>&lt;/<span class="xmlverb-element-name">for-each-group</span>&gt;<span class="xmlverb-text"><br/>
-    </span>&lt;/<span class="xmlverb-element-name">template</span>&gt;<span class="xmlverb-text"><br/>
-</span>&lt;/<span class="xmlverb-element-name">stylesheet</span>&gt;<br/>
+<div xmlns:xd="http://www.pnp-software.com/XSLTdoc" class="xmlverb-default">&lt;!--<span class="xmlverb-comment"><br></br>
+Â Â Â Â *Â Â CopyrightÂ (C)Â 2008<br></br>
+Â Â Â Â *Â Â ChristophÂ Lange<br></br>
+Â Â Â Â *Â Â KWARC,Â JacobsÂ UniversityÂ Bremen<br></br>
+Â Â Â Â *Â Â http://kwarc.info/projects/krextor/<br></br>
+Â Â Â Â *<br></br>
+Â Â Â Â *Â Â Â KrextorÂ isÂ freeÂ software;Â youÂ canÂ redistributeÂ itÂ and/or<br></br>
+Â Â Â Â *Â Â Â Â Â Â Â Â Â modifyÂ itÂ underÂ theÂ termsÂ ofÂ theÂ GNUÂ LesserÂ GeneralÂ Public<br></br>
+Â Â Â Â *Â Â Â Â Â Â Â Â Â LicenseÂ asÂ publishedÂ byÂ theÂ FreeÂ SoftwareÂ Foundation;Â either<br></br>
+Â Â Â Â *Â Â Â Â Â Â Â Â Â versionÂ 2Â ofÂ theÂ License,Â orÂ (atÂ yourÂ option)Â anyÂ laterÂ version.<br></br>
+Â Â Â Â *<br></br>
+Â Â Â Â *Â Â Â Â Â Â Â Â Â ThisÂ programÂ isÂ distributedÂ inÂ theÂ hopeÂ thatÂ itÂ willÂ beÂ useful,<br></br>
+Â Â Â Â *Â Â Â Â Â Â Â Â Â butÂ WITHOUTÂ ANYÂ WARRANTY;Â withoutÂ evenÂ theÂ impliedÂ warrantyÂ of<br></br>
+Â Â Â Â *Â Â Â Â Â Â Â Â Â MERCHANTABILITYÂ orÂ FITNESSÂ FORÂ AÂ PARTICULARÂ PURPOSE.Â Â SeeÂ theÂ GNU<br></br>
+Â Â Â Â *Â Â Â Â Â Â Â Â Â LesserÂ GeneralÂ PublicÂ LicenseÂ forÂ moreÂ details.<br></br>
+Â Â Â Â *<br></br>
+Â Â Â Â *Â Â Â Â Â Â Â Â Â YouÂ shouldÂ haveÂ receivedÂ aÂ copyÂ ofÂ theÂ GNUÂ LesserÂ GeneralÂ Public<br></br>
+Â Â Â Â *Â Â Â Â Â Â Â Â Â LicenseÂ alongÂ withÂ thisÂ library;Â ifÂ not,Â writeÂ toÂ the<br></br>
+Â Â Â Â *Â Â Â Â Â Â Â Â Â FreeÂ SoftwareÂ Foundation,Â Inc.,Â 59Â TempleÂ PlaceÂ -Â SuiteÂ 330,<br></br>
+Â Â Â Â *Â Â Â Â Â Â Â Â Â Boston,Â MAÂ 02111-1307,Â USA.<br></br>
+Â Â Â Â *Â <br></br>
+</span>--&gt;<br></br>
+&lt;<span class="xmlverb-element-name"><a name="d149e2">stylesheet</a></span><span class="xmlverb-ns-name"> xmlns</span>="<span class="xmlverb-ns-uri">http://www.w3.org/1999/XSL/Transform</span>"<span class="xmlverb-ns-name"> xmlns:rxr</span>="<span class="xmlverb-ns-uri">http://ilrt.org/discovery/2004/03/rxr/</span>"<span class="xmlverb-ns-name"> xmlns:xs</span>="<span class="xmlverb-ns-uri">http://www.w3.org/2001/XMLSchema</span>"<span class="xmlverb-ns-name"> xmlns:krextor</span>="<span class="xmlverb-ns-uri">http://kwarc.info/projects/krextor</span>"<span class="xmlverb-ns-name"> xmlns:xd</span>="<span class="xmlverb-ns-uri">http://www.pnp-software.com/XSLTdoc</span>" <span class="xmlverb-attr-name">exclude-result-prefixes</span>="<span class="xmlverb-attr-content">#all</span>" <span class="xmlverb-attr-name">version</span>="<span class="xmlverb-attr-content">2.0</span>"&gt;<span class="xmlverb-text"><br></br>
+Â Â Â Â </span>&lt;<span class="xmlverb-element-name"><a name="d149e4">import</a></span> <span class="xmlverb-attr-name">href</span>="<span class="xmlverb-attr-content">../generic/generic.xsl</span>" /&gt;<span class="xmlverb-text"><br></br>
+Â Â Â Â </span>&lt;<span class="xmlverb-element-name"><a name="d149e6">import</a></span> <span class="xmlverb-attr-name">href</span>="<span class="xmlverb-attr-content">rxr.xsl</span>" /&gt;<span class="xmlverb-text"><br></br>
+Â Â Â Â </span>&lt;<span class="xmlverb-element-name"><a name="d149e8">import</a></span> <span class="xmlverb-attr-name">href</span>="<span class="xmlverb-attr-content">util/turtle.xsl</span>" /&gt;<span class="xmlverb-text"><br></br>
+<br></br>
+Â Â Â Â </span><div class="xd">
+Â Â Â Â &lt;<span class="xmlverb-element-nsprefix">xd</span>:<span class="xmlverb-element-name"><a name="d149e10">doc</a></span> <span class="xmlverb-attr-name">type</span>="<span class="xmlverb-attr-content">stylesheet</span>"&gt;<span class="xmlverb-text"><br></br>
+Â Â Â Â Â Â Â Â </span>&lt;<span class="xmlverb-element-nsprefix">xd</span>:<span class="xmlverb-element-name"><a name="d149e12">short</a></span>&gt;<span class="xmlverb-text">OutputÂ moduleÂ forÂ Turtle</span>&lt;/<span class="xmlverb-element-nsprefix">xd</span>:<span class="xmlverb-element-name">short</span>&gt;<span class="xmlverb-text"><br></br>
+Â Â Â Â Â Â Â Â </span>&lt;<span class="xmlverb-element-nsprefix">xd</span>:<span class="xmlverb-element-name"><a name="d149e15">detail</a></span>&gt;<span class="xmlverb-text">ThisÂ stylesheetÂ providesÂ low-levelÂ triple-creationÂ functions<br></br>
+Â Â Â Â Â Â Â Â Â Â Â Â andÂ templatesÂ forÂ aÂ TurtleÂ extractionÂ fromÂ XMLÂ languages.<br></br>
+Â Â Â Â Â Â Â Â Â Â Â Â </span>&lt;<span class="xmlverb-element-name"><a name="d149e17">ul</a></span>&gt;<span class="xmlverb-text"><br></br>
+Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â </span>&lt;<span class="xmlverb-element-name"><a name="d149e19">li</a></span>&gt;&lt;<span class="xmlverb-element-name"><a name="d149e20">a</a></span> <span class="xmlverb-attr-name">href</span>="<span class="xmlverb-attr-content">http://www.w3.org/TeamSubmission/turtle/</span>"&gt;<span class="xmlverb-text">SpecificationÂ ofÂ Turtle</span>&lt;/<span class="xmlverb-element-name">a</span>&gt;&lt;/<span class="xmlverb-element-name">li</span>&gt;<span class="xmlverb-text"><br></br>
+Â Â Â Â Â Â Â Â Â Â Â Â </span>&lt;/<span class="xmlverb-element-name">ul</span>&gt;<span class="xmlverb-text"><br></br>
+Â Â Â Â Â Â Â Â </span>&lt;/<span class="xmlverb-element-nsprefix">xd</span>:<span class="xmlverb-element-name">detail</span>&gt;<span class="xmlverb-text"><br></br>
+Â Â Â Â Â Â Â Â </span>&lt;<span class="xmlverb-element-nsprefix">xd</span>:<span class="xmlverb-element-name"><a name="d149e25">author</a></span>&gt;<span class="xmlverb-text">ChristophÂ Lange</span>&lt;/<span class="xmlverb-element-nsprefix">xd</span>:<span class="xmlverb-element-name">author</span>&gt;<span class="xmlverb-text"><br></br>
+Â Â Â Â Â Â Â Â </span>&lt;<span class="xmlverb-element-nsprefix">xd</span>:<span class="xmlverb-element-name"><a name="d149e28">copyright</a></span>&gt;<span class="xmlverb-text">ChristophÂ Lange,Â 2008</span>&lt;/<span class="xmlverb-element-nsprefix">xd</span>:<span class="xmlverb-element-name">copyright</span>&gt;<span class="xmlverb-text"><br></br>
+Â Â Â Â Â Â Â Â </span>&lt;<span class="xmlverb-element-nsprefix">xd</span>:<span class="xmlverb-element-name"><a name="d149e31">svnId</a></span>&gt;<span class="xmlverb-text">$Id:Â turtle.xslÂ 723Â 2009-08-05Â 11:15:04ZÂ clangeÂ $</span>&lt;/<span class="xmlverb-element-nsprefix">xd</span>:<span class="xmlverb-element-name">svnId</span>&gt;<span class="xmlverb-text"><br></br>
+Â Â Â Â </span>&lt;/<span class="xmlverb-element-nsprefix">xd</span>:<span class="xmlverb-element-name">doc</span>&gt;</div><span class="xmlverb-text"><br></br>
+<br></br>
+Â Â Â Â </span>&lt;<span class="xmlverb-element-name"><a name="d149e35">output</a></span> <span class="xmlverb-attr-name">method</span>="<span class="xmlverb-attr-content">text</span>" <span class="xmlverb-attr-name">encoding</span>="<span class="xmlverb-attr-content">UTF-8</span>" /&gt;<span class="xmlverb-text"><br></br>
+<br></br>
+Â Â Â Â </span><div class="xd">
+Â Â Â Â &lt;<span class="xmlverb-element-nsprefix">xd</span>:<span class="xmlverb-element-name"><a name="d149e38">doc</a></span>&gt;<span class="xmlverb-text">GeneratesÂ aÂ pretty-printedÂ predicateÂ (currentlyÂ onlyÂ supportsÂ displayingÂ </span>&lt;<span class="xmlverb-element-name"><a name="d149e40">code</a></span>&gt;<span class="xmlverb-text">rdf:type</span>&lt;/<span class="xmlverb-element-name">code</span>&gt;<span class="xmlverb-text">Â asÂ â€œaâ€).</span>&lt;/<span class="xmlverb-element-nsprefix">xd</span>:<span class="xmlverb-element-name">doc</span>&gt;</div><span class="xmlverb-text"><br></br>
+Â Â Â Â </span>&lt;<span class="xmlverb-element-name"><a name="d149e44">function</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">krextor:pretty-predicate</span>"&gt;<span class="xmlverb-text"><br></br>
+Â Â Â Â Â Â Â Â </span>&lt;<span class="xmlverb-element-name"><a name="d149e46">param</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">predicate</span>" /&gt;<span class="xmlverb-text"><br></br>
+Â Â Â Â Â Â Â Â </span>&lt;<span class="xmlverb-element-name"><a name="d149e48">value-of</a></span> <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">if ($predicate eq 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type') then 'a' else concat('&amp;lt;', $predicate, '&amp;gt;')</span>" /&gt;<span class="xmlverb-text"><br></br>
+Â Â Â Â </span>&lt;/<span class="xmlverb-element-name">function</span>&gt;<span class="xmlverb-text"><br></br>
+<br></br>
+Â Â Â Â </span><div class="xd">
+Â Â Â Â &lt;<span class="xmlverb-element-nsprefix">xd</span>:<span class="xmlverb-element-name"><a name="d149e51">doc</a></span>&gt;<span class="xmlverb-text">TODO</span>&lt;/<span class="xmlverb-element-nsprefix">xd</span>:<span class="xmlverb-element-name">doc</span>&gt;</div><span class="xmlverb-text"><br></br>
+Â Â Â Â </span>&lt;<span class="xmlverb-element-name"><a name="d149e54">function</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">krextor:rxr-node-to-turtle</span>" <span class="xmlverb-attr-name">as</span>="<span class="xmlverb-attr-content">xs:string</span>"&gt;<span class="xmlverb-text"><br></br>
+Â Â Â Â Â Â Â Â </span>&lt;<span class="xmlverb-element-name"><a name="d149e56">param</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">element</span>" /&gt;<span class="xmlverb-text"><br></br>
+Â Â Â Â Â Â Â Â </span>&lt;<span class="xmlverb-element-name"><a name="d149e58">value-of</a></span> <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">krextor:node-id-to-turtle( if ($element/@uri) then $element/@uri else if ($element/@blank) then $element/@blank else '', if ($element/@uri) then 'uri' else if ($element/@blank) then 'blank' else '' )</span>" /&gt;<span class="xmlverb-text"><br></br>
+Â Â Â Â </span>&lt;/<span class="xmlverb-element-name">function</span>&gt;<span class="xmlverb-text"><br></br>
+<br></br>
+Â Â Â Â </span><div class="xd">
+Â Â Â Â &lt;<span class="xmlverb-element-nsprefix">xd</span>:<span class="xmlverb-element-name"><a name="d149e61">doc</a></span>&gt;<span class="xmlverb-text">WeÂ obtainÂ theÂ RDFÂ graphÂ asÂ RXRÂ andÂ thenÂ regroupÂ theÂ triples<br></br>
+Â Â Â Â Â Â Â Â byÂ subjectÂ andÂ predicate</span>&lt;/<span class="xmlverb-element-nsprefix">xd</span>:<span class="xmlverb-element-name">doc</span>&gt;</div><span class="xmlverb-text"><br></br>
+Â Â Â Â </span>&lt;<span class="xmlverb-element-name"><a name="d149e64">template</a></span> <span class="xmlverb-attr-name">match</span>="<span class="xmlverb-attr-content">/</span>"&gt;<span class="xmlverb-text"><br></br>
+Â Â Â Â Â Â Â Â </span>&lt;!--<span class="xmlverb-comment">Â TODOÂ ConsiderÂ outputtingÂ someÂ @prefixesÂ </span>--&gt;<span class="xmlverb-text"><br></br>
+Â Â Â Â Â Â Â Â </span>&lt;<span class="xmlverb-element-name"><a name="d149e68">variable</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">rxr</span>"&gt;<span class="xmlverb-text"><br></br>
+Â Â Â Â Â Â Â Â Â Â Â Â </span>&lt;<span class="xmlverb-element-name"><a name="d149e70">apply-imports</a></span> /&gt;<span class="xmlverb-text"><br></br>
+Â Â Â Â Â Â Â Â </span>&lt;/<span class="xmlverb-element-name">variable</span>&gt;<span class="xmlverb-text"><br></br>
+Â Â Â Â Â Â Â Â </span>&lt;<span class="xmlverb-element-name"><a name="d149e73">for-each-group</a></span> <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">$rxr/rxr:graph/rxr:triple</span>" <span class="xmlverb-attr-name">group-by</span>="<span class="xmlverb-attr-content">krextor:rxr-node-to-turtle(rxr:subject)</span>"&gt;<span class="xmlverb-text"><br></br>
+Â Â Â Â Â Â Â Â Â Â Â Â </span>&lt;!--<span class="xmlverb-comment">Â outputÂ theÂ subjectÂ </span>--&gt;<span class="xmlverb-text"><br></br>
+Â Â Â Â Â Â Â Â Â Â Â Â </span>&lt;<span class="xmlverb-element-name"><a name="d149e77">value-of</a></span> <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">current-grouping-key()</span>" /&gt;<span class="xmlverb-text"><br></br>
+Â Â Â Â Â Â Â Â Â Â Â Â </span>&lt;<span class="xmlverb-element-name"><a name="d149e79">text</a></span>&gt;<span class="xmlverb-text"><br></br>
+</span>&lt;/<span class="xmlverb-element-name">text</span>&gt;<span class="xmlverb-text"><br></br>
+Â Â Â Â Â Â Â Â Â Â Â Â </span>&lt;<span class="xmlverb-element-name"><a name="d149e82">for-each-group</a></span> <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">current-group()</span>" <span class="xmlverb-attr-name">group-by</span>="<span class="xmlverb-attr-content">rxr:predicate/@uri</span>"&gt;<span class="xmlverb-text"><br></br>
+Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â </span>&lt;<span class="xmlverb-element-name"><a name="d149e84">text</a></span>&gt;<span class="xmlverb-text">Â Â Â Â Â Â Â Â </span>&lt;/<span class="xmlverb-element-name">text</span>&gt;<span class="xmlverb-text"><br></br>
+Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â </span>&lt;!--<span class="xmlverb-comment">Â outputÂ theÂ predicateÂ </span>--&gt;<span class="xmlverb-text"><br></br>
+Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â </span>&lt;<span class="xmlverb-element-name"><a name="d149e89">value-of</a></span> <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">krextor:pretty-predicate(current-grouping-key())</span>" /&gt;<span class="xmlverb-text"><br></br>
+Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â </span>&lt;<span class="xmlverb-element-name"><a name="d149e91">text</a></span>&gt;<span class="xmlverb-text">Â Â Â Â Â Â Â Â </span>&lt;/<span class="xmlverb-element-name">text</span>&gt;<span class="xmlverb-text"><br></br>
+Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â </span>&lt;<span class="xmlverb-element-name"><a name="d149e94">for-each</a></span> <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">current-group()/rxr:object</span>"&gt;<span class="xmlverb-text"><br></br>
+Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â </span>&lt;!--<span class="xmlverb-comment">Â outputÂ theÂ object(s)Â </span>--&gt;<span class="xmlverb-text"><br></br>
+Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â </span>&lt;<span class="xmlverb-element-name"><a name="d149e98">value-of</a></span> <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">if (@uri|@blank) then krextor:rxr-node-to-turtle(.) else krextor:literal-to-turtle(., @xml:lang, @datatype)</span>" /&gt;<span class="xmlverb-text"><br></br>
+Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â </span>&lt;<span class="xmlverb-element-name"><a name="d149e100">value-of</a></span> <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">if (position() ne last()) then ', ' else ' '</span>" /&gt;<span class="xmlverb-text"><br></br>
+Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â </span>&lt;/<span class="xmlverb-element-name">for-each</span>&gt;<span class="xmlverb-text"><br></br>
+Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â </span>&lt;<span class="xmlverb-element-name"><a name="d149e104">value-of</a></span> <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">if (position() ne last()) then ';' else '.'</span>" /&gt;<span class="xmlverb-text"><br></br>
+Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â </span>&lt;<span class="xmlverb-element-name"><a name="d149e106">text</a></span>&gt;<span class="xmlverb-text"><br></br>
+</span>&lt;/<span class="xmlverb-element-name">text</span>&gt;<span class="xmlverb-text"><br></br>
+Â Â Â Â Â Â Â Â Â Â Â Â </span>&lt;/<span class="xmlverb-element-name">for-each-group</span>&gt;<span class="xmlverb-text"><br></br>
+Â Â Â Â Â Â Â Â </span>&lt;/<span class="xmlverb-element-name">for-each-group</span>&gt;<span class="xmlverb-text"><br></br>
+Â Â Â Â </span>&lt;/<span class="xmlverb-element-name">template</span>&gt;<span class="xmlverb-text"><br></br>
+</span>&lt;/<span class="xmlverb-element-name">stylesheet</span>&gt;<br></br>
 </div>
-</tt><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>v
+</tt><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br>v
          </body></html>
