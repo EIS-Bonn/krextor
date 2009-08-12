@@ -1,9 +1,16 @@
-<project name="Krextor" default="xsltdoc" basedir=".">
-	<description>ant build file for the Krextor program</description>
+<project name="Krextor" default="dist" basedir=".">
+	<description>ant build file for the Krextor project</description>
+
+	<property file="krextor.build.properties" />
+
+	<path id="javac.classpath">
+		<fileset dir="lib/java" includes="**/*.jar"/>
+		<fileset dir="lib/saxon" includes="**/*.jar"/>
+	</path>
 
 	<target name="xsltdoc">
 		<!-- <delete dir="doc" /> -->
-		<copy todir="doc/xsltdoc">
+		<copy todir="${xsltdoc}">
 			<fileset dir="lib/xsltdoc/css">
 				<filename name="*.css" />
 			</fileset>
@@ -14,8 +21,31 @@
 		</java>
 	</target>
 
-	<target name="dist" depends="xsltdoc" description="...">
+	<target name="javadoc">
+		<javadoc
+			Windowtitle="Krextor Java Wrapper API Documentation"
+			access="public"
+			sourcepath="src/java/src"
+			classpathref="javac.classpath"
+			destdir="${javadoc}"
+			noindex="false"
+			nonavbar="false"
+			notree="false"
+			source="1.5"
+			splitindex="true"
+			use="true"
+			version="true"
+			breakiterator="yes">
+			<link href="http://java.sun.com/javase/6/docs/api/" />
+			<link href="http://www.xom.nu/apidocs/"/>
+			<link href="http://www.saxonica.com/documentation/javadoc/"/>
+			<link href="http://commons.apache.org/vfs/apidocs/"/>
+		</javadoc>
 	</target>
+
+	<target name="doc" depends="xsltdoc,javadoc"/>
+
+	<target name="dist" depends="doc"/>
 	
 	<target name="test">
 	</target>
