@@ -3,7 +3,7 @@
 
 <!-- Author: Gordan Ristovski -->
 
-<omdoc xml:id="test" xmlns="http://omdoc.org/ns" xmlns:om="http://www.openmath.org/OpenMath" xmlns:dc="http://purl.org/dc/elements/1.1/" version="1.6">
+<omdoc xml:id="test" xmlns="http://omdoc.org/ns" xmlns:om="http://www.openmath.org/OpenMath" xmlns:dc="http://purl.org/dc/elements/1.1/" version="1.3">
 
 	<omtext xml:id="OMT" type="definition" for="STH1">
 		
@@ -44,7 +44,7 @@
 	            </FMP>
 	</omtext>
 	
-	<axiom xml:id="foo" for="#random">
+	<axiom xml:id="foo" for="random">
 		<CMP>Some Random Axiom</CMP>
 	</axiom>
 	<!--And now testing some proofs, reference:Listing 17.1 from OMDoc 1.2 manual-->
