@@ -136,6 +136,13 @@
 		)"/>
     </function>
 
+    <xd:doc>Generates a URI for a resource using the default generation method</xd:doc>
+    <function name="krextor:generate-uri">
+        <param name="node"/>
+        <param name="base-uri"/>
+	<value-of select="krextor:generate-uri($node, krextor:uri-generation-method($node), $base-uri)"/>
+    </function>
+
     <xd:doc>Generates a URI for a resource</xd:doc>
     <function name="krextor:generate-uri">
         <param name="node"/>
@@ -148,6 +155,10 @@
 	<value-of select="f:return-first(krextor:generate-uri-impl(), $autogenerate-fragment-uri, ($node, $base-uri))"/>
     </function>
 
+    <xd:doc>Generates a URI for a given node, using a given base URI as appropriate, using the given method
+	<xd:param name="method" type="string">the identifier of the URI generation method</xd:param>
+	<xd:param name="params">a two-item sequence (<code>node</code>, <code>base-uri</code>)</xd:param>
+    </xd:doc>
     <function name="krextor:generate-uri-impl">
 	<param name="method"/>
 	<param name="params"/>
@@ -162,6 +173,8 @@
 	</apply-templates>
     </function>
 
+    <xd:doc>Returns the base URI of the document for the root node,
+	otherwise the empty sequence.</xd:doc>
     <template match="krextor-genuri:document-root-base" as="xs:string?">
 	<param name="node"/>
 	<param name="base-uri"/>
@@ -186,10 +199,13 @@
 		$base-uri)"/>
     </template>
 
+    <xd:doc>Returns an FXSL reference to the
+	<code>krextor:generate-uri-impl</code> function.</xd:doc>
     <function name="krextor:generate-uri-impl" as="element()">
 	<krextor:generate-uri-impl/>
     </function>
 
+    <xd:doc>FXSL template representing the two-argument <code>krextor:generate-uri-impl</code> function</xd:doc>
     <template match="krextor:generate-uri-impl" mode="f:FXSL">
 	<param name="arg1"/>
 	<param name="arg2"/>
@@ -279,6 +295,18 @@
 	</for-each>
     </template>
 
+    <xd:doc>Returns the method in which a URI will be generated for the current node unless a different explicit subject URI is passed to <code>krextor:create-resource</code>; extraction modules can override this.</xd:doc>
+    <template match="node()" mode="krextor:uri-generation-method">
+        <sequence select="$autogenerate-fragment-uris"/>
+    </template>
+
+    <xd:doc>Returns the method in which a URI will be generated for the given node unless a different explicit subject URI is passed to <code>krextor:create-resource</code>; this calls the template running in the namesake mode.</xd:doc>
+    <function name="krextor:uri-generation-method" as="xs:string*">
+	<param name="node" as="node()"/>
+	<apply-templates select="$node"
+	    mode="krextor:uri-generation-method"/>
+    </function>
+
     <xd:doc>
 	<xd:short>Creates an RDF resource from the current element</xd:short>
 	<xd:detail><p>Creates an RDF resource of some type from the current
@@ -321,18 +349,15 @@
 	<param name="process-next" select="*|@*"/>
 	<!-- We pass the subject URI as a parameter into templates.  This is because we need to tweak the subject URI when processing transcluded documents; in this case, the transcluding document's URI should still be considered the subject URI, instead of the URI of the transcluded document. -->
 	<param name="subject-uri" tunnel="yes"/>
-	<!-- If we are to autogenerate the URI for this node, then we call the krextor:generate-uri function to generate one. Note that if you want to use your own URI generation you have to pass your own 
-	  1. The fragment URI of this node, if there is an xml:id attribute
-	  2. The subject URI (assumed to be the one of the document), if we are at the root node
-	  3. Nothing (no RDF will be generated)
-	  -->
-	<param name="autogenerate-fragment-uri" select="$autogenerate-fragment-uris"/>
 	<!-- Is this a blank node? -->
 	<param name="blank-node" select="false()"/>
 	<param name="this-blank-node-id" select="()" as="xs:string?"/>
 	<!-- is the object an RDF collection? -->
 	<param name="collection" select="false()"/>
 
+	<variable name="autogenerate-fragment-uri" select="krextor:uri-generation-method(.)"/>
+	<!-- If we are to autogenerate the URI for this node, then we call the krextor:generate-uri function to generate one, unless an explicit subject URI has been passed
+	  -->
 	<variable name="generated-uri" select="if ($blank-node) then $subject-uri
 	    else if (exists($subject)) then $subject
 	    else if (exists($autogenerate-fragment-uri)) 

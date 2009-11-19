@@ -55,24 +55,15 @@
 	<xd:svnId>$Id$</xd:svnId>
     </xd:doc>
     
-    <xd:doc>Specifies whether MMT-style URLs (OMDoc 1.6) should be generated</xd:doc>
-    <param name="mmt" select="false()"/>
-
-    <!-- Intercept auto-generation of fragment URIs from xml:ids, as this 
-         should not always be done for OMDoc -->
-    <!-- TODO think about having ('mmt', 'xml-id' ...), i.e. a configuration in
-	 the same way as for generic.xsl, with custom handlers for values like
-	 'mmt', which generic-templates does not know
-	 https://trac.kwarc.info/krextor/ticket/16 -->
-    <param name="autogenerate-fragment-uris" select="()"/>
-
-    <!-- Default setting if we want fragment URIs to be auto-generated -->
-    <param name="autogenerate-fragment-uris-omdoc-default" select="
+    <!-- Note that this is not the global default; actually the 
+         concrete way of URI generation is decided on element level -->
+    <param name="autogenerate-fragment-uris" select="
 	'xml-id',
 	'document-root-base'"/>
+
     <!-- Other settings for testing -->
     <!--
-    <param name="autogenerate-fragment-uris-omdoc-default" select="
+    <param name="autogenerate-fragment-uris" select="
 	'pseudo-xpath'
 	"/>
     -->
@@ -80,6 +71,13 @@
     <param name="use-root-xmlid" select="false()"/>
 
     <include href="util/openmath.xsl"/>
+
+    <template match="node()" mode="krextor:uri-generation-method">
+	<param name="mmt" tunnel="yes"/>
+        <sequence select="if ($mmt and @name)
+	    then ('mmt', $autogenerate-fragment-uris)
+	    else $autogenerate-fragment-uris"/>
+    </template>
 	
     <xd:doc>“Overridden” OMDoc-specific variant of <i>krextor:create-resource</i>, keeps track of a few OMDoc structures and notions that affect many OMDoc elements
 	<xd:param name="formality-degree" type="string">the URI of a formality degree from the ontology</xd:param>
@@ -95,22 +93,16 @@
 	<param name="knowledge-base" tunnel="yes"/>
 	 <!-- <param name="ontologies" required="yes"/> -->
 	<param name="ontologies" required="no"/>
-	<param name="mmt" select="$mmt and @name"/>
+	<param name="mmt" tunnel="yes"/>
+	<!-- TODO does this work?  In generic.xsl we use
+	     instance of document-node() -->
 	<param name="use-document-uri" select="not($use-root-xmlid) and self::node() = /"/>
 	<param name="process-next" select="*|@*"/>
 	<param name="blank-node" select="false()"/>
-	<!-- Check if we can generate a URI for the current element -->
-	<if test="$mmt or $use-document-uri or @xml:id">
+	<!-- Check if we can at all generate a URI for the current element -->
+	<if test="($mmt and @name) or $use-document-uri or @xml:id">
 	    <call-template name="krextor:create-resource">
-		<!-- If we are not on top level, manipulate the base URI,
-		     either in MMT or in OMDoc 1.2 style -->
-		<!-- FIXME look into omdoc-owl.xsl for a better way of how to do this, see https://trac.kwarc.info/krextor/ticket/16 -->
-		<with-param name="subject-uri" select="if ($mmt and @name)
-		    then concat($subject-uri, '/', @name)
-		    else $subject-uri" tunnel="yes"/>
-		<with-param name="autogenerate-fragment-uri" select="if (not($mmt) and not($use-document-uri))
-		    then $autogenerate-fragment-uris-omdoc-default
-		    else ()"/>
+		<with-param name="mmt" select="$mmt" tunnel="yes"/>
 		<with-param name="properties">
 		    <if test="$formality-degree">
 			<krextor:property uri="&odo;formalityDegree" object="{$formality-degree}"/>
@@ -215,6 +207,7 @@
 
     <template match="omdoc" mode="krextor:main">
 	<call-template name="krextor:create-omdoc-resource">
+	    <with-param name="mmt" select="@version eq '1.6'" tunnel="yes"/>
 	    <with-param name="type" select="'&odo;Document'"/>
 	    <with-param name="ontologies" select="'document'"/>
 	</call-template>

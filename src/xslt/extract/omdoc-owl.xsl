@@ -60,12 +60,16 @@
 
     <param name="autogenerate-fragment-uris" select="()"/>
 
+    <xd:doc>Creates a URI for a semantic web ontology entity by
+	concatenating a given base URI and a given local name</xd:doc>
     <function name="krextor:ontology-uri" as="xs:string?">
 	<param name="base-uri"/>
 	<param name="name"/>
 	<sequence select="concat($base-uri, $name)"/>
     </function>
 
+    <xd:doc>Creates a URI for a semantic web ontology entity by
+	concatenating a given base URI and a given local name</xd:doc>
     <template match="krextor-genuri:ontology" as="xs:string?">
 	<param name="base-uri"/>
 	<param name="node"/>
@@ -73,26 +77,16 @@
 	    if ($node/self::theory) then '' else $node/@name)"/>
     </template>
 
-    <function name="krextor:mmt-uri" as="xs:string?">
-	<param name="base-uri"/>
-	<param name="name"/>
-	<sequence select="concat($base-uri, '?', $name)"/>
-    </function>
-
-    <template match="krextor-genuri:mmt" as="xs:string?">
-	<param name="base-uri"/>
-	<param name="node"/>
-	<sequence select="krextor:mmt-uri($base-uri, $node/@name)"/>
+    <template match="node()" mode="krextor:uri-generation-method">
+	<param name="mmt" tunnel="yes"/>
+        <value-of select="if ($mmt)
+	    then ('mmt')
+	    else ('ontology')"/>
     </template>
 
     <template name="krextor:create-ontology-resource">
-	<param name="mmt" tunnel="yes"/>
 	<param name="type" select="()"/>
 	<call-template name="krextor:create-resource">
-	    <with-param name="autogenerate-fragment-uri" select="if ($mmt)
-		then ('mmt')
-		else ('ontology')"/>
-	    <with-param name="mmt" select="$mmt" tunnel="yes"/>
 	    <with-param name="type" select="$type"/>
 	</call-template>
     </template>

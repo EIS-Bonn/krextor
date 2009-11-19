@@ -29,6 +29,8 @@
     xmlns:cc="http://creativecommons.org/ns#"
     xmlns:xd="http://www.pnp-software.com/XSLTdoc"
     xmlns:krextor="http://kwarc.info/projects/krextor"
+    xmlns:krextor-genuri="http://kwarc.info/projects/krextor/genuri"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema"
     xmlns:f="http://fxsl.sf.net/"
     version="2.0">
 
@@ -39,22 +41,39 @@
 	<xd:copyright>Christoph Lange, 2008</xd:copyright>
 	<xd:svnId>$Id$</xd:svnId>
     </xd:doc>
+
+    <template match="krextor-genuri:mmt" as="xs:string?">
+	<param name="base-uri"/>
+	<param name="node"/>
+	<sequence select="krextor:mmt-uri($base-uri, $node/@name)"/>
+    </template>
+
+    <xd:doc>Generates an MMT URI for a theory or symbol by appending
+	<code>?name</code> to the given base URI</xd:doc>
+    <function name="krextor:mmt-uri" as="xs:string?">
+	<param name="base-uri"/>
+	<param name="name"/>
+	<sequence select="concat($base-uri, '?', $name)"/>
+    </function>
 		
-    <xd:doc>Support for legacy hard-coded DC and CC metadata</xd:doc>
+    <xd:doc>Support for “pragmatic” DC and CC metadata</xd:doc>
     <template match="metadata/dc:*|metadata/cc:*" mode="krextor:main">
 	    <call-template name="krextor:add-literal-property">
 		    <with-param name="property" select="concat(namespace-uri(), local-name())"/>
 	    </call-template>
     </template>
 
+    <xd:doc>Support for literal-valued RDFa metadata</xd:doc>
     <template match="meta" mode="krextor:main">
 	<apply-templates select="@property"/>
     </template>
 
+    <xd:doc>Support for URI-valued RDFa metadata</xd:doc>
     <template match="link" mode="krextor:main">
 	<apply-templates select="@rel|@rev"/>
     </template>
 
+    <xd:doc>Support for RDFa blank nodes</xd:doc>
     <template match="resource" mode="krextor:main">
 	<variable name="type" select="krextor:curies-to-uris(., @typeof)"/>
 	<variable name="blank-node-id" select="if (@about) then krextor:safe-curie-to-bnode-id(@about) else ()"/>
