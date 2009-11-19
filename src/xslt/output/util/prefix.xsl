@@ -30,7 +30,6 @@
 <stylesheet xmlns="http://www.w3.org/1999/XSL/Transform" 
     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
     xmlns:xd="http://www.pnp-software.com/XSLTdoc"
-    xmlns:rxr="http://ilrt.org/discovery/2004/03/rxr/"
     xmlns:krextor="http://kwarc.info/projects/krextor"
     xmlns:xs="http://www.w3.org/2001/XMLSchema"
     exclude-result-prefixes="#all"
@@ -46,9 +45,29 @@
 
     <output method="xml" encoding="UTF-8" indent="yes" omit-xml-declaration="no"/>
 
+    <xd:doc>Returns the namespace prefix for a given URI from the default namespace mapping.  This can e.g. come from a triple store.  The actual implementation has to be provided by a template of the same name.</xd:doc>
+    <function name="krextor:nsuri-to-prefix" as="xs:string">
+	<param name="uri" as="xs:string"/>
+	<call-template name="krextor:nsuri-to-prefix">
+	    <with-param name="uri" select="$uri"/>
+	</call-template>
+    </function>
+
+    <xd:doc>Converts a URI to CURIE (<code>nsprefix:localname</code>) syntax using the default namespace mapping.</xd:doc>
+    <function name="krextor:uri-to-curie" as="xs:string">
+	<param name="uri" as="xs:string"/>
+	<variable name="nsuri-localname"
+	    select="krextor:split-prefix-localname($uri)"/>
+	<variable name="nsuri"
+	    select="$nsuri-localname[1]"/>
+	<variable name="localname"
+	    select="$nsuri-localname[2]"/>
+	<value-of select="concat(krextor:nsuri-to-prefix($nsuri), ':', $localname)"/>
+    </function>
+
     <xd:doc>Naïvely split a given URI into a sequence of namespace prefix and localname; the substring up to and including the last <code>#</code> or <code>/</code> is treated as the namespace prefix.</xd:doc>
-    <function name="krextor:split-prefix-localname">
-	<param name="uri"/>
+    <function name="krextor:split-prefix-localname" as="xs:string*">
+	<param name="uri" as="xs:string"/>
 	<analyze-string select="$uri" regex="^(.*[/#])([^/#]*)$">
 	    <matching-substring>
 		<sequence select="regex-group(1), regex-group(2)"/>
@@ -69,7 +88,7 @@
     </function>
 
     <xd:doc>Outputs namespace prefixes as XML namespace nodes (<code>xmlns</code>)</xd:doc>
-    <template match="krextor:namespace" mode="krextor:main">
+    <template match="krextor:namespace" mode="krextor:xmlns">
 	<namespace name="{@prefix}" select="@uri"/>
     </template>
 

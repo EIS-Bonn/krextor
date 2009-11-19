@@ -23,6 +23,10 @@
     * 
 -->
 
+<!DOCTYPE stylesheet [
+    <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+]>
+
 <stylesheet xmlns="http://www.w3.org/1999/XSL/Transform" 
     xmlns:h="http://www.w3.org/1999/xhtml"
     xmlns:xd="http://www.pnp-software.com/XSLTdoc"
@@ -32,6 +36,7 @@
     exclude-result-prefixes="#all"
     version="2.0">
     <import href="../../generic/generic.xsl"/>
+    <import href="prefix.xsl"/>
 
     <xd:doc type="stylesheet">
 	<xd:short>Output module for RDFa in XHTML</xd:short>
@@ -52,7 +57,14 @@
 	tree.</xd:doc>
     <template name="krextor:rdfa">
 	<variable name="uri" select="krextor:generate-uri(., base-uri())"/>
+	<!-- TODO make this work for blank nodes too -->
 	<attribute name="about" select="$uri"/>
+	<variable name="type" select="krextor:query-triples($uri, 'uri', '&rdf;type', (), '', '', '')/rxr:object/@uri"/>
+	<if test="$type">
+	    <attribute name="typeof" select="
+		for $t in $type
+		return krextor:uri-to-curie($t)"/>
+	</if>
     </template>
 
     <xd:doc>Adds RDFa attributes to the current element in the output tree,

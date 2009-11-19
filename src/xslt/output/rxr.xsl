@@ -31,13 +31,14 @@
     xmlns:xd="http://www.pnp-software.com/XSLTdoc"
     xmlns:rxr="http://ilrt.org/discovery/2004/03/rxr/"
     xmlns:krextor="http://kwarc.info/projects/krextor"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema"
     exclude-result-prefixes="krextor xd"
     version="2.0">
     <import href="../generic/generic.xsl"/>
 
     <xd:doc type="stylesheet">
 	<xd:short>Output module for RDF/RXR</xd:short>
-	<xd:detail>This is an output module for the RDF notation RXR (Regular XML RDF).  References:
+	<xd:detail>This is an output module for the RDF notation RXR (Regular XML RDF).  Additionally, it provides utility functions for querying RDF graphs represented in RXR.  References:
 	    <ul>
 		<li><a href="http://www.idealliance.org/papers/dx_xmle04/papers/03-08-03/03-08-03.html">David Beckett: Modernising Semantic Web Markup</a></li>
 		<li><a href="http://ilrt.org/discovery/2004/03/rxr/">XML schemas for RXR</a></li>
@@ -49,6 +50,52 @@
     </xd:doc>
 
     <output method="xml" encoding="UTF-8" indent="yes" omit-xml-declaration="no"/>
+
+    <function name="krextor:query-rxr-graph" as="node()*">
+	<param name="rxr" as="node()"/>
+	<param name="subject" as="xs:string*"/>
+    	<param name="subject-type" as="xs:string"/>
+    	<param name="predicate" as="xs:string*"/>
+    	<param name="object" as="xs:string*"/>
+    	<param name="object-type" as="xs:string"/>
+    	<param name="object-language" as="xs:string"/>
+    	<param name="object-datatype" as="xs:string"/>
+	<copy-of select="$rxr/rxr:triple[
+	    (
+		(: restrictions on the subject :)
+		not($subject)
+		or (
+		    if ($subject-type eq 'blank')
+		    then $subject = rxr:subject/@blank
+		    else $subject = rxr:subject/@uri
+		)
+	    ) and (
+		(: restrictions on the predicate :)
+		not($predicate)
+		or (
+		    $predicate = rxr:predicate/@uri
+		)
+	    ) and (
+		(: restrictions on the object :)
+		(
+		    not($object)
+		    or (
+			if ($object-type eq 'blank')
+			then $object = rxr:object/@blank
+			else $object = rxr:object/@uri
+		    )
+		) and (
+		    not($object-language) 
+		    or $object-language eq rxr:object/@xml:lang
+		)
+		and
+		(
+		    not($object-datatype)
+		    or $object-datatype eq rxr:object/@datatype
+		)
+	    )
+	    ]"/>
+    </function>
 
     <xd:doc>creates one RDF triple</xd:doc>
     <template name="krextor:output-triple">

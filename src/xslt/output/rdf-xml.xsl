@@ -112,7 +112,7 @@
 
 	<rdf:RDF>
 	    <!-- output generated namespace prefixes -->
-	    <apply-templates select="$namespaces" mode="krextor:main"/>
+	    <apply-templates select="$namespaces" mode="krextor:xmlns"/>
 
 	    <for-each-group select="$rxr/rxr:graph/rxr:triple[rxr:subject/@blank]" group-by="rxr:subject/@blank">
 		<!-- output the subject (blank node) -->

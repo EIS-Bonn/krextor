@@ -89,6 +89,26 @@
 	    else ()"/>
     </function>
 
+    <xd:doc>Queries some triple store.  The actual implementation has to be provided by a template of the same name.  Returns a set of <code>rxr:triple</code> elements.</xd:doc>
+    <function name="krextor:query-triples" as="node()*">
+	<param name="subject" as="xs:string*"/>
+	<param name="subject-type" as="xs:string"/>
+	<param name="predicate" as="xs:string*"/>
+	<param name="object" as="xs:string*"/>
+	<param name="object-type" as="xs:string"/>
+	<param name="object-language" as="xs:string"/>
+	<param name="object-datatype" as="xs:string"/>
+	<call-template name="krextor:query-triples">
+	    <with-param name="subject" select="$subject"/>
+	    <with-param name="subject-type" select="$subject-type"/>
+	    <with-param name="predicate" select="$predicate"/>
+	    <with-param name="object" select="$object"/>
+	    <with-param name="object-type" select="$object-type"/>
+	    <with-param name="object-language" select="$object-language"/>
+	    <with-param name="object-datatype" select="$object-datatype"/>
+	</call-template>
+    </function>
+
     <!-- not used at the moment -->
     <function name="f:generate-id" as="element()">
 	<f:generate-id/>
