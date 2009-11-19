@@ -4,7 +4,8 @@
 <!-- Author: Gordan Ristovski -->
 
 <omdoc xml:id="test" xmlns="http://omdoc.org/ns" xmlns:om="http://www.openmath.org/OpenMath" xmlns:dc="http://purl.org/dc/elements/1.1/" version="1.3">
-
+    <theory xml:id="THY">
+	<symbol xml:id="symbolID" name="STH1"/>
 	<omtext xml:id="OMT" type="definition" for="STH1">
 		
 		<metadata xml:id="metadatata">
@@ -77,5 +78,6 @@
 			</method>
 		</derive>
 	</proof>
+    </theory>
 
 </omdoc>
