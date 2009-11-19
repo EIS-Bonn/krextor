@@ -407,7 +407,7 @@
 		</when>
 		<otherwise>
 		    <!-- Process the children of this element, or whichever nodes desired -->
-		    <apply-templates select="$process-next">
+		    <apply-templates select="$process-next" mode="krextor:main">
 			<!-- pass on the generated subject URI or blank node ID.  For resolving relative URIs, an appended fragment does
 			     not matter, but for generating property triples for this resource it does. -->
 			<with-param name="subject-uri" select="$generated-uri" tunnel="yes"/>
@@ -620,7 +620,7 @@
 	<!-- The node set to which apply-templates is applied -->
 	<!-- We also process attributes, as they may contain links to other resources -->
 	<param name="process-next" select="*|@*"/>
-	<apply-templates select="$process-next">
+	<apply-templates select="$process-next" mode="krextor:main">
 	    <with-param name="tunneled-property" select="$property" tunnel="yes"/>
 	    <with-param name="tunneled-inverse" select="$inverse" tunnel="yes"/>
 	</apply-templates>
@@ -634,7 +634,7 @@
 	<param name="collection-index" select="1" tunnel="yes"/>
 	<variable name="new-collection-id" select="if (exists($collection-id)) then $collection-id else $blank-node-id"/>
 	<variable name="subject" select="concat($new-collection-id, '-', $collection-index)"/>
-	<apply-templates select="$rest[1]">
+	<apply-templates select="$rest[1]" mode="krextor:main">
 	    <with-param name="blank-node-id" select="$blank-node-id" tunnel="yes"/>
 	    <!-- if a resource is created from the first element, make it the first resource of this collection -->
 	    <with-param name="related-via-properties" select="'&rdf;first'" tunnel="yes"/>
@@ -669,7 +669,7 @@
 	    <p>Note: We're using XInclude because the semantics of <![CDATA[<element xlink:type="simple" xlink:show="embed" xlink:href="some-XML-resource"/>]]> is not yet clearly defined in the XLink specification.  Should the root element of the document pointed to replace the pointing element, or should it be transcluded into the pointing element as a child?</p>
 	</xd:detail>
     </xd:doc>
-    <template match="xi:include">
+    <template match="xi:include" mode="krextor:main">
 	<if test="$traverse-xincludes">
 	    <apply-templates select="document(@href, .)" mode="krextor:included">
 		<with-param name="krextor:parent-element" select="." tunnel="yes"/>
@@ -682,21 +682,22 @@
 	<apply-templates mode="krextor:included"/>
     </template>
 
-    <xd:doc>Start processing; the current subject is identified by the base URI of the document.</xd:doc>
+    <xd:doc>Start processing in default mode; we switch to Krextor's main mode first</xd:doc>
     <template match="/">
+	<apply-templates select="/" mode="krextor:main"/>
+    </template>
+
+    <xd:doc>Start processing; the current subject is identified by the base URI of the document.</xd:doc>
+    <template match="/" mode="krextor:main">
 	<param name="krextor:base-uri" select="base-uri()" tunnel="yes"/>
-	<apply-templates>
+	<apply-templates mode="krextor:main">
 	    <with-param name="subject-uri" select="$krextor:base-uri" tunnel="yes"/>
 	    <with-param name="krextor:base-uri" select="$krextor:base-uri" tunnel="yes"/>
 	</apply-templates>
     </template>
 
     <xd:doc>Do not extract RDF from attributes that are not matched by the
-	language-specific templates, no from text nodes.</xd:doc>
-    <template match="@*|text()"/>
-
-    <xd:doc>Do not extract RDF from attributes that are not matched by the
-	language-specific templates, no from text nodes (same for XIncluded documents).</xd:doc>
-    <template match="@*|text()" mode="krextor:included"/>
+	language-specific templates, nor from text nodes (same for all Krextor modes).</xd:doc>
+    <template match="@*|text()" mode="krextor:main"/>
 </stylesheet>
 

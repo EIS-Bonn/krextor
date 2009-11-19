@@ -76,7 +76,7 @@
     </template>
 
     <!-- When we see an XMath element ... -->
-    <template match="XMath">
+    <template match="XMath" mode="krextor:main">
 	<!-- ... we create an RDF resource (which can easily be declared an
 	instance of some class) ... -->
 	<call-template name="krextor:create-resource">

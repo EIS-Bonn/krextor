@@ -37,7 +37,7 @@
     </xd:doc>
 
     <xd:doc>Use the base URI from the <code>base</code> element in the <code>head</code>, if present</xd:doc>
-    <template match="/">
+    <template match="/" mode="krextor:main">
 	<variable name="base-uri" select="/html/head/base[1]/@href"/>
 	<choose>
 	    <when test="$base-uri">

@@ -88,7 +88,7 @@
 
     <!-- FIXME restrict to those elements where @about is actually allowed -->
     <!-- process any element with RDFa attributes -->
-    <template match="*[@resource or @src or @about or @href or @typeof or @rel or @rev or @property]">
+    <template match="*[@resource or @src or @about or @href or @typeof or @rel or @rev or @property]" mode="krextor:main">
 	<param name="tunneled-property" as="xs:string*" tunnel="yes"/>
 	<param name="tunneled-inverse" tunnel="yes"/>
 
@@ -205,8 +205,8 @@
 
     <!-- FIXME restrict to those elements where @about is actually allowed -->
     <!--
-    <template match="*[not(@resource or @src or @about or @typeof or @rel or @rev)]">
-	<apply-templates select="@property|@href|*"/>
+    <template match="*[not(@resource or @src or @about or @typeof or @rel or @rev)]" mode="krextor:main">
+	<apply-templates select="@property|@href|*" mode="krextor:main"/>
     </template>
     -->
 </stylesheet>

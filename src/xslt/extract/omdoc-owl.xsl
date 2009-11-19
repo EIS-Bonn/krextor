@@ -288,20 +288,20 @@
     <!-- regular templates matching OMDoc start here -->
     
     <xd:doc>Create a resource from an OMDoc symbol</xd:doc>
-    <template match="symbol">
+    <template match="symbol" mode="krextor:main">
 	<call-template name="krextor:create-ontology-resource"/>
     </template>
 
     <xd:doc>Make this property an instance of some relation type</xd:doc>
     <template match="
        symbol/type/om:OMOBJ/om:OMA[krextor:is-ontology-term(.)]
-       |symbol/type/om:OMOBJ[krextor:is-from-ontology(om:OMS[1])]">
+       |symbol/type/om:OMOBJ[krextor:is-from-ontology(om:OMS[1])]" mode="krextor:main">
 	<if test="not(om:*[3] and om:OMS[1]/@cd eq 'rdf' and om:OMS[1]/@name eq 'Property')">
 	    <!-- When domain and range are given, the triple
 	         X rdf:type rdf:Property
 		 is redundant, as it is entailed by the RDFS axiomatic triples,
 		 so we don't generate it. -->
-	    <apply-templates select="om:*[1]">		
+	    <apply-templates select="om:*[1]" mode="#current">
 		<with-param name="related-via-properties" select="'&rdf;type'" tunnel="yes"/>
 	    </apply-templates>
 	</if>
@@ -310,10 +310,10 @@
 	    <!-- Note that, in this case, we should actually enforce that om:*[1] is
 	         rdf:Property or a subproperty thereof, but during this translation we
 		 don't have access to a reasoner :-( -->
-	    <apply-templates select="om:*[2]">		
+	    <apply-templates select="om:*[2]" mode="#current">		
 		<with-param name="related-via-properties" select="'&rdfs;domain'" tunnel="yes"/>
 	    </apply-templates>
-	    <apply-templates select="om:*[3]">		
+	    <apply-templates select="om:*[3]" mode="#current">
 		<with-param name="related-via-properties" select="'&rdfs;range'" tunnel="yes"/>
 	    </apply-templates>    	
 	</if>
@@ -363,7 +363,7 @@
     </function>
 
     <xd:doc>Creates an RDF triple for a single OWL axiom given as a predicate(subject, object) triple</xd:doc>
-    <template match="axiom/FMP/om:OMOBJ/om:OMA[count(om:*) eq 3 and krextor:is-ontology-term(.)]">
+    <template match="axiom/FMP/om:OMOBJ/om:OMA[count(om:*) eq 3 and krextor:is-ontology-term(.)]" mode="krextor:main">
 	<variable name="sym" select="om:*[1]"/>
 
 	<variable name="predicate-object-rewritten">
@@ -382,7 +382,7 @@
 	</call-template>
     </template>
 
-    <template match="krextor:dummy/om:OMA[count(om:*) eq 2][om:*[1][self::om:OMS]]">
+    <template match="krextor:dummy/om:OMA[count(om:*) eq 2][om:*[1][self::om:OMS]]" mode="krextor:main">
 	<call-template name="krextor:create-resource">
 	    <with-param name="related-via-properties" select="krextor:ontology-uri(om:*[1])" tunnel="yes"/>
 	    <with-param name="subject" select="krextor:ontology-uri-or-blank(om:*[2])"/>
@@ -391,7 +391,7 @@
     </template>
 
     <xd:doc>Initiates the creation of a class definition</xd:doc>
-    <template match="definition[@type eq 'simple' and krextor:is-ontology-term(om:OMOBJ)]">
+    <template match="definition[@type eq 'simple' and krextor:is-ontology-term(om:OMOBJ)]" mode="krextor:main">
 	<!-- we only consider definitions that define one symbol -->
 	<variable name="symbol" select="ancestor::theory[1]//symbol[@name eq current()/@for]"/>
 	<if test="$symbol">
@@ -406,7 +406,7 @@
     </template>
 
     <xd:doc>Creates simple equivalence definitions (<i>owl:equivalentClass</i>, <i>owl:equivalentProperty</i>, <i>owl:sameAs</i>)</xd:doc>
-    <template match="om:OMS[parent::om:OMOBJ[parent::definition[@type eq 'simple']]]">
+    <template match="om:OMS[parent::om:OMOBJ[parent::definition[@type eq 'simple']]]" mode="krextor:main">
 	<variable name="symbol-type" select="ancestor::theory[1]//symbol[@name eq current()/parent::om:OMOBJ/parent::definition/@for]/type/om:OMOBJ/descendant::om:OMS[1]"/>
 	<call-template name="krextor:create-resource">
 	    <with-param name="related-via-properties" tunnel="yes">
@@ -423,8 +423,8 @@
 	</call-template>
     </template>
 
-	<xd:doc><i>owl:intersectionOf, owl:unionOf, owl:complementOf, owl:oneOf</i> constructor</xd:doc>
-	<template match="om:OMA[om:*[1][self::om:OMS[@cd eq 'owl' and (@name = ('intersectionOf', 'complementOf', 'unionOf', 'oneOf')) ]]]">
+    <xd:doc><i>owl:intersectionOf, owl:unionOf, owl:complementOf, owl:oneOf</i> constructor</xd:doc>
+    <template match="om:OMA[om:*[1][self::om:OMS[@cd eq 'owl' and (@name = ('intersectionOf', 'complementOf', 'unionOf', 'oneOf')) ]]]" mode="krextor:main">
 	<call-template name="krextor:create-resource">
 		<with-param name="related-via-properties" select="krextor:ontology-uri(om:*[1])" tunnel="yes"/>
 	    <with-param name="collection" select="true()"/>
@@ -434,7 +434,7 @@
 
     <xd:doc><i>owl:Restriction</i> constructor</xd:doc>
     <!-- TODO formally specify this as an OMDoc axiom: https://trac.kwarc.info/krextor/ticket/27 -->
-    <template match="om:OMA[count(om:*) eq 3][om:*[1][self::om:OMS[@cd eq 'owl' and @name eq 'Restriction']]][om:*[2][self::om:OMS]]">
+    <template match="om:OMA[count(om:*) eq 3][om:*[1][self::om:OMS[@cd eq 'owl' and @name eq 'Restriction']]][om:*[2][self::om:OMS]]" mode="krextor:main">
 	<call-template name="krextor:create-resource">
 	    <with-param name="type" select="'&owl;Restriction'"/>
 	    <with-param name="properties">
@@ -446,7 +446,7 @@
     </template>
 
     <xd:doc>Sets the cardinality of a property restriction</xd:doc>
-    <template match="om:OMA[om:*[1][self::om:OMS[@cd eq 'owl' and @name = ('minCardinality', 'maxCardinality', 'cardinality')]]][om:*[2][self::om:OMI]]">
+    <template match="om:OMA[om:*[1][self::om:OMS[@cd eq 'owl' and @name = ('minCardinality', 'maxCardinality', 'cardinality')]]][om:*[2][self::om:OMI]]" mode="krextor:main">
 	<call-template name="krextor:add-literal-property">
 	    <with-param name="property" select="krextor:ontology-uri(om:*[1])"/>
 	    <with-param name="object" select="om:*[2]/text()"/>
@@ -455,7 +455,7 @@
     </template>
 	
 	<xd:doc>Sets the allValuesFrom, someValuesFrom, hasValue of a property restriction</xd:doc>
-	<template match="om:OMA[om:*[1][self::om:OMS[@cd eq 'owl' and @name = ('allValuesFrom', 'someValuesFrom', 'hasValue')]]][om:*[2][self::om:OMS]]">
+	<template match="om:OMA[om:*[1][self::om:OMS[@cd eq 'owl' and @name = ('allValuesFrom', 'someValuesFrom', 'hasValue')]]][om:*[2][self::om:OMS]]" mode="krextor:main">
 		<call-template name="krextor:create-resource">
 			<with-param name="related-via-properties" select="krextor:ontology-uri(om:*[1])" tunnel="yes"/>
 			<with-param name="subject-uri" select="krextor:ontology-uri(om:*[2])" tunnel="yes"/>			
@@ -464,7 +464,7 @@
 	</template>
 	
 	<xd:doc>Sets hasValue of a DataType property restriction</xd:doc>
-	<template match="om:OMA[om:*[1][self::om:OMS[@cd eq 'owl' and @name = ('hasValue')]]][om:*[2][not(self::om:OMS)]]">
+	<template match="om:OMA[om:*[1][self::om:OMS[@cd eq 'owl' and @name = ('hasValue')]]][om:*[2][not(self::om:OMS)]]" mode="krextor:main">
 		<call-template name="krextor:add-literal-property">
 			<with-param name="property" select="krextor:ontology-uri(om:*[1])"/>
 			<with-param name="object" select="om:*[2]/text()"/>
@@ -473,14 +473,14 @@
 	
 
     <xd:doc>Creates a resource from an individual symbol</xd:doc>
-    <template match="om:OMS">
+    <template match="om:OMS" mode="krextor:main">
 	<call-template name="krextor:create-resource">
 	    <with-param name="subject" select="krextor:ontology-uri(.)"/>
 	</call-template>
     </template>
 
     <xd:doc>Try to find the ontology namespace (calls <code>krextor:sem-web-base</code>)</xd:doc>
-    <template match="theory">
+    <template match="theory" mode="krextor:main">
 	<variable name="sem-web-base" select="$ontology-namespaces/krextor:loc[@theory eq current()/@xml:id]/@sem-web-base"/>
 	<variable name="type" select="'&owl;Ontology'"/>
 	<choose>
@@ -514,9 +514,9 @@
 
     <xd:doc>We don't extract top-level metadata, as they do not correspond to
 	anything in an ontology.</xd:doc>
-    <template match="/omdoc/metadata"/>
+    <template match="/omdoc/metadata" mode="krextor:main"/>
 
     <xd:doc>We don't extract the special annotation of the ontology namespace
 	of a theory, as it is for internal use.</xd:doc>
-    <template match="link[krextor:curie-to-uri(., @rel) eq '&odo;semWebBase']"/>
+    <template match="link[krextor:curie-to-uri(., @rel) eq '&odo;semWebBase']" mode="krextor:main"/>
 </stylesheet>

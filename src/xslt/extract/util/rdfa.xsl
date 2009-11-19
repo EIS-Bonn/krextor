@@ -177,7 +177,7 @@
     </template>
 
     <xd:doc>Extracts a literal-valued property</xd:doc>
-    <template match="@property">
+    <template match="@property" mode="krextor:main">
 	<variable name="parent" select="parent::*"/>
 	<variable name="object">
 	    <choose>
@@ -231,7 +231,7 @@
     </template>
 
     <xd:doc>Extracts a URI-valued property (<code>rel</code>) whose object is not yet known</xd:doc>
-    <template match="@rel[not(parent::*/@resource or parent::*/@href)]">
+    <template match="@rel[not(parent::*/@resource or parent::*/@href)]" mode="krextor:main">
 	<param name="subject-uri" tunnel="yes"/>
 
 	<if test="$debug">
@@ -261,7 +261,7 @@
     </template>
 
     <xd:doc>Extracts a URI-valued inverse property (<code>rev</code>) whose object is not yet known</xd:doc>
-    <template match="@rev[not(parent::*/@resource or parent::*/@href)]">
+    <template match="@rev[not(parent::*/@resource or parent::*/@href)]" mode="krextor:main">
 	<!--
 	<call-template name="krextor:create-property">
 	    <with-param name="property" select="krextor:curies-to-uris(.)"/>
@@ -279,7 +279,7 @@
 	</call-template>
     </template>
 
-    <template match="@rel|@rev">
+    <template match="@rel|@rev" mode="krextor:main">
 	<if test="$debug">
 	    <message>PIVOTING RESOURCE</message>
 	</if>
@@ -298,7 +298,7 @@
     </function>
 
     <xd:doc>Extracts a URI-valued property</xd:doc>
-    <template match="@resource|@src|@href[not(parent::*/@resource)]">
+    <template match="@resource|@src|@href[not(parent::*/@resource)]" mode="krextor:main">
 	<variable name="parent" select="parent::*"/>
 	<variable name="blank" select="if ($parent/@resource) then krextor:safe-curie-to-bnode-id($parent/@resource) else ()"/>
 	<variable name="object" select="if ($parent/@resource and not($blank)) then krextor:safe-curie-to-uri($parent/@resource) else ."/>

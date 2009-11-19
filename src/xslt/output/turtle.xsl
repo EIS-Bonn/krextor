@@ -75,7 +75,7 @@
 
     <xd:doc>We obtain the RDF graph as RXR and then regroup the triples
 	by subject and predicate</xd:doc>
-    <template match="/">
+    <template match="/" mode="krextor:main">
 	<!-- TODO Consider outputting some @prefixes -->
 	<variable name="rxr">
 	    <apply-imports/>

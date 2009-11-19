@@ -44,7 +44,7 @@
 
     <param name="autogenerate-fragment-uris" select="()"/>
 
-    <template match="*[@class='vevent']">
+    <template match="*[@class='vevent']" mode="krextor:main">
 	<variable name="subject" select="a[@class='url']/@href"/>
 	<call-template name="krextor:create-resource">
 	    <with-param name="subject" select="$subject"/>
@@ -53,27 +53,27 @@
 	</call-template>
     </template>
 
-    <template match="*[@class='summary']">
+    <template match="*[@class='summary']" mode="krextor:main">
 	<call-template name="krextor:add-literal-property">
 	    <with-param name="property" select="'&ical;summary'"/>
 	</call-template>
     </template>
 
-    <template match="*[@class='dtstart']">
+    <template match="*[@class='dtstart']" mode="krextor:main">
 	<call-template name="krextor:add-literal-property">
 	    <with-param name="property" select="'&ical;dtstart'"/>
 	    <with-param name="datatype" select="'&xsd;date'"/>
 	</call-template>
     </template>
 
-    <template match="*[@class='dtend']">
+    <template match="*[@class='dtend']" mode="krextor:main">
 	<call-template name="krextor:add-literal-property">
 	    <with-param name="property" select="'&ical;dtend'"/>
 	    <with-param name="datatype" select="'&xsd;date'"/>
 	</call-template>
     </template>
 
-    <template match="*[@class='location']">
+    <template match="*[@class='location']" mode="krextor:main">
 	<call-template name="krextor:add-literal-property">
 	    <with-param name="property" select="'&ical;location'"/>
 	</call-template>

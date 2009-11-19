@@ -37,6 +37,7 @@
     version="2.0">
     <import href="../generic/generic.xsl"/>
     <import href="rxr.xsl"/>
+    <import href="util/prefix.xsl"/>
 
     <xd:doc type="stylesheet">
 	<xd:short>Output module for RDF/XML</xd:short>
@@ -59,29 +60,18 @@
 	<sequence select="$attribute"/>
     </function>
 
-    <xd:doc>Split a given URI into a sequence of namespace prefix and localname; the substring up to and including the last <code>#</code> or <code>/</code> is treated as the namespace prefix.</xd:doc>
-    <function name="krextor:split-prefix-localname">
-	<param name="uri"/>
-	<analyze-string select="$uri" regex="^(.*[/#])([^/#]*)$">
-	    <matching-substring>
-		<sequence select="regex-group(1), regex-group(2)"/>
-	    </matching-substring>
-	    <non-matching-substring>
-		<sequence select="'', $uri"/>
-	    </non-matching-substring>
-	</analyze-string>	
-    </function>
-
     <xd:doc>Process a single triple, but only output predicate and object.  We assume that the enclosing <code>rdf:Description</code> for the subject has already been created, for this triple and all other triples with the same subject.
-	<xd:param name="namespaces" type="node">Prefix to namespace URI mappings to respect (XML data structure)</xd:param>
+	<xd:param name="namespaces" type="node">Prefix to namespace URI mappings to respect (<code>krextor:namespace</code> data structure)</xd:param>
     </xd:doc>
-    <template match="rxr:triple">
+    <template match="rxr:triple" mode="krextor:rxr">
 	<param name="namespaces"/>
 
 	<variable name="split-predicate-uri" select="krextor:split-prefix-localname(rxr:predicate/@uri)"/>
-	<variable name="namespace-prefix" select="$namespaces/*[@uri eq $split-predicate-uri[1]][1]/@prefix"/>
+	<variable name="predicate-nsuri" select="$split-predicate-uri[1]"/>
+	<variable name="predicate-nsprefix" select="krextor:prefix-from-uri($predicate-nsuri, $namespaces)"/>
+	<variable name="predicate-localname" select="$split-predicate-uri[2]"/>
 	<!-- output the predicate(s) with their objects -->
-	<element name="{$namespace-prefix}:{$split-predicate-uri[2]}" namespace="{$split-predicate-uri[1]}">
+	<element name="{$predicate-nsprefix}:{$predicate-localname}" namespace="{$predicate-nsuri}">
 	    <if test="rxr:object/@xml:lang">
 		<attribute name="xml:lang" select="rxr:object/@xml:lang"/>
 	    </if>
@@ -111,28 +101,23 @@
 
     <xd:doc>We obtain the RDF graph as RXR and then regroup the triples
 	by subject</xd:doc>
-    <template match="/">
+    <template match="/" mode="krextor:main">
 	<variable name="rxr">
 	    <apply-imports/>
 	</variable>
-	<!-- generate namespace prefixes for all predicate URIs -->
-	<variable name="namespaces">
-	    <krextor:namespace prefix="rdf" uri="&rdf;"/>
-	    <for-each-group select="$rxr/rxr:graph/rxr:triple/rxr:predicate" group-by="krextor:split-prefix-localname(@uri)[1]">
-		<krextor:namespace prefix="ns{position()}" uri="{current-grouping-key()}"/>
-	    </for-each-group>
-	</variable>
+	<!-- generate namespace prefixes from all predicates in the RXR graph -->
+	<variable name="namespaces"
+	    select="krextor:generate-namespaces-from-uris(
+		$rxr/rxr:graph/rxr:triple/rxr:predicate/@uri)"/>
 
 	<rdf:RDF>
 	    <!-- output generated namespace prefixes -->
-	    <for-each select="$namespaces/*">
-		<namespace name="{@prefix}" select="@uri"/>
-	    </for-each>
+	    <apply-templates select="$namespaces" mode="krextor:main"/>
 
 	    <for-each-group select="$rxr/rxr:graph/rxr:triple[rxr:subject/@blank]" group-by="rxr:subject/@blank">
 		<!-- output the subject (blank node) -->
 		<rdf:Description rdf:nodeID="{current-grouping-key()}">
-		    <apply-templates select="current-group()">
+		    <apply-templates select="current-group()" mode="krextor:rxr">
 			<with-param name="namespaces" select="$namespaces"/>
 		    </apply-templates>
 		</rdf:Description>
@@ -141,7 +126,7 @@
 	    <for-each-group select="$rxr/rxr:graph/rxr:triple[rxr:subject/@uri]" group-by="rxr:subject/@uri">
 		<!-- output the subject (URI node) -->
 		<rdf:Description rdf:about="{current-grouping-key()}">
-		    <apply-templates select="current-group()">
+		    <apply-templates select="current-group()" mode="krextor:rxr">
 			<with-param name="namespaces" select="$namespaces"/>
 		    </apply-templates>
 		</rdf:Description>

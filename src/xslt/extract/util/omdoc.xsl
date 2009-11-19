@@ -41,21 +41,21 @@
     </xd:doc>
 		
     <xd:doc>Support for legacy hard-coded DC and CC metadata</xd:doc>
-    <template match="metadata/dc:*|metadata/cc:*">
+    <template match="metadata/dc:*|metadata/cc:*" mode="krextor:main">
 	    <call-template name="krextor:add-literal-property">
 		    <with-param name="property" select="concat(namespace-uri(), local-name())"/>
 	    </call-template>
     </template>
 
-    <template match="meta">
+    <template match="meta" mode="krextor:main">
 	<apply-templates select="@property"/>
     </template>
 
-    <template match="link">
+    <template match="link" mode="krextor:main">
 	<apply-templates select="@rel|@rev"/>
     </template>
 
-    <template match="resource">
+    <template match="resource" mode="krextor:main">
 	<variable name="type" select="krextor:curies-to-uris(., @typeof)"/>
 	<variable name="blank-node-id" select="if (@about) then krextor:safe-curie-to-bnode-id(@about) else ()"/>
 	<call-template name="krextor:create-resource">

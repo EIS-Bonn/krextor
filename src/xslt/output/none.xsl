@@ -64,7 +64,7 @@
 	<!-- output the triple -->
     </xsl:template>
 
-    <xsl:template match="/">
+    <xsl:template match="/" mode="krextor:main">
 	<!-- begin output -->
 	<xsl:apply-imports/>
 	<!-- end output -->

@@ -103,7 +103,7 @@
 	</rxr:triple>
     </template>
 
-    <template match="/">
+    <template match="/" mode="krextor:main">
 	<rxr:graph>
 	    <apply-imports/>
 	</rxr:graph>
