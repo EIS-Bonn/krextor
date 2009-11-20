@@ -33,7 +33,7 @@
     xmlns:krextor="http://kwarc.info/projects/krextor"
     xmlns:krextor-genuri="http://kwarc.info/projects/krextor/genuri"
     xmlns:latexml="http://dlmf.nist.gov/LaTeXML"
-    xmlns:xs="http://www.w3.org/2001/XMLSchema"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema#"
     xmlns:xd="http://www.pnp-software.com/XSLTdoc"
     exclude-result-prefixes="#all"
     version="2.0">

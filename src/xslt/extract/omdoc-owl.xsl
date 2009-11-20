@@ -39,7 +39,7 @@
     xmlns:om="http://www.openmath.org/OpenMath"
     xmlns:odo="http://www.omdoc.org/ontology#"
     xmlns:omdoc="http://omdoc.org/ns"
-    xmlns:xs="http://www.w3.org/2001/XMLSchema"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema#"
     xmlns:f="http://fxsl.sf.net/"
     xmlns="http://www.w3.org/1999/XSL/Transform"
     exclude-result-prefixes="#all"
