@@ -31,7 +31,7 @@
     xpath-default-namespace="http://www.w3.org/1999/xhtml"
     xmlns:krextor="http://kwarc.info/projects/krextor"
     xmlns:xd="http://www.pnp-software.com/XSLTdoc"
-    xmlns:xs="http://www.w3.org/2001/XMLSchema#"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema"
     version="2.0">
 
     <import href="util/rdfa.xsl"/>
