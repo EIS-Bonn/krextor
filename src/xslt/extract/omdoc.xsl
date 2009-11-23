@@ -38,6 +38,7 @@
     xmlns:omdoc="http://omdoc.org/ns"
     xmlns:om="http://www.openmath.org/OpenMath"
     xmlns:xd="http://www.pnp-software.com/XSLTdoc"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema"
     exclude-result-prefixes="#all"
     version="2.0">
 
@@ -88,7 +89,7 @@
     <template name="krextor:create-omdoc-resource">
 	<param name="type"/>
 	<param name="formality-degree"/>
-	<param name="subject-uri" tunnel="yes"/>
+	<param name="subject-uri" as="xs:anyURI" tunnel="yes"/>
 	<param name="document-base" tunnel="yes"/>
 	<param name="knowledge-base" tunnel="yes"/>
 	 <!-- <param name="ontologies" required="yes"/> -->
