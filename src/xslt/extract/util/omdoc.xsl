@@ -65,12 +65,12 @@
 
     <xd:doc>Support for literal-valued RDFa metadata</xd:doc>
     <template match="meta" mode="krextor:main">
-	<apply-templates select="@property"/>
+	<apply-templates select="@property" mode="krextor:main"/>
     </template>
 
     <xd:doc>Support for URI-valued RDFa metadata</xd:doc>
     <template match="link" mode="krextor:main">
-	<apply-templates select="@rel|@rev"/>
+	<apply-templates select="@rel|@rev" mode="krextor:main"/>
     </template>
 
     <xd:doc>Support for RDFa blank nodes</xd:doc>

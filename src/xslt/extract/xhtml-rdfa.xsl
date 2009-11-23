@@ -158,7 +158,7 @@
 		    <message select="."/>
 		</if>
 
-		<apply-templates select="trace(@property|@rel|@rev, 'prop')"/>
+		<apply-templates select="trace(@property|@rel|@rev, 'prop')" mode="krextor:main"/>
 	    </when>
 	    <when test="$blank">
 		<if test="$debug">
