@@ -35,6 +35,7 @@
     exclude-result-prefixes="krextor xd"
     version="2.0">
     <import href="../generic/generic.xsl"/>
+    <import href="util/prefix.xsl"/>
 
     <xd:doc type="stylesheet">
 	<xd:short>Output module for RDF/RXR</xd:short>
@@ -51,6 +52,22 @@
 
     <output method="xml" encoding="UTF-8" indent="yes" omit-xml-declaration="no"/>
 
+    <xd:doc>Generates namespace prefixes from all URIs that occur in the given RXR graph; calls <code>krextor:generate-namespaces-from-uris</code> and returns a sequence of <code>krextor:namespace</code> elements.</xd:doc>
+    <function name="krextor:generate-namespaces-from-rxr" as="node()*">
+	<param name="rxr" as="node()"/>
+	<copy-of select="krextor:generate-namespaces-from-uris(
+			(
+				(: all places where RDFa only allows CURIEs :)
+				$rxr/rxr:triple/rxr:predicate/@uri,
+				$rxr/rxr:triple[rxr:predicate/@uri eq '&rdf;type']/rxr:object/@uri,
+				$rxr/rxr:triple/rxr:object/@dataype
+			)
+		)"/>
+    </function>
+
+    <xd:doc>Implementation of <code>krextor:query-triples</code> for RXR graphs
+	<xd:param name="rxr">the RXR graph, a sequence of <code>rxr:triple</code> nodes</xd:param>
+    </xd:doc>
     <function name="krextor:query-rxr-graph" as="node()*">
 	<param name="rxr" as="node()"/>
 	<param name="subject" as="xs:string*"/>
