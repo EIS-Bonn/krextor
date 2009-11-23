@@ -109,6 +109,36 @@
 	</call-template>
     </function>
 
+    <xd:doc>Convenience function that calls <code>krextor:query-triples</code> with the given <code>subject</code>, <code>subject-type</code>, and <code>predicate</code>, defaulting all other parameters to empty sequences or strings</xd:doc>
+    <function name="krextor:query-triples-by-subject-predicate" as="node()*">
+	<param name="subject" as="xs:string*"/>
+	<param name="subject-type" as="xs:string"/>
+	<param name="predicate" as="xs:string*"/>
+	<copy-of select="krextor:query-triples($subject, $subject-type,
+	    $predicate, (), '', '', '')"/>
+    </function>
+
+    <xd:doc>Convenience function that calls <code>krextor:query-triples-by-subject-predicate</code> with the given <code>subject</code>, and <code>predicate</code>, defaulting <code>subject-type</code> to <code>'uri'</code></xd:doc>
+    <function name="krextor:query-triples-by-subject-predicate" as="node()*">
+	<param name="subject" as="xs:string*"/>
+	<param name="predicate" as="xs:string*"/>
+	<copy-of select="krextor:query-triples-by-subject-predicate($subject, 'uri', $predicate)"/>
+    </function>
+
+    <xd:doc>Convenience function that calls <code>krextor:query-triples</code> with the given <code>subject</code> and <code>subject-type</code>, defaulting all other parameters to empty sequences or strings</xd:doc>
+    <function name="krextor:query-triples-by-subject" as="node()*">
+	<param name="subject" as="xs:string*"/>
+	<param name="subject-type" as="xs:string"/>
+	<copy-of select="krextor:query-triples($subject, $subject-type,
+	    '', (), '', '', '')"/>
+    </function>
+
+    <xd:doc>Convenience function that calls <code>krextor:query-triples-by-subject</code> with the given <code>subject</code>, defaulting <code>subject-type</code> to <code>'uri'</code></xd:doc>
+    <function name="krextor:query-triples-by-subject" as="node()*">
+	<param name="subject" as="xs:string*"/>
+	<copy-of select="krextor:query-triples-by-subject($subject, 'uri')"/>
+    </function>
+
     <xd:doc>No-op implementation of a triple store query.  Importing stylesheets will have to override this.</xd:doc>
     <template name="krextor:query-triples" as="node()*">
 	<param name="subject" as="xs:string*"/>
