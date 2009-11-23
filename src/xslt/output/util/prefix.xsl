@@ -53,6 +53,12 @@
 	</call-template>
     </function>
 
+    <xd:doc>No-op implementation of a namespace prefix lookup.  Importing stylesheets will have to override this.</xd:doc>
+    <template name="krextor:nsuri-to-prefix" as="xs:string">
+	<param name="uri" as="xs:string"/>
+	<value-of select="''"/>
+    </template>
+
     <xd:doc>Converts a URI to CURIE (<code>nsprefix:localname</code>) syntax using the default namespace mapping.</xd:doc>
     <function name="krextor:uri-to-curie" as="xs:string">
 	<param name="uri" as="xs:string"/>
@@ -79,7 +85,7 @@
     </function>
 
     <xd:doc>Generates namespace prefixes from all given URIs; returns a sequence of <code>krextor:namespace</code> elements.</xd:doc>
-    <function name="krextor:generate-namespaces-from-uris">
+    <function name="krextor:generate-namespaces-from-uris" as="node()*">
 	<param name="uris" as="xs:string*"/>
 	<krextor:namespace prefix="rdf" uri="&rdf;"/>
 	<for-each-group select="$uris[not(starts-with(., '&rdf;'))]" group-by="krextor:split-prefix-localname(.)[1]">
