@@ -98,7 +98,7 @@
 				    then krextor:default-curie-namespace($focus)
 				    else namespace-uri-from-QName($resolved-uri)"/>
 				    
-				<sequence select="if ($namespace-uri)
+				<value-of select="if ($namespace-uri)
 				    then concat($namespace-uri,
 					local-name-from-QName($resolved-uri))
 				    else ()"/>
@@ -108,7 +108,7 @@
 		</analyze-string>
 	    </when>
 	    <otherwise>
-		<sequence select="()"/>
+		<value-of select="()"/>
 	    </otherwise>
 	</choose>
     </function>
@@ -136,7 +136,7 @@
 	</choose>
     </function>
 
-    <function name="krextor:safe-curie-to-uri">
+    <function name="krextor:safe-curie-to-uri" as="xs:anyURI">
 	<param name="focus" as="attribute()"/>
 	<sequence select="krextor:safe-curie-to-uri($focus/parent::*, $focus)"/>
     </function>
@@ -145,9 +145,9 @@
 	<xd:param name="focus" type="node">the focus node, for the namespace context</xd:param>
 	<xd:param name="safe-curie" type="string*">the safe CURIE</xd:param>
     </xd:doc>
-    <function name="krextor:safe-curie-to-uri" as="xs:string">
-	<param name="focus"/>
-	<param name="safe-curie"/>
+    <function name="krextor:safe-curie-to-uri" as="xs:anyURI">
+	<param name="focus" as="node()"/>
+	<param name="safe-curie" as="xs:string"/>
 	<choose>
 	    <when test="string-length($safe-curie) gt 0">
 		<analyze-string select="$safe-curie" regex="^\[([^\]]+)\]$">
@@ -301,7 +301,7 @@
     <template match="@resource|@src|@href[not(parent::*/@resource)]" mode="krextor:main">
 	<variable name="parent" select="parent::*"/>
 	<variable name="blank" select="if ($parent/@resource) then krextor:safe-curie-to-bnode-id($parent/@resource) else ()"/>
-	<variable name="object" select="if ($parent/@resource and not($blank)) then krextor:safe-curie-to-uri($parent/@resource) else ."/>
+	<variable name="object" as="xs:anyURI" select="if ($parent/@resource and not($blank)) then krextor:safe-curie-to-uri($parent/@resource) else ."/>
 
 	<if test="$debug">
 	    <message>ME</message>
