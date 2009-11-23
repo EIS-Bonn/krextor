@@ -43,23 +43,23 @@
     <xd:doc>creates one RDF triple</xd:doc>
     <xsl:template name="krextor:output-triple">
 	<!-- value of the subject -->
-	<xsl:param name="subject"/>
+	<xsl:param name="subject" as="xs:string"/>
 	<!-- type of the subject: either 'uri' or 'blank' -->
-	<xsl:param name="subject-type"/>
+	<xsl:param name="subject-type" as="xs:string"/>
 
 	<!-- value of the predicate -->
-	<xsl:param name="predicate"/>
+	<xsl:param name="predicate" as="xs:anyURI"/>
 
 	<!-- value of the object -->
-	<xsl:param name="object"/>
+	<xsl:param name="object" as="xs:string"/>
 	<!-- type of the object: either 'uri' or 'blank',
 	     or nothing for literal objects -->
-	<xsl:param name="object-type"/>
+	<xsl:param name="object-type" as="xs:string?"/>
 	<!-- language annotation is only supported on the object,
 	     but neither on triples nor on graphs, as in RXR -->
-	<xsl:param name="object-language"/>
+	<xsl:param name="object-language" as="xs:string?"/>
 	<!-- datatype of the (literal) object -->
-	<xsl:param name="object-datatype"/>
+	<xsl:param name="object-datatype" as="xs:string?"/>
 
 	<!-- output the triple -->
     </xsl:template>
