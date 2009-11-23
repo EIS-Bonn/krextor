@@ -52,6 +52,8 @@
 
     <output method="xml" encoding="UTF-8" indent="yes" omit-xml-declaration="no"/>
 
+    <namespace-alias stylesheet-prefix="h" result-prefix="#default"/>
+
     <xd:doc>Adds RDFa attributes to the current element in the output tree,
 	depending on the RDF extracted from the current node in the input
 	tree.</xd:doc>
@@ -59,12 +61,19 @@
 	<variable name="uri" select="krextor:generate-uri(., base-uri())"/>
 	<!-- TODO make this work for blank nodes too -->
 	<attribute name="about" select="$uri"/>
-	<variable name="type" select="krextor:query-triples($uri, 'uri', '&rdf;type', (), '', '', '')/rxr:object/@uri"/>
+	<!-- all triples having this resource as subject -->
+	<variable name="properties" select="krextor:query-triples-by-subject($uri)"/>
+	<!-- @typeof -->
+	<variable name="type" select="$properties[rxr:predicate[@uri eq '&rdf;type']]/rxr:object/@uri"/>
 	<if test="$type">
 	    <attribute name="typeof" select="
 		for $t in $type
 		return krextor:uri-to-curie($t)"/>
 	</if>
+	<!-- all other properties, literals and URIs -->
+	<!-- TODO group by common properties -->
+	<!-- TODO put all into <div>...</div> if browser shows whitespace -->
+	<apply-templates select="$properties[rxr:predicate[@uri ne '&rdf;type']]" mode="krextor:rdfa"/>
     </template>
 
     <xd:doc>Adds RDFa attributes to the current element in the output tree,
@@ -72,5 +81,26 @@
 	tree.</xd:doc>
     <template match="node()" mode="krextor:rdfa">
 	<call-template name="krextor:rdfa"/>
+    </template>
+
+    <xd:doc>Outputs an empty <code>span</code> element with RDFa attributes for
+	a literal-valued property</xd:doc>
+    <template match="rxr:triple[rxr:object[text()]]" mode="krextor:rdfa">
+	<!-- TODO does not yet work for rdf:XMLLiteral datatype -->
+	<h:span property="{krextor:uri-to-curie(rxr:predicate/@uri)}" content="{rxr:object}">
+	    <if test="rxr:object/@xml:lang">
+		<attribute name="xml:lang" select="rxr:object/@xml:lang"/>
+	    </if>
+	    <if test="rxr:object/@datatype">
+		<attribute name="datatype"
+		    select="krextor:uri-to-curie(rxr:object/@datatype)"/>
+	    </if>
+	</h:span>
+    </template>
+
+    <xd:doc>Outputs an empty <code>span</code> element with RDFa attributes for  a URI-valued property</xd:doc>
+    <template match="rxr:triple[rxr:object[not(text())]]" mode="krextor:rdfa">
+	<!-- TODO does not yet work for blank nodes -->
+	<h:span rel="{krextor:uri-to-curie(rxr:predicate/@uri)}" resource="{rxr:object/@uri}"/>
     </template>
 </stylesheet>
