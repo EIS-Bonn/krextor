@@ -109,6 +109,17 @@
 	</call-template>
     </function>
 
+    <xd:doc>No-op implementation of a triple store query.  Importing stylesheets will have to override this.</xd:doc>
+    <template name="krextor:query-triples" as="node()*">
+	<param name="subject" as="xs:string*"/>
+	<param name="subject-type" as="xs:string"/>
+	<param name="predicate" as="xs:string*"/>
+	<param name="object" as="xs:string*"/>
+	<param name="object-type" as="xs:string"/>
+	<param name="object-language" as="xs:string"/>
+	<param name="object-datatype" as="xs:string"/>
+    </template>
+
     <!-- not used at the moment -->
     <function name="f:generate-id" as="element()">
 	<f:generate-id/>
