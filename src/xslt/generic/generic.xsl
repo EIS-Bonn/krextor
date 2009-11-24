@@ -49,7 +49,7 @@
     </xd:doc>
 
     <xd:doc>Enable debug output?</xd:doc>
-    <param name="debug" select="false()"/>
+    <param name="debug" as="xs:boolean" select="false()"/>
 
     <xd:doc>
 	<xd:short>Should URIs like <code>document#fragment</code> automatically be
@@ -94,38 +94,50 @@
 		background on this in a semantic web context.</p>
 	</xd:detail>
     </xd:doc>
-    <param name="autogenerate-fragment-uris" select="
+    <param name="autogenerate-fragment-uris" as="xs:string*" select="
 	'xml-id',
 	'document-root-base'"/>
 
-    <!-- Should XIncludes be traversed?  Note: Templates for nodes in XIncluded
-         documents are matched in "krextor:included" mode. -->
-    <param name="traverse-xincludes" select="true()"/>
+    <xd:doc>Configures whether XIncludes should be traversed.  Note that templates for nodes in XIncluded documents are matched in <code>krextor:included</code> mode.</xd:doc>
+    <param name="traverse-xincludes" as="xs:boolean" select="true()"/>
 
-    <variable name="krextor:resources" select="()"/>
-    <variable name="krextor:literal-properties" select="()"/>
+    <xd:doc>Configures whether relative URIs should be resolved into absolute URIs when generating URIs for resources.  Setting it to <code>false</code> is experimental.</xd:doc>
+    <param name="resolve-relative-uris" as="xs:boolean" select="true()"/>
+
+    <variable name="krextor:resources" as="element()*" select="()"/>
+    <variable name="krextor:literal-properties" as="element()*" select="()"/>
 
     <xd:doc>Checks whether a given node is a text node, an attribute, or an atomic value</xd:doc>
-    <function name="krextor:is-text-or-attribute-or-atomic">
-	<param name="node"/>
+    <function name="krextor:is-text-or-attribute-or-atomic" as="xs:boolean">
+	<param name="node" as="node()"/>
         <sequence select="$node instance of xs:anyAtomicType
             or $node instance of text()
             or $node instance of attribute()"/>
     </function>
 
+    <xd:doc>Resolves a relative URI against a base URI, if URI resolution is globally turned on.</xd:doc>
+    <function name="krextor:resolve-uri" as="xs:anyURI">
+	<param name="relative" as="xs:string"/>
+	<param name="base" as="xs:anyURI"/>
+	<value-of select="if ($resolve-relative-uris)
+	    then resolve-uri($relative, $base)
+	    else $relative"/>
+    </function>
+
     <xd:doc>Generates a URI for a fragment of a document; returns the empty sequence if the fragment ID is empty</xd:doc>
-    <function name="krextor:fragment-uri-or-null">
-	<param name="fragment-id"/>
-	<param name="base-uri"/>
+    <function name="krextor:fragment-uri-or-null" as="xs:anyURI?">
+	<param name="fragment-id" as="xs:string?"/>
+	<param name="base-uri" as="xs:anyURI"/>
 	<value-of select="if ($fragment-id)
-	    then resolve-uri(concat('#', $fragment-id), $base-uri)
+	    then krextor:resolve-uri(concat('#', $fragment-id), $base-uri)
 	    else ()"/>
     </function>
 
     <xd:doc>creates an XPath-like string from the path to a node, 
 	e.g. <code>doc-sect1-para2</code> for <code>/doc/sect[1]/para[2]</code></xd:doc>
-    <function name="krextor:pseudo-xpath">
-	<param name="node"/>
+    <function name="krextor:pseudo-xpath" as="xs:string">
+	<param name="node" as="node()"/>
+	<!-- TODO maybe also for attribute nodes? -->
 	<value-of select="if ($node/parent::node() instance of document-node())
 		then local-name($node)
 	    else concat(
@@ -137,17 +149,17 @@
     </function>
 
     <xd:doc>Generates a URI for a resource using the default generation method</xd:doc>
-    <function name="krextor:generate-uri">
-        <param name="node"/>
-        <param name="base-uri"/>
+    <function name="krextor:generate-uri" as="xs:anyURI">
+        <param name="node" as="node()"/>
+        <param name="base-uri" as="xs:anyURI"/>
 	<value-of select="krextor:generate-uri($node, krextor:uri-generation-method($node), $base-uri)"/>
     </function>
 
     <xd:doc>Generates a URI for a resource</xd:doc>
-    <function name="krextor:generate-uri">
-        <param name="node"/>
-        <param name="autogenerate-fragment-uri"/>
-        <param name="base-uri"/>
+    <function name="krextor:generate-uri" as="xs:anyURI?">
+        <param name="node" as="node()"/>
+        <param name="autogenerate-fragment-uri" as="xs:string*"/>
+        <param name="base-uri" as="xs:anyURI"/>
 	<!-- What we'd actually like to do is applying a series of _functions_
 	to ($node, $base-uri), but that doesn't work.  It would involve
 	currying, and the FXSL implementation of currying breaks nodes in XML
@@ -159,15 +171,15 @@
 	<xd:param name="method" type="string">the identifier of the URI generation method</xd:param>
 	<xd:param name="params">a two-item sequence (<code>node</code>, <code>base-uri</code>)</xd:param>
     </xd:doc>
-    <function name="krextor:generate-uri-impl">
-	<param name="method"/>
-	<param name="params"/>
-	<variable name="node" select="$params[1]"/>
-	<variable name="base-uri" select="$params[2]"/>
-	<variable name="method-element">
+    <function name="krextor:generate-uri-impl" as="xs:anyURI?">
+	<param name="method" as="xs:string"/>
+	<param name="params" as="item()+"/>
+	<variable name="node" as="node()" select="$params[1]"/>
+	<variable name="base-uri" as="xs:anyURI" select="$params[2]"/>
+	<variable name="method-element" as="element()">
 	    <element name="{concat('krextor-genuri:', $method)}"/>
 	</variable>
-	<apply-templates select="$method-element/*">
+	<apply-templates select="$method-element">
 	    <with-param name="node" select="$node"/>
 	    <with-param name="base-uri" select="$base-uri"/>
 	</apply-templates>
@@ -176,8 +188,8 @@
     <xd:doc>Returns the base URI of the document for the root node,
 	otherwise the empty sequence.</xd:doc>
     <template match="krextor-genuri:document-root-base" as="xs:string?">
-	<param name="node"/>
-	<param name="base-uri"/>
+	<param name="node" as="node()"/>
+	<param name="base-uri" as="xs:anyURI"/>
 	<sequence select="
 	    if ($node/parent::node() instance of document-node())
 	    then $base-uri
@@ -185,8 +197,8 @@
     </template>
 
     <template match="krextor-genuri:xml-id|krextor-genuri:generate-id|krextor-genuri:pseudo-xpath" as="xs:string?">
-	<param name="node"/>
-	<param name="base-uri"/>
+	<param name="node" as="node()"/>
+	<param name="base-uri" as="xs:anyURI"/>
 	<sequence select="
 	    krextor:fragment-uri-or-null(
 		if (self::krextor-genuri:xml-id and $node/@xml:id)
@@ -201,14 +213,14 @@
 
     <xd:doc>Returns an FXSL reference to the
 	<code>krextor:generate-uri-impl</code> function.</xd:doc>
-    <function name="krextor:generate-uri-impl" as="element()">
+    <function name="krextor:generate-uri-impl" as="element(krextor:generate-uri-impl)">
 	<krextor:generate-uri-impl/>
     </function>
 
     <xd:doc>FXSL template representing the two-argument <code>krextor:generate-uri-impl</code> function</xd:doc>
-    <template match="krextor:generate-uri-impl" mode="f:FXSL">
-	<param name="arg1"/>
-	<param name="arg2"/>
+    <template match="krextor:generate-uri-impl" as="xs:anyURI?" mode="f:FXSL">
+	<param name="arg1" as="xs:string"/>
+	<param name="arg2" as="item()+"/>
 	<sequence select="krextor:generate-uri-impl($arg1, $arg2)"/>
     </template>
 
@@ -217,26 +229,26 @@
 	URI.</xd:doc>
     <template name="krextor:output-triple-impl">
 	<!-- value of the subject -->
-	<param name="subject" required="yes"/>
+	<param name="subject" as="xs:string" required="yes"/>
 	<!-- type of the subject: either 'uri' or 'blank' -->
-	<param name="subject-type" select="'uri'"/>
+	<param name="subject-type" as="xs:string" select="'uri'"/>
 
 	<!-- value of the predicate -->
-	<param name="predicate" required="yes"/>
+	<param name="predicate" as="xs:anyURI" required="yes"/>
 
 	<!-- value of the object -->
-	<param name="object" required="yes"/>
+	<param name="object" as="xs:string" required="yes"/>
 	<!-- type of the object: either 'uri' or 'blank',
 	     or nothing for literal objects -->
-	<param name="object-type"/>
+	<param name="object-type" as="xs:string" select="''"/>
 	<!-- language annotation is only supported on the object,
 	     but neither on triples nor on graphs, as in RXR -->
-	<param name="language"/>
+	<param name="language" as="xs:string?"/>
 	<!-- datatype of the (literal) object -->
-	<param name="datatype"/>
+	<param name="datatype" as="xs:string?"/>
 
 	<!-- We accept a static base URI (as, e.g., defined by base/@href in XHTML), against which every URL is resolved -->
-	<param name="krextor:base-uri" tunnel="yes"/>
+	<param name="krextor:base-uri" as="xs:anyURI" tunnel="yes"/>
 
 	<!-- Some sanity checks -->
 	<if test="not($subject-type = ('uri', 'blank'))">
@@ -265,14 +277,14 @@
     <xd:doc>Relates the current resource to its parent via some properties or their inverses</xd:doc>
     <template name="krextor:related-via-properties">
 	<!-- The list of properties -->
-	<param name="properties" select="()"/>
+	<param name="properties" as="xs:string*" select="()"/>
 	<!-- Are these inverse properties? -->
-	<param name="inverse" select="false()"/>
+	<param name="inverse" as="xs:boolean" select="false()"/>
 
 	<!-- The identifier of the current resource -->
-	<param name="blank-node"/>
-	<param name="generated-blank-node-id"/>
-	<param name="generated-uri"/>
+	<param name="blank-node" as="xs:boolean"/>
+	<param name="generated-blank-node-id" as="xs:string"/>
+	<param name="generated-uri" as="xs:anyURI"/>
 	<for-each select="$properties">
 	    <if test=".">
 		<choose>
@@ -330,8 +342,8 @@
 		element.</p></xd:detail></xd:doc>
     <template name="krextor:create-resource">
 	<param name="subject" select="()" as="xs:string?"/>
-	<param name="related-via-properties" select="()" tunnel="yes"/>
-	<param name="related-via-inverse-properties" select="()" tunnel="yes"/>
+	<param name="related-via-properties" as="xs:string*" select="()" tunnel="yes"/>
+	<param name="related-via-inverse-properties" as="xs:string*" select="()" tunnel="yes"/>
 	<param name="type" select="()" as="xs:string*"/>
 	<!-- additional properties of this resource, encoded as
 	    <krextor:property uri="property-uri" object="object-uri"/>
@@ -343,36 +355,36 @@
 	    are also allowed.
 	    Support for blank node objects is not yet implemented.
 	-->
-	<param name="properties"/>
+	<param name="properties" as="node()*"/>
 	<!-- The node set to which apply-templates is applied -->
 	<!-- We also process attributes, as they may contain links to other resources -->
-	<param name="process-next" select="*|@*"/>
+	<param name="process-next" as="node()*" select="*|@*"/>
 	<!-- We pass the subject URI as a parameter into templates.  This is because we need to tweak the subject URI when processing transcluded documents; in this case, the transcluding document's URI should still be considered the subject URI, instead of the URI of the transcluded document. -->
-	<param name="subject-uri" tunnel="yes"/>
+	<param name="subject-uri" as="xs:anyURI" tunnel="yes"/>
 	<!-- Is this a blank node? -->
-	<param name="blank-node" select="false()"/>
+	<param name="blank-node" as="xs:boolean" select="false()"/>
 	<param name="this-blank-node-id" select="()" as="xs:string?"/>
 	<!-- is the object an RDF collection? -->
-	<param name="collection" select="false()"/>
+	<param name="collection" as="xs:boolean" select="false()"/>
 
-	<variable name="autogenerate-fragment-uri" select="krextor:uri-generation-method(.)"/>
+	<variable name="autogenerate-fragment-uri" as="xs:string*" select="krextor:uri-generation-method(.)"/>
 	<!-- If we are to autogenerate the URI for this node, then we call the krextor:generate-uri function to generate one, unless an explicit subject URI has been passed
 	  -->
-	<variable name="generated-uri" select="if ($blank-node) then $subject-uri
-	    else if (exists($subject)) then $subject
+	<variable name="generated-uri" as="xs:anyURI" select="if ($blank-node) then $subject-uri
+	    else if (exists($subject)) then xs:anyURI($subject)
 	    else if (exists($autogenerate-fragment-uri)) 
 		then krextor:generate-uri(., $autogenerate-fragment-uri, $subject-uri)
-	    else $subject-uri" as="xs:string?"/>
-	<variable name="generated-blank-node" select="$blank-node or $collection"/>
+	    else $subject-uri"/>
+	<variable name="generated-blank-node" as="xs:boolean" select="$blank-node or $collection"/>
 	<!-- TODO introduce auto-blank node if no xml:id given
 	     if auto-blank-node isn't desired, skip elements without xml:id altogether -->
-	<variable name="generated-blank-node-id" select="
+	<variable name="generated-blank-node-id" as="xs:string" select="
 	    if ($generated-blank-node) then
 		concat(if ($collection and not(starts-with($this-blank-node-id, 'collection-'))) then 'collection-' else '',
 		    if ($this-blank-node-id) then $this-blank-node-id else generate-id())
 	    else ''"/>
-	<variable name="subject" select="if ($generated-blank-node) then $generated-blank-node-id else $generated-uri"/>
-	<variable name="subject-type" select="if ($generated-blank-node) then 'blank' else 'uri'"/>
+	<variable name="subject" as="xs:string" select="if ($generated-blank-node) then $generated-blank-node-id else $generated-uri"/>
+	<variable name="subject-type" as="xs:string" select="if ($generated-blank-node) then 'blank' else 'uri'"/>
 	<if test="exists($generated-uri)">
 	    <if test="not(parent::node() instance of document-node())">
 		<!-- Relate this resource to its parent, if it has a parent -->
@@ -396,7 +408,7 @@
 		<call-template name="krextor:output-triple-impl">
 		    <with-param name="subject" select="$subject"/>
 		    <with-param name="subject-type" select="$subject-type"/>
-		    <with-param name="predicate" select="'&rdf;type'"/>
+		    <with-param name="predicate" select="xs:anyURI('&rdf;type')"/>
 		    <with-param name="object" select="."/>
 		    <with-param name="object-type" select="'uri'"/>
 		</call-template>
@@ -405,7 +417,7 @@
 	    <!-- Add additional properties to this resource -->
 	    <if test="$properties">
 		<for-each select="$properties/krextor:property[@uri]">
-		    <variable name="object" select="if (@object) then @object
+		    <variable name="object" as="xs:string" select="if (@object) then @object
 			else if (text()) then text()
 			else ''"/>
 		    <if test="$object">
@@ -445,7 +457,7 @@
 	</if>
     </template>
 
-    <variable name="krextor:dummy-node">
+    <variable name="krextor:dummy-node" as="element(krextor:dummy-node)">
 	<krextor:dummy-node/>
     </variable>
 
@@ -457,7 +469,7 @@
 	<choose>
 	    <when test="not(empty($krextor:resources))">
 		<!-- variant without key: compare local-name and namespace-uri -->
-		<variable name="mapping" select="key('krextor:resources',
+		<variable name="mapping" as="element()" select="key('krextor:resources',
 		    resolve-QName(name(), .),
 		    if (not(empty($krextor:resources)))
 		    then $krextor:resources
@@ -478,20 +490,21 @@
     <xd:doc>Adds a literal-valued property to the resource in whose
 	create-resource scope this template was called.</xd:doc>
     <template name="krextor:add-literal-property">
-	<param name="subject-uri" tunnel="yes"/>
-	<param name="blank-node-id" tunnel="yes"/>
-	<param name="property" as="xs:string*"/>
+	<param name="subject-uri" as="xs:anyURI" tunnel="yes"/>
+	<param name="blank-node-id" as="xs:string" tunnel="yes"/>
+	<param name="property"/>
 	<!-- property from incomplete triples -->
-	<param name="tunneled-property" as="xs:string*" tunnel="yes"/>
+	<param name="tunneled-property" as="xs:anyURI*" tunnel="yes"/>
 	<!-- TODO consider allowing XML literals here (move code from RDFa here) -->
-	<param name="object" select="."/>
+	<param name="object" as="xs:string" select="."/>
 	<!-- Is the object a whitespace-separated list or a sequence? -->
 	<param name="object-is-list" select="false()" as="xs:boolean"/>
 	<!-- Normalize whitespace around the value of the object? -->
 	<param name="normalize-space" select="false()" as="xs:boolean"/>
-	<param name="language" select="''"/>
-	<param name="datatype" select="''"/>
-	<variable name="actual-property" select="if (exists($property)) then $property
+	<param name="language" as="xs:string?" select="''"/>
+	<param name="datatype" as="xs:string?" select="''"/>
+	<variable name="actual-property" as="xs:anyURI" select="if (exists($property))
+	    then xs:anyURI($property)
 	    else $tunneled-property"/>
 	<choose>
 	    <!-- If the "object" is a whitespace-separated list or a sequence of actual objects, we recursively generate one triple for each object. -->
@@ -533,7 +546,7 @@
 	<choose>
 	    <when test="not(empty($krextor:literal-properties))">
 		<!-- variant without key: compare local-name and namespace-uri -->
-		<variable name="mapping" select="key('krextor:literal-properties',
+		<variable name="mapping" as="element()" select="key('krextor:literal-properties',
 		    resolve-QName(name(), .), 
 		    if (not(empty($krextor:literal-properties)))
 		    then $krextor:literal-properties
@@ -557,25 +570,25 @@
     <xd:doc>Adds a URI-valued property to the resource in whose
 	<code>create-resource</code> scope this template was called.</xd:doc>
     <template name="krextor:add-uri-property">
-	<param name="subject-uri" tunnel="yes"/>
-	<param name="blank-node-id" tunnel="yes"/>
-	<param name="property" as="xs:string*"/>
+	<param name="subject-uri" as="xs:anyURI" tunnel="yes"/>
+	<param name="blank-node-id" as="xs:string" tunnel="yes"/>
+	<param name="property"/>
 	<!-- property from incomplete triples -->
-	<param name="tunneled-property" as="xs:string*" tunnel="yes"/>
+	<param name="tunneled-property" as="xs:anyURI*" tunnel="yes"/>
 	<!-- Should the property be applied in inverse direction? -->
-	<param name="inverse" select="false()"/>
+	<param name="inverse" as="xs:boolean" select="false()"/>
 	<!-- inverse information from incomplete triples -->
-	<param name="tunneled-inverse" tunnel="yes"/>
+	<param name="tunneled-inverse" as="xs:boolean" select="false()" tunnel="yes"/>
 	<!-- Is the object a whitespace-separated list or a 
 	multi-element sequence?  Use the empty sequence () instead
 	of the empty string in order to pass something that is not an object -->
-	<param name="object-is-list" select="false()"/>
+	<param name="object-is-list" as="xs:boolean" select="false()"/>
 	<!-- Currently we assume that, if no explicit link target is given, we are either:
 	1. in the root element R of an XIncluded document and that a relationship between the parent of the xi:include and the XIncluded document is to be expressed.
 	2. or we are in an attribute or a text node or any item of a whitespace-separated list,
 	   and a relationship between the current subject URI and the URIref in the attribute value is to be expressed. -->
-	<param name="object" select="if (krextor:is-text-or-attribute-or-atomic(.))
-	    then if ($object-is-list) then . else resolve-uri(., $subject-uri)
+	<param name="object" as="xs:string" select="if (krextor:is-text-or-attribute-or-atomic(.))
+	    then if ($object-is-list) then . else krextor:resolve-uri(., $subject-uri)
 	    (: What is this resolution good for? MMT?
 	       Anyway, if needed, we could also resolve each list
 	       item by for - in - return :)
@@ -584,11 +597,12 @@
 	<!-- node ID, if the object is a blank node -->
 	<param name="blank" as="xs:string?"/>
 	<if test="($blank or exists($object)) and (exists($property) or exists($tunneled-property))">
-	    <variable name="actual-object" select="if ($blank) then $blank
+	    <variable name="actual-object" as="xs:string" select="if ($blank) then $blank
 		else $object"/>
-	    <variable name="actual-property" select="if (exists($property)) then $property
+	    <variable name="actual-property" as="xs:anyURI" select="if (exists($property))
+		then xs:anyURI($property)
 		else $tunneled-property"/>
-	    <variable name="actual-inverse" select="if (exists($property)) then $inverse
+	    <variable name="actual-inverse" as="xs:boolean" select="if (exists($property)) then $inverse
 		else $tunneled-inverse"/>
 	    <choose>
 		<!-- If the "object" is a whitespace-separated list of actual objects, we recursively generate one triple for each object. -->
@@ -640,11 +654,11 @@
 
     <xd:doc>Creates a property whose values are added by nested template calls</xd:doc>
     <template name="krextor:create-property">
-	<param name="property" required="yes"/>
-	<param name="inverse" select="false()"/>
+	<param name="property" as="xs:anyURI" required="yes"/>
+	<param name="inverse" as="xs:boolean" select="false()"/>
 	<!-- The node set to which apply-templates is applied -->
 	<!-- We also process attributes, as they may contain links to other resources -->
-	<param name="process-next" select="*|@*"/>
+	<param name="process-next" as="node()*" select="*|@*"/>
 	<apply-templates select="$process-next" mode="krextor:main">
 	    <with-param name="tunneled-property" select="$property" tunnel="yes"/>
 	    <with-param name="tunneled-inverse" select="$inverse" tunnel="yes"/>
@@ -653,12 +667,12 @@
 
     <xd:doc>Creates an rdf Collection</xd:doc>
     <template name="krextor:create-collection">
-	<param name="rest"/>
-	<param name="blank-node-id" tunnel="yes"/>
-	<param name="collection-id" select="()" tunnel="yes"/>
-	<param name="collection-index" select="1" tunnel="yes"/>
-	<variable name="new-collection-id" select="if (exists($collection-id)) then $collection-id else $blank-node-id"/>
-	<variable name="subject" select="concat($new-collection-id, '-', $collection-index)"/>
+	<param name="rest" as="element()*"/>
+	<param name="blank-node-id" as="xs:string" tunnel="yes"/>
+	<param name="collection-id" as="xs:string?" select="()" tunnel="yes"/>
+	<param name="collection-index" as="xs:integer" select="1" tunnel="yes"/>
+	<variable name="new-collection-id" as="xs:string" select="if (exists($collection-id)) then $collection-id else $blank-node-id"/>
+	<variable name="subject" as="xs:string" select="concat($new-collection-id, '-', $collection-index)"/>
 	<apply-templates select="$rest[1]" mode="krextor:main">
 	    <with-param name="blank-node-id" select="$blank-node-id" tunnel="yes"/>
 	    <!-- if a resource is created from the first element, make it the first resource of this collection -->
@@ -679,7 +693,7 @@
 	    </when>
 	    <otherwise>
 		<call-template name="krextor:create-resource">
-		    <with-param name="subject-uri" select="'&rdf;nil'" tunnel="yes"/>
+		    <with-param name="subject-uri" select="xs:anyURI('&rdf;nil')" tunnel="yes"/>
 		    <with-param name="related-via-properties" select="'&rdf;rest'" tunnel="yes"/>
 		    <with-param name="process-next" select="()"/>
 		</call-template>
@@ -714,10 +728,10 @@
 
     <xd:doc>Start processing; the current subject is identified by the base URI of the document.</xd:doc>
     <template match="/" mode="krextor:main">
-	<param name="krextor:base-uri" select="base-uri()" tunnel="yes"/>
+	<param name="krextor:base-uri" as="xs:string" select="base-uri()" tunnel="yes"/>
 	<apply-templates mode="krextor:main">
-	    <with-param name="subject-uri" select="$krextor:base-uri" tunnel="yes"/>
-	    <with-param name="krextor:base-uri" select="$krextor:base-uri" tunnel="yes"/>
+	    <with-param name="subject-uri" select="xs:anyURI($krextor:base-uri)" tunnel="yes"/>
+	    <with-param name="krextor:base-uri" select="xs:anyURI($krextor:base-uri)" tunnel="yes"/>
 	</apply-templates>
     </template>
 
