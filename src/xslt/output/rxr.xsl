@@ -60,7 +60,7 @@
 				(: all places where RDFa only allows CURIEs :)
 				$rxr/rxr:triple/rxr:predicate/@uri,
 				$rxr/rxr:triple[rxr:predicate/@uri eq '&rdf;type']/rxr:object/@uri,
-				$rxr/rxr:triple/rxr:object/@dataype
+				$rxr/rxr:triple/rxr:object/@datatype
 			)
 		)"/>
     </function>
@@ -69,7 +69,7 @@
 	<xd:param name="rxr">the RXR graph, a sequence of <code>rxr:triple</code> nodes</xd:param>
     </xd:doc>
     <function name="krextor:query-rxr-graph" as="node()*">
-	<param name="rxr" as="node()"/>
+	<param name="rxr" as="node()*"/>
 	<param name="subject" as="xs:string*"/>
     	<param name="subject-type" as="xs:string"/>
     	<param name="predicate" as="xs:string*"/>
