@@ -109,7 +109,8 @@
 
     <xd:doc>Checks whether a given node is a text node, an attribute, or an atomic value</xd:doc>
     <function name="krextor:is-text-or-attribute-or-atomic" as="xs:boolean">
-	<param name="node" as="node()"/>
+	<!-- can be of almost any type -->
+	<param name="node"/>
         <sequence select="$node instance of xs:anyAtomicType
             or $node instance of text()
             or $node instance of attribute()"/>
@@ -171,7 +172,10 @@
 	<xd:param name="method" type="string">the identifier of the URI generation method</xd:param>
 	<xd:param name="params">a two-item sequence (<code>node</code>, <code>base-uri</code>)</xd:param>
     </xd:doc>
+    <!-- Altova XML reports XTTE0780
     <function name="krextor:generate-uri-impl" as="xs:anyURI?">
+    -->
+    <function name="krextor:generate-uri-impl">
 	<param name="method" as="xs:string"/>
 	<param name="params" as="item()+"/>
 	<variable name="node" as="node()" select="$params[1]"/>
@@ -491,12 +495,12 @@
 	create-resource scope this template was called.</xd:doc>
     <template name="krextor:add-literal-property">
 	<param name="subject-uri" as="xs:anyURI" tunnel="yes"/>
-	<param name="blank-node-id" as="xs:string" tunnel="yes"/>
+	<param name="blank-node-id" as="xs:string?" tunnel="yes"/>
 	<param name="property"/>
 	<!-- property from incomplete triples -->
 	<param name="tunneled-property" as="xs:anyURI*" tunnel="yes"/>
 	<!-- TODO consider allowing XML literals here (move code from RDFa here) -->
-	<param name="object" as="xs:string" select="."/>
+	<param name="object" select="."/>
 	<!-- Is the object a whitespace-separated list or a sequence? -->
 	<param name="object-is-list" select="false()" as="xs:boolean"/>
 	<!-- Normalize whitespace around the value of the object? -->
@@ -571,7 +575,7 @@
 	<code>create-resource</code> scope this template was called.</xd:doc>
     <template name="krextor:add-uri-property">
 	<param name="subject-uri" as="xs:anyURI" tunnel="yes"/>
-	<param name="blank-node-id" as="xs:string" tunnel="yes"/>
+	<param name="blank-node-id" as="xs:string?" tunnel="yes"/>
 	<param name="property"/>
 	<!-- property from incomplete triples -->
 	<param name="tunneled-property" as="xs:anyURI*" tunnel="yes"/>
@@ -587,7 +591,7 @@
 	1. in the root element R of an XIncluded document and that a relationship between the parent of the xi:include and the XIncluded document is to be expressed.
 	2. or we are in an attribute or a text node or any item of a whitespace-separated list,
 	   and a relationship between the current subject URI and the URIref in the attribute value is to be expressed. -->
-	<param name="object" as="xs:string" select="if (krextor:is-text-or-attribute-or-atomic(.))
+	<param name="object" select="if (krextor:is-text-or-attribute-or-atomic(.))
 	    then if ($object-is-list) then . else krextor:resolve-uri(., $subject-uri)
 	    (: What is this resolution good for? MMT?
 	       Anyway, if needed, we could also resolve each list
@@ -597,7 +601,7 @@
 	<!-- node ID, if the object is a blank node -->
 	<param name="blank" as="xs:string?"/>
 	<if test="($blank or exists($object)) and (exists($property) or exists($tunneled-property))">
-	    <variable name="actual-object" as="xs:string" select="if ($blank) then $blank
+	    <variable name="actual-object" select="if ($blank) then $blank
 		else $object"/>
 	    <variable name="actual-property" as="xs:anyURI" select="if (exists($property))
 		then xs:anyURI($property)

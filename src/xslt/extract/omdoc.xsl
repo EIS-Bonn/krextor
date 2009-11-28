@@ -346,7 +346,7 @@
     <template match="definition/@for|omtext[@type='definition']/@for" mode="krextor:main">
 	<!-- TODO MMT URIs not yet supported; fix this together with the
 	improved URI generation, https://trac.kwarc.info/krextor/ticket/16 -->
-	<variable name="symbol-uris" select="for $id in
+	<variable name="symbol-uris" as="xs:string*" select="for $id in
 	    ancestor::theory//symbol[@name = tokenize(current(), '\s+')]/@xml:id
 	    return concat('#', $id)"/> 
 	<call-template name="krextor:add-uri-property">
@@ -404,7 +404,7 @@
     <template match="proof" mode="krextor:main">
 	<call-template name="krextor:create-omdoc-resource">
 	    <!-- FIXME documentUnit, mathematicalBlock -->
-		<with-param name="related-via-properties" select="if (parent::method[parent::derive]) then '&odo;justifiedBy' else if (parent::theory) then '&odo;homeTheoryOf' else  '&odo;hasPart' , if (parent::omdoc) then '&sdoc;hasComposite' else '&sdoc;hasPart'" tunnel="yes"/>
+	    <with-param name="related-via-properties" select="if (parent::method[parent::derive]) then '&odo;justifiedBy' else if (parent::theory) then '&odo;homeTheoryOf' else  '&odo;hasPart' , if (parent::omdoc) then '&sdoc;hasComposite' else '&sdoc;hasPart'" tunnel="yes"/>
 	    <with-param name="type" select="'&odo;Proof'"/>
 	    <with-param name="formality-degree" select="'&odo;Formal'"/>
 	</call-template>
