@@ -35,7 +35,7 @@
         Extraction module for </span>&lt;<span class="xmlverb-element-name"><a name="d38e8">a</a></span> <span class="xmlverb-attr-name">href</span>="<span class="xmlverb-attr-content">http://www.w3.org/TR/rdfa-primer/</span>"&gt;<span class="xmlverb-text">XHTML+RDFa</span>&lt;/<span class="xmlverb-element-name">a</span>&gt;<span class="xmlverb-text">, a language that allows for embedding RDF into XHTML<br></br>
         </span>&lt;<span class="xmlverb-element-nsprefix">xd</span>:<span class="xmlverb-element-name"><a name="d38e11">author</a></span>&gt;<span class="xmlverb-text">Christoph Lange</span>&lt;/<span class="xmlverb-element-nsprefix">xd</span>:<span class="xmlverb-element-name">author</span>&gt;<span class="xmlverb-text"><br></br>
         </span>&lt;<span class="xmlverb-element-nsprefix">xd</span>:<span class="xmlverb-element-name"><a name="d38e14">copyright</a></span>&gt;<span class="xmlverb-text">Christoph Lange, 2008</span>&lt;/<span class="xmlverb-element-nsprefix">xd</span>:<span class="xmlverb-element-name">copyright</span>&gt;<span class="xmlverb-text"><br></br>
-        </span>&lt;<span class="xmlverb-element-nsprefix">xd</span>:<span class="xmlverb-element-name"><a name="d38e17">svnId</a></span>&gt;<span class="xmlverb-text">$Id: xhtml-rdfa.xsl 728 2009-08-10 22:34:32Z clange $</span>&lt;/<span class="xmlverb-element-nsprefix">xd</span>:<span class="xmlverb-element-name">svnId</span>&gt;<span class="xmlverb-text"><br></br>
+        </span>&lt;<span class="xmlverb-element-nsprefix">xd</span>:<span class="xmlverb-element-name"><a name="d38e17">svnId</a></span>&gt;<span class="xmlverb-text">$Id: xhtml-rdfa.xsl 821 2009-11-23 23:46:43Z clange $</span>&lt;/<span class="xmlverb-element-nsprefix">xd</span>:<span class="xmlverb-element-name">svnId</span>&gt;<span class="xmlverb-text"><br></br>
     </span>&lt;/<span class="xmlverb-element-nsprefix">xd</span>:<span class="xmlverb-element-name">doc</span>&gt;</div><span class="xmlverb-text"><br></br>
     <br></br>
     </span>&lt;<span class="xmlverb-element-name"><a name="d38e21">strip-space</a></span> <span class="xmlverb-attr-name">elements</span>="<span class="xmlverb-attr-content">*</span>" /&gt;<span class="xmlverb-text"><br></br>
@@ -58,7 +58,7 @@
 <br></br>
     </span>&lt;!--<span class="xmlverb-comment"> FIXME restrict to those elements where @about is actually allowed </span>--&gt;<span class="xmlverb-text"><br></br>
     </span>&lt;!--<span class="xmlverb-comment"> process any element with RDFa attributes </span>--&gt;<span class="xmlverb-text"><br></br>
-    </span>&lt;<span class="xmlverb-element-name"><a name="d38e50">template</a></span> <span class="xmlverb-attr-name">match</span>="<span class="xmlverb-attr-content">*[@resource or @src or @about or @href or @typeof or @rel or @rev or @property]</span>"&gt;<span class="xmlverb-text"><br></br>
+    </span>&lt;<span class="xmlverb-element-name"><a name="d38e50">template</a></span> <span class="xmlverb-attr-name">match</span>="<span class="xmlverb-attr-content">*[@resource or @src or @about or @href or @typeof or @rel or @rev or @property]</span>" <span class="xmlverb-attr-name">mode</span>="<span class="xmlverb-attr-content">krextor:main</span>"&gt;<span class="xmlverb-text"><br></br>
         </span>&lt;<span class="xmlverb-element-name"><a name="d38e52">param</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">tunneled-property</span>" <span class="xmlverb-attr-name">as</span>="<span class="xmlverb-attr-content">xs:string*</span>" <span class="xmlverb-attr-name">tunnel</span>="<span class="xmlverb-attr-content">yes</span>" /&gt;<span class="xmlverb-text"><br></br>
         </span>&lt;<span class="xmlverb-element-name"><a name="d38e54">param</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">tunneled-inverse</span>" <span class="xmlverb-attr-name">tunnel</span>="<span class="xmlverb-attr-content">yes</span>" /&gt;<span class="xmlverb-text"><br></br>
 <br></br>
@@ -105,7 +105,7 @@
                     </span>&lt;<span class="xmlverb-element-name"><a name="d38e131">message</a></span> <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">.</span>" /&gt;<span class="xmlverb-text"><br></br>
                 </span>&lt;/<span class="xmlverb-element-name">if</span>&gt;<span class="xmlverb-text"><br></br>
 <br></br>
-                </span>&lt;<span class="xmlverb-element-name"><a name="d38e134">apply-templates</a></span> <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">trace(@property|@rel|@rev, 'prop')</span>" /&gt;<span class="xmlverb-text"><br></br>
+                </span>&lt;<span class="xmlverb-element-name"><a name="d38e134">apply-templates</a></span> <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">trace(@property|@rel|@rev, 'prop')</span>" <span class="xmlverb-attr-name">mode</span>="<span class="xmlverb-attr-content">krextor:main</span>" /&gt;<span class="xmlverb-text"><br></br>
             </span>&lt;/<span class="xmlverb-element-name">when</span>&gt;<span class="xmlverb-text"><br></br>
             </span>&lt;<span class="xmlverb-element-name"><a name="d38e137">when</a></span> <span class="xmlverb-attr-name">test</span>="<span class="xmlverb-attr-content">$blank</span>"&gt;<span class="xmlverb-text"><br></br>
                 </span>&lt;<span class="xmlverb-element-name"><a name="d38e139">if</a></span> <span class="xmlverb-attr-name">test</span>="<span class="xmlverb-attr-content">$debug</span>"&gt;<span class="xmlverb-text"><br></br>
@@ -152,8 +152,8 @@
 <br></br>
     </span>&lt;!--<span class="xmlverb-comment"> FIXME restrict to those elements where @about is actually allowed </span>--&gt;<span class="xmlverb-text"><br></br>
     </span>&lt;!--<span class="xmlverb-comment"><br></br>
-    &lt;template match="*[not(@resource or @src or @about or @typeof or @rel or @rev)]"&gt;<br></br>
-        &lt;apply-templates select="@property|@href|*"/&gt;<br></br>
+    &lt;template match="*[not(@resource or @src or @about or @typeof or @rel or @rev)]" mode="krextor:main"&gt;<br></br>
+        &lt;apply-templates select="@property|@href|*" mode="krextor:main"/&gt;<br></br>
     &lt;/template&gt;<br></br>
     </span>--&gt;<span class="xmlverb-text"><br></br>
 </span>&lt;/<span class="xmlverb-element-name">stylesheet</span>&gt;<br></br>
