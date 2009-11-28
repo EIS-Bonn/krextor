@@ -1,62 +1,114 @@
-<project name="Krextor" default="dist" basedir=".">
-	<description>ant build file for the Krextor project</description>
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="Krextor" default="help" basedir=".">
+  <description>ant build file for the Krextor project</description>
 
-	<property file="krextor.build.properties" />
+  <property file="krextor.build.properties" />
 
-	<path id="javac.classpath">
-		<fileset dir="lib/java" includes="**/*.jar"/>
-		<fileset dir="lib/saxon" includes="**/*.jar"/>
-	</path>
+  <path id="javac.classpath">
+    <!-- actually: lib/java, lib/saxon -->
+    <fileset dir="lib" includes="**/*.jar"/>
+  </path>
 
-	<target name="xsltdoc">
-		<!-- <delete dir="doc" /> -->
-		<copy todir="${xsltdoc}">
-			<fileset dir="lib/xsltdoc/css">
-				<filename name="*.css" />
-			</fileset>
-		</copy>
-		<java fork="true" jar="lib/saxon/saxon9.jar">
-			<arg value="lib/xsltdoc/xsl/XSLTdocConfig.xml" />
-			<arg value="lib/xsltdoc/xsl/xsltdoc.xsl" />
-		</java>
-	</target>
+  <target name="help">
+    <echo><![CDATA[
+Krextor — The KWARC RDF Extractor
+—————————————————————————————————————————————————————————————
+available targets:
 
-	<target name="javadoc">
-		<javadoc
-			Windowtitle="Krextor Java Wrapper API Documentation"
-			access="public"
-			sourcepath="src/java/src"
-			classpathref="javac.classpath"
-			destdir="${javadoc}"
-			noindex="false"
-			nonavbar="false"
-			notree="false"
-			source="1.5"
-			splitindex="true"
-			use="true"
-			version="true"
-			breakiterator="yes">
-			<link href="http://java.sun.com/javase/6/docs/api/" />
-			<link href="http://www.xom.nu/apidocs/"/>
-			<link href="http://www.saxonica.com/documentation/javadoc/"/>
-			<link href="http://commons.apache.org/vfs/apidocs/"/>
-		</javadoc>
-	</target>
+dist    – build distribution archives (not yet fully enabled)
+jar     – build krextor.jar
+javac   – compile Java sources
+doc     – generate all documentation
+xsltdoc – generate XSLT source documentation
+javadoc – generate Java API documentation
+test    – run test cases (not yet enabled)
+help    – print this help text
+—————————————————————————————————————————————————————————————
+]]></echo>
+  </target>
 
-	<target name="doc" depends="xsltdoc,javadoc"/>
+  <target name="xsltdoc">
+    <!-- <delete dir="doc" /> -->
+    <copy todir="${doc.dest}/xsltdoc">
+      <fileset dir="${xsltdoc.src}/css">
+	<filename name="*.css" />
+      </fileset>
+    </copy>
+    <java fork="true" jar="${saxon.jar}">
+      <arg value="${xsltdoc.src}/xsl/XSLTdocConfig.xml" />
+      <arg value="${xsltdoc.src}/xsl/xsltdoc.xsl" />
+    </java>
+  </target>
 
-	<target name="dist" depends="doc"/>
-	
-	<target name="test">
-	</target>
+  <target name="javadoc">
+    <javadoc
+      Windowtitle="Krextor Java Wrapper API Documentation"
+      access="public"
+      sourcepath="${java.src}"
+      classpathref="javac.classpath"
+      destdir="${doc.dest}/javadoc"
+      noindex="false"
+      nonavbar="false"
+      notree="false"
+      source="1.5"
+      splitindex="true"
+      use="true"
+      version="true"
+      breakiterator="yes">
+      <link href="http://java.sun.com/javase/6/docs/api/" />
+      <link href="http://www.xom.nu/apidocs/"/>
+      <link href="http://www.saxonica.com/documentation/javadoc/"/>
+      <link href="http://commons.apache.org/vfs/apidocs/"/>
+    </javadoc>
+  </target>
 
-	<!--
-	<target name="testUtil">
-		<xslt style="xsl/test/utilTest.xsl" in="xsl/test/dummy.xml" out="xsl/test/testResult.txt">
-		</xslt>
-	</target>
+  <target name="doc" depends="xsltdoc,javadoc"/>
+
+  <target name="dist" depends="doc,jar"/>
+
+  <target name="javac">
+    <mkdir dir="${java.dest}/classes"/>
+    <javac target="1.5" debug="true" source="1.5" srcdir="${java.src}" destdir="${java.dest}/classes" classpathref="javac.classpath"/>
+    <copy todir="${java.dest}/classes/info/kwarc/krextor/xslt">
+      <fileset file="${java.src}/info/kwarc/krextor/xslt" includes="**/*"/>
+    </copy>
+  </target>
+
+  <target name="jar" depends="javac">
+    <!-- Copy the other JARs our JAR depends on -->
+    <copy todir="${java.dest}/lib">
+      <fileset dir="lib">
+	<include name="java/**"/>
+	<include name="saxon/**"/>
+      </fileset>
+    </copy>
+
+    <jar destfile="${java.dest}/lib/krextor-${krextor.version}.jar" compress="yes" basedir="${java.dest}/classes">
+      <fileset dir="${basedir}">
+	<include name="krextor.build.properties"/>
+      </fileset>
+      <manifest>
+	<attribute name="Specification-Title" value="JOMDoc"/>
+	<attribute name="Specification-Version" value="${krextor.version}"/>
+	<attribute name="Built-By" value="${user.name}"/>
+	<!-- This JAR file is not currently executable
+	<attribute name="Main-Class" value="..."/>
 	-->
+	<attribute name="Class-Path" value="${jar.classpath}"/>
+      </manifest>
+    </jar> 
+  </target>
+
+  <target name="test">
+  </target>
+
+  <!--
+  <target name="testUtil">
+    <xslt style="xsl/test/utilTest.xsl" in="xsl/test/dummy.xml" out="xsl/test/testResult.txt">
+    </xslt>
+  </target>
+  -->
 </project>
 <!--
-vim:sw=8:sts=8
+vim:sw=2:sts=2
 -->
