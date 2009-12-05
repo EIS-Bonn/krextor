@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CDDefinition xmlns="http://www.openmath.org/OpenMathCD" xml:id="symbol">
+    <Title>Wiki</Title>
+    <Role>attribution</Role>
+    <Name>equiv</Name>
+    <Description>bla</Description>
+</CDDefinition>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CD xmlns="http://www.openmath.org/OpenMathCD"
+    xmlns:xi="http://www.w3.org/2001/XInclude"
+    xml:id="cd">
+   <CDComment>This is a CDComment.</CDComment>
+   <CDName>yetanother</CDName>
+   <CDBase/>
+   <CDURL/>
+   <CDReviewDate/>
+   <CDDate>2009-10-13</CDDate>
+   <CDVersion/>
+   <CDComment>Another CDComment (doesn't make sense, does it?)HELLO WORLD</CDComment>
+   <CDRevision/>
+   <CDStatus/>
+   <Description>Just a simple sample CD to test the wiki editor</Description>
+   <!--comment HELLO--><xi:include href="symbol.ocd"/>
+</CD>
