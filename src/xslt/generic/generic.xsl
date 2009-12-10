@@ -364,7 +364,7 @@
 	<!-- We also process attributes, as they may contain links to other resources -->
 	<param name="process-next" as="node()*" select="*|@*"/>
 	<!-- We pass the subject URI as a parameter into templates.  This is because we need to tweak the subject URI when processing transcluded documents; in this case, the transcluding document's URI should still be considered the subject URI, instead of the URI of the transcluded document. -->
-	<param name="subject-uri" as="xs:anyURI" tunnel="yes"/>
+	<param name="subject-uri" as="xs:string" tunnel="yes"/>
 	<!-- Is this a blank node? -->
 	<param name="blank-node" as="xs:boolean" select="false()"/>
 	<param name="this-blank-node-id" select="()" as="xs:string?"/>
@@ -374,11 +374,11 @@
 	<variable name="autogenerate-fragment-uri" as="xs:string*" select="krextor:uri-generation-method(.)"/>
 	<!-- If we are to autogenerate the URI for this node, then we call the krextor:generate-uri function to generate one, unless an explicit subject URI has been passed
 	  -->
-	<variable name="generated-uri" as="xs:anyURI" select="if ($blank-node) then $subject-uri
+	<variable name="generated-uri" as="xs:anyURI" select="if ($blank-node) then xs:anyURI($subject-uri)
 	    else if (exists($subject)) then xs:anyURI($subject)
 	    else if (exists($autogenerate-fragment-uri)) 
-		then krextor:generate-uri(., $autogenerate-fragment-uri, $subject-uri)
-	    else $subject-uri"/>
+		then krextor:generate-uri(., $autogenerate-fragment-uri, xs:anyURI($subject-uri))
+	    else xs:anyURI($subject-uri)"/>
 	<variable name="generated-blank-node" as="xs:boolean" select="$blank-node or $collection"/>
 	<!-- TODO introduce auto-blank node if no xml:id given
 	     if auto-blank-node isn't desired, skip elements without xml:id altogether -->

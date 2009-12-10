@@ -67,7 +67,7 @@ done
 KREXTOR_HOME="$(dirname "$KREXTOR_BIN")"
 KREXTOR_HOME="$(cd "$KREXTOR_HOME/.." ; pwd)"
 
-transformer="$KREXTOR_HOME/src/xslt/transform-$xml-$rdf.xsl"
+transformer="$KREXTOR_HOME/src/xslt/transform-${xml}..${rdf}.xsl"
 
 if [[ ! -r $transformer ]]
 then

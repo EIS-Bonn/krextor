@@ -22,6 +22,7 @@ doc     – generate all documentation
 xsltdoc – generate XSLT source documentation
 javadoc – generate Java API documentation
 test    – run test cases (not yet enabled)
+clean   – clean build output directory
 help    – print this help text
 —————————————————————————————————————————————————————————————
 ]]></echo>
@@ -97,6 +98,10 @@ help    – print this help text
 	<attribute name="Class-Path" value="${jar.classpath}"/>
       </manifest>
     </jar> 
+  </target>
+
+  <target name="clean">
+    <delete dir="${java.dest}"/>
   </target>
 
   <target name="test">

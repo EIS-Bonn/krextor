@@ -62,17 +62,17 @@
 
     <xd:doc>Creates a URI for a semantic web ontology entity by
 	concatenating a given base URI and a given local name</xd:doc>
-    <function name="krextor:ontology-uri" as="xs:string?">
-	<param name="base-uri"/>
-	<param name="name"/>
-	<sequence select="concat($base-uri, $name)"/>
+    <function name="krextor:ontology-uri" as="xs:anyURI">
+	<param name="base-uri" as="xs:string"/>
+	<param name="name" as="xs:string?"/>
+	<value-of select="xs:anyURI(concat($base-uri, $name))"/>
     </function>
 
     <xd:doc>Creates a URI for a semantic web ontology entity by
 	concatenating a given base URI and a given local name</xd:doc>
-    <template match="krextor-genuri:ontology" as="xs:string?">
-	<param name="base-uri"/>
-	<param name="node"/>
+    <template match="krextor-genuri:ontology" as="xs:anyURI?">
+	<param name="base-uri" as="xs:string"/>
+	<param name="node" as="element()"/>
 	<sequence select="krextor:ontology-uri($base-uri,
 	    if ($node/self::theory) then '' else $node/@name)"/>
     </template>
@@ -321,7 +321,7 @@
     <xd:doc>Returns the semantic web URI of a given symbol
 	<xd:param name="sym">a symbol that is expected to have <code>@cd</code> and <code>@name</code> attributes (as in OpenMath)</xd:param>
     </xd:doc>
-    <function name="krextor:ontology-uri">
+    <function name="krextor:ontology-uri" as="xs:anyURI">
 	<param name="sym"/>
 	<variable name="sem-web-base" select="$ontology-namespaces/krextor:loc[@theory eq $sym/@cd][1]/@sem-web-base"/>
 	<value-of select="if ($sem-web-base)
@@ -420,7 +420,7 @@
     <xd:doc><i>owl:intersectionOf, owl:unionOf, owl:complementOf, owl:oneOf</i> constructor</xd:doc>
     <template match="om:OMA[om:*[1][self::om:OMS[@cd eq 'owl' and (@name = ('intersectionOf', 'complementOf', 'unionOf', 'oneOf')) ]]]" mode="krextor:main">
 	<call-template name="krextor:create-resource">
-		<with-param name="related-via-properties" select="krextor:ontology-uri(om:*[1])" tunnel="yes"/>
+	    <with-param name="related-via-properties" select="krextor:ontology-uri(om:*[1])" tunnel="yes"/>
 	    <with-param name="collection" select="true()"/>
 	    <with-param name="process-next" select="om:*[position() ge 2]"/>
 	</call-template>

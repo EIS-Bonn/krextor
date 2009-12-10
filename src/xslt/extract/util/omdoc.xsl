@@ -42,18 +42,18 @@
 	<xd:svnId>$Id$</xd:svnId>
     </xd:doc>
 
-    <template match="krextor-genuri:mmt" as="xs:string?">
-	<param name="base-uri"/>
-	<param name="node"/>
+    <template match="krextor-genuri:mmt" as="xs:anyURI?">
+	<param name="base-uri" as="xs:string"/>
+	<param name="node" as="element()"/>
 	<sequence select="krextor:mmt-uri($base-uri, $node/@name)"/>
     </template>
 
     <xd:doc>Generates an MMT URI for a theory or symbol by appending
 	<code>?name</code> to the given base URI</xd:doc>
-    <function name="krextor:mmt-uri" as="xs:string?">
-	<param name="base-uri"/>
-	<param name="name"/>
-	<sequence select="concat($base-uri, '?', $name)"/>
+    <function name="krextor:mmt-uri" as="xs:anyURI">
+	<param name="base-uri" as="xs:string"/>
+	<param name="name" as="xs:string"/>
+	<sequence select="xs:anyURI(concat($base-uri, '?', $name))"/>
     </function>
 		
     <xd:doc>Support for “pragmatic” DC and CC metadata</xd:doc>
