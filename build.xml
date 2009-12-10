@@ -65,7 +65,9 @@ help    – print this help text
 
   <target name="doc" depends="xsltdoc,javadoc"/>
 
-  <target name="dist" depends="doc,jar"/>
+  <target name="dist" depends="doc,jars"/>
+
+  <target name="jars" depends="jar-single,jar-all"/>
 
   <target name="javac">
     <mkdir dir="${java.dest}/classes"/>
@@ -75,21 +77,21 @@ help    – print this help text
     </copy>
   </target>
 
-  <target name="jar" depends="javac">
+  <target name="jar-all" depends="javac">
     <!-- Copy the other JARs our JAR depends on -->
-    <copy todir="${java.dest}/lib">
+    <copy todir="dist-all/lib">
       <fileset dir="lib">
 	<include name="java/**"/>
 	<include name="saxon/**"/>
       </fileset>
     </copy>
 
-    <jar destfile="${java.dest}/lib/krextor-${krextor.version}.jar" compress="yes" basedir="${java.dest}/classes">
+    <jar destfile="dist-all/krextor-${krextor.version}.jar" compress="yes" basedir="${java.dest}/classes">
       <fileset dir="${basedir}">
 	<include name="krextor.build.properties"/>
       </fileset>
       <manifest>
-	<attribute name="Specification-Title" value="JOMDoc"/>
+	<attribute name="Specification-Title" value="Krextor"/>
 	<attribute name="Specification-Version" value="${krextor.version}"/>
 	<attribute name="Built-By" value="${user.name}"/>
 	<!-- This JAR file is not currently executable
@@ -100,8 +102,23 @@ help    – print this help text
     </jar> 
   </target>
 
+  <target name="jar-single" depends="javac">
+    <jar destfile="dist/krextor-${krextor.version}.jar" compress="yes" basedir="${java.dest}/classes">
+      <manifest>
+	<attribute name="Specification-Title" value="Krextor"/>
+	<attribute name="Specification-Version" value="${krextor.version}"/>
+	<attribute name="Built-By" value="${user.name}"/>
+	<!-- This JAR file is not currently executable
+	<attribute name="Main-Class" value="..."/>
+	-->
+      </manifest>
+    </jar> 
+  </target>
+
   <target name="clean">
     <delete dir="${java.dest}"/>
+    <delete dir="dist"/>
+    <delete dir="dist-all"/>
   </target>
 
   <target name="test">
