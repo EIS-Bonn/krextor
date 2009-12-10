@@ -41,7 +41,7 @@ import nu.xom.Nodes;
 import nu.xom.ParsingException;
 import nu.xom.Text;
 import nu.xom.ValidityException;
-import nu.xom.XPathContext;
+// import nu.xom.XPathContext;
 import nu.xom.xslt.XSLException;
 import nu.xom.xslt.XSLTransform;
 
@@ -58,7 +58,7 @@ import nu.xom.xslt.XSLTransform;
  */
 public class Krextor {
 	private final static TransformerFactory factory;
-	private final static XPathContext xPathContext;
+	// private final static XPathContext xPathContext;
 	/**
 	 * XSLT namespace URI
 	 */
@@ -106,10 +106,10 @@ public class Krextor {
 				});
 		factory.setAttribute(FeatureKeys.CONFIGURATION, saxonConfiguration);
 
-		// factory.setURIResolver(new RelativePathResolver());
-
-		xPathContext = new XPathContext();
+		/*
+	        xPathContext = new XPathContext();
 		xPathContext.addNamespace("rxr", XMLNS_RXR);
+		*/
 	}
 
 	/**

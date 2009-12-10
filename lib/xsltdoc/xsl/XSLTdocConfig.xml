@@ -38,7 +38,7 @@
     <File href="output/rdf-xml.xsl"/>
     <File href="output/rxr.xsl"/>
     <File href="output/turtle.xsl"/>
-    <File href="transform-ocd-rxr.xsl"/>
-    <File href="transform-omdoc-rxr.xsl"/>
+    <File href="transform-ocd..rxr.xsl"/>
+    <File href="transform-omdoc..rxr.xsl"/>
   </RootStylesheets>
 </XSLTdocConfig>
