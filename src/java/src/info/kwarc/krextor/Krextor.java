@@ -159,7 +159,7 @@ public class Krextor {
 	 *            the name of the output format
 	 * @return the filename
 	 */
-	public String getTransformerName(String inputFormat, String outputFormat) {
+	public static String getTransformerName(String inputFormat, String outputFormat) {
 		return "transform-" + inputFormat + "-" + outputFormat + ".xsl";
 	}
 
