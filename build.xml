@@ -70,8 +70,8 @@ help    – print this help text
   <target name="javac">
     <mkdir dir="${java.dest}/classes"/>
     <javac target="1.5" debug="true" source="1.5" srcdir="${java.src}" destdir="${java.dest}/classes" classpathref="javac.classpath"/>
-    <copy todir="${java.dest}/classes/info/kwarc/krextor/xslt">
-      <fileset file="${java.src}/info/kwarc/krextor/xslt" includes="**/*"/>
+    <copy todir="${java.dest}/classes/info/kwarc/krextor">
+      <fileset dir="${java.src}/info/kwarc/krextor" includes="xslt/**"/>
     </copy>
   </target>
 
