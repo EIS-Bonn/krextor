@@ -732,6 +732,10 @@
 
     <xd:doc>Start processing; the current subject is identified by the base URI of the document.</xd:doc>
     <template match="/" mode="krextor:main">
+	>CHANGE krextor:base-uri INTO SOMETHING WITHOUT PREFIX
+
+	Expose this parameter in the Java API
+
 	<param name="krextor:base-uri" as="xs:string" select="base-uri()" tunnel="yes"/>
 	<apply-templates mode="krextor:main">
 	    <with-param name="subject-uri" select="xs:anyURI($krextor:base-uri)" tunnel="yes"/>
