@@ -28,7 +28,6 @@
 ]>
 
 <stylesheet xmlns="http://www.w3.org/1999/XSL/Transform" 
-    xmlns:h="http://www.w3.org/1999/xhtml"
     xmlns:xd="http://www.pnp-software.com/XSLTdoc"
     xmlns:rxr="http://ilrt.org/discovery/2004/03/rxr/"
     xmlns:krextor="http://kwarc.info/projects/krextor"
@@ -91,7 +90,7 @@
 	a literal-valued property</xd:doc>
     <template match="rxr:triple[rxr:object[text()]]" mode="krextor:rdfa">
 	<!-- TODO does not yet work for rdf:XMLLiteral datatype -->
-	<h:span property="{krextor:uri-to-curie(rxr:predicate/@uri)}" content="{rxr:object}">
+	<span xmlns="http://www.w3.org/1999/xhtml" property="{krextor:uri-to-curie(rxr:predicate/@uri)}" content="{rxr:object}">
 	    <if test="rxr:object/@xml:lang">
 		<attribute name="xml:lang" select="rxr:object/@xml:lang"/>
 	    </if>
@@ -99,12 +98,12 @@
 		<attribute name="datatype"
 		    select="krextor:uri-to-curie(rxr:object/@datatype)"/>
 	    </if>
-	</h:span>
+	</span>
     </template>
 
     <xd:doc>Outputs an empty <code>span</code> element with RDFa attributes for  a URI-valued property</xd:doc>
     <template match="rxr:triple[rxr:object[not(text())]]" mode="krextor:rdfa">
 	<!-- TODO does not yet work for blank nodes -->
-	<h:span rel="{krextor:uri-to-curie(rxr:predicate/@uri)}" resource="{rxr:object/@uri}"/>
+	<span xmlns="http://www.w3.org/1999/xhtml" rel="{krextor:uri-to-curie(rxr:predicate/@uri)}" resource="{rxr:object/@uri}"/>
     </template>
 </stylesheet>
