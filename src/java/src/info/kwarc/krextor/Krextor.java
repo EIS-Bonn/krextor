@@ -134,8 +134,7 @@ public class Krextor {
 		root.addAttribute(new Attribute("version", "2.0"));
 
 		result = new Document(root);
-		result.setBaseURI(this.getClass().getResource("xslt").toString() + "/"
-				+ getTransformerName(inputFormat, outputFormat));
+		result.setBaseURI(this.getClass().getResource(getTransformerName(inputFormat, outputFormat)));
 
 		Element importOutput = new Element("import", XMLNS_XSLT);
 		importOutput.addAttribute(new Attribute("href", "output/"
