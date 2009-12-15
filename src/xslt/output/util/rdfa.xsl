@@ -35,7 +35,7 @@
     xmlns:xs="http://www.w3.org/2001/XMLSchema"
     exclude-result-prefixes="#all"
     version="2.0">
-    <import href="../../generic/generic.xsl"/>
+    <import href="../../generic/uri.xsl"/>
     <import href="prefix.xsl"/>
 
     <xd:doc type="stylesheet">
