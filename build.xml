@@ -51,6 +51,7 @@ help    – print this help text
       noindex="false"
       nonavbar="false"
       notree="false"
+      additionalparam="-notimestamp"
       source="1.5"
       splitindex="true"
       use="true"
