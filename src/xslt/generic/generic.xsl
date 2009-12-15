@@ -421,7 +421,7 @@
 	    (: What is this resolution good for? MMT?
 	       Anyway, if needed, we could also resolve each list
 	       item by for - in - return :)
-	    else if (parent::node() instance of document-node()) then base-uri()
+	    else if (parent::node() instance of document-node()) then krextor:base-uri(.)
 	    else ''"/>
 	<!-- node ID, if the object is a blank node -->
 	<param name="blank" as="xs:string?"/>
@@ -557,7 +557,7 @@
 
     <xd:doc>Start processing; the current subject is identified by the base URI of the document.</xd:doc>
     <template match="/" mode="krextor:main">
-	<param name="krextor:base-uri" as="xs:string" select="base-uri()" tunnel="yes"/>
+	<param name="krextor:base-uri" as="xs:string" select="krextor:base-uri(.)" tunnel="yes"/>
 	<apply-templates mode="krextor:main">
 	    <with-param name="subject-uri" select="xs:anyURI($krextor:base-uri)" tunnel="yes"/>
 	    <with-param name="krextor:base-uri" select="xs:anyURI($krextor:base-uri)" tunnel="yes"/>

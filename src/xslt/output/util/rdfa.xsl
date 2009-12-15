@@ -60,7 +60,7 @@
 	depending on the RDF extracted from the current node in the input
 	tree.</xd:doc>
     <template name="krextor:rdfa">
-	<variable name="uri" select="krextor:generate-uri(., base-uri())"/>
+	<variable name="uri" select="krextor:generate-uri(., krextor:base-uri(.))"/>
 	<!-- TODO make this work for blank nodes too -->
 	<if test="$uri">
 	    <attribute name="about" select="$uri"/>

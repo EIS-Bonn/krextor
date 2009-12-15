@@ -154,15 +154,19 @@
 		$document-uri-pattern-replace))"/>
     </template>
 
+    <xd:doc>Returns the base URI of the given node, after URI rewriting, if rewriting is enabled via the <code>rewrite-document-uris</code> parameter.</xd:doc>
+    <function name="krextor:base-uri" as="xs:anyURI">
+	<param name="node" as="node()"/>
+	<value-of select="krextor:external-uri(base-uri($node))"/>
+    </function>
+
     <xd:doc>Generates a URI for a fragment of a document; returns the empty
-	sequence if the fragment ID is empty.  The document URI is subject to
-	rewriting using <code>krextor:external-uri</code> if rewriting is
-	enabled.</xd:doc>
+	sequence if the fragment ID is empty.</xd:doc>
     <function name="krextor:fragment-uri-or-null" as="xs:anyURI?">
 	<param name="fragment-id" as="xs:string?"/>
 	<param name="base-uri" as="xs:anyURI"/>
 	<value-of select="if ($fragment-id)
-	    then krextor:resolve-uri(concat('#', $fragment-id), krextor:external-uri($base-uri))
+	    then krextor:resolve-uri(concat('#', $fragment-id), $base-uri)
 	    else ()"/>
     </function>
 

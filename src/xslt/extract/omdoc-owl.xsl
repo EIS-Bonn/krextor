@@ -109,6 +109,8 @@
 		<call-template name="krextor:make-catalogue">
 		    <with-param name="todo" select="$todo"/>
 		    <with-param name="theory" select="."/>
+		    <!-- don't use krextor:base-uri() here, as we rely on these
+		         to be resolvable using document() -->
 		    <with-param name="base-uri" select="base-uri()"/>
 		</call-template>
 	    </variable>
