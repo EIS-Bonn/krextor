@@ -125,12 +125,68 @@
 	    else $relative"/>
     </function>
 
-    <xd:doc>Generates a URI for a fragment of a document; returns the empty sequence if the fragment ID is empty</xd:doc>
+    <xd:doc>Controls whether URIs of resources are rewritten from an internal
+	representation into an external representation (which will be visible
+	in the extracted RDF).  If set to false (default), the internal URIs of
+	the input XML documents will also be used in the RDF output.  If true,
+	any URI that is part of the output RDF will be rewritten.  The way how
+	URIs are rewritten is determined by the implementation of the
+	<code>krextor:external-uri</code> template in scope.  This module
+	provides a default implementation that performs a regular expression
+	replacement, based on the parameters
+	<code>document-uri-pattern-match</code> and
+	<code>document-uri-pattern-replace</code>.  In the interest of the <a
+	    href="http://www.w3.org/DesignIssues/LinkedData.html">linked data
+	    conventions</a>, the external URIs should be retrievable URLs
+	(pointing to downloadable versions of the original XML
+	documents).</xd:doc>
+    <param name="rewrite-document-uris" as="xs:string" select="'false'"/>
+
+    <xd:doc>Internal parameter holding the value of <code>rewrite-document-uris</code>, converted to a boolean</xd:doc>
+    <param name="rewrite-document-uris-boolean" as="xs:boolean" select="$rewrite-document-uris eq 'true'"/>
+
+    <xd:doc>Rewrites an internal into an external URI if the parameter <code>rewrite-document-uris</code> is set to <code>true</code>.  The actual implementation is provided by a template of the same name.</xd:doc>
+    <function name="krextor:external-uri" as="xs:anyURI">
+	<param name="internal-uri" as="xs:anyURI"/>
+	<choose>
+	    <when test="$rewrite-document-uris-boolean">
+		<call-template name="krextor:external-uri">
+		    <with-param name="internal-uri" select="$internal-uri"/>
+		</call-template>
+	    </when>
+	    <otherwise>
+		<value-of select="$internal-uri"/>
+	    </otherwise>
+	</choose>
+    </function>
+
+    <xd:doc>A regular expression pattern that is matched against any URI to be rewritten by the built-in default implementation of the <code>krextor:external-uri</code> template</xd:doc>
+    <param name="document-uri-pattern-match" as="xs:string"/>
+
+    <xd:doc>A replacement string (possibly including backreferences to substrings matched by <code>document-uri-pattern-match</code>) that controls how URIs are rewritten by the built-in default implementation of the <code>krextor:external-uri</code> template</xd:doc>
+    <param name="document-uri-pattern-replace" as="xs:string"/>
+
+    <xd:doc>Default implementation of the same-named function.  Rewrites an internal into an external URI by a string replacement according to the
+	settings of the parameters <code>document-uri-pattern-match</code> and
+	<code>document-uri-pattern-replace</code>.
+    </xd:doc>
+    <template name="krextor:external-uri" as="xs:anyURI">
+	<param name="internal-uri" as="xs:anyURI"/>
+	<value-of select="trace(xs:anyURI(
+	    replace(trace($internal-uri, 'INTERNAL URI'),
+		$document-uri-pattern-match,
+		$document-uri-pattern-replace)), 'EXTERNAL URI')"/>
+    </template>
+
+    <xd:doc>Generates a URI for a fragment of a document; returns the empty
+	sequence if the fragment ID is empty.  The document URI is subject to
+	rewriting using <code>krextor:external-uri</code> if rewriting is
+	enabled.</xd:doc>
     <function name="krextor:fragment-uri-or-null" as="xs:anyURI?">
 	<param name="fragment-id" as="xs:string?"/>
 	<param name="base-uri" as="xs:anyURI"/>
 	<value-of select="if ($fragment-id)
-	    then krextor:resolve-uri(concat('#', $fragment-id), $base-uri)
+	    then krextor:resolve-uri(concat('#', $fragment-id), krextor:external-uri($base-uri))
 	    else ()"/>
     </function>
 
@@ -200,6 +256,7 @@
 	    else ()"/>
     </template>
 
+    <xd:doc>Common implementation of the <code>xml-id</code>, <code>generate-id</code> and <code>pseudo-xpath</code> URI generation functions.  They all use the given base URI and append a fragment ID; they differ in how the fragment ID is generated.  The base URI is generally assumed to be the URI of the document that contains the given node.</xd:doc>
     <template match="krextor-genuri:xml-id|krextor-genuri:generate-id|krextor-genuri:pseudo-xpath" as="xs:string?">
 	<param name="node" as="node()"/>
 	<param name="base-uri" as="xs:anyURI"/>
@@ -312,7 +369,7 @@
     </template>
 
     <xd:doc>Returns the method in which a URI will be generated for the current node unless a different explicit subject URI is passed to <code>krextor:create-resource</code>; extraction modules can override this.</xd:doc>
-    <template match="node()" mode="krextor:uri-generation-method">
+    <template match="node()" mode="krextor:uri-generation-method" as="xs:string">
         <sequence select="$autogenerate-fragment-uris"/>
     </template>
 
@@ -732,10 +789,6 @@
 
     <xd:doc>Start processing; the current subject is identified by the base URI of the document.</xd:doc>
     <template match="/" mode="krextor:main">
-	>CHANGE krextor:base-uri INTO SOMETHING WITHOUT PREFIX
-
-	Expose this parameter in the Java API
-
 	<param name="krextor:base-uri" as="xs:string" select="base-uri()" tunnel="yes"/>
 	<apply-templates mode="krextor:main">
 	    <with-param name="subject-uri" select="xs:anyURI($krextor:base-uri)" tunnel="yes"/>

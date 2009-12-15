@@ -139,7 +139,7 @@
 	<copy-of select="krextor:query-triples-by-subject($subject, 'uri')"/>
     </function>
 
-    <xd:doc>No-op implementation of a triple store query.  Importing stylesheets will have to override this.</xd:doc>
+    <xd:doc>No-op implementation of a the same-named function.  Importing stylesheets will have to override this.</xd:doc>
     <template name="krextor:query-triples" as="node()*">
 	<param name="subject" as="xs:string*"/>
 	<param name="subject-type" as="xs:string"/>

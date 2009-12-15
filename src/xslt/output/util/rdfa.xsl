@@ -54,43 +54,6 @@
 
     <namespace-alias stylesheet-prefix="h" result-prefix="#default"/>
 
-    <!--
-    <xd:doc>Controls whether URIs of resources are mapped from an internal
-	representation to an external representation (which will be visible in
-	the RDFa output).  If set to false (default), the internal URIs of the
-	input XML documents will also be used in the RDFa output.  If set to
-	true, a regular expression replacement is applied to any URI that is
-	part of the RDFa output; it is controlled via the parameters
-	<code>subject-uri-pattern-match</code> and
-	<code>subject-uri-pattern-replace</code>.  In the interest of the <a
-	    href="http://www.w3.org/DesignIssues/LinkedData.html">linked data
-	    conventions</a>, the external URIs should be retrievable URLs
-	(pointing to downloadable versions of the original XML
-	documents).</xd:doc>
-    <param name="map-subject-uris" as="xs:string" select="'false'"/>
-
-    <param name="map-subject-uris-boolean" as="xs:boolean" select="$map-subject-uris eq 'true'"/>
-
-    <param name="subject-uri-pattern-match" as="xs:string"/>
-    <param name="subject-uri-pattern-replace" as="xs:string"/>
-
-    <xd:doc>Maps an internal to an external URI, according to the settings of the parameters
-	<code>map-subject-uris</code>, <code>subject-uri-pattern-
-	    representation to an external representation (which will be visible in the
-	    RDFa output).  If set to false default), the internal URIs of the input XML
-	    documents will also be used in the RDFa output.  In the interest of the
-	    linked data conventions, the external URIs should be retrievable URLs
-	    (pointing to downloadable versions of the original XML documents).</xd:doc>
-    <function name="krextor:external-uri">
-	<param name="internal-uri" as="xs:anyURI"/>
-	<value-of select="if ($map-subject-uris-boolean)
-	    then replace($internal-uri,
-		$subject-uri-pattern-match,
-		$subject-uri-pattern-replace)
-	    else $internal-uri"
-    </function>
-    -->
-
     <xd:doc>Adds RDFa attributes to the current element in the output tree,
 	depending on the RDF extracted from the current node in the input
 	tree.</xd:doc>

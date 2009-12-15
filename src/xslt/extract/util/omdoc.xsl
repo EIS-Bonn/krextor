@@ -42,6 +42,8 @@
 	<xd:svnId>$Id$</xd:svnId>
     </xd:doc>
 
+    <xd:doc>Generates an MMT URI for a theory or symbol by calling
+	the <code>krextor:mmt-uri</code> function</xd:doc>
     <template match="krextor-genuri:mmt" as="xs:anyURI?">
 	<param name="base-uri" as="xs:string"/>
 	<param name="node" as="element()"/>
