@@ -52,7 +52,9 @@
 
     <output method="xml" encoding="UTF-8" indent="yes" omit-xml-declaration="no"/>
 
+    <!--
     <namespace-alias stylesheet-prefix="h" result-prefix="#default"/>
+    -->
 
     <xd:doc>Adds RDFa attributes to the current element in the output tree,
 	depending on the RDF extracted from the current node in the input
