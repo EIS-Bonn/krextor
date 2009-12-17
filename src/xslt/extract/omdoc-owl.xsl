@@ -28,7 +28,7 @@
     <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#">
     <!ENTITY rdf  "http://www.w3.org/1999/02/22-rdf-syntax-ns#">
     <!ENTITY xsd  "http://www.w3.org/2001/XMLSchema#" >
-    <!ENTITY odo  "http://www.omdoc.org/ontology#">
+    <!ENTITY odo  "http://omdoc.org/ontology#">
 ]>
 
 <stylesheet
@@ -37,7 +37,7 @@
     xmlns:krextor-genuri="http://kwarc.info/projects/krextor/genuri"
     xmlns:xd="http://www.pnp-software.com/XSLTdoc"
     xmlns:om="http://www.openmath.org/OpenMath"
-    xmlns:odo="http://www.omdoc.org/ontology#"
+    xmlns:odo="http://omdoc.org/ontology#"
     xmlns:omdoc="http://omdoc.org/ns"
     xmlns:xs="http://www.w3.org/2001/XMLSchema"
     xmlns:f="http://fxsl.sf.net/"

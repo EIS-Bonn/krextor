@@ -26,7 +26,7 @@
 -->
 
 <!DOCTYPE stylesheet [
-    <!ENTITY odo "http://www.omdoc.org/ontology#">
+    <!ENTITY odo "http://omdoc.org/ontology#">
     <!ENTITY dc "http://purl.org/dc/elements/1.1/">
     <!ENTITY sdoc "http://salt.semanticauthoring.org/onto/abstract-document-ontology#">
     <!ENTITY sr "http://salt.semanticauthoring.org/onto/rhetorical-ontology#">

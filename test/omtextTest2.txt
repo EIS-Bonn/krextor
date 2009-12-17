@@ -3,12 +3,12 @@
    <rxr:triple>
       <rxr:subject uri="file:/home/gristovski/Desktop/krextorup/trunk/src/../test/omtextTest2.omdoc"/>
       <rxr:predicate uri="http://www.w3.org/1999/02/22-rdf-syntax-ns#type"/>
-      <rxr:object uri="http://www.omdoc.org/ontology#Document"/>
+      <rxr:object uri="http://omdoc.org/ontology#Document"/>
    </rxr:triple>
    <rxr:triple>
       <rxr:subject uri="file:/home/gristovski/Desktop/krextorup/trunk/src/../test/omtextTest2.omdoc#grupa"/>
       <rxr:predicate uri="http://www.w3.org/1999/02/22-rdf-syntax-ns#type"/>
-      <rxr:object uri="http://www.omdoc.org/ontology#DocumentUnit"/>
+      <rxr:object uri="http://omdoc.org/ontology#DocumentUnit"/>
    </rxr:triple>
    <rxr:triple>
       <rxr:subject uri="file:/home/gristovski/Desktop/krextorup/trunk/src/../test/omtextTest2.omdoc"/>
@@ -18,21 +18,21 @@
    <rxr:triple>
       <rxr:subject uri="file:/home/gristovski/Desktop/krextorup/trunk/src/../test/omtextTest2.omdoc#proba"/>
       <rxr:predicate uri="http://www.w3.org/1999/02/22-rdf-syntax-ns#type"/>
-      <rxr:object uri="http://www.omdoc.org/ontology#Reference"/>
+      <rxr:object uri="http://omdoc.org/ontology#Reference"/>
    </rxr:triple>
    <rxr:triple>
       <rxr:subject uri="file:/home/gristovski/Desktop/krextorup/trunk/src/../test/omtextTest2.omdoc#grupa"/>
-      <rxr:predicate uri="http://www.omdoc.org/ontology#hasPart"/>
+      <rxr:predicate uri="http://omdoc.org/ontology#hasPart"/>
       <rxr:object uri="file:/home/gristovski/Desktop/krextorup/trunk/src/../test/omtextTest2.omdoc#proba"/>
    </rxr:triple>
    <rxr:triple>
       <rxr:subject uri="file:/home/gristovski/Desktop/krextorup/trunk/src/../test/omtextTest2.omdoc#tekst"/>
       <rxr:predicate uri="http://www.w3.org/1999/02/22-rdf-syntax-ns#type"/>
-      <rxr:object uri="http://www.omdoc.org/ontology#Statement"/>
+      <rxr:object uri="http://omdoc.org/ontology#Statement"/>
    </rxr:triple>
    <rxr:triple>
       <rxr:subject uri="file:/home/gristovski/Desktop/krextorup/trunk/src/../test/omtextTest2.omdoc"/>
-      <rxr:predicate uri="http://www.omdoc.org/ontology#hasPart"/>
+      <rxr:predicate uri="http://omdoc.org/ontology#hasPart"/>
       <rxr:object uri="file:/home/gristovski/Desktop/krextorup/trunk/src/../test/omtextTest2.omdoc#tekst"/>
    </rxr:triple>
    <rxr:triple>
@@ -42,17 +42,17 @@
    </rxr:triple>
    <rxr:triple>
       <rxr:subject uri="file:/home/gristovski/Desktop/krextorup/trunk/src/../test/omtextTest2.omdoc#tekst"/>
-      <rxr:predicate uri="http://www.omdoc.org/ontology#formalityDegree"/>
-      <rxr:object uri="http://www.omdoc.org/ontology#Informal"/>
+      <rxr:predicate uri="http://omdoc.org/ontology#formalityDegree"/>
+      <rxr:object uri="http://omdoc.org/ontology#Informal"/>
    </rxr:triple>
    <rxr:triple>
       <rxr:subject uri="file:/home/gristovski/Desktop/krextorup/trunk/src/../test/omtextTest2.omdoc#p"/>
       <rxr:predicate uri="http://www.w3.org/1999/02/22-rdf-syntax-ns#type"/>
-      <rxr:object uri="http://www.omdoc.org/ontology#Proof"/>
+      <rxr:object uri="http://omdoc.org/ontology#Proof"/>
    </rxr:triple>
    <rxr:triple>
       <rxr:subject uri="file:/home/gristovski/Desktop/krextorup/trunk/src/../test/omtextTest2.omdoc"/>
-      <rxr:predicate uri="http://www.omdoc.org/ontology#hasPart"/>
+      <rxr:predicate uri="http://omdoc.org/ontology#hasPart"/>
       <rxr:object uri="file:/home/gristovski/Desktop/krextorup/trunk/src/../test/omtextTest2.omdoc#p"/>
    </rxr:triple>
    <rxr:triple>
@@ -62,17 +62,17 @@
    </rxr:triple>
    <rxr:triple>
       <rxr:subject uri="file:/home/gristovski/Desktop/krextorup/trunk/src/../test/omtextTest2.omdoc#p"/>
-      <rxr:predicate uri="http://www.omdoc.org/ontology#formalityDegree"/>
-      <rxr:object uri="http://www.omdoc.org/ontology#Formal"/>
+      <rxr:predicate uri="http://omdoc.org/ontology#formalityDegree"/>
+      <rxr:object uri="http://omdoc.org/ontology#Formal"/>
    </rxr:triple>
    <rxr:triple>
       <rxr:subject uri="file:/home/gristovski/Desktop/krextorup/trunk/src/../test/omtextTest2.omdoc#intro"/>
       <rxr:predicate uri="http://www.w3.org/1999/02/22-rdf-syntax-ns#type"/>
-      <rxr:object uri="http://www.omdoc.org/ontology#ProofText"/>
+      <rxr:object uri="http://omdoc.org/ontology#ProofText"/>
    </rxr:triple>
    <rxr:triple>
       <rxr:subject uri="file:/home/gristovski/Desktop/krextorup/trunk/src/../test/omtextTest2.omdoc#p"/>
-      <rxr:predicate uri="http://www.omdoc.org/ontology#hasStep"/>
+      <rxr:predicate uri="http://omdoc.org/ontology#hasStep"/>
       <rxr:object uri="file:/home/gristovski/Desktop/krextorup/trunk/src/../test/omtextTest2.omdoc#intro"/>
    </rxr:triple>
    <rxr:triple>
@@ -82,7 +82,7 @@
    </rxr:triple>
    <rxr:triple>
       <rxr:subject uri="file:/home/gristovski/Desktop/krextorup/trunk/src/../test/omtextTest2.omdoc#intro"/>
-      <rxr:predicate uri="http://www.omdoc.org/ontology#formalityDegree"/>
-      <rxr:object uri="http://www.omdoc.org/ontology#Informal"/>
+      <rxr:predicate uri="http://omdoc.org/ontology#formalityDegree"/>
+      <rxr:object uri="http://omdoc.org/ontology#Informal"/>
    </rxr:triple>
 </rxr:graph>
