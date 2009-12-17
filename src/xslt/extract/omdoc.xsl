@@ -318,7 +318,9 @@
 	<call-template name="krextor:create-omdoc-resource">
 	    <!-- FIXME mathematicalBlock. Is it a document unit? -->
 		<with-param name="related-via-properties" select="if (parent::proof) then '&odo;hasStep' else if (parent::theory) then '&odo;homeTheoryOf' else '&odo;hasPart' , if (parent::tgroup) then '&sdoc;hasComposite' else '&sdoc;hasPart'" tunnel="yes"/>
-	    <with-param name="type" select="'&odo;Symbol'"/>
+	    <with-param name="type" select="if (parent::proof)
+then '&odo;ProofLocalSymbol'
+else '&odo;Symbol'"/>
 		<with-param name="formality-degree" select="'&odo;Formal'"/>
 	</call-template>
     </template>
@@ -338,7 +340,9 @@
 	<call-template name="krextor:create-omdoc-resource">
 	    <!-- FIXME documentUnit, mathematicalBlock -->
 		<with-param name="related-via-properties" select="if (parent::proof) then '&odo;hasStep' else if (parent::theory) then '&odo;homeTheoryOf' else '&odo;hasPart' , if (parent::tgroup) then '&sdoc;hasComposite' else '&sdoc;hasPart'" tunnel="yes"/>
-	    <with-param name="type" select="'&odo;Definition'"/>
+	    <with-param name="type" select="if (parent::proof)
+then '&odo;ProofLocalDefinition'
+else '&odo;Definition'"/>
 		<with-param name="formality-degree" select="'&odo;Formal'"/>
 	</call-template>
     </template>
