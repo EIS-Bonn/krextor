@@ -386,7 +386,8 @@
 	    <!-- FIXME documentUnit, mathematicalBlock -->
 		<with-param name="related-via-properties" select="if (parent::theory) then '&odo;homeTheoryOf' else '&odo;hasPart' , if (parent::omdoc) then '&sdoc;hasComposite' else '&sdoc;hasPart'" tunnel="yes"/>
 	    <with-param name="type" select="concat('&odo;',
-		if (@type = $omdoc-assertion-types) then omdoc:capitalize-type(@type)
+		if (@type eq 'assumption') then 'AssumptionAssertion'
+                else if (@type = $omdoc-assertion-types) then omdoc:capitalize-type(@type)
 		else 'Assertion')"/>
 	    <with-param name="formality-degree" select="'&odo;Formal'"/>
 	</call-template>
@@ -456,7 +457,7 @@
 	<call-template name="krextor:create-omdoc-resource">
 	    <!-- FIXME mathematicalBlock -->
 	    <with-param name="related-via-properties" select="'&odo;assumes'" tunnel="yes"/>
-	    <with-param name="type" select="'&odo;AssumptionElement'"/>
+	    <with-param name="type" select="'&odo;Assumption'"/>
 	</call-template>
     </template>
 
@@ -464,7 +465,7 @@
 	<call-template name="krextor:create-omdoc-resource">
 	    <!-- FIXME mathematicalBlock -->
 	    <with-param name="related-via-properties" select="'&odo;concludes'" tunnel="yes"/>
-	    <with-param name="type" select="'&odo;ConclusionElement'"/>
+	    <with-param name="type" select="'&odo;Conclusion'"/>
 	</call-template>
     </template>
 
