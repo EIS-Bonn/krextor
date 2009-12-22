@@ -320,15 +320,23 @@
          https://trac.kwarc.info/krextor/ticket/25
     -->
 
-    <xd:doc>Returns the semantic web URI of a given symbol
-	<xd:param name="sym">a symbol that is expected to have <code>@cd</code> and <code>@name</code> attributes (as in OpenMath)</xd:param>
+    <xd:doc>Returns the semantic web URI of a given symbol or theory element
+    <xd:param name="node">either a symbol that is expected to have <code>@cd</code> and <code>@name</code> attributes (as in OpenMath), or a theory that is expected to have an <code>@xml:id</code></xd:param>
     </xd:doc>
     <function name="krextor:ontology-uri" as="xs:anyURI">
-	<param name="sym"/>
-	<variable name="sem-web-base" select="$ontology-namespaces/krextor:loc[@theory eq $sym/@cd][1]/@sem-web-base"/>
+	<param name="node" as="node()"/>
+        <variable name="theory"
+          select="if ($node/self::om:OMS)
+                  then $node/@cd
+                  else $node/@xml:id"/>
+        <variable name="local-name"
+          select="if ($node/self::om:OMS)
+                  then $node/@name
+                  else ''"/>
+        <variable name="sem-web-base" select="$ontology-namespaces/krextor:loc[@theory eq $theory][1]/@sem-web-base"/>
 	<value-of select="if ($sem-web-base)
-	    then krextor:ontology-uri($sem-web-base, $sym/@name)
-	    else krextor:mmt-uri('MMT-FIXME', concat($sym/@cd, '?', $sym/@name))"/>
+	    then krextor:ontology-uri($sem-web-base, $local-name)
+	    else krextor:mmt-uri('MMT-FIXME', concat($theory, '?', $local-name))"/>
     </function>
 
     <xd:doc>Returns a semantic web URI for the given symbol, if the parameter is a symbol, otherwise the empty sequence.
@@ -475,7 +483,22 @@
 	</call-template>
     </template>
 
-    <xd:doc>Try to find the ontology namespace (calls <code>krextor:sem-web-base</code>)</xd:doc>
+    <xd:doc>Creates an OWL import declaration for any semantic web ontology whose OMDoc theory we import</xd:doc>
+    <template match="imports" mode="krextor:main">
+      <param name="subject-uri" as="xs:anyURI" tunnel="yes"/>
+      <variable name="imported-ontology" select="krextor:ontology-uri(document(@from))"/>
+      <if test="not(xs:string($imported-ontology) = (
+                '&owl;',
+                '&rdfs;'
+                ))">
+        <call-template name="krextor:add-uri-property">
+          <with-param name="property" select="'&owl;imports'"/>
+          <with-param name="object" select="$imported-ontology"/>
+        </call-template>
+      </if>
+    </template>
+
+    <xd:doc>Creates an OWL ontology; tries to use its semantic web namespace URI</xd:doc>
     <template match="theory" mode="krextor:main">
 	<variable name="sem-web-base" select="$ontology-namespaces/krextor:loc[@theory eq current()/@xml:id]/@sem-web-base"/>
 	<variable name="type" select="'&owl;Ontology'"/>

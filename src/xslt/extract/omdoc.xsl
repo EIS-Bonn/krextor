@@ -103,7 +103,6 @@
 	<!-- Check if we can at all generate a URI for the current element -->
 	<if test="($mmt and @name) or $use-document-uri or @xml:id">
 	    <call-template name="krextor:create-resource">
-		<with-param name="mmt" select="$mmt" tunnel="yes"/>
 		<with-param name="properties">
 		    <if test="$formality-degree">
 			<krextor:property uri="&odo;formalityDegree" object="{$formality-degree}"/>
@@ -457,6 +456,7 @@ else '&odo;Definition'"/>
 	</call-template>
     </template>
 
+    <!-- FIXME is it right to match omtext[@type='assumption'] here?? -->
     <template match="FMP/assumption|omtext[@type='assumption']/@for" mode="krextor:main">
 	<call-template name="krextor:create-omdoc-resource">
 	    <!-- FIXME mathematicalBlock -->
