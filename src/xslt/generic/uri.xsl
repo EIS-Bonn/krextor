@@ -185,6 +185,12 @@
 		)"/>
     </function>
 
+    <xd:doc>Generates a URI for a resource using the default generation method and using the base URI of the given node</xd:doc>
+    <function name="krextor:generate-uri" as="xs:anyURI">
+        <param name="node" as="node()"/>
+	<value-of select="krextor:generate-uri($node, krextor:base-uri($node))"/>
+    </function>
+
     <xd:doc>Generates a URI for a resource using the default generation method</xd:doc>
     <function name="krextor:generate-uri" as="xs:anyURI">
         <param name="node" as="node()"/>
