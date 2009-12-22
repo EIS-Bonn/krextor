@@ -278,7 +278,7 @@
 			     not matter, but for generating property triples for this resource it does. -->
 			<with-param name="subject-uri" select="$generated-uri" tunnel="yes"/>
 			<!-- Pass the information what type this is; this might help to disambiguate triple generation from children of the element that represents the resource of that type. -->
-			<with-param name="type" select="$type" tunnel="yes"/>
+                        <with-param name="type" select="$type" tunnel="yes"/>
 			<with-param name="blank-node-id" select="$generated-blank-node-id" tunnel="yes"/>
 		    </apply-templates>
 		</otherwise>
@@ -503,7 +503,6 @@
 	<variable name="new-collection-id" as="xs:string" select="if (exists($collection-id)) then $collection-id else $blank-node-id"/>
 	<variable name="subject" as="xs:string" select="concat($new-collection-id, '-', $collection-index)"/>
 	<apply-templates select="$rest[1]" mode="krextor:main">
-	    <with-param name="blank-node-id" select="$blank-node-id" tunnel="yes"/>
 	    <!-- if a resource is created from the first element, make it the first resource of this collection -->
 	    <with-param name="related-via-properties" select="'&rdf;first'" tunnel="yes"/>
 	</apply-templates>    	
@@ -511,7 +510,6 @@
 	<choose>
 	    <when test="$rest[2]">
 		<call-template name="krextor:create-resource">
-		    <with-param name="blank-node-id" select="$blank-node-id" tunnel="yes"/>
 		    <with-param name="this-blank-node-id" select="$subject"/>
 		    <with-param name="related-via-properties" select="'&rdf;rest'" tunnel="yes"/>
 		    <with-param name="collection" select="true()"/>
