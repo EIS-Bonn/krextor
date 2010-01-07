@@ -405,20 +405,14 @@ else '&odo;Definition'"/>
 	</call-template>
     </template>
 
-    <template match="proof" mode="krextor:main">
+    <template match="proof|proofobject" mode="krextor:main">
 	<call-template name="krextor:create-omdoc-resource">
 	    <!-- FIXME documentUnit, mathematicalBlock -->
 	    <with-param name="related-via-properties" select="if (parent::method[parent::derive]) then '&odo;justifiedBy' else if (parent::theory) then '&odo;homeTheoryOf' else  '&odo;hasPart' , if (parent::omdoc) then '&sdoc;hasComposite' else '&sdoc;hasPart'" tunnel="yes"/>
 	    <with-param name="type" select="'&odo;Proof'"/>
-	    <with-param name="formality-degree" select="'&odo;Formal'"/>
-	</call-template>
-    </template>
-
-    <template match="proofobject" mode="krextor:main">
-	<call-template name="krextor:create-omdoc-resource">
-	    <with-param name="related-via-properties" select="if (parent::method[parent::derive]) then '&odo;justifiedBy' else if (parent::theory) then '&odo;homeTheoryOf' else  '&odo;hasPart' , if (parent::omdoc) then '&sdoc;hasComposite' else '&sdoc;hasPart'" tunnel="yes"/>
-	    <with-param name="type" select="'&odo;Proof'"/>
-	    <with-param name="formality-degree" select="'&odo;Computerized'"/>
+	    <with-param name="formality-degree" select="if (self::proof)
+                                                        then '&odo;Formal'
+                                                        else '&odo;Computerized'"/>
 	</call-template>
     </template>
 
@@ -473,14 +467,14 @@ else '&odo;Definition'"/>
 	</call-template>
     </template>
 
-    <template match="CMP//term[@role='definiendum']" mode="krextor:main">
+    <template match="CMP//term[@role eq 'definiendum']" mode="krextor:main">
 	<call-template name="krextor:add-uri-property">
 	    <with-param name="property" select="'&odo;defines'"/>
 	    <with-param name="object" select="om:symbol-uri((ancestor-or-self::om:*/@cdbase)[last()], @cd, @name)"/>
 	</call-template>
     </template>
 
-    <template match="CMP//term[@role='definiens']" mode="krextor:main">
+    <template match="CMP//term[@role eq 'definiens']" mode="krextor:main">
 	<call-template name="krextor:add-uri-property">
 	    <with-param name="property" select="'&odo;usesSymbol'"/>
 	    <with-param name="object" select="om:symbol-uri((ancestor-or-self::om:*/@cdbase)[last()], @cd, @name)"/>
