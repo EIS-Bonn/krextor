@@ -42,7 +42,7 @@
     exclude-result-prefixes="#all"
     version="2.0">
 
-    <import href="util/omdoc.xsl"/>
+    <include href="util/omdoc.xsl"/>
 
     <xd:doc type="stylesheet">
 	<xd:short>Extraction module for <a href="http://www.omdoc.org">OMDoc</a></xd:short>
@@ -210,8 +210,8 @@
 	'proof',
 	'assertion',
 	'rule',
-	'hypothesis'
-	(: TODO: notation :)
+	'hypothesis',
+	'notation'
 	"/>
 
     <xd:doc>*—homeTheory→Theory</xd:doc>
@@ -464,6 +464,30 @@ else '&oo;Definition'"/>
 	</call-template>
     </template>
 
+    <template match="notation" mode="krextor:main">
+	<call-template name="krextor:create-omdoc-resource">
+	    <!-- FIXME documentUnit, mathematicalBlock -->
+		<with-param name="related-via-properties" select="if (parent::theory) then '&oo;homeTheoryOf' else '&oo;hasPart' , if (parent::omdoc) then '&sdoc;hasComposite' else '&sdoc;hasPart'" tunnel="yes"/>
+	    <with-param name="type" select="'&oo;NotationDefinition'"/>
+            <with-param name="formality-degree" select="'&oo;Formal'"/>
+	</call-template>
+    </template>
+
+    <template match="prototype[not(preceding-sibling::prototype)]" mode="krextor:main">
+      <variable name="symbol" select="om:matched-symbol(.)"/>
+      <!-- has attributes:
+           @cdbase: usually empty (defaults to theory's cdbase) in OMDoc
+           @cd: name of current theory, or empty?
+           @name: name of symbol
+           -->
+      <call-template name="krextor:add-uri-property">
+        <!-- the enclosing notation is the subject -->
+        <with-param name="property" select="'&oo;rendersSymbol'"/>
+        <!-- http://trac.kwarc.info/krextor/ticket/82 -->
+        <with-param name="object" select="'FIXME'"/>
+      </call-template>
+    </template>
+
     <template match="proof|
                      proofobject"
       mode="krextor:main">
@@ -499,7 +523,9 @@ else '&oo;Definition'"/>
 	    	else if (parent::proof) then '&oo;hasStep' else '&oo;hasPart' ,
 	    	if (parent::omdoc) then '&sdoc;hasComposite' else '&sdoc;hasPart'" tunnel="yes"/>
 	    <with-param name="type" select="
-		if ($has-mathematical-type) then concat('&oo;', omdoc:capitalize-type(@type))
+                (: This case needs special treatment, as notation is a mathematical type :)
+                if (@type eq 'notation') then '&oo;NotationDefinition'
+		else if ($has-mathematical-type) then concat('&oo;', omdoc:capitalize-type(@type))
 		else if (@type = $salt-rhetorical-block-types) then concat('&sr;', omdoc:capitalize-type(@type))
 		else if (@type eq 'derive') then '&oo;DerivationStep'
 		else if (parent::proof) then '&oo;ProofText'

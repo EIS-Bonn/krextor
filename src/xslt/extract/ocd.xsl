@@ -240,7 +240,7 @@
     <xsl:template match="mcd:prototype[not(preceding-sibling::mcd:prototype)]" mode="krextor:main">
 	<xsl:variable name="symbol" select="om:matched-symbol(.)"/>
 	<xsl:call-template name="krextor:add-uri-property">
-	    <!-- the mcd:notation is the subject -->
+	    <!-- the enclosing mcd:notation is the subject -->
 	    <xsl:with-param name="property" select="'&omo;rendersSymbol'"/>
 	    <xsl:with-param name="object" select="om:symbol-uri(om:cdbase-or-default($symbol/@cdbase), $symbol/@cd, $symbol/@name)"/>
 	</xsl:call-template>

@@ -35,6 +35,7 @@
     version="2.0">
 
     <import href="rdfa.xsl"/>
+    <import href="ntn.xsl"/>
 
     <xd:doc type="stylesheet">A collection of utility functions for <a href="http://www.omdoc.org">OMDoc</a> support
 	<xd:author>Christoph Lange</xd:author>
