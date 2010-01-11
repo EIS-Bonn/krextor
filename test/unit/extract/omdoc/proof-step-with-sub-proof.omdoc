@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<omdoc version="1.3"
+       xmlns="http://omdoc.org/ns"
+       xmlns:dc="http://purl.org/dc/elements/1.1/">
+
+<metadata>
+  <meta property="dc:title">Proof step with a subproof</meta>
+  <meta property="dc:creator">Christoph Lange</meta>
+</metadata>
+
+<theory name="proof-step-with-sub-proof" xml:id="proof-step-with-sub-proof">
+  <assertion xml:id="ass"/>
+
+  <proof xml:id="proof" for="#ass">
+    <derive xml:id="d1">
+      <CMP>Step 1</CMP>
+      <method><proof xml:id="subproof"/></method>
+    </derive>
+  </proof>
+</theory>
+</omdoc>
+<!-- vim:sw=2:sts=2
+-->

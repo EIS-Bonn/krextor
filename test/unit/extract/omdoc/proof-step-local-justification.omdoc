@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<omdoc version="1.3"
+       xmlns="http://omdoc.org/ns"
+       xmlns:dc="http://purl.org/dc/elements/1.1/">
+
+<metadata>
+  <meta property="dc:title">Proof step with a local justification (i.e. another proof step)</meta>
+  <meta property="dc:creator">Christoph Lange</meta>
+</metadata>
+
+<theory name="proof-step-local-justification" xml:id="proof-step-local-justification">
+  <assertion xml:id="ass"/>
+
+  <proof xml:id="proof" for="#ass">
+    <derive xml:id="d1">
+      <CMP>Step 1</CMP>
+    </derive>
+    <derive xml:id="d2">
+      <CMP>Step 2</CMP>
+      <method><premise xref="#d1"/></method>
+    </derive>
+  </proof>
+</theory>
+</omdoc>
+<!-- vim:sw=2:sts=2
+-->
