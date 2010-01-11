@@ -42,7 +42,7 @@
 	<xd:detail><p>This stylesheet provides various utility functions</p></xd:detail>
 	<xd:author>Christoph Lange</xd:author>
 	<xd:copyright>Christoph Lange, 2009</xd:copyright>
-	<xd:svnId>$Id: generic.xsl 723 2009-08-05 11:15:04Z clange $</xd:svnId>
+	<xd:svnId>$Id$</xd:svnId>
     </xd:doc>
 
     <xd:doc>For each element <i>e</i> of a list, apply a given function <i>f</i> to it in the way <i>f(e, …)</i>, and return the first result that evaluates to <code>true</code>.

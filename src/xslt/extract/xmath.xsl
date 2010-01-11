@@ -42,7 +42,7 @@
 	<xd:short>Extraction module for <a href="http://dlmf.nist.gov/LaTeXML">LaTeXML</a>'s XMath format, as required for <a href="http://trac.kwarc.info/lamapun">LaMaPUn</a></xd:short>
 	<xd:author>Christoph Lange</xd:author>
 	<xd:copyright>Christoph Lange, 2009</xd:copyright>
-	<xd:svnId>$Id: ocd.xsl 723 2009-08-05 11:15:04Z clange $</xd:svnId>
+	<xd:svnId>$Id$</xd:svnId>
     </xd:doc>
 
     <xd:doc>The way we want to generate URIs for resources of interest; can be

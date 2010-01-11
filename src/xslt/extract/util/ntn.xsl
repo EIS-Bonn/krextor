@@ -32,7 +32,7 @@
   <xd:doc type="stylesheet">A collection of utility functions for <a href="http://www.omdoc.org">OMDoc</a>/<a href="http://www.openmath.org">OpenMath</a> notation definitions
 	<xd:author>Christoph Lange</xd:author>
 	<xd:copyright>Christoph Lange, 2010</xd:copyright>
-	<xd:svnId>$Id: openmath.xsl 728 2009-08-10 22:34:32Z clange $</xd:svnId>
+	<xd:svnId>$Id$</xd:svnId>
     </xd:doc>
 
     <xd:doc>Determine the symbol that a prototype element (OMDoc or MathML CD namespace) matches.  Returns a dummy element with @cdbase, @cd, and @name attributes.</xd:doc>
