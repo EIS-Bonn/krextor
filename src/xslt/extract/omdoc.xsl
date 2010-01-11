@@ -385,10 +385,10 @@ else '&oo;Symbol'"/>
       </call-template>
     </template>
 
-    <xd:doc>AssertedType—justifiedBy→Assertion</xd:doc>
+    <xd:doc>AssertedType—typeJustifiedBy→Assertion</xd:doc>
     <template match="type/@just-by" mode="krextor:main">
       <call-template name="krextor:add-uri-property">
-        <with-param name="property" select="'&oo;justifiedBy'"/>
+        <with-param name="property" select="'&oo;typeJustifiedBy'"/>
       </call-template>
     </template>
 
@@ -491,14 +491,17 @@ else '&oo;Definition'"/>
     <template match="proof|
                      proofobject"
       mode="krextor:main">
+        <variable name="nested" select="parent::method[parent::derive]"/>
 	<call-template name="krextor:create-omdoc-resource">
 	    <!-- FIXME documentUnit, mathematicalBlock -->
-	    <with-param name="related-via-properties" select="if (parent::method[parent::derive]) then '&oo;justifiedBy'
+	    <with-param name="related-via-properties" select="
+                if ($nested) then '&oo;stepJustifiedBySubProof'
                 else if (parent::theory) then '&oo;homeTheoryOf'
                 else '&oo;hasPart',
                 if (parent::omdoc) then '&sdoc;hasComposite'
                 else '&sdoc;hasPart'" tunnel="yes"/>
-	    <with-param name="type" select="'&oo;Proof'"/>
+	    <with-param name="type" select="if ($nested) then '&oo;NestedProof'
+                                            else '&oo;Proof'"/>
 	    <with-param name="formality-degree" select="if (self::proof)
                                                         then '&oo;Formal'
                                                         else '&oo;Computerized'"/>
@@ -642,8 +645,11 @@ else '&oo;Definition'"/>
     </template>
 
     <template match="derive/method/premise/@xref" mode="krextor:main">
+        <variable name="target-is-proof-step" select="document(.)/ancestor::proof[1] is ancestor::proof[1]"/>
 	<call-template name="krextor:add-uri-property">
-	    <with-param name="property" select="'&oo;justifiedBy'"/>
+	    <with-param name="property" select="
+                if ($target-is-proof-step) then '&oo;stepJustifiedByPrecedingStep'
+                else '&oo;stepExternallyJustifiedBy'"/>
 	    <!--<with-param name="formality-degree" select="'&oo;Informal'"/>-->
 	</call-template>
     </template>
@@ -651,7 +657,7 @@ else '&oo;Definition'"/>
     <template match="derive[@type eq 'conclusion']" mode="krextor:main">
 	<call-template name="krextor:create-omdoc-resource">
 	    <!-- FIXME documentUnit, mathematicalBlock -->
-	    <with-param name="related-via-properties" select="'&oo;hasStep' , '&sdoc;hasPart'" tunnel="yes"/>
+	    <with-param name="related-via-properties" select="'&oo;hasConclusion' , '&sdoc;hasPart'" tunnel="yes"/>
 	    <with-param name="type" select="'&oo;DerivedConclusion'"/>
 	</call-template>
     </template>
