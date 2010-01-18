@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <!--
-    *  Copyright (C) 2008
+    *  Copyright (C) 2010
     *  Christoph Lange
     *  KWARC, Jacobs University Bremen
     *  http://kwarc.info/projects/krextor/
@@ -23,32 +23,33 @@
     * 
 -->
 
-<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" 
-    xmlns:om="http://www.openmath.org/OpenMath"
-    xmlns:m="http://www.w3.org/1998/Math/MathML"
+<stylesheet xmlns="http://www.w3.org/1999/XSL/Transform" 
     xmlns:xd="http://www.pnp-software.com/XSLTdoc"
+    xmlns:krextor="http://kwarc.info/projects/krextor"
     exclude-result-prefixes="#all"
     version="2.0">
-    <xsl:include href="misc.xsl"/>
-    <xsl:include href="ntn.xsl"/>
-
-    <xd:doc type="stylesheet">A collection of utility functions for <a href="http://www.openmath.org">OpenMath</a> symbols
+  <xd:doc type="stylesheet">A collection of miscellaneous utility functions
 	<xd:author>Christoph Lange</xd:author>
-	<xd:copyright>Christoph Lange, 2008</xd:copyright>
+	<xd:copyright>Christoph Lange, 2010</xd:copyright>
 	<xd:svnId>$Id$</xd:svnId>
     </xd:doc>
 
-    <xsl:function name="om:cdbase-or-default">
-	<xsl:param name="cdbase"/>
-	<xsl:sequence select="if ($cdbase) then $cdbase else 'http://www.openmath.org/cd'"/>
-    </xsl:function>
 
-    <xd:doc>Canonical URI for a symbol (OpenMath 2.0 standard, section 2.3)</xd:doc>
-    <xsl:function name="om:symbol-uri">
-	<xsl:param name="cdbase"/>
-	<xsl:param name="cd"/>
-	<xsl:param name="name"/>
-	<xsl:sequence select="concat(om:cdbase-or-default($cdbase), '/', $cd, '#', $name)"/>
-    </xsl:function>
-
-</xsl:stylesheet>
+    <xd:doc>Transforms e.g. false-conjecture → FalseConjecture</xd:doc>
+    <function name="krextor:dashes-to-camelcase">
+	<param name="type"/>
+	<variable name="capitalized-tokens">
+	    <for-each select="tokenize($type, '-')">
+		<analyze-string select="." regex="^(.)">
+		    <matching-substring>
+			<value-of select="upper-case(regex-group(1))"/>
+		    </matching-substring>
+		    <non-matching-substring>
+			<value-of select="."/>
+		    </non-matching-substring>
+		</analyze-string>
+	    </for-each>
+	</variable>
+	<value-of select="string-join($capitalized-tokens, '')"/>
+    </function>
+</stylesheet>

@@ -34,8 +34,10 @@
     xmlns:f="http://fxsl.sf.net/"
     version="2.0">
 
-    <import href="rdfa.xsl"/>
     <import href="ntn.xsl"/>
+    <import href="rdfa.xsl"/>
+
+    <include href="misc.xsl"/>
 
     <xd:doc type="stylesheet">A collection of utility functions for <a href="http://www.omdoc.org">OMDoc</a> support
 	<xd:author>Christoph Lange</xd:author>

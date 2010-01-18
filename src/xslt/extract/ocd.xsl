@@ -35,8 +35,8 @@
     xmlns="http://www.openmath.org/OpenMathCD"
     xmlns:om="http://www.openmath.org/OpenMath"
     xmlns:cd="http://www.openmath.org/OpenMathCD"
-    xmlns:ocds="http://www.openmath.org/OpenMathCDS"
-    xmlns:ocdg="http://www.openmath.org/OpenMathCDG"
+    xmlns:cds="http://www.openmath.org/OpenMathCDS"
+    xmlns:cdg="http://www.openmath.org/OpenMathCDG"
     xmlns:m="http://www.w3.org/1998/Math/MathML"
     xmlns:mcd="http://www.w3.org/ns/mathml-cd"
     xmlns:xd="http://www.pnp-software.com/XSLTdoc"
@@ -78,9 +78,9 @@
 	<!-- OpenMath 3 transition: allow MMLexample here, too -->
 	<MMLexample type="&omo;Example"
 	    related-via-properties="&omo;hasExample"/>
-	<ocdg:CDGroup type="&omo;ContentDictionaryGroup"/>
-	<ocds:CDSignatures type="&omo;SignatureDictionary"/>
-	<ocds:Signature type="&omo;Signature"
+	<cdg:CDGroup type="&omo;ContentDictionaryGroup"/>
+	<cds:CDSignatures type="&omo;SignatureDictionary"/>
+	<cds:Signature type="&omo;Signature"
 	    related-via-properties="&omo;containsSignature"/>
 	<mcd:notations type="&omo;NotationDictionary"/>
     </xsl:variable>
@@ -92,9 +92,9 @@
 	Pragmatic|
 	Example|
 	MMLexample|
-	ocdg:CDGroup|
-	ocds:CDSignatures|
-	ocds:Signature|
+	cdg:CDGroup|
+	cds:CDSignatures|
+	cds:Signature|
 	mcd:notations" mode="krextor:main">
 	<xsl:apply-templates select="." mode="krextor:create-resource"/>
     </xsl:template>    
@@ -109,18 +109,17 @@
 	<CDDate property="&dc;date" normalize-space="true"/>
 	<CDComment property="&rdfs;comment" normalize-space="true"/>
 	<CDReviewDate property="&omo;reviewDate" normalize-space="true"/>
-	<ocds:CDSReviewDate property="&omo;reviewDate" normalize-space="true"/>
+	<cds:CDSReviewDate property="&omo;reviewDate" normalize-space="true"/>
 	<CDStatus property="&omo;status" normalize-space="true"/>
-	<ocds:CDSStatus property="&omo;status" normalize-space="true"/>
+	<cds:CDSStatus property="&omo;status" normalize-space="true"/>
 	<CDVersion property="&omo;version" normalize-space="true"/>
-	<ocdg:CDGroupVersion property="&omo;version" normalize-space="true"/>
+	<cdg:CDGroupVersion property="&omo;version" normalize-space="true"/>
 	<CDRevision property="&omo;revision" normalize-space="true"/>
-	<ocdg:CDGroupRevision property="&omo;revision" normalize-space="true"/>
+	<cdg:CDGroupRevision property="&omo;revision" normalize-space="true"/>
 	<CDURL property="&omo;url" normalize-space="true"/>
-	<ocdg:CDGroupURL property="&omo;url" normalize-space="true"/>
+	<cdg:CDGroupURL property="&omo;url" normalize-space="true"/>
 	<!--  for now we store this as a literal, as SWiM does not yet support URI properties with external objects -->
 	<CDBase property="&omo;base" normalize-space="true"/>
-	<Role property="&omo;role" normalize-space="true"/>
     </xsl:variable>
 
     <xsl:template match="Name|
@@ -130,23 +129,29 @@
 	CDDate|
 	CDComment|
 	CDReviewDate|
-	ocds:CDSReviewDate|
+	cds:CDSReviewDate|
 	CDStatus|
-	ocds:CDSStatus|
+	cds:CDSStatus|
 	CDVersion|
-	ocdg:CDGroupVersion|
+	cdg:CDGroupVersion|
 	CDRevision|
-	ocdg:CDGroupRevision|
+	cdg:CDGroupRevision|
 	CDURL|
-	ocdg:CDGroupURL|
+	cdg:CDGroupURL|
 	(: for now we store this as a literal, as SWiM does not yet support URI
 	   properties with external objects :)
-	CDBase|
-	Role" mode="krextor:main">
+	CDBase" mode="krextor:main">
 	<xsl:apply-templates select="." mode="krextor:add-literal-property"/>
     </xsl:template>
 
     <!-- Special cases -->
+
+    <xsl:template match="Role" mode="krextor:main">
+        <xsl:call-template name="krextor:add-uri-property">
+	    <xsl:with-param name="property" select="'&omo;role'"/>
+	     <xsl:with-param name="object" select="concat('&omo;', krextor:dashes-to-camelcase(normalize-space(.)))"/>
+        </xsl:call-template>
+    </xsl:template>
 
     <xsl:template match="property" mode="krextor:main">
 	<xsl:call-template name="krextor:create-resource">
@@ -177,7 +182,7 @@
 	</xsl:call-template>
     </xsl:template>    
 
-    <xsl:template match="@type[parent::ocds:CDSignatures]" mode="krextor:main">
+    <xsl:template match="@type[parent::cds:CDSignatures]" mode="krextor:main">
 	<!-- Currently we assume that @cd is a CD name (in fact a relative URI) to be resolved against the base URI. -->
 	<xsl:call-template name="krextor:add-uri-property">
 	    <xsl:with-param name="property" select="'&omo;typeSystem'"/>
@@ -188,7 +193,7 @@
 	</xsl:call-template>
     </xsl:template>
 
-    <xsl:template match="@cd[parent::ocds:CDSignatures]" mode="krextor:main">
+    <xsl:template match="@cd[parent::cds:CDSignatures]" mode="krextor:main">
 	<xsl:call-template name="krextor:add-uri-property">
 	    <xsl:with-param name="property" select="'&omo;containsSignaturesFor'"/>
 	    <!-- resolve against the @cdbase if that is available.
@@ -198,7 +203,7 @@
 	</xsl:call-template>
     </xsl:template>
 
-    <xsl:template match="@name[parent::ocds:Signature[@cd]]" mode="krextor:main">
+    <xsl:template match="@name[parent::cds:Signature[@cd]]" mode="krextor:main">
 	<xsl:call-template name="krextor:add-uri-property">
 	    <xsl:with-param name="property" select="'&omo;typesSymbol'"/>
 	    <!-- In SWiM, a Signature element is assumed to carry @cdbase and @cd attributes, cf. the discussion of 2008/05/10 on the OM3 mailing list -->
@@ -320,16 +325,16 @@
 	</xsl:call-template>
     </xsl:template>
 	
-    <xsl:template match="ocdg:CDGroupMember" mode="krextor:main">
+    <xsl:template match="cdg:CDGroupMember" mode="krextor:main">
 	<xsl:call-template name="krextor:add-uri-property">
 	    <xsl:with-param name="property" select="'&omo;containsContentDictionary'"/>
 	    <!-- We ignore the CDVersion for now -->
 	    <!-- If the CDURL is given, use it. Otherwise, resolve CDName against the CDGroupURL, as specified in section 4.4.2.2 of the OpenMath 2.0 Specification. -->
-	    <xsl:with-param name="object" select="if (ocdg:CDURL) then ocdg:CDURL/text() else resolve-uri(ocdg:CDName/text(), ../ocdg:CDGroupURL)"/>
+	    <xsl:with-param name="object" select="if (cdg:CDURL) then cdg:CDURL/text() else resolve-uri(cdg:CDName/text(), ../cdg:CDGroupURL)"/>
 	</xsl:call-template>
     </xsl:template>
 
-    <xsl:template match="ocds:Signature" mode="krextor:included">
+    <xsl:template match="cds:Signature" mode="krextor:included">
 	<xsl:call-template name="krextor:add-uri-property">
 	    <xsl:with-param name="property" select="'&omo;containsSignature'"/>
 	</xsl:call-template>
