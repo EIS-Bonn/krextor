@@ -74,10 +74,10 @@
 	<Pragmatic type="&omo;PragmaticGuidelines"
 	    related-via-properties="&omo;hasPragmaticGuidelines"/>
 	<Example type="&omo;Example"
-	    related-via-properties="&omo;hasExample"/>
+	    related-via-properties="&omo;exemplifies"/>
 	<!-- OpenMath 3 transition: allow MMLexample here, too -->
 	<MMLexample type="&omo;Example"
-	    related-via-properties="&omo;hasExample"/>
+	    related-via-properties="&omo;exemplifies"/>
 	<cdg:CDGroup type="&omo;ContentDictionaryGroup"/>
 	<cds:CDSignatures type="&omo;SignatureDictionary"/>
 	<cds:Signature type="&omo;Signature"
@@ -312,7 +312,7 @@
     <!-- OpenMath 3 transition: allow MMLexample here, too -->
     <xsl:template match="MMLexample|Example" mode="krextor:included">
 	<xsl:call-template name="krextor:add-uri-property">
-	    <xsl:with-param name="property" select="'&omo;hasExample'"/>
+	    <xsl:with-param name="property" select="'&omo;exemplifies'"/>
 	</xsl:call-template>
     </xsl:template>
 
