@@ -272,7 +272,7 @@
     </template>
 
     <xd:doc>Returns the method in which a URI will be generated for the current node unless a different explicit subject URI is passed to <code>krextor:create-resource</code>; extraction modules can override this.</xd:doc>
-    <template match="node()" mode="krextor:uri-generation-method" as="xs:string">
+    <template match="node()" mode="krextor:uri-generation-method" as="xs:string*">
         <sequence select="$autogenerate-fragment-uris"/>
     </template>
 
