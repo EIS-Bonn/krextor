@@ -74,10 +74,10 @@
 	<Pragmatic type="&omo;PragmaticGuidelines"
 	    related-via-properties="&omo;hasPragmaticGuidelines"/>
 	<Example type="&omo;Example"
-	    related-via-properties="&omo;exemplifies"/>
+	    related-via-properties="&omo;exemplifiedBy"/>
 	<!-- OpenMath 3 transition: allow MMLexample here, too -->
 	<MMLexample type="&omo;Example"
-	    related-via-properties="&omo;exemplifies"/>
+	    related-via-properties="&omo;exemplifiedBy"/>
 	<cdg:CDGroup type="&omo;ContentDictionaryGroup"/>
 	<cds:CDSignatures type="&omo;SignatureDictionary"/>
 	<cds:Signature type="&omo;Signature"
@@ -110,8 +110,6 @@
 	<CDComment property="&rdfs;comment" normalize-space="true"/>
 	<CDReviewDate property="&omo;reviewDate" normalize-space="true"/>
 	<cds:CDSReviewDate property="&omo;reviewDate" normalize-space="true"/>
-	<CDStatus property="&omo;status" normalize-space="true"/>
-	<cds:CDSStatus property="&omo;status" normalize-space="true"/>
 	<CDVersion property="&omo;version" normalize-space="true"/>
 	<cdg:CDGroupVersion property="&omo;version" normalize-space="true"/>
 	<CDRevision property="&omo;revision" normalize-space="true"/>
@@ -130,8 +128,6 @@
 	CDComment|
 	CDReviewDate|
 	cds:CDSReviewDate|
-	CDStatus|
-	cds:CDSStatus|
 	CDVersion|
 	cdg:CDGroupVersion|
 	CDRevision|
@@ -149,6 +145,13 @@
     <xsl:template match="Role" mode="krextor:main">
         <xsl:call-template name="krextor:add-uri-property">
 	    <xsl:with-param name="property" select="'&omo;role'"/>
+	     <xsl:with-param name="object" select="concat('&omo;', krextor:dashes-to-camelcase(normalize-space(.)))"/>
+        </xsl:call-template>
+    </xsl:template>
+
+    <xsl:template match="CDStatus|cds:CDSStatus" mode="krextor:main">
+        <xsl:call-template name="krextor:add-uri-property">
+	    <xsl:with-param name="property" select="'&omo;status'"/>
 	     <xsl:with-param name="object" select="concat('&omo;', krextor:dashes-to-camelcase(normalize-space(.)))"/>
         </xsl:call-template>
     </xsl:template>
@@ -312,7 +315,7 @@
     <!-- OpenMath 3 transition: allow MMLexample here, too -->
     <xsl:template match="MMLexample|Example" mode="krextor:included">
 	<xsl:call-template name="krextor:add-uri-property">
-	    <xsl:with-param name="property" select="'&omo;exemplifies'"/>
+	    <xsl:with-param name="property" select="'&omo;exemplifiedBy'"/>
 	</xsl:call-template>
     </xsl:template>
 
