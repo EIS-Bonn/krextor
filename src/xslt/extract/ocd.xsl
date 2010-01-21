@@ -71,8 +71,8 @@
 	<!-- OpenMath 3 transition: no specific types known yet -->
 	<discussion type="&omo;OpenMathConcept"
 	    related-via-properties="&omo;hasDirectPart"/>
-	<Pragmatic type="&omo;PragmaticGuidelines"
-	    related-via-properties="&omo;hasPragmaticGuidelines"/>
+	<Pragmatic type="&omo;PragmaticSyntax"
+	    related-via-properties="&omo;hasPragmaticSyntax"/>
 	<Example type="&omo;Example"
 	    related-via-properties="&omo;exemplifiedBy"/>
 	<!-- OpenMath 3 transition: allow MMLexample here, too -->
@@ -160,28 +160,20 @@
 	<xsl:call-template name="krextor:create-resource">
 	    <xsl:with-param name="related-via-properties" select="'&omo;hasProperty'" tunnel="yes"/>
 	    <xsl:with-param name="type" select="'&omo;Property'"/>
-	    <!-- FIXME remove when OpenMath 3 is stable, as then we'll always
-	    have CMPs and FMPs inside properties, no longer ones that are
-	    direct children of CDDefinition -->
-	    <xsl:with-param name="inside-property" select="true()" tunnel="yes"/>
 	</xsl:call-template>
     </xsl:template>    
 
     <xsl:template match="CMP" mode="krextor:main">
 	<xsl:call-template name="krextor:create-resource">
-	    <!-- This is for OpenMath 2 backwards compatibility.  In OpenMath 3, this
-		 will only be a child of property. -->
-	    <xsl:with-param name="related-via-properties" select="if (parent::CDDefinition) then '&omo;hasCommentedProperty' else '&omo;hasCommentedPart'" tunnel="yes"/>
-	    <xsl:with-param name="type" select="'&omo;CommentedProperty'"/>
+	    <xsl:with-param name="related-via-properties" select="'&omo;hasCommentedPart'" tunnel="yes"/>
+	    <xsl:with-param name="type" select="'&omo;CommentedPart'"/>
 	</xsl:call-template>
     </xsl:template>    
 
     <xsl:template match="FMP" mode="krextor:main">
 	<xsl:call-template name="krextor:create-resource">
-	    <!-- This is for OpenMath 2 backwards compatibility.  In OpenMath 3, this
-		 will only be a child of property. -->
-	    <xsl:with-param name="related-via-properties" select="if (parent::CDDefinition) then '&omo;hasFormalProperty' else '&omo;hasFormalPart'" tunnel="yes"/>
-	    <xsl:with-param name="type" select="'&omo;FormalProperty'"/>
+	    <xsl:with-param name="related-via-properties" select="'&omo;hasFormalPart'" tunnel="yes"/>
+	    <xsl:with-param name="type" select="'&omo;FormalPart'"/>
 	</xsl:call-template>
     </xsl:template>    
 
@@ -284,31 +276,9 @@
 	</xsl:call-template>
     </xsl:template>
 
-    <xd:doc>This is for OpenMath 2 backwards compatibility.  In OpenMath 3, this will be a child of property.</xd:doc>
-    <xsl:template match="CMP" mode="krextor:included">
-	<!-- FIXME remove when OpenMath 3 is stable, as then we'll always
-	have CMPs and FMPs inside properties, no longer ones that are
-	direct children of CDDefinition -->
-	<xsl:param name="inside-property" select="false()" tunnel="yes"/>
-	<xsl:call-template name="krextor:add-uri-property">
-	    <xsl:with-param name="property" select="if ($inside-property) then '&omo;hasCommentedPart' else '&omo;hasCommentedProperty'"/>
-	</xsl:call-template>
-    </xsl:template>
-
-    <xd:doc>This is for OpenMath 2 backwards compatibility.  In OpenMath 3, this will be a child of property.</xd:doc>
-    <xsl:template match="FMP" mode="krextor:included">
-	<!-- FIXME remove when OpenMath 3 is stable, as then we'll always
-	have CMPs and FMPs inside properties, no longer ones that are
-	direct children of CDDefinition -->
-	<xsl:param name="inside-property" select="false()" tunnel="yes"/>
-	<xsl:call-template name="krextor:add-uri-property">
-	    <xsl:with-param name="property" select="if ($inside-property) then '&omo;hasFormalPart' else '&omo;hasFormalProperty'"/>
-	</xsl:call-template>
-    </xsl:template>
-
     <xsl:template match="Pragmatic" mode="krextor:included">
 	<xsl:call-template name="krextor:add-uri-property">
-	    <xsl:with-param name="property" select="'&omo;hasPragmaticGuidelines'"/>
+	    <xsl:with-param name="property" select="'&omo;hasPragmaticSyntax'"/>
 	</xsl:call-template>
     </xsl:template>
 
