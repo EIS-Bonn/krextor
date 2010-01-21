@@ -29,7 +29,8 @@
     xmlns:xd="http://www.pnp-software.com/XSLTdoc"
     exclude-result-prefixes="#all"
     version="2.0">
-    <xsl:include href="misc.xsl"/>
+    <xsl:import href="misc.xsl"/>
+
     <xsl:include href="ntn.xsl"/>
 
     <xd:doc type="stylesheet">A collection of utility functions for <a href="http://www.openmath.org">OpenMath</a> symbols
