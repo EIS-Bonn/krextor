@@ -49,7 +49,7 @@
 	<xd:detail>
 	    <p>This stylesheet extracts RDF from <a href="http://www.omdoc.org">OpenMath</a> content dictionaries (CDs).</p>  
 	    <p>Existing metadata vocabularies are reused, as documented here or in the ontology.</p>
-	    <p>See <a href="https://svn.omdoc.org/repos/omdoc/trunk/owl">https://svn.omdoc.org/repos/omdoc/trunk/owl</a> for the corresponding ontology.</p>
+            <p>See <a href="&oo;">&oo;</a> or the sources at <a href="https://svn.omdoc.org/repos/omdoc/trunk/owl">https://svn.omdoc.org/repos/omdoc/trunk/owl</a> for the corresponding ontology.</p>
 	</xd:detail>
 	<xd:author>Christoph Lange</xd:author>
 	<xd:copyright>Christoph Lange, 2008–2010</xd:copyright>

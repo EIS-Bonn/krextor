@@ -50,6 +50,7 @@
 	    <p>This stylesheet extracts RDF from <a href="http://www.openmath.org">OpenMath</a> content dictionaries (CDs).  Currently, RDF is only extracted from top-level elements. CDs are assumed to be split into fragments of interest, which are XIncluded by their parents.  This corresponds to the way OpenMath CDs are used in the semantic wiki <a href="http://kwarc.info/projects/swim/">SWiM</a>.</p>
 	    <p>Existing metadata vocabularies are reused, as documented in the ontology.</p>
 	    <p>See <a href="https://svn.openmath.org/OpenMath3/owl">https://svn.openmath.org/OpenMath3/owl</a> for the corresponding ontology.</p>
+            <p>See <a href="https://svn.salzburgresearch.at/svn/kiwi/IkeWiki/branches/SWiM/trunk/WEB-INF/src/at/srfg/ikewiki/render/import-ocd.xsl">https://svn.salzburgresearch.at/svn/kiwi/IkeWiki/branches/SWiM/trunk/WEB-INF/src/at/srfg/ikewiki/render/import-ocd.xsl</a> for an implementation of splitting CDs as required by this extraction module.</p>
 	</xd:detail>
 	<xd:author>Christoph Lange</xd:author>
 	<xd:copyright>Christoph Lange, 2008</xd:copyright>
@@ -140,7 +141,7 @@
 	<xsl:apply-templates select="." mode="krextor:add-literal-property"/>
     </xsl:template>
 
-    <!-- Special cases -->
+    <!-- Special cases start here -->
 
     <xsl:template match="Role" mode="krextor:main">
         <xsl:call-template name="krextor:add-uri-property">
@@ -156,6 +157,7 @@
         </xsl:call-template>
     </xsl:template>
 
+    <xd:doc>We assume that properties are grouped into <code><![CDATA[<property><CMP/><FMP/></property>]]></code> pairs, i.e. written in OpenMath 3 style.  OpenMath 2 has to be adapted first.</xd:doc>
     <xsl:template match="property" mode="krextor:main">
 	<xsl:call-template name="krextor:create-resource">
 	    <xsl:with-param name="related-via-properties" select="'&omo;hasProperty'" tunnel="yes"/>
