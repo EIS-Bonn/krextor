@@ -364,7 +364,7 @@ public class Krextor {
 			}
 			*/
 		} catch (XSLException ex) {
-			throw new KrextorException("An error occurred during RDF extraction, ex");
+			throw new KrextorException("An error occurred during RDF extraction", ex);
 		}
 	}
 }
