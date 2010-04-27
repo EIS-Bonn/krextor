@@ -33,6 +33,33 @@ import org.junit.Test;
  */
 public class JavaOutputTest {
     @Test
+    public void testOMDocInput()
+            throws ParsingException, IOException, KrextorException {
+        Krextor k = new Krextor();
+
+        // trick to get a value from the callback method
+        final int[] result = new int[]{ 0 };
+
+        // run the extraction
+        k.extract("omdoc",
+                new Builder().build(TestUtils.getTestFile("extract/omdoc/asserted-type.omdoc")),
+                new TripleAdder() {
+            public void addTriple(
+                    String subject,
+                    String subjectType,
+                    String predicate,
+                    String object,
+                    String objectType,
+                    String objectLanguage,
+                    String objectDatatype) {
+                result[0]++;
+            }
+        });
+        // we expect 20 triples in the input file
+        Assert.assertEquals(result[0], 20);
+    }
+
+    @Test
     public void testSimpleTriple()
             throws ParsingException, IOException, KrextorException {
         Krextor k = new Krextor();
@@ -42,7 +69,7 @@ public class JavaOutputTest {
 
         // run the extraction (always returns the same dummy triple)
         k.extract("test",
-                new Builder().build(TestUtils.getTestFile("dummy.xml")),
+                new Builder().build(TestUtils.getTestFile("extract/test/dummy.xml")),
                 new TripleAdder() {
             public void addTriple(
                     String subject,
