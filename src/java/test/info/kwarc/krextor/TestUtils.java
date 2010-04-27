@@ -20,17 +20,19 @@
  */
 package info.kwarc.krextor;
 
-import org.junit.runner.RunWith;
-import org.junit.runners.Suite;
+import java.io.File;
 
 /**
- * Class for running all Krextor tests.
- * 
  * @author Christoph Lange
  */
-@RunWith(Suite.class)
-@Suite.SuiteClasses({
-    info.kwarc.krextor.JavaOutputTest.class
-})
-public class AllTests {
+public class TestUtils {
+    public static String getTestFilesPath() {
+        String path = TestUtils.class.getResource("").toString();
+        path = path.replaceFirst("^file:(.*)/classes/info/kwarc/krextor/$", "$1" + File.separator + "testdata" + File.separator);
+        return path;
+    }
+
+    public static String getTestFile(String path) {
+        return getTestFilesPath() + path;
+    }
 }
