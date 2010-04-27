@@ -12,11 +12,11 @@
   <target name="help">
     <echo><![CDATA[
 Krextor — The KWARC RDF Extractor
-—————————————————————————————————————————————————————————————
+———————————————————————————————————————————————————————————————————————
 available targets:
 
 dist    – build distribution archives (not yet fully enabled)
-jar     – build krextor.jar
+jars    – build the two krextor.jar files (all-in-one and just-Krextor)
 javac   – compile Java sources
 doc     – generate all documentation
 xsltdoc – generate XSLT source documentation
@@ -24,7 +24,7 @@ javadoc – generate Java API documentation
 test    – run test cases (not yet enabled)
 clean   – clean build output directory
 help    – print this help text
-—————————————————————————————————————————————————————————————
+———————————————————————————————————————————————————————————————————————
 ]]></echo>
   </target>
 
