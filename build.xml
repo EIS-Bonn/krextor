@@ -9,22 +9,29 @@
     <fileset dir="lib" includes="**/*.jar"/>
   </path>
 
+  <path id="tests.classpath">
+    <path refid="javac.classpath"/>
+    <pathelement location="{build.java}"/>
+  </path>
+
+  <available property="junit.present" file="${java.lib}/junit-4.1.jar"/>
+
   <target name="help">
     <echo><![CDATA[
 Krextor — The KWARC RDF Extractor
-———————————————————————————————————————————————————————————————————————
+—————————————————————————————————————————————————————————————————————————
 available targets:
 
 dist    – build distribution archives (not yet fully enabled)
-jars    – build the two krextor.jar files (all-in-one and just-Krextor)
+jars    – build the two krextor.jar files (with and without dependencies)
 javac   – compile Java sources
 doc     – generate all documentation
 xsltdoc – generate XSLT source documentation
 javadoc – generate Java API documentation
-test    – run test cases (not yet enabled)
+test    – run JUnit test cases
 clean   – clean build output directory
 help    – print this help text
-———————————————————————————————————————————————————————————————————————
+—————————————————————————————————————————————————————————————————————————
 ]]></echo>
   </target>
 
@@ -71,11 +78,17 @@ help    – print this help text
   <target name="jars" depends="jar-single,jar-all"/>
 
   <target name="javac">
-    <mkdir dir="${java.dest}/classes"/>
-    <javac target="1.5" debug="true" source="1.5" srcdir="${java.src}" destdir="${java.dest}/classes" classpathref="javac.classpath"/>
-    <copy todir="${java.dest}/classes/info/kwarc/krextor">
+    <mkdir dir="${build.java}"/>
+    <javac target="1.5" debug="true" source="1.5" srcdir="${java.src}" destdir="${build.java}" classpathref="javac.classpath"/>
+    <copy todir="${build.java}/info/kwarc/krextor">
       <fileset dir="${java.src}/info/kwarc/krextor" includes="xslt/**"/>
     </copy>
+  </target>
+
+  <target name="javac.test" depends="javac">
+    <mkdir dir="${build.test}"/>
+    <javac target="1.5" debug="true" source="1.5" srcdir="${test.src}" destdir="${build.test}" classpathref="tests.classpath"/>
+    <!-- TODO copy test data -->
   </target>
 
   <target name="jar-all" depends="javac">
@@ -87,7 +100,7 @@ help    – print this help text
       </fileset>
     </copy>
 
-    <jar destfile="dist-all/krextor-${krextor.version}.jar" compress="yes" basedir="${java.dest}/classes">
+    <jar destfile="dist-all/krextor-${krextor.version}.jar" compress="yes" basedir="${build.java}">
       <fileset dir="${basedir}">
 	<include name="krextor.build.properties"/>
       </fileset>
@@ -104,7 +117,7 @@ help    – print this help text
   </target>
 
   <target name="jar-single" depends="javac">
-    <jar destfile="dist/krextor-${krextor.version}.jar" compress="yes" basedir="${java.dest}/classes">
+    <jar destfile="dist/krextor-${krextor.version}.jar" compress="yes" basedir="${build.java}">
       <manifest>
 	<attribute name="Specification-Title" value="Krextor"/>
 	<attribute name="Specification-Version" value="${krextor.version}"/>
@@ -122,7 +135,16 @@ help    – print this help text
     <delete dir="dist-all"/>
   </target>
 
-  <target name="test">
+  <target name="test" if="junit.present" depends="javac.test">
+    <java fork="yes" classname="org.junit.runner.JUnitCore" taskname="junit" failonerror="yes">
+      <arg value="info.kwarc.krextor.AllTests"/>
+      <classpath>
+        <pathelement location="${build.java}"/>
+        <pathelement location="${build.test}"/>
+        <fileset dir="${java.lib}" includes="*.jar"/>
+        <fileset dir="${saxon.lib}" includes="*.jar"/>
+      </classpath>
+    </java>
   </target>
 
   <!--

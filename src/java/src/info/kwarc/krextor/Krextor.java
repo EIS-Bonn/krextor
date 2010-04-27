@@ -1,4 +1,4 @@
-/*  Copyright (C) 2008
+/*  Copyright (C) 2010
  *  Christoph Lange
  *  KWARC, Jacobs University Bremen
  *  http://kwarc.info/projects/krextor/
