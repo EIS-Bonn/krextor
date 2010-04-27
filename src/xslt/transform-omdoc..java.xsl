@@ -29,6 +29,6 @@ code for the extracted triples
 -->
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" 
     version="2.0">
-    <xsl:import href="output/rxr.xsl"/>
+    <xsl:import href="output/java.xsl"/>
     <xsl:include href="extract/omdoc.xsl"/>
 </xsl:stylesheet>
