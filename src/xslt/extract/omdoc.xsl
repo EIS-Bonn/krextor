@@ -500,7 +500,7 @@ else '&oo;Definition'"/>
 
     <!--TODO omtext/@type eq 'assumption' may have the inductive attribute-->
     <template match="omtext" mode="krextor:main">
-    	<variable name="has-mathematical-type" select="@type = $omdoc-statement-types"/>"
+    	<variable name="has-mathematical-type" select="@type = $omdoc-statement-types"/>
 	<call-template name="krextor:create-omdoc-resource">
 	    <!-- FIXME documentUnit, (mathematicalBlock|rhetoricalBlock)?
 	    maybe split into multiple templates -->
