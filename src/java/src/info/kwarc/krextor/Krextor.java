@@ -134,7 +134,10 @@ public class Krextor {
 		root.addAttribute(new Attribute("version", "2.0"));
 
 		result = new Document(root);
-		result.setBaseURI(this.getClass().getResource(getTransformerName(inputFormat, outputFormat)).toString());
+		/* as we can't assume the transformer to exist as a file resource, get the name
+		 * of the directory of this class, and append the path to the transformer 
+		 */
+		result.setBaseURI(this.getClass().getResource("").toString() + getTransformerName(inputFormat, outputFormat));
 
 		Element importOutput = new Element("import", XMLNS_XSLT);
 		importOutput.addAttribute(new Attribute("href", "output/"
