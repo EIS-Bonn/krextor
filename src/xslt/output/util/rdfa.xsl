@@ -91,10 +91,10 @@
     <template match="rxr:triple[rxr:object[text()]]" mode="krextor:rdfa">
 	<!-- TODO does not yet work for rdf:XMLLiteral datatype -->
 	<span xmlns="http://www.w3.org/1999/xhtml" property="{krextor:uri-to-curie(rxr:predicate/@uri)}" content="{rxr:object}">
-	    <if test="rxr:object/@xml:lang">
+	    <if test="rxr:object/@xml:lang" xmlns="http://www.w3.org/1999/XSL/Transform">
 		<attribute name="xml:lang" select="rxr:object/@xml:lang"/>
 	    </if>
-	    <if test="rxr:object/@datatype">
+	    <if test="rxr:object/@datatype" xmlns="http://www.w3.org/1999/XSL/Transform">
 		<attribute name="datatype"
 		    select="krextor:uri-to-curie(rxr:object/@datatype)"/>
 	    </if>
