@@ -21,7 +21,7 @@
     </theory>
     
     <omtext xml:id="tekst" theory="#blabla">
-	<CMP>Bla Bla</CMP>
+	<CMP xml:id="cmp">Bla Bla</CMP>
     </omtext>
     
 </omdoc>
