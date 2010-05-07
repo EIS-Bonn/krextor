@@ -37,6 +37,7 @@
     xmlns:krextor="http://kwarc.info/projects/krextor"
     xmlns:omdoc="http://omdoc.org/ns"
     xmlns:om="http://www.openmath.org/OpenMath"
+    xmlns:m="http://www.w3.org/1998/Math/MathML"
     xmlns:xd="http://www.pnp-software.com/XSLTdoc"
     xmlns:xs="http://www.w3.org/2001/XMLSchema"
     exclude-result-prefixes="#all"
@@ -89,6 +90,7 @@
     <template name="krextor:create-omdoc-resource">
 	<param name="type"/>
 	<param name="formality-degree"/>
+	<param name="properties"/>
 	<param name="subject-uri" as="xs:anyURI" tunnel="yes"/>
 	<param name="document-base" tunnel="yes"/>
 	<param name="knowledge-base" tunnel="yes"/>
@@ -107,6 +109,7 @@
 		    <if test="$formality-degree">
 			<krextor:property uri="&oo;formalityDegree" object="{$formality-degree}"/>
 		    </if>
+                    <copy-of select="$properties"/>
 		</with-param>
 		<with-param name="type" select="$type"/>
 		<with-param name="blank-node" select="$blank-node"/>
@@ -529,8 +532,31 @@ else '&oo;Definition'"/>
 	    <with-param name="formality-degree"
               select="if (self::CMP) then '&oo;Informal'
                       else '&oo;Formal'"/>
+            <with-param name="properties">
+                <!-- extract the full-text content of a CMP -->
+                <if test="self::CMP">
+                    <krextor:property uri="&oo;hasText">
+                        <apply-templates mode="krextor:text"/>
+                    </krextor:property>
+                </if>
+            </with-param>
 	</call-template>
     </template>
+
+    <!-- in full-text extraction (from CMPs), recurse into OMDoc elements -->
+    <template match="*" mode="krextor:text">
+        <apply-templates mode="krextor:text"/>
+    </template>
+
+    <!-- in full-text extraction, copy every text node -->
+    <template match="text()" mode="krextor:text">
+        <value-of select="."/>
+    </template>
+
+    <!-- when extracting the full-text content of a CMP, we are not interested in 
+         strings in mathematical objects (in OpenMath usually numbers, in Content 
+         MathML also symbols and variable names) -->
+    <template match="m:*|om:*" mode="krextor:text"/>
 
     <!-- FIXME is it right to match omtext[@type eq 'assumption'] here?? -->
     <template match="FMP/assumption|
