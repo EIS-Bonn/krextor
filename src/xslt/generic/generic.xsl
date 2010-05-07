@@ -177,11 +177,14 @@
 	<!-- additional properties of this resource, encoded as
 	    <krextor:property uri="property-uri" object="object-uri"/>
 	    or
+            <krextor:property uri="property-uri" value="object-literal"/>
+            or
 	    <krextor:property uri="property-uri">
 		object-literal
 	    </krextor:property>
 	    On literal-valued objects, the attribute @language and @datatype
-	    are also allowed.
+            are also allowed.
+            Support for XML literals is not yet implemented.
 	    Support for blank node objects is not yet implemented.
 	-->
 	<param name="properties" as="node()*"/>
@@ -247,6 +250,7 @@
 	    <if test="$properties">
 		<for-each select="$properties/krextor:property[@uri]">
 		    <variable name="object" as="xs:string" select="if (@object) then @object
+                        else if (@value) then @value
 			else if (text()) then text()
 			else ''"/>
 		    <if test="$object">
