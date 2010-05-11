@@ -148,15 +148,6 @@
     </xd:doc>
     <template name="krextor:external-uri" as="xs:anyURI">
 	<param name="internal-uri" as="xs:anyURI"/>
-        <message>REWRITING URI</message>
-        <message select="$internal-uri"/>
-        <message select="$document-uri-pattern-match"/>
-        <message select="$document-uri-pattern-replace"/>
-	<message select="xs:anyURI(
-	    replace($internal-uri,
-		$document-uri-pattern-match,
-		$document-uri-pattern-replace))"/>
-        <message>DONE REWRITING URI</message>
 	<value-of select="xs:anyURI(
 	    replace($internal-uri,
 		$document-uri-pattern-match,
