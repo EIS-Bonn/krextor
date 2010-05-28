@@ -51,7 +51,7 @@
 	<xd:svnId>$Id$</xd:svnId>
     </xd:doc>
 
-    <output method="text" encoding="UTF-8"/>
+    <output method="text" encoding="US-ASCII"/>
 
     <xd:doc>Outputs one triple</xd:doc>
     <template name="krextor:output-triple">
@@ -67,10 +67,10 @@
 	<text>&#x9;</text>
 	<value-of select="concat('&lt;', $predicate, '&gt;')"/>
 	<text>&#x9;</text>
-	<value-of select="if ($object-type eq 'uri' or $object-type eq 'blank') then
+	<value-of select="if ($object-type = ('uri', 'blank')) then
 		krextor:node-id-to-turtle($object, $object-type)
 	    else
-		krextor:literal-to-turtle($object, $object-language, $object-datatype)"/>
+		krextor:literal-to-ntriples($object, $object-language, $object-datatype)"/>
 	<text> .&#xa;</text>
     </template>
 </stylesheet>

@@ -44,12 +44,18 @@
     </xd:doc>
 
     <xd:doc>TODO</xd:doc>
+    <function name="krextor:construct-turtle-uri" as="xs:string">
+	<param name="uri"/>
+        <value-of select="concat('&lt;', $uri, '&gt;')"/>
+    </function>
+
+    <xd:doc>TODO</xd:doc>
     <function name="krextor:node-id-to-turtle" as="xs:string">
 	<param name="id" as="xs:string"/>
 	<param name="type" as="xs:string"/>
 	<choose>
 	    <when test="$type eq 'uri'">
-		<value-of select="concat('&lt;', $id, '&gt;')"/>
+		<value-of select="krextor:construct-turtle-uri($id)"/>
 	    </when>
 	    <when test="$type eq 'blank'">
 		<value-of select="concat('_:', $id)"/>
@@ -63,19 +69,74 @@
     </function>
 
     <xd:doc>TODO</xd:doc>
+    <function name="krextor:lang-datatype-to-turtle" as="xs:string">
+	<param name="lang"/>
+	<param name="datatype"/>
+	<!-- FIXME check if """...""" is allowed in N-Triples, otherwise move to Turtle -->
+        <value-of select="
+            if ($lang) then concat('@', $lang)
+	    else if ($datatype) then concat('^^', krextor:construct-turtle-uri($datatype))
+	    else ''"/>
+    </function>
+
+    <xd:doc>TODO</xd:doc>
+    <function name="krextor:escape-turtle-string" as="xs:string">
+	<param name="value" as="xs:string"/>
+	<param name="allow-multiline" as="xs:boolean"/>
+        <variable name="escaped-with-multiline" select="replace(
+            replace(
+            replace(
+            replace($value,
+            '\\', '\\\\'), (: this is evaluated first :)
+            '&quot;', '\\&quot;'),
+            '&#xd;', '\\r'),
+            '&#x9;', '\\t')
+            "/>
+        <value-of select="if ($allow-multiline) then $escaped-with-multiline
+            else replace($escaped-with-multiline, '&#xa;', '\\n')"/>
+    </function>
+
+    <xd:doc>TODO</xd:doc>
+    <function name="krextor:construct-turtle-string" as="xs:string">
+	<param name="value" as="xs:string"/>
+	<param name="allow-multiline" as="xs:boolean"/>
+        <value-of select="
+            if ($allow-multiline and contains($value, '&#xa;'))
+            then concat('&quot;&quot;&quot;', krextor:escape-turtle-string($value, true()), '&quot;&quot;&quot;')
+            else concat('&quot;', krextor:escape-turtle-string($value, false()), '&quot;')
+            "/>
+    </function>
+
+    <xd:doc>TODO</xd:doc>
+    <function name="krextor:construct-turtle-string" as="xs:string">
+	<param name="value" as="xs:string"/>
+        <value-of select="
+            krextor:construct-turtle-string($value, true())"/>
+    </function>
+
+    <xd:doc>TODO</xd:doc>
     <function name="krextor:literal-to-turtle" as="xs:string">
+	<param name="value" as="xs:string"/>
+	<param name="lang"/>
+	<param name="datatype"/>
+	<value-of select="concat(
+	    (: the value :)
+            krextor:construct-turtle-string($value),
+	    (: the language or datatype annotation :)
+	    krextor:lang-datatype-to-turtle($lang, $datatype))"/>
+    </function>
+
+    <xd:doc>TODO</xd:doc>
+    <function name="krextor:literal-to-ntriples" as="xs:string">
 	<param name="value" as="xs:string"/>
 	<param name="lang"/>
 	<param name="datatype"/>
 	<!-- FIXME check if """...""" is allowed in N-Triples, otherwise move to Turtle -->
 	<value-of select="concat(
 	    (: the value :)
-	    if (contains($value, '&#xa;')) then
-	        concat('&quot;&quot;&quot;', $value, '&quot;&quot;&quot;')
-	    else concat('&quot;', $value, '&quot;'),
+            krextor:construct-turtle-string($value, false()),
 	    (: the language or datatype annotation :)
-	    if ($lang) then concat('@', $lang)
-	    else if ($datatype) then concat('^^&lt;', $datatype, '&gt;')
-	    else '')"/>
+	    krextor:lang-datatype-to-turtle($lang, $datatype))"/>
     </function>
+
 </stylesheet>
