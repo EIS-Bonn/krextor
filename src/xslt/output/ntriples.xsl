@@ -51,7 +51,8 @@
 	<xd:svnId>$Id$</xd:svnId>
     </xd:doc>
 
-    <output method="text" encoding="US-ASCII"/>
+    <!-- TODO change to US-ASCII and implement encoding of all non-ASCII characters -->
+    <output method="text" encoding="UTF-8"/>
 
     <xd:doc>Outputs one triple</xd:doc>
     <template name="krextor:output-triple">
