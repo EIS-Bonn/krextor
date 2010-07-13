@@ -169,6 +169,12 @@
 	<xsl:call-template name="krextor:create-resource">
 	    <xsl:with-param name="related-via-properties" select="'&omo;hasCommentedPart'" tunnel="yes"/>
 	    <xsl:with-param name="type" select="'&omo;CommentedPart'"/>
+            <xsl:with-param name="properties">
+                <!-- the plain-text content of a CMP -->
+                <krextor:property uri="&omo;hasText">
+                    <xsl:apply-templates/>
+                </krextor:property>
+            </xsl:with-param>
 	</xsl:call-template>
     </xsl:template>    
 
