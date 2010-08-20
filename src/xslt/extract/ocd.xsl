@@ -65,7 +65,7 @@
     <xsl:variable name="krextor:resources">
 	<CD type="&omo;ContentDictionary"/>
 	<CDDefinition type="&omo;SymbolDefinition"
-	    related-via-properties="&omo;containsSymbolDefinition"/>
+	    related-via-properties="&omo;definesSymbol"/>
 	<!-- OpenMath 3 transition: no specific types known yet -->
 	<description type="&omo;OpenMathConcept"
 	    related-via-properties="&omo;hasDirectPart"/>
