@@ -26,7 +26,7 @@
 <!DOCTYPE xsl:stylesheet [
     <!ENTITY omo "http://www.openmath.org/ontology#">
     <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#">
-    <!ENTITY dc "http://purl.org/dc/elements/1.1/">
+    <!ENTITY dct "http://purl.org/dc/terms/">
 ]>
 
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" 
@@ -101,13 +101,13 @@
     </xsl:template>    
 
     <xsl:variable name="krextor:literal-properties">
-	<!-- TODO reconsider whether dc:identifier actually is the right property
+	<!-- TODO reconsider whether dct:identifier actually is the right property
 	     See discussion in the OpenMath ontology source -->
-	<Name property="&dc;identifier" normalize-space="true"/>
-	<CDName property="&dc;identifier" normalize-space="true"/>
-	<Description property="&dc;description" normalize-space="true"/>
-	<Title property="&dc;title" normalize-space="true"/>
-	<CDDate property="&dc;date" normalize-space="true"/>
+	<Name property="&dct;identifier" normalize-space="true"/>
+	<CDName property="&dct;identifier" normalize-space="true"/>
+	<Description property="&dct;description" normalize-space="true"/>
+	<Title property="&dct;title" normalize-space="true"/>
+	<CDDate property="&dct;date" normalize-space="true"/>
 	<CDComment property="&rdfs;comment" normalize-space="true"/>
 	<CDReviewDate property="&omo;reviewDate" normalize-space="true"/>
 	<cds:CDSReviewDate property="&omo;reviewDate" normalize-space="true"/>
