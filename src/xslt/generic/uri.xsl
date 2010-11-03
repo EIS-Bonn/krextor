@@ -172,17 +172,19 @@
 
     <xd:doc>creates an XPath-like string from the path to a node, 
 	e.g. <code>doc-sect1-para2</code> for <code>/doc/sect[1]/para[2]</code></xd:doc>
-    <function name="krextor:pseudo-xpath" as="xs:string">
+    <function name="krextor:pseudo-xpath" as="xs:string?">
 	<param name="node" as="node()"/>
 	<!-- TODO maybe also for attribute nodes? -->
 	<value-of select="if ($node/parent::node() instance of document-node())
 		then local-name($node)
-	    else concat(
-		krextor:pseudo-xpath($node/parent::node()),
-		'-',
-		local-name($node),
-		count($node/preceding-sibling::node()) + 1
-		)"/>
+            else if ($node/self::*)
+                then concat(
+                    krextor:pseudo-xpath($node/parent::node()),
+                    '-',
+                    local-name($node),
+                    count($node/preceding-sibling::node()) + 1
+                    )
+            else ()"/>
     </function>
 
     <xd:doc>Generates a URI for a resource using the default generation method and using the base URI of the given node</xd:doc>

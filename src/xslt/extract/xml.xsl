@@ -45,19 +45,11 @@
     <!-- Note that this is not the global default; actually the 
          concrete way of URI generation is decided on element level -->
     <!--
-    <param name="autogenerate-fragment-uris" select="'custom', 'generate-id'"/>
+    <param name="autogenerate-fragment-uris" select="'pseudo-xpath', 'generate-id'"/>
     -->
     <param name="autogenerate-fragment-uris" select="'generate-id'"/>
 
     <strip-space elements="*"/>
-
-    <!--
-    <template match="krextor-genuri:custom" as="xs:string?">
-	<param name="node"/>
-        <param name="base-uri"/>
-        <sequence select="'foo'"/>
-    </template>
-    -->
 
     <template match="*" mode="krextor:main">
         <call-template name="krextor:create-resource">
@@ -67,7 +59,7 @@
                 <krextor:property uri="&xml;localName" value="{local-name()}"/>
             </with-param>
             <!-- unordered; order does not work that easily -->
-            <with-param name="related-via-properties" select="'&xml;child'"/>
+            <with-param name="related-via-properties" select="'&xml;child'" tunnel="yes"/>
             <with-param name="process-next" select="*|@*|text()|comment()"/>
         </call-template>
     </template>
@@ -90,7 +82,7 @@
                 <krextor:property uri="&xml;string" value="{string()}"/>
             </with-param>
             <!-- unordered; order does not work that easily -->
-            <with-param name="related-via-properties" select="'&xml;child'"/>
+            <with-param name="related-via-properties" select="'&xml;child'" tunnel="yes"/>
         </call-template>
     </template>
 
@@ -101,7 +93,7 @@
                 <krextor:property uri="&xml;string" value="{string()}"/>
             </with-param>
             <!-- unordered; order does not work that easily -->
-            <with-param name="related-via-properties" select="'&xml;child'"/>
+            <with-param name="related-via-properties" select="'&xml;child'" tunnel="yes"/>
         </call-template>
     </template>
 </stylesheet>
