@@ -6,7 +6,7 @@
 
   <path id="javac.classpath">
     <!-- actually: lib/java, lib/saxon -->
-    <fileset dir="lib" includes="**/*.jar"/>
+    <fileset dir="lib" includes="lib/java/*.jar lib/saxon/saxon9.jar"/>
   </path>
 
   <path id="tests.classpath">
@@ -99,7 +99,7 @@ help    – print this help text
     <copy todir="dist-all/lib">
       <fileset dir="lib">
 	<include name="java/**"/>
-	<include name="saxon/**"/>
+	<include name="saxon/saxon9.jar"/>
       </fileset>
     </copy>
 
@@ -145,7 +145,7 @@ help    – print this help text
         <pathelement location="${build.java}"/>
         <pathelement location="${build.test}"/>
         <fileset dir="${java.lib}" includes="*.jar"/>
-        <fileset dir="${saxon.lib}" includes="*.jar"/>
+        <fileset dir="${saxon.lib}" includes="saxon9.jar"/>
       </classpath>
     </java>
   </target>
