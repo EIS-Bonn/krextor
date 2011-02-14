@@ -8,6 +8,9 @@ this license.
 For you convenience, we bundle Saxon with Krextor.  Every once a while, we update
 to the latest version.
 
+Version 9.1 (in saxon9.jar) is the last open source version that supported Java
+extension functions, which the Java output module uses.
+
 For more details about Saxon and obtaining the latest version, please see:
 
 * http://www.saxonica.com (commercial, schema-aware version)
@@ -15,9 +18,9 @@ For more details about Saxon and obtaining the latest version, please see:
   the one used here)
 
 Any trouble with the runnable capabilities of _this_ installation should be
-reported on the Krextor Trac at https://trac.kwarc.info/krextor/, not to the
+reported on the Krextor Trac at http://trac.kwarc.info/krextor/, not to the
 Saxon developers.
 
-Christoph Lange, November 25, 2008
+Christoph Lange, 2011-02-15
 ch.lange@jacobs-university.de
 
