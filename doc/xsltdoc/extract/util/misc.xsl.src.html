@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html><head><title>XML source view</title><link rel="stylesheet" type="text/css" href="../../xmlverbatim.css"></link></head><body class="xmlverb-default"><tt>
+<!-- converted by xmlverbatim.xsl 1.1, (c) O. Becker -->
+<div xmlns:xd="http://www.pnp-software.com/XSLTdoc" class="xmlverb-default">&lt;!--<span class="xmlverb-comment"><br></br>
+    *  Copyright (C) 2010<br></br>
+    *  Christoph Lange<br></br>
+    *  KWARC, Jacobs University Bremen<br></br>
+    *  http://kwarc.info/projects/krextor/<br></br>
+    *<br></br>
+    *   Krextor is free software; you can redistribute it and/or<br></br>
+    *         modify it under the terms of the GNU Lesser General Public<br></br>
+    *         License as published by the Free Software Foundation; either<br></br>
+    *         version 2 of the License, or (at your option) any later version.<br></br>
+    *<br></br>
+    *         This program is distributed in the hope that it will be useful,<br></br>
+    *         but WITHOUT ANY WARRANTY; without even the implied warranty of<br></br>
+    *         MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU<br></br>
+    *         Lesser General Public License for more details.<br></br>
+    *<br></br>
+    *         You should have received a copy of the GNU Lesser General Public<br></br>
+    *         License along with this library; if not, write to the<br></br>
+    *         Free Software Foundation, Inc., 59 Temple Place - Suite 330,<br></br>
+    *         Boston, MA 02111-1307, USA.<br></br>
+    * <br></br>
+</span>--&gt;<br></br>
+&lt;<span class="xmlverb-element-name"><a name="d23e2">stylesheet</a></span><span class="xmlverb-ns-name"> xmlns</span>="<span class="xmlverb-ns-uri">http://www.w3.org/1999/XSL/Transform</span>"<span class="xmlverb-ns-name"> xmlns:krextor</span>="<span class="xmlverb-ns-uri">http://kwarc.info/projects/krextor</span>"<span class="xmlverb-ns-name"> xmlns:xd</span>="<span class="xmlverb-ns-uri">http://www.pnp-software.com/XSLTdoc</span>" <span class="xmlverb-attr-name">exclude-result-prefixes</span>="<span class="xmlverb-attr-content">#all</span>" <span class="xmlverb-attr-name">version</span>="<span class="xmlverb-attr-content">2.0</span>"&gt;<span class="xmlverb-text"><br></br>
+  </span><div class="xd">
+  &lt;<span class="xmlverb-element-nsprefix">xd</span>:<span class="xmlverb-element-name"><a name="d23e4">doc</a></span> <span class="xmlverb-attr-name">type</span>="<span class="xmlverb-attr-content">stylesheet</span>"&gt;<span class="xmlverb-text">A collection of miscellaneous utility functions<br></br>
+        </span>&lt;<span class="xmlverb-element-nsprefix">xd</span>:<span class="xmlverb-element-name"><a name="d23e6">author</a></span>&gt;<span class="xmlverb-text">Christoph Lange</span>&lt;/<span class="xmlverb-element-nsprefix">xd</span>:<span class="xmlverb-element-name">author</span>&gt;<span class="xmlverb-text"><br></br>
+        </span>&lt;<span class="xmlverb-element-nsprefix">xd</span>:<span class="xmlverb-element-name"><a name="d23e9">copyright</a></span>&gt;<span class="xmlverb-text">Christoph Lange, 2010</span>&lt;/<span class="xmlverb-element-nsprefix">xd</span>:<span class="xmlverb-element-name">copyright</span>&gt;<span class="xmlverb-text"><br></br>
+        </span>&lt;<span class="xmlverb-element-nsprefix">xd</span>:<span class="xmlverb-element-name"><a name="d23e12">svnId</a></span>&gt;<span class="xmlverb-text">$Id: misc.xsl 899 2010-01-18 23:25:32Z clange $</span>&lt;/<span class="xmlverb-element-nsprefix">xd</span>:<span class="xmlverb-element-name">svnId</span>&gt;<span class="xmlverb-text"><br></br>
+    </span>&lt;/<span class="xmlverb-element-nsprefix">xd</span>:<span class="xmlverb-element-name">doc</span>&gt;</div><span class="xmlverb-text"><br></br>
+<br></br>
+<br></br>
+    </span><div class="xd">
+  &lt;<span class="xmlverb-element-nsprefix">xd</span>:<span class="xmlverb-element-name"><a name="d23e16">doc</a></span>&gt;<span class="xmlverb-text">Transforms e.g. false-conjecture → FalseConjecture</span>&lt;/<span class="xmlverb-element-nsprefix">xd</span>:<span class="xmlverb-element-name">doc</span>&gt;</div><span class="xmlverb-text"><br></br>
+    </span>&lt;<span class="xmlverb-element-name"><a name="d23e19">function</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">krextor:dashes-to-camelcase</span>"&gt;<span class="xmlverb-text"><br></br>
+        </span>&lt;<span class="xmlverb-element-name"><a name="d23e21">param</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">type</span>" /&gt;<span class="xmlverb-text"><br></br>
+        </span>&lt;<span class="xmlverb-element-name"><a name="d23e23">variable</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">capitalized-tokens</span>"&gt;<span class="xmlverb-text"><br></br>
+            </span>&lt;<span class="xmlverb-element-name"><a name="d23e25">for-each</a></span> <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">tokenize($type, '-')</span>"&gt;<span class="xmlverb-text"><br></br>
+                </span>&lt;<span class="xmlverb-element-name"><a name="d23e27">analyze-string</a></span> <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">.</span>" <span class="xmlverb-attr-name">regex</span>="<span class="xmlverb-attr-content">^(.)</span>"&gt;<span class="xmlverb-text"><br></br>
+                    </span>&lt;<span class="xmlverb-element-name"><a name="d23e29">matching-substring</a></span>&gt;<span class="xmlverb-text"><br></br>
+                        </span>&lt;<span class="xmlverb-element-name"><a name="d23e31">value-of</a></span> <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">upper-case(regex-group(1))</span>" /&gt;<span class="xmlverb-text"><br></br>
+                    </span>&lt;/<span class="xmlverb-element-name">matching-substring</span>&gt;<span class="xmlverb-text"><br></br>
+                    </span>&lt;<span class="xmlverb-element-name"><a name="d23e34">non-matching-substring</a></span>&gt;<span class="xmlverb-text"><br></br>
+                        </span>&lt;<span class="xmlverb-element-name"><a name="d23e36">value-of</a></span> <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">.</span>" /&gt;<span class="xmlverb-text"><br></br>
+                    </span>&lt;/<span class="xmlverb-element-name">non-matching-substring</span>&gt;<span class="xmlverb-text"><br></br>
+                </span>&lt;/<span class="xmlverb-element-name">analyze-string</span>&gt;<span class="xmlverb-text"><br></br>
+            </span>&lt;/<span class="xmlverb-element-name">for-each</span>&gt;<span class="xmlverb-text"><br></br>
+        </span>&lt;/<span class="xmlverb-element-name">variable</span>&gt;<span class="xmlverb-text"><br></br>
+        </span>&lt;<span class="xmlverb-element-name"><a name="d23e42">value-of</a></span> <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">string-join($capitalized-tokens, '')</span>" /&gt;<span class="xmlverb-text"><br></br>
+    </span>&lt;/<span class="xmlverb-element-name">function</span>&gt;<span class="xmlverb-text"><br></br>
+</span>&lt;/<span class="xmlverb-element-name">stylesheet</span>&gt;<br></br>
+</div>
+</tt><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br>v
+         </body></html>

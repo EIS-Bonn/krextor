@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html><head><title>XML source view</title><link rel="stylesheet" type="text/css" href="../../xmlverbatim.css"></link></head><body class="xmlverb-default"><tt>
+<!-- converted by xmlverbatim.xsl 1.1, (c) O. Becker -->
+<div xmlns:xd="http://www.pnp-software.com/XSLTdoc" class="xmlverb-default">&lt;!--<span class="xmlverb-comment"><br></br>
+    *  Copyright (C) 2010<br></br>
+    *  Christoph Lange<br></br>
+    *  KWARC, Jacobs University Bremen<br></br>
+    *  http://kwarc.info/projects/krextor/<br></br>
+    *<br></br>
+    *   Krextor is free software; you can redistribute it and/or<br></br>
+    *         modify it under the terms of the GNU Lesser General Public<br></br>
+    *         License as published by the Free Software Foundation; either<br></br>
+    *         version 2 of the License, or (at your option) any later version.<br></br>
+    *<br></br>
+    *         This program is distributed in the hope that it will be useful,<br></br>
+    *         but WITHOUT ANY WARRANTY; without even the implied warranty of<br></br>
+    *         MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU<br></br>
+    *         Lesser General Public License for more details.<br></br>
+    *<br></br>
+    *         You should have received a copy of the GNU Lesser General Public<br></br>
+    *         License along with this library; if not, write to the<br></br>
+    *         Free Software Foundation, Inc., 59 Temple Place - Suite 330,<br></br>
+    *         Boston, MA 02111-1307, USA.<br></br>
+    * <br></br>
+</span>--&gt;<br></br>
+&lt;<span class="xmlverb-element-name"><a name="d25e2">stylesheet</a></span><span class="xmlverb-ns-name"> xmlns:m</span>="<span class="xmlverb-ns-uri">http://www.w3.org/1998/Math/MathML</span>"<span class="xmlverb-ns-name"> xmlns</span>="<span class="xmlverb-ns-uri">http://www.w3.org/1999/XSL/Transform</span>"<span class="xmlverb-ns-name"> xmlns:om</span>="<span class="xmlverb-ns-uri">http://www.openmath.org/OpenMath</span>"<span class="xmlverb-ns-name"> xmlns:xd</span>="<span class="xmlverb-ns-uri">http://www.pnp-software.com/XSLTdoc</span>" <span class="xmlverb-attr-name">exclude-result-prefixes</span>="<span class="xmlverb-attr-content">#all</span>" <span class="xmlverb-attr-name">version</span>="<span class="xmlverb-attr-content">2.0</span>"&gt;<span class="xmlverb-text"><br></br>
+  </span><div class="xd">
+  &lt;<span class="xmlverb-element-nsprefix">xd</span>:<span class="xmlverb-element-name"><a name="d25e4">doc</a></span> <span class="xmlverb-attr-name">type</span>="<span class="xmlverb-attr-content">stylesheet</span>"&gt;<span class="xmlverb-text">A collection of utility functions for </span>&lt;<span class="xmlverb-element-name"><a name="d25e6">a</a></span> <span class="xmlverb-attr-name">href</span>="<span class="xmlverb-attr-content">http://www.omdoc.org</span>"&gt;<span class="xmlverb-text">OMDoc</span>&lt;/<span class="xmlverb-element-name">a</span>&gt;<span class="xmlverb-text">/</span>&lt;<span class="xmlverb-element-name"><a name="d25e9">a</a></span> <span class="xmlverb-attr-name">href</span>="<span class="xmlverb-attr-content">http://www.openmath.org</span>"&gt;<span class="xmlverb-text">OpenMath</span>&lt;/<span class="xmlverb-element-name">a</span>&gt;<span class="xmlverb-text"> notation definitions<br></br>
+        </span>&lt;<span class="xmlverb-element-nsprefix">xd</span>:<span class="xmlverb-element-name"><a name="d25e12">author</a></span>&gt;<span class="xmlverb-text">Christoph Lange</span>&lt;/<span class="xmlverb-element-nsprefix">xd</span>:<span class="xmlverb-element-name">author</span>&gt;<span class="xmlverb-text"><br></br>
+        </span>&lt;<span class="xmlverb-element-nsprefix">xd</span>:<span class="xmlverb-element-name"><a name="d25e15">copyright</a></span>&gt;<span class="xmlverb-text">Christoph Lange, 2010</span>&lt;/<span class="xmlverb-element-nsprefix">xd</span>:<span class="xmlverb-element-name">copyright</span>&gt;<span class="xmlverb-text"><br></br>
+        </span>&lt;<span class="xmlverb-element-nsprefix">xd</span>:<span class="xmlverb-element-name"><a name="d25e18">svnId</a></span>&gt;<span class="xmlverb-text">$Id: ntn.xsl 889 2010-01-11 12:21:01Z clange $</span>&lt;/<span class="xmlverb-element-nsprefix">xd</span>:<span class="xmlverb-element-name">svnId</span>&gt;<span class="xmlverb-text"><br></br>
+    </span>&lt;/<span class="xmlverb-element-nsprefix">xd</span>:<span class="xmlverb-element-name">doc</span>&gt;</div><span class="xmlverb-text"><br></br>
+<br></br>
+    </span><div class="xd">
+  &lt;<span class="xmlverb-element-nsprefix">xd</span>:<span class="xmlverb-element-name"><a name="d25e22">doc</a></span>&gt;<span class="xmlverb-text">Determine the symbol that a prototype element (OMDoc or MathML CD namespace) matches.  Returns a dummy element with @cdbase, @cd, and @name attributes.</span>&lt;/<span class="xmlverb-element-nsprefix">xd</span>:<span class="xmlverb-element-name">doc</span>&gt;</div><span class="xmlverb-text"><br></br>
+    </span>&lt;<span class="xmlverb-element-name"><a name="d25e25">function</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">om:matched-symbol</span>"&gt;<span class="xmlverb-text"><br></br>
+    </span>&lt;!--<span class="xmlverb-comment"> the mcd:prototype element </span>--&gt;<span class="xmlverb-text"><br></br>
+    </span>&lt;<span class="xmlverb-element-name"><a name="d25e29">param</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">prototype</span>" /&gt;<span class="xmlverb-text"><br></br>
+    </span>&lt;<span class="xmlverb-element-name"><a name="d25e31">variable</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">symbol</span>" <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">$prototype/( (: FIXME is this correct, or too simple? :) descendant::om:OMS (: TODO make OpenMath and MathML handling completely equivalent :) |descendant::m:csymbol|m:semantics/m:annotation-xml)[1]</span>" /&gt;<span class="xmlverb-text"><br></br>
+    </span>&lt;<span class="xmlverb-element-nsprefix">om</span>:<span class="xmlverb-element-name"><a name="d25e33">_</a></span>&gt;<span class="xmlverb-text"><br></br>
+        </span>&lt;<span class="xmlverb-element-name"><a name="d25e35">for-each</a></span> <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">'cdbase', 'cd', 'name'</span>"&gt;<span class="xmlverb-text"><br></br>
+        </span>&lt;<span class="xmlverb-element-name"><a name="d25e37">variable</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">attribute</span>" <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">$symbol/@*[local-name() eq current()]</span>" /&gt;<span class="xmlverb-text"><br></br>
+        </span>&lt;<span class="xmlverb-element-name"><a name="d25e39">if</a></span> <span class="xmlverb-attr-name">test</span>="<span class="xmlverb-attr-content">$attribute</span>"&gt;<span class="xmlverb-text"><br></br>
+            </span>&lt;<span class="xmlverb-element-name"><a name="d25e41">attribute</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">{current()}</span>" <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">$attribute</span>" /&gt;<span class="xmlverb-text"><br></br>
+        </span>&lt;/<span class="xmlverb-element-name">if</span>&gt;<span class="xmlverb-text"><br></br>
+        </span>&lt;/<span class="xmlverb-element-name">for-each</span>&gt;<span class="xmlverb-text"><br></br>
+    </span>&lt;/<span class="xmlverb-element-nsprefix">om</span>:<span class="xmlverb-element-name">_</span>&gt;<span class="xmlverb-text"><br></br>
+    </span>&lt;/<span class="xmlverb-element-name">function</span>&gt;<span class="xmlverb-text"><br></br>
+</span>&lt;/<span class="xmlverb-element-name">stylesheet</span>&gt;<br></br>
+</div>
+</tt><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br>v
+         </body></html>
