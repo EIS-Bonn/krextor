@@ -380,7 +380,7 @@
 	    <when test="not(empty($krextor:literal-properties))">
 		<!-- variant without key: compare local-name and namespace-uri -->
 		<variable name="mapping" as="element()" select="key('krextor:literal-properties',
-		    resolve-QName(name(), .), 
+		    resolve-QName(name(), if (. instance of attribute()) then parent::node() else .), 
 		    if (not(empty($krextor:literal-properties)))
 		    then $krextor:literal-properties
 		    else $krextor:dummy-node)"/>
@@ -391,7 +391,7 @@
 		<call-template name="krextor:add-literal-property">
 		    <with-param name="property" select="$mapping/@property"/>
 		    <with-param name="object-is-list" select="boolean($mapping/@list)"/>
-		    <with-param name="normalize-space" select="$mapping/@normalize-space"/>
+		    <with-param name="normalize-space" select="boolean($mapping/@normalize-space)"/>
 		</call-template>
 	    </when>
 	    <otherwise>
