@@ -32,6 +32,7 @@
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" 
     xpath-default-namespace="http://www.openmath.org/OpenMathCD"
     xmlns:krextor="http://kwarc.info/projects/krextor"
+    xmlns:krextor-genuri="http://kwarc.info/projects/krextor/genuri"
     xmlns="http://www.openmath.org/OpenMathCD"
     xmlns:om="http://www.openmath.org/OpenMath"
     xmlns:cd="http://www.openmath.org/OpenMathCD"
@@ -40,6 +41,7 @@
     xmlns:m="http://www.w3.org/1998/Math/MathML"
     xmlns:mcd="http://www.w3.org/ns/mathml-cd"
     xmlns:xd="http://www.pnp-software.com/XSLTdoc"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema"
     xmlns:xi="http://www.w3.org/2001/XInclude"
     exclude-result-prefixes="#all"
     version="2.0">
@@ -47,10 +49,10 @@
     <xd:doc type="stylesheet">
 	<xd:short>Extraction module for <a href="http://www.openmath.org">OpenMath</a> content dictionaries (CDs)</xd:short>
 	<xd:detail>
-	    <p>This stylesheet extracts RDF from <a href="http://www.openmath.org">OpenMath</a> content dictionaries (CDs).  Currently, RDF is only extracted from top-level elements. CDs are assumed to be split into fragments of interest, which are XIncluded by their parents.  This corresponds to the way OpenMath CDs are used in the semantic wiki <a href="http://kwarc.info/projects/swim/">SWiM</a>.</p>
+	    <p>This stylesheet extracts RDF from <a href="http://www.openmath.org">OpenMath</a> content dictionaries (CDs).</p>
+            <p>CDs are either processed in their original form, or they are assumed to be split into fragments of interest, which are XIncluded by their parents (this corresponds to the way OpenMath CDs are used in the semantic wiki <a href="http://kwarc.info/projects/swim/">SWiM</a>).</p>
 	    <p>Existing metadata vocabularies are reused, as documented in the ontology.</p>
 	    <p>See <a href="https://svn.openmath.org/OpenMath3/owl">https://svn.openmath.org/OpenMath3/owl</a> for the corresponding ontology.</p>
-            <p>See <a href="https://svn.salzburgresearch.at/svn/kiwi/IkeWiki/branches/SWiM/trunk/WEB-INF/src/at/srfg/ikewiki/render/import-ocd.xsl">https://svn.salzburgresearch.at/svn/kiwi/IkeWiki/branches/SWiM/trunk/WEB-INF/src/at/srfg/ikewiki/render/import-ocd.xsl</a> for an implementation of splitting CDs as required by this extraction module.</p>
 	</xd:detail>
 	<xd:author>Christoph Lange</xd:author>
 	<xd:copyright>Christoph Lange, 2008</xd:copyright>
@@ -60,6 +62,56 @@
     <xsl:include href="util/openmath.xsl"/>
 
     <xsl:strip-space elements="*"/>
+
+    <xd:doc>
+      <xd:short>Are input documents split into fragments?</xd:short>
+      <xd:detail>
+        <p>Do we assume that the input documents have been split into fragments of the size of knowledge items?</p>
+        <p>See <a href="https://svn.salzburgresearch.at/svn/kiwi/IkeWiki/branches/SWiM/trunk/WEB-INF/src/at/srfg/ikewiki/render/import-ocd.xsl">https://svn.salzburgresearch.at/svn/kiwi/IkeWiki/branches/SWiM/trunk/WEB-INF/src/at/srfg/ikewiki/render/import-ocd.xsl</a> for an implementation of splitting CDs as required by this extraction module.</p>
+      </xd:detail>
+    </xd:doc>
+    <xsl:param name="split-input" select="true()"/>
+
+    <xd:doc>
+      <p>In case of split input, we assume that its document base URIs and <code>xml:id</code>s have been initialized correctly.  Otherwise we generate OpenMath-compliant URIs ourselves.</p>
+    </xd:doc>
+    <xsl:param name="autogenerate-fragment-uris" as="xs:string*">
+      <xsl:if test="not($split-input)">
+        <xsl:sequence select="'openmath'"/>
+      </xsl:if>
+      <xsl:sequence select="'xml-id'"/>
+      <xsl:if test="$split-input">
+        <xsl:sequence select="'document-root-base'"/>
+      </xsl:if>
+    </xsl:param>
+
+    <xd:doc>
+      Top-level implementation of OpenMath-compliant URI generation; we delegate to per-element templates.
+    </xd:doc>
+    <xsl:template match="krextor-genuri:openmath" as="xs:anyURI?">
+      <xsl:param name="node"/>
+      <xsl:param name="base-uri"/>
+      <xsl:message>Trying to generate an OpenMath URI for</xsl:message>
+      <xsl:message select="$node"/>
+      <xsl:apply-templates select="$node" mode="krextor-genuri:openmath"/>
+    </xsl:template>
+
+    <xsl:template match="CD" mode="krextor-genuri:openmath" as="xs:anyURI?">
+      <xsl:param name="openmath-cd-uri" as="xs:anyURI" select="xs:anyURI('')" tunnel="yes"/>
+      <xsl:sequence select="$openmath-cd-uri"/>
+    </xsl:template>
+
+    <xsl:template match="CDDefinition" mode="krextor-genuri:openmath" as="xs:anyURI?">
+      <xsl:param name="openmath-cd-uri" tunnel="yes"/>
+      <xsl:sequence select="xs:anyURI(
+                            concat(
+                            $openmath-cd-uri,
+                            '#',
+                            normalize-space(Name[1])))"/>
+    </xsl:template>
+    
+    <xd:doc>Fail to generate an OpenMath URI for all elements for which none is specified, i.e. all elements except <code>CD</code> and <code>CDDefinition</code></xd:doc>
+    <xsl:template match="*" mode="krextor-genuri:openmath" as="xs:anyURI?"/>
     
     <xd:doc>Easy XML → RDF mappings</xd:doc>
     <xsl:variable name="krextor:resources">
@@ -87,18 +139,41 @@
     </xsl:variable>
 
     <xsl:template match="CD|
-	CDDefinition|
-	description|
-	discussion|
-	Pragmatic|
-	Example|
-	MMLexample|
-	cdg:CDGroup|
-	cds:CDSignatures|
-	cds:Signature|
-	mcd:notations" mode="krextor:main">
+                         CDDefinition|
+                         description|
+                         discussion|
+                         Pragmatic|
+                         Example|
+                         MMLexample|
+                         cdg:CDGroup|
+                         cds:CDSignatures|
+                         cds:Signature|
+                         mcd:notations"
+                  mode="krextor:main">
 	<xsl:apply-templates select="." mode="krextor:create-resource"/>
-    </xsl:template>    
+    </xsl:template>
+
+    <xsl:template match="CD" mode="krextor:main">
+      <xsl:choose>
+        <xsl:when test="$split-input">
+          <xsl:apply-templates select="." mode="krextor:create-resource">
+            <xsl:with-param
+                name="openmath-cd-uri"
+                select="xs:anyURI(
+                        concat(
+                        normalize-space(CDBase[1]),
+                        '/',
+                        normalize-space(CDName[1])))"
+                as="xs:anyURI"
+                tunnel="yes"/>
+          </xsl:apply-templates>
+        </xsl:when>
+        <xsl:otherwise>
+          <!-- this is the template above -->
+          <xsl:next-match/>
+        </xsl:otherwise>
+      </xsl:choose>
+    </xsl:template>
 
     <xsl:variable name="krextor:literal-properties">
 	<!-- TODO reconsider whether dct:identifier actually is the right property
