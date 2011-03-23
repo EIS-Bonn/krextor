@@ -1,0 +1,3614 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?latexml searchpaths=".,/home/dreamweaver/arXMLiv/trunk/sty,//media/b64bcb85-dc6d-4823-88a0-69217a08f7b2/lamapun_workspace/sandbox/saarb-subset/tmp/"?>
+<?latexml options="12pt,a4paper,twoside" class="article"?>
+<?latexml package="amsmath,amsfonts,amssymb,a4,enumerate,epsfig,array,theorem"?>
+<!-- %\newcommand{\half}{\frac{1}{2}} -->
+<!-- %\newcommand{\half}{{1/2}} -->
+<!-- %**** miniannuli.tex Line 25 **** -->
+<!-- %**** miniannuli.tex Line 50 **** -->
+<!-- %\pagestyle{myheadings} -->
+<!-- %\markboth{\today}{\today} -->
+<?latexml RelaxNGSchema="LaTeXML"?>
+<document xmlns:dct="http://purl.org/dc/terms/" xmlns:arx="http://arxmliv.kwarc.info/ns/" xmlns="http://dlmf.nist.gov/LaTeXML" xml:id="document.1">
+  <keywords property="dct:identifier" content="math.CO/0102027"/>
+  <keywords property="dct:publisher" content="Nicolau C. Saldanha &lt;nicolau@mat.puc-rio.br&gt;"/>
+  <keywords property="dct:dateSubmitted" content="Sat, 3 Feb 2001 20:07:37 GMT   "/>
+  <keywords property="dct:title" content="Two results on tilings of quadriculated annuli"/>
+  <keywords property="dct:creator" content="Nicolau C. Saldanha and Carlos Tomei"/>
+  <keywords property="dct:subject" content="math.CO"/>
+  <keywords property="arx:comment" content="8 pages, 6 figuresSubj-class: CombinatoricsMSC-class: Primary 05B45, Secondary 05A15, 05C50, 05E05"/>
+  <title xml:id="title.1">
+    <sentence xml:id="sentence.1">
+      <word xml:id="word.1">
+        <token xml:id="token.1">Two</token>
+      </word>
+      <word xml:id="word.2">
+        <token xml:id="token.2">results</token>
+      </word>
+      <word xml:id="word.3">
+        <token xml:id="token.3">on</token>
+      </word>
+      <word xml:id="word.4">
+        <token xml:id="token.4">tilings</token>
+      </word>
+      <word xml:id="word.5">
+        <token xml:id="token.5">of</token>
+      </word>
+      <word xml:id="word.6">
+        <token xml:id="token.6">quadriculated</token>
+      </word>
+      <word xml:id="word.7">
+        <token xml:id="token.7">annuli</token>
+      </word>
+    </sentence>
+  </title>
+  <creator role="author" xml:id="creator.1">
+    <personname xml:id="personname.1">
+      <sentence xml:id="sentence.2">
+        <word xml:id="word.8">
+          <token xml:id="token.8">Nicolau</token>
+        </word>
+        <word xml:id="word.9">
+          <token xml:id="token.9">C</token>
+          <token xml:id="token.10">.</token>
+        </word>
+        <word xml:id="word.10">
+          <token xml:id="token.11">Saldanha</token>
+        </word>
+        <word xml:id="word.11">
+          <token xml:id="token.12">and</token>
+        </word>
+        <word xml:id="word.12">
+          <token xml:id="token.13">Carlos</token>
+        </word>
+        <word xml:id="word.13">
+          <token xml:id="token.14">Tomei</token>
+        </word>
+      </sentence>
+    </personname>
+  </creator>
+  <date role="creation" xml:id="date.1"/>
+  <para xml:id="para.1">
+    <sentence xml:id="sentence.6">
+      <word xml:id="word.73">
+        <token xml:id="token.94">There</token>
+      </word>
+      <word xml:id="word.74">
+        <token xml:id="token.95">is</token>
+      </word>
+      <word xml:id="word.75">
+        <token xml:id="token.96">an</token>
+      </word>
+      <word xml:id="word.76">
+        <token xml:id="token.97">unexpected</token>
+      </word>
+      <word xml:id="word.77">
+        <token xml:id="token.98">rigidity</token>
+      </word>
+      <word xml:id="word.78">
+        <token xml:id="token.99">for</token>
+      </word>
+      <word xml:id="word.79">
+        <token xml:id="token.100">the</token>
+      </word>
+      <formula xml:id="formula.8">
+        <Math xmlns="http://dlmf.nist.gov/LaTeXML" mode="inline" tex="-1" xml:id="Math.8">
+          <XMath xml:id="XMath.8">
+            <token meaning="minus" role="ADDOP" xml:id="token.101">-</token>
+            <token meaning="1" role="NUMBER" xml:id="token.102">1</token>
+          </XMath>
+        </Math>
+      </formula>
+      <word xml:id="word.80">
+        <token xml:id="token.103">counting</token>
+      </word>
+      <word xml:id="word.81">
+        <token xml:id="token.104">of</token>
+      </word>
+      <word xml:id="word.82">
+        <token xml:id="token.105">tilings</token>
+      </word>
+      <word xml:id="word.83">
+        <token xml:id="token.106">of</token>
+      </word>
+      <word xml:id="word.84">
+        <token xml:id="token.107">quadriculated</token>
+      </word>
+      <word xml:id="word.85">
+        <token xml:id="token.108">disks</token>
+      </word>
+      <word xml:id="word.86">
+        <token xml:id="token.109">,</token>
+      </word>
+      <word xml:id="word.87">
+        <token xml:id="token.110">as</token>
+      </word>
+      <word xml:id="word.88">
+        <token xml:id="token.111">described</token>
+      </word>
+      <word xml:id="word.89">
+        <token xml:id="token.112">in</token>
+      </word>
+      <word xml:id="word.90">
+        <token xml:id="token.113">ourcitation</token>
+        <token xml:id="token.114">-</token>
+        <token xml:id="token.115">doc0</token>
+        <token xml:id="token.116">-</token>
+        <token xml:id="token.117">c1</token>
+      </word>
+      <word xml:id="word.91">
+        <token xml:id="token.118">:</token>
+      </word>
+    </sentence>
+  </para>
+  <theorem class="theo" refnum="1" xml:id="theorem.1" labels="LABEL:theo:DT">
+    <title xml:id="title.2">
+      <sentence xml:id="sentence.7">
+        <word xml:id="word.92">
+          <token xml:id="token.119">Theorem</token>
+        </word>
+        <word xml:id="word.93">
+          <token xml:id="token.120">1</token>
+        </word>
+        <word xml:id="word.94">
+          <token xml:id="token.121">.</token>
+        </word>
+      </sentence>
+    </title>
+    <para xml:id="para.2">
+      <sentence xml:id="sentence.8">
+        <word font="italic" xml:id="word.95">
+          <token xml:id="token.122">Let</token>
+        </word>
+        <formula xml:id="formula.9">
+          <Math xmlns="http://dlmf.nist.gov/LaTeXML" mode="inline" tex="D" xml:id="Math.9">
+            <XMath xml:id="XMath.9">
+              <token role="UNKNOWN" xml:id="token.123">D</token>
+            </XMath>
+          </Math>
+        </formula>
+        <word font="italic" xml:id="word.96">
+          <token xml:id="token.124">be</token>
+        </word>
+        <word font="italic" xml:id="word.97">
+          <token xml:id="token.125">a</token>
+        </word>
+        <word font="italic" xml:id="word.98">
+          <token xml:id="token.126">quadriculated</token>
+        </word>
+        <word font="italic" xml:id="word.99">
+          <token xml:id="token.127">disk</token>
+        </word>
+        <word font="italic" xml:id="word.100">
+          <token xml:id="token.128">.</token>
+        </word>
+      </sentence>
+      <sentence xml:id="sentence.9">
+        <word font="italic" xml:id="word.101">
+          <token xml:id="token.129">Then</token>
+        </word>
+        <word font="italic" xml:id="word.102">
+          <token xml:id="token.130">the</token>
+        </word>
+        <word font="italic" xml:id="word.103">
+          <token xml:id="token.131">determinant</token>
+        </word>
+        <word font="italic" xml:id="word.104">
+          <token xml:id="token.132">of</token>
+        </word>
+        <word font="italic" xml:id="word.105">
+          <token xml:id="token.133">the</token>
+        </word>
+        <word font="italic" xml:id="word.106">
+          <token xml:id="token.134">adjacency</token>
+        </word>
+        <word font="italic" xml:id="word.107">
+          <token xml:id="token.135">matrix</token>
+        </word>
+        <word font="italic" xml:id="word.108">
+          <token xml:id="token.136">of</token>
+        </word>
+        <word font="italic" xml:id="word.109">
+          <token xml:id="token.137">the</token>
+        </word>
+        <word font="italic" xml:id="word.110">
+          <token xml:id="token.138">squares</token>
+        </word>
+        <word font="italic" xml:id="word.111">
+          <token xml:id="token.139">of</token>
+        </word>
+        <formula xml:id="formula.10">
+          <Math xmlns="http://dlmf.nist.gov/LaTeXML" mode="inline" tex="D" xml:id="Math.10">
+            <XMath xml:id="XMath.10">
+              <token role="UNKNOWN" xml:id="token.140">D</token>
+            </XMath>
+          </Math>
+        </formula>
+        <word font="italic" xml:id="word.112">
+          <token xml:id="token.141">equals</token>
+        </word>
+        <word font="italic" xml:id="word.113">
+          <token xml:id="token.142">1</token>
+        </word>
+        <word font="italic" xml:id="word.114">
+          <token xml:id="token.143">,</token>
+        </word>
+        <word font="italic" xml:id="word.115">
+          <token xml:id="token.144">0</token>
+        </word>
+        <word font="italic" xml:id="word.116">
+          <token xml:id="token.145">or</token>
+        </word>
+        <word font="italic" xml:id="word.117">
+          <token xml:id="token.146">1</token>
+        </word>
+        <word font="italic" xml:id="word.118">
+          <token xml:id="token.147">.</token>
+        </word>
+      </sentence>
+    </para>
+  </theorem>
+  <para xml:id="para.3">
+    <sentence xml:id="sentence.10">
+      <word xml:id="word.119">
+        <token xml:id="token.148">In</token>
+      </word>
+      <word xml:id="word.120">
+        <token xml:id="token.149">ourcitation</token>
+        <token xml:id="token.150">-</token>
+        <token xml:id="token.151">doc0</token>
+        <token xml:id="token.152">-</token>
+        <token xml:id="token.153">c2</token>
+      </word>
+      <word xml:id="word.121">
+        <token xml:id="token.154">we</token>
+      </word>
+      <word xml:id="word.122">
+        <token xml:id="token.155">prove</token>
+      </word>
+      <word xml:id="word.123">
+        <token xml:id="token.156">Theorem</token>
+      </word>
+      <word xml:id="word.124">
+        <token xml:id="token.157">ourreference</token>
+        <token xml:id="token.158">-</token>
+        <token xml:id="token.159">doc0</token>
+        <token xml:id="token.160">-</token>
+        <token xml:id="token.161">r0</token>
+      </word>
+      <word xml:id="word.125">
+        <token xml:id="token.162">below</token>
+      </word>
+      <word xml:id="word.126">
+        <token xml:id="token.163">which</token>
+      </word>
+      <word xml:id="word.127">
+        <token xml:id="token.164">,</token>
+      </word>
+      <word xml:id="word.128">
+        <token xml:id="token.165">in</token>
+      </word>
+      <word xml:id="word.129">
+        <token xml:id="token.166">a</token>
+      </word>
+      <word xml:id="word.130">
+        <token xml:id="token.167">sense</token>
+      </word>
+      <word xml:id="word.131">
+        <token xml:id="token.168">,</token>
+      </word>
+      <word xml:id="word.132">
+        <token xml:id="token.169">extends</token>
+      </word>
+      <word xml:id="word.133">
+        <token xml:id="token.170">this</token>
+      </word>
+      <word xml:id="word.134">
+        <token xml:id="token.171">rigidity</token>
+      </word>
+      <word xml:id="word.135">
+        <token xml:id="token.172">to</token>
+      </word>
+      <word xml:id="word.136">
+        <token xml:id="token.173">annuli</token>
+      </word>
+      <word xml:id="word.137">
+        <token xml:id="token.174">.</token>
+      </word>
+    </sentence>
+    <sentence xml:id="sentence.11">
+      <word xml:id="word.138">
+        <token xml:id="token.175">In</token>
+      </word>
+      <word xml:id="word.139">
+        <token xml:id="token.176">this</token>
+      </word>
+      <word xml:id="word.140">
+        <token xml:id="token.177">shorter</token>
+      </word>
+      <word xml:id="word.141">
+        <token xml:id="token.178">text</token>
+      </word>
+      <word xml:id="word.142">
+        <token xml:id="token.179">,</token>
+      </word>
+      <word xml:id="word.143">
+        <token xml:id="token.180">we</token>
+      </word>
+      <word xml:id="word.144">
+        <token xml:id="token.181">present</token>
+      </word>
+      <word xml:id="word.145">
+        <token xml:id="token.182">a</token>
+      </word>
+      <word xml:id="word.146">
+        <token xml:id="token.183">more</token>
+      </word>
+      <word xml:id="word.147">
+        <token xml:id="token.184">informal</token>
+      </word>
+      <word xml:id="word.148">
+        <token xml:id="token.185">proof</token>
+      </word>
+      <word xml:id="word.149">
+        <token xml:id="token.186">of</token>
+      </word>
+      <word xml:id="word.150">
+        <token xml:id="token.187">this</token>
+      </word>
+      <word xml:id="word.151">
+        <token xml:id="token.188">result</token>
+      </word>
+      <word xml:id="word.152">
+        <token xml:id="token.189">.</token>
+      </word>
+    </sentence>
+  </para>
+  
+  <section refnum="2" xml:id="section.2">
+    <title xml:id="title.5">
+      <sentence xml:id="sentence.38">
+        <word xml:id="word.493">
+          <token xml:id="token.583">The</token>
+        </word>
+        <formula xml:id="formula.22">
+          <Math xmlns="http://dlmf.nist.gov/LaTeXML" mode="inline" tex="q" xml:id="Math.22">
+            <XMath xml:id="XMath.22">
+              <token role="UNKNOWN" font="italic" xml:id="token.584">q</token>
+            </XMath>
+          </Math>
+        </formula>
+        <word xml:id="word.494">
+          <token xml:id="token.585">flux</token>
+        </word>
+        <word xml:id="word.495">
+          <token xml:id="token.586">polynomial</token>
+        </word>
+      </sentence>
+    </title>
+    <para xml:id="para.10">
+      <sentence xml:id="sentence.39">
+        <word xml:id="word.496">
+          <token xml:id="token.587">We</token>
+        </word>
+        <word xml:id="word.497">
+          <token xml:id="token.588">will</token>
+        </word>
+        <word xml:id="word.498">
+          <token xml:id="token.589">define</token>
+        </word>
+        <word xml:id="word.499">
+          <token xml:id="token.590">the</token>
+        </word>
+        <word font="italic" xml:id="word.500">
+          <token xml:id="token.591">volume</token>
+        </word>
+        <formula xml:id="formula.23">
+          <Math xmlns="http://dlmf.nist.gov/LaTeXML" mode="inline" tex="\nu(t)" xml:id="Math.23">
+            <XMath xml:id="XMath.23">
+              <token name="nu" role="UNKNOWN" font="italic" xml:id="token.592">ν</token>
+              <token role="OPEN" xml:id="token.593">(</token>
+              <token role="UNKNOWN" font="italic" xml:id="token.594">t</token>
+              <token role="CLOSE" xml:id="token.595">)</token>
+            </XMath>
+          </Math>
+        </formula>
+        <word xml:id="word.501">
+          <token xml:id="token.596">of</token>
+        </word>
+        <word xml:id="word.502">
+          <token xml:id="token.597">a</token>
+        </word>
+        <word xml:id="word.503">
+          <token xml:id="token.598">tiling</token>
+        </word>
+        <formula xml:id="formula.24">
+          <Math xmlns="http://dlmf.nist.gov/LaTeXML" mode="inline" tex="t\in T_{A}" xml:id="Math.24">
+            <XMath xml:id="XMath.24">
+              <token role="UNKNOWN" font="italic" xml:id="token.599">t</token>
+              <token meaning="element-of" name="in" role="RELOP" xml:id="token.600">∈</token>
+              <token role="UNKNOWN" font="italic" xml:id="token.601">T</token>
+              <XMApp role="POSTSUBSCRIPT" scriptpos="2" xml:id="XMApp.4">
+                <XMArg rule="Subscript" xml:id="XMArg.4">
+                  <token role="UNKNOWN" font="italic" xml:id="token.602">A</token>
+                </XMArg>
+              </XMApp>
+            </XMath>
+          </Math>
+        </formula>
+        <word xml:id="word.504">
+          <token xml:id="token.603">;</token>
+        </word>
+        <word xml:id="word.505">
+          <token xml:id="token.604">volume</token>
+        </word>
+        <word xml:id="word.506">
+          <token xml:id="token.605">increases</token>
+        </word>
+        <word xml:id="word.507">
+          <token xml:id="token.606">by</token>
+        </word>
+        <word xml:id="word.508">
+          <token xml:id="token.607">one</token>
+        </word>
+        <word xml:id="word.509">
+          <token xml:id="token.608">when</token>
+        </word>
+        <word xml:id="word.510">
+          <token xml:id="token.609">applying</token>
+        </word>
+        <word xml:id="word.511">
+          <token xml:id="token.610">a</token>
+        </word>
+        <word xml:id="word.512">
+          <token xml:id="token.611">positive</token>
+        </word>
+        <word xml:id="word.513">
+          <token xml:id="token.612">flip</token>
+        </word>
+        <word xml:id="word.514">
+          <token xml:id="token.613">.</token>
+        </word>
+      </sentence>
+      <sentence xml:id="sentence.40">
+        <word xml:id="word.515">
+          <token xml:id="token.614">The</token>
+        </word>
+        <formula xml:id="formula.25">
+          <Math xmlns="http://dlmf.nist.gov/LaTeXML" mode="inline" tex="q" xml:id="Math.25">
+            <XMath xml:id="XMath.25">
+              <token role="UNKNOWN" font="italic" xml:id="token.615">q</token>
+            </XMath>
+          </Math>
+        </formula>
+        <word xml:id="word.516">
+          <token xml:id="token.616">flux</token>
+        </word>
+        <word xml:id="word.517">
+          <token xml:id="token.617">polynomial</token>
+        </word>
+        <formula xml:id="formula.26">
+          <Math xmlns="http://dlmf.nist.gov/LaTeXML" mode="inline" tex="\Phi _{A}(p,q)" xml:id="Math.26">
+            <XMath xml:id="XMath.26">
+              <token name="Phi" role="UNKNOWN" xml:id="token.618">Φ</token>
+              <XMApp role="POSTSUBSCRIPT" scriptpos="2" xml:id="XMApp.5">
+                <XMArg rule="Subscript" xml:id="XMArg.5">
+                  <token role="UNKNOWN" font="italic" xml:id="token.619">A</token>
+                </XMArg>
+              </XMApp>
+              <token role="OPEN" xml:id="token.620">(</token>
+              <token role="UNKNOWN" font="italic" xml:id="token.621">p</token>
+              <token role="PUNCT" xml:id="token.622">,</token>
+              <token role="UNKNOWN" font="italic" xml:id="token.623">q</token>
+              <token role="CLOSE" xml:id="token.624">)</token>
+            </XMath>
+          </Math>
+        </formula>
+        <word xml:id="word.518">
+          <token xml:id="token.625">will</token>
+        </word>
+        <formula xml:id="formula.27">
+          <Math xmlns="http://dlmf.nist.gov/LaTeXML" mode="inline" tex="(p,q)" xml:id="Math.27">
+            <XMath xml:id="XMath.27">
+              <token role="OPEN" xml:id="token.626">(</token>
+              <token role="UNKNOWN" font="italic" xml:id="token.627">p</token>
+              <token role="PUNCT" xml:id="token.628">,</token>
+              <token role="UNKNOWN" font="italic" xml:id="token.629">q</token>
+              <token role="CLOSE" xml:id="token.630">)</token>
+            </XMath>
+          </Math>
+        </formula>
+        <word xml:id="word.519">
+          <token xml:id="token.631">count</token>
+        </word>
+        <word xml:id="word.520">
+          <token xml:id="token.632">tilings</token>
+        </word>
+        <word xml:id="word.521">
+          <token xml:id="token.633">with</token>
+        </word>
+        <word xml:id="word.522">
+          <token xml:id="token.634">respect</token>
+        </word>
+        <word xml:id="word.523">
+          <token xml:id="token.635">to</token>
+        </word>
+        <word xml:id="word.524">
+          <token xml:id="token.636">flux</token>
+        </word>
+        <word xml:id="word.525">
+          <token xml:id="token.637">and</token>
+        </word>
+        <word xml:id="word.526">
+          <token xml:id="token.638">volume</token>
+        </word>
+        <word xml:id="word.527">
+          <token xml:id="token.639">.</token>
+        </word>
+      </sentence>
+    </para>
+    <!-- %**** miniannuli.tex Line 200 **** -->
+    <para xml:id="para.11">
+      <sentence xml:id="sentence.41">
+        <word xml:id="word.528">
+          <token xml:id="token.640">Open</token>
+        </word>
+        <word xml:id="word.529">
+          <token xml:id="token.641">the</token>
+        </word>
+        <word xml:id="word.530">
+          <token xml:id="token.642">annulus</token>
+        </word>
+        <formula xml:id="formula.28">
+          <Math xmlns="http://dlmf.nist.gov/LaTeXML" mode="inline" tex="A" xml:id="Math.28">
+            <XMath xml:id="XMath.28">
+              <token role="UNKNOWN" font="italic" xml:id="token.643">A</token>
+            </XMath>
+          </Math>
+        </formula>
+        <word xml:id="word.531">
+          <token xml:id="token.644">by</token>
+        </word>
+        <word xml:id="word.532">
+          <token xml:id="token.645">a</token>
+        </word>
+        <word font="italic" xml:id="word.533">
+          <token xml:id="token.646">cut</token>
+        </word>
+        <formula xml:id="formula.29">
+          <Math xmlns="http://dlmf.nist.gov/LaTeXML" mode="inline" tex="\xi" xml:id="Math.29">
+            <XMath xml:id="XMath.29">
+              <token name="xi" role="UNKNOWN" font="italic" xml:id="token.647">ξ</token>
+            </XMath>
+          </Math>
+        </formula>
+        <word xml:id="word.534">
+          <token xml:id="token.648">in</token>
+        </word>
+        <word xml:id="word.535">
+          <token xml:id="token.649">order</token>
+        </word>
+        <word xml:id="word.536">
+          <token xml:id="token.650">to</token>
+        </word>
+        <word xml:id="word.537">
+          <token xml:id="token.651">obtain</token>
+        </word>
+        <word xml:id="word.538">
+          <token xml:id="token.652">a</token>
+        </word>
+        <word font="italic" xml:id="word.539">
+          <token xml:id="token.653">track</token>
+        </word>
+        <word font="italic" xml:id="word.540">
+          <token xml:id="token.654">segment</token>
+        </word>
+        <formula xml:id="formula.30">
+          <Math xmlns="http://dlmf.nist.gov/LaTeXML" mode="inline" tex="\Delta" xml:id="Math.30">
+            <XMath xml:id="XMath.30">
+              <token name="Delta" role="UNKNOWN" xml:id="token.655">Δ</token>
+            </XMath>
+          </Math>
+        </formula>
+        <word xml:id="word.541">
+          <token xml:id="token.656">as</token>
+        </word>
+        <word xml:id="word.542">
+          <token xml:id="token.657">in</token>
+        </word>
+        <word xml:id="word.543">
+          <token xml:id="token.658">Figure</token>
+        </word>
+        <word xml:id="word.544">
+          <token xml:id="token.659">ourreference</token>
+          <token xml:id="token.660">-</token>
+          <token xml:id="token.661">doc0</token>
+          <token xml:id="token.662">-</token>
+          <token xml:id="token.663">r5</token>
+        </word>
+        <word xml:id="word.545">
+          <token xml:id="token.664">;</token>
+        </word>
+        <word xml:id="word.546">
+          <token xml:id="token.665">the</token>
+        </word>
+        <word xml:id="word.547">
+          <token xml:id="token.666">annulus</token>
+        </word>
+        <word xml:id="word.548">
+          <token xml:id="token.667">is</token>
+        </word>
+        <word xml:id="word.549">
+          <token xml:id="token.668">obtained</token>
+        </word>
+        <word xml:id="word.550">
+          <token xml:id="token.669">by</token>
+        </word>
+        <word xml:id="word.551">
+          <token xml:id="token.670">identifying</token>
+        </word>
+        <word xml:id="word.552">
+          <token xml:id="token.671">the</token>
+        </word>
+        <word xml:id="word.553">
+          <token xml:id="token.672">vertical</token>
+        </word>
+        <word xml:id="word.554">
+          <token xml:id="token.673">sides</token>
+        </word>
+        <word xml:id="word.555">
+          <token xml:id="token.674">,</token>
+        </word>
+        <word xml:id="word.556">
+          <token xml:id="token.675">which</token>
+        </word>
+        <word xml:id="word.557">
+          <token xml:id="token.676">both</token>
+        </word>
+        <word xml:id="word.558">
+          <token xml:id="token.677">correspond</token>
+        </word>
+        <word xml:id="word.559">
+          <token xml:id="token.678">to</token>
+        </word>
+        <word xml:id="word.560">
+          <token xml:id="token.679">the</token>
+        </word>
+        <word xml:id="word.561">
+          <token xml:id="token.680">cut</token>
+        </word>
+        <formula xml:id="formula.31">
+          <Math xmlns="http://dlmf.nist.gov/LaTeXML" mode="inline" tex="\xi" xml:id="Math.31">
+            <XMath xml:id="XMath.31">
+              <token name="xi" role="UNKNOWN" font="italic" xml:id="token.681">ξ</token>
+            </XMath>
+          </Math>
+        </formula>
+        <word xml:id="word.562">
+          <token xml:id="token.682">.</token>
+        </word>
+      </sentence>
+      <sentence xml:id="sentence.42">
+        <word xml:id="word.563">
+          <token xml:id="token.683">Draw</token>
+        </word>
+        <word xml:id="word.564">
+          <token xml:id="token.684">a</token>
+        </word>
+        <word xml:id="word.565">
+          <token xml:id="token.685">graph</token>
+        </word>
+        <formula xml:id="formula.32">
+          <Math xmlns="http://dlmf.nist.gov/LaTeXML" mode="inline" tex="G_{A}" xml:id="Math.32">
+            <XMath xml:id="XMath.32">
+              <token role="UNKNOWN" font="italic" xml:id="token.686">G</token>
+              <XMApp role="POSTSUBSCRIPT" scriptpos="2" xml:id="XMApp.6">
+                <XMArg rule="Subscript" xml:id="XMArg.6">
+                  <token role="UNKNOWN" font="italic" xml:id="token.687">A</token>
+                </XMArg>
+              </XMApp>
+            </XMath>
+          </Math>
+        </formula>
+        <word xml:id="word.566">
+          <token xml:id="token.688">whose</token>
+        </word>
+        <word xml:id="word.567">
+          <token xml:id="token.689">vertices</token>
+        </word>
+        <word xml:id="word.568">
+          <token xml:id="token.690">are</token>
+        </word>
+        <word xml:id="word.569">
+          <token xml:id="token.691">centers</token>
+        </word>
+        <word xml:id="word.570">
+          <token xml:id="token.692">of</token>
+        </word>
+        <word xml:id="word.571">
+          <token xml:id="token.693">squares</token>
+        </word>
+        <word xml:id="word.572">
+          <token xml:id="token.694">of</token>
+        </word>
+        <formula xml:id="formula.33">
+          <Math xmlns="http://dlmf.nist.gov/LaTeXML" mode="inline" tex="A" xml:id="Math.33">
+            <XMath xml:id="XMath.33">
+              <token role="UNKNOWN" font="italic" xml:id="token.695">A</token>
+            </XMath>
+          </Math>
+        </formula>
+        <word xml:id="word.573">
+          <token xml:id="token.696">and</token>
+        </word>
+        <word xml:id="word.574">
+          <token xml:id="token.697">whose</token>
+        </word>
+        <word xml:id="word.575">
+          <token xml:id="token.698">edges</token>
+        </word>
+        <word xml:id="word.576">
+          <token xml:id="token.699">join</token>
+        </word>
+        <word xml:id="word.577">
+          <token xml:id="token.700">vertices</token>
+        </word>
+        <word xml:id="word.578">
+          <token xml:id="token.701">of</token>
+        </word>
+        <word xml:id="word.579">
+          <token xml:id="token.702">squares</token>
+        </word>
+        <word xml:id="word.580">
+          <token xml:id="token.703">sharing</token>
+        </word>
+        <word xml:id="word.581">
+          <token xml:id="token.704">a</token>
+        </word>
+        <word xml:id="word.582">
+          <token xml:id="token.705">side</token>
+        </word>
+        <word xml:id="word.583">
+          <token xml:id="token.706">.</token>
+        </word>
+      </sentence>
+      <sentence xml:id="sentence.43">
+        <word xml:id="word.584">
+          <token xml:id="token.707">In</token>
+        </word>
+        <formula xml:id="formula.34">
+          <Math xmlns="http://dlmf.nist.gov/LaTeXML" mode="inline" tex="G_{\Delta}\subset G_{A}" xml:id="Math.34">
+            <XMath xml:id="XMath.34">
+              <token role="UNKNOWN" font="italic" xml:id="token.708">G</token>
+              <XMApp role="POSTSUBSCRIPT" scriptpos="2" xml:id="XMApp.7">
+                <XMArg rule="Subscript" xml:id="XMArg.7">
+                  <token name="Delta" role="UNKNOWN" xml:id="token.709">Δ</token>
+                </XMArg>
+              </XMApp>
+              <token meaning="subset-of" name="subset" role="RELOP" xml:id="token.710">⊂</token>
+              <token role="UNKNOWN" font="italic" xml:id="token.711">G</token>
+              <XMApp role="POSTSUBSCRIPT" scriptpos="2" xml:id="XMApp.8">
+                <XMArg rule="Subscript" xml:id="XMArg.8">
+                  <token role="UNKNOWN" font="italic" xml:id="token.712">A</token>
+                </XMArg>
+              </XMApp>
+            </XMath>
+          </Math>
+        </formula>
+        <word xml:id="word.585">
+          <token xml:id="token.713">choose</token>
+        </word>
+        <word xml:id="word.586">
+          <token xml:id="token.714">a</token>
+        </word>
+        <word xml:id="word.587">
+          <token xml:id="token.715">maximal</token>
+        </word>
+        <word xml:id="word.588">
+          <token xml:id="token.716">tree</token>
+        </word>
+        <word xml:id="word.589">
+          <token xml:id="token.717">and</token>
+        </word>
+        <word xml:id="word.590">
+          <token xml:id="token.718">assign</token>
+        </word>
+        <word xml:id="word.591">
+          <token xml:id="token.719">weight</token>
+        </word>
+        <formula xml:id="formula.35">
+          <Math xml:id="Math.35">
+            <XMath xml:id="XMath.35">
+              <XMTok meaning="1" role="NUMBER" xml:id="XMTok.1">1</XMTok>
+            </XMath>
+          </Math>
+        </formula>
+        <word xml:id="word.592">
+          <token xml:id="token.720">to</token>
+        </word>
+        <word xml:id="word.593">
+          <token xml:id="token.721">its</token>
+        </word>
+        <word xml:id="word.594">
+          <token xml:id="token.722">edges</token>
+        </word>
+        <word xml:id="word.595">
+          <token xml:id="token.723">(</token>
+        </word>
+        <word xml:id="word.596">
+          <token xml:id="token.724">solid</token>
+        </word>
+        <word xml:id="word.597">
+          <token xml:id="token.725">segments</token>
+        </word>
+        <word xml:id="word.598">
+          <token xml:id="token.726">in</token>
+        </word>
+        <word xml:id="word.599">
+          <token xml:id="token.727">the</token>
+        </word>
+        <word xml:id="word.600">
+          <token xml:id="token.728">figure</token>
+        </word>
+        <word xml:id="word.601">
+          <token xml:id="token.729">)</token>
+        </word>
+        <word xml:id="word.602">
+          <token xml:id="token.730">.</token>
+        </word>
+      </sentence>
+      <sentence xml:id="sentence.44">
+        <formula xml:id="formula.36">
+          <Math xmlns="http://dlmf.nist.gov/LaTeXML" mode="inline" tex="p" xml:id="Math.36">
+            <XMath xml:id="XMath.36">
+              <token role="UNKNOWN" font="italic" xml:id="token.731">p</token>
+            </XMath>
+          </Math>
+        </formula>
+        <word xml:id="word.603">
+          <token xml:id="token.732">to</token>
+        </word>
+        <word xml:id="word.604">
+          <token xml:id="token.733">an</token>
+        </word>
+        <word xml:id="word.605">
+          <token xml:id="token.734">arbitrarily</token>
+        </word>
+        <word xml:id="word.606">
+          <token xml:id="token.735">chosen</token>
+        </word>
+        <word xml:id="word.607">
+          <token xml:id="token.736">edge</token>
+        </word>
+        <word xml:id="word.608">
+          <token xml:id="token.737">in</token>
+        </word>
+        <formula xml:id="formula.37">
+          <Math xmlns="http://dlmf.nist.gov/LaTeXML" mode="inline" tex="G_{A}\setminus G_{\Delta}" xml:id="Math.37">
+            <XMath xml:id="XMath.37">
+              <token role="UNKNOWN" font="italic" xml:id="token.738">G</token>
+              <XMApp role="POSTSUBSCRIPT" scriptpos="2" xml:id="XMApp.9">
+                <XMArg rule="Subscript" xml:id="XMArg.9">
+                  <token role="UNKNOWN" font="italic" xml:id="token.739">A</token>
+                </XMArg>
+              </XMApp>
+              <token meaning="set-minus" name="setminus" role="ADDOP" xml:id="token.740">∖</token>
+              <token role="UNKNOWN" font="italic" xml:id="token.741">G</token>
+              <XMApp role="POSTSUBSCRIPT" scriptpos="2" xml:id="XMApp.10">
+                <XMArg rule="Subscript" xml:id="XMArg.10">
+                  <token name="Delta" role="UNKNOWN" xml:id="token.742">Δ</token>
+                </XMArg>
+              </XMApp>
+            </XMath>
+          </Math>
+        </formula>
+        <word xml:id="word.609">
+          <token xml:id="token.743">(</token>
+        </word>
+        <word xml:id="word.610">
+          <token xml:id="token.744">i</token>
+          <token xml:id="token.745">.</token>
+          <token xml:id="token.746">e</token>
+          <token xml:id="token.747">.</token>
+        </word>
+        <word xml:id="word.611">
+          <token xml:id="token.748">,</token>
+        </word>
+        <word xml:id="word.612">
+          <token xml:id="token.749">an</token>
+        </word>
+        <word xml:id="word.613">
+          <token xml:id="token.750">edge</token>
+        </word>
+        <word xml:id="word.614">
+          <token xml:id="token.751">crossing</token>
+        </word>
+        <word xml:id="word.615">
+          <token xml:id="token.752">the</token>
+        </word>
+        <word xml:id="word.616">
+          <token xml:id="token.753">cut</token>
+        </word>
+        <word xml:id="word.617">
+          <token xml:id="token.754">)</token>
+        </word>
+        <word xml:id="word.618">
+          <token xml:id="token.755">.</token>
+        </word>
+      </sentence>
+      <sentence xml:id="sentence.45">
+        <formula xml:id="formula.38">
+          <Math xmlns="http://dlmf.nist.gov/LaTeXML" mode="inline" tex="2\times 2" xml:id="Math.38">
+            <XMath xml:id="XMath.38">
+              <token meaning="2" role="NUMBER" xml:id="token.756">2</token>
+              <token meaning="times" role="MULOP" xml:id="token.757">×</token>
+              <token meaning="2" role="NUMBER" xml:id="token.758">2</token>
+            </XMath>
+          </Math>
+        </formula>
+        <word xml:id="word.619">
+          <token xml:id="token.759">square</token>
+        </word>
+        <word xml:id="word.620">
+          <token xml:id="token.760">contained</token>
+        </word>
+        <word xml:id="word.621">
+          <token xml:id="token.761">in</token>
+        </word>
+        <formula xml:id="formula.39">
+          <Math xmlns="http://dlmf.nist.gov/LaTeXML" mode="inline" tex="A" xml:id="Math.39">
+            <XMath xml:id="XMath.39">
+              <token role="UNKNOWN" font="italic" xml:id="token.762">A</token>
+            </XMath>
+          </Math>
+        </formula>
+        <word xml:id="word.622">
+          <token xml:id="token.763">:</token>
+        </word>
+        <word xml:id="word.623">
+          <token xml:id="token.764">say</token>
+        </word>
+        <word xml:id="word.624">
+          <token xml:id="token.765">a</token>
+        </word>
+        <word xml:id="word.625">
+          <token xml:id="token.766">positive</token>
+        </word>
+        <word xml:id="word.626">
+          <token xml:id="token.767">flip</token>
+        </word>
+        <word xml:id="word.627">
+          <token xml:id="token.768">on</token>
+        </word>
+        <word xml:id="word.628">
+          <token xml:id="token.769">the</token>
+        </word>
+        <word xml:id="word.629">
+          <token xml:id="token.770">square</token>
+        </word>
+        <word xml:id="word.630">
+          <token xml:id="token.771">takes</token>
+        </word>
+        <word xml:id="word.631">
+          <token xml:id="token.772">edges</token>
+        </word>
+        <formula xml:id="formula.40">
+          <Math xmlns="http://dlmf.nist.gov/LaTeXML" mode="inline" tex="e_{0},e_{1}" xml:id="Math.40">
+            <XMath xml:id="XMath.40">
+              <token role="UNKNOWN" font="italic" xml:id="token.773">e</token>
+              <XMApp role="POSTSUBSCRIPT" scriptpos="2" xml:id="XMApp.11">
+                <XMArg rule="Subscript" xml:id="XMArg.11">
+                  <token meaning="0" role="NUMBER" xml:id="token.774">0</token>
+                </XMArg>
+              </XMApp>
+              <token role="PUNCT" xml:id="token.775">,</token>
+              <token role="UNKNOWN" font="italic" xml:id="token.776">e</token>
+              <XMApp role="POSTSUBSCRIPT" scriptpos="2" xml:id="XMApp.12">
+                <XMArg rule="Subscript" xml:id="XMArg.12">
+                  <token meaning="1" role="NUMBER" xml:id="token.777">1</token>
+                </XMArg>
+              </XMApp>
+            </XMath>
+          </Math>
+        </formula>
+        <word xml:id="word.632">
+          <token xml:id="token.778">to</token>
+        </word>
+        <word xml:id="word.633">
+          <token xml:id="token.779">edges</token>
+        </word>
+        <formula xml:id="formula.41">
+          <Math xmlns="http://dlmf.nist.gov/LaTeXML" mode="inline" tex="e_{2},e_{3}" xml:id="Math.41">
+            <XMath xml:id="XMath.41">
+              <token role="UNKNOWN" font="italic" xml:id="token.780">e</token>
+              <XMApp role="POSTSUBSCRIPT" scriptpos="2" xml:id="XMApp.13">
+                <XMArg rule="Subscript" xml:id="XMArg.13">
+                  <token meaning="2" role="NUMBER" xml:id="token.781">2</token>
+                </XMArg>
+              </XMApp>
+              <token role="PUNCT" xml:id="token.782">,</token>
+              <token role="UNKNOWN" font="italic" xml:id="token.783">e</token>
+              <XMApp role="POSTSUBSCRIPT" scriptpos="2" xml:id="XMApp.14">
+                <XMArg rule="Subscript" xml:id="XMArg.14">
+                  <token meaning="3" role="NUMBER" xml:id="token.784">3</token>
+                </XMArg>
+              </XMApp>
+            </XMath>
+          </Math>
+        </formula>
+        <word xml:id="word.634">
+          <token xml:id="token.785">.</token>
+        </word>
+      </sentence>
+      <sentence xml:id="sentence.46">
+        <word xml:id="word.635">
+          <token xml:id="token.786">The</token>
+        </word>
+        <word xml:id="word.636">
+          <token xml:id="token.787">weights</token>
+        </word>
+        <formula xml:id="formula.42">
+          <Math xmlns="http://dlmf.nist.gov/LaTeXML" mode="inline" tex="w_{0},w_{1},w_{2},w_{3}" xml:id="Math.42">
+            <XMath xml:id="XMath.42">
+              <token role="UNKNOWN" font="italic" xml:id="token.788">w</token>
+              <XMApp role="POSTSUBSCRIPT" scriptpos="2" xml:id="XMApp.15">
+                <XMArg rule="Subscript" xml:id="XMArg.15">
+                  <token meaning="0" role="NUMBER" xml:id="token.789">0</token>
+                </XMArg>
+              </XMApp>
+              <token role="PUNCT" xml:id="token.790">,</token>
+              <token role="UNKNOWN" font="italic" xml:id="token.791">w</token>
+              <XMApp role="POSTSUBSCRIPT" scriptpos="2" xml:id="XMApp.16">
+                <XMArg rule="Subscript" xml:id="XMArg.16">
+                  <token meaning="1" role="NUMBER" xml:id="token.792">1</token>
+                </XMArg>
+              </XMApp>
+              <token role="PUNCT" xml:id="token.793">,</token>
+              <token role="UNKNOWN" font="italic" xml:id="token.794">w</token>
+              <XMApp role="POSTSUBSCRIPT" scriptpos="2" xml:id="XMApp.17">
+                <XMArg rule="Subscript" xml:id="XMArg.17">
+                  <token meaning="2" role="NUMBER" xml:id="token.795">2</token>
+                </XMArg>
+              </XMApp>
+              <token role="PUNCT" xml:id="token.796">,</token>
+              <token role="UNKNOWN" font="italic" xml:id="token.797">w</token>
+              <XMApp role="POSTSUBSCRIPT" scriptpos="2" xml:id="XMApp.18">
+                <XMArg rule="Subscript" xml:id="XMArg.18">
+                  <token meaning="3" role="NUMBER" xml:id="token.798">3</token>
+                </XMArg>
+              </XMApp>
+            </XMath>
+          </Math>
+        </formula>
+        <word xml:id="word.637">
+          <token xml:id="token.799">assigned</token>
+        </word>
+        <word xml:id="word.638">
+          <token xml:id="token.800">to</token>
+        </word>
+        <word xml:id="word.639">
+          <token xml:id="token.801">these</token>
+        </word>
+        <word xml:id="word.640">
+          <token xml:id="token.802">four</token>
+        </word>
+        <word xml:id="word.641">
+          <token xml:id="token.803">edges</token>
+        </word>
+        <word xml:id="word.642">
+          <token xml:id="token.804">must</token>
+        </word>
+        <word xml:id="word.643">
+          <token xml:id="token.805">satisfy</token>
+        </word>
+        <formula xml:id="formula.43">
+          <Math xmlns="http://dlmf.nist.gov/LaTeXML" mode="inline" tex="w_{2}w_{3}=-qw_{0}w_{1}" xml:id="Math.43">
+            <XMath xml:id="XMath.43">
+              <token role="UNKNOWN" font="italic" xml:id="token.806">w</token>
+              <XMApp role="POSTSUBSCRIPT" scriptpos="2" xml:id="XMApp.19">
+                <XMArg rule="Subscript" xml:id="XMArg.19">
+                  <token meaning="2" role="NUMBER" xml:id="token.807">2</token>
+                </XMArg>
+              </XMApp>
+              <token role="UNKNOWN" font="italic" xml:id="token.808">w</token>
+              <XMApp role="POSTSUBSCRIPT" scriptpos="2" xml:id="XMApp.20">
+                <XMArg rule="Subscript" xml:id="XMArg.20">
+                  <token meaning="3" role="NUMBER" xml:id="token.809">3</token>
+                </XMArg>
+              </XMApp>
+              <token meaning="equals" role="RELOP" xml:id="token.810">=</token>
+              <token meaning="minus" role="ADDOP" xml:id="token.811">-</token>
+              <token role="UNKNOWN" font="italic" xml:id="token.812">q</token>
+              <token role="UNKNOWN" font="italic" xml:id="token.813">w</token>
+              <XMApp role="POSTSUBSCRIPT" scriptpos="2" xml:id="XMApp.21">
+                <XMArg rule="Subscript" xml:id="XMArg.21">
+                  <token meaning="0" role="NUMBER" xml:id="token.814">0</token>
+                </XMArg>
+              </XMApp>
+              <token role="UNKNOWN" font="italic" xml:id="token.815">w</token>
+              <XMApp role="POSTSUBSCRIPT" scriptpos="2" xml:id="XMApp.22">
+                <XMArg rule="Subscript" xml:id="XMArg.22">
+                  <token meaning="1" role="NUMBER" xml:id="token.816">1</token>
+                </XMArg>
+              </XMApp>
+            </XMath>
+          </Math>
+        </formula>
+        <word xml:id="word.644">
+          <token xml:id="token.817">:</token>
+        </word>
+        <word xml:id="word.645">
+          <token xml:id="token.818">these</token>
+        </word>
+        <word xml:id="word.646">
+          <token xml:id="token.819">requirements</token>
+        </word>
+        <word xml:id="word.647">
+          <token xml:id="token.820">uniquely</token>
+        </word>
+        <word xml:id="word.648">
+          <token xml:id="token.821">determine</token>
+        </word>
+        <word xml:id="word.649">
+          <token xml:id="token.822">weights</token>
+        </word>
+        <word xml:id="word.650">
+          <token xml:id="token.823">on</token>
+        </word>
+        <word xml:id="word.651">
+          <token xml:id="token.824">all</token>
+        </word>
+        <word xml:id="word.652">
+          <token xml:id="token.825">edges</token>
+        </word>
+        <word xml:id="word.653">
+          <token xml:id="token.826">of</token>
+        </word>
+        <formula xml:id="formula.44">
+          <Math xmlns="http://dlmf.nist.gov/LaTeXML" mode="inline" tex="G_{A}" xml:id="Math.44">
+            <XMath xml:id="XMath.44">
+              <token role="UNKNOWN" font="italic" xml:id="token.827">G</token>
+              <XMApp role="POSTSUBSCRIPT" scriptpos="2" xml:id="XMApp.23">
+                <XMArg rule="Subscript" xml:id="XMArg.23">
+                  <token role="UNKNOWN" font="italic" xml:id="token.828">A</token>
+                </XMArg>
+              </XMApp>
+            </XMath>
+          </Math>
+        </formula>
+        <word xml:id="word.654">
+          <token xml:id="token.829">.</token>
+        </word>
+      </sentence>
+    </para>
+    <figure placement="ht" refnum="5" xml:id="figure.5" labels="LABEL:fig:tree">
+      <graphics graphic="nonunimodala.eps" options="height=113.811024pt, file=nonunimodala.eps" xml:id="graphics.6" class="centering"/>
+      <graphics graphic="nonunimodal.eps" options="height=113.811024pt, file=nonunimodal.eps" xml:id="graphics.7" class="centering"/>
+      <caption xml:id="caption.5">
+        <sentence xml:id="sentence.47">
+          <word xml:id="word.655">
+            <token xml:id="token.830">Annulus</token>
+          </word>
+          <word xml:id="word.656">
+            <token xml:id="token.831">and</token>
+          </word>
+          <word xml:id="word.657">
+            <token xml:id="token.832">Kasteleyn</token>
+          </word>
+          <word xml:id="word.658">
+            <token xml:id="token.833">weights</token>
+          </word>
+        </sentence>
+      </caption>
+    </figure>
+    <!-- %**** miniannuli.tex Line 225 **** -->
+    <para xml:id="para.12">
+      <sentence xml:id="sentence.48">
+        <word xml:id="word.659">
+          <token xml:id="token.834">For</token>
+        </word>
+        <word xml:id="word.660">
+          <token xml:id="token.835">each</token>
+        </word>
+        <word xml:id="word.661">
+          <token xml:id="token.836">tiling</token>
+        </word>
+        <formula xml:id="formula.45">
+          <Math xmlns="http://dlmf.nist.gov/LaTeXML" mode="inline" tex="t\in T_{A}" xml:id="Math.45">
+            <XMath xml:id="XMath.45">
+              <token role="UNKNOWN" font="italic" xml:id="token.837">t</token>
+              <token meaning="element-of" name="in" role="RELOP" xml:id="token.838">∈</token>
+              <token role="UNKNOWN" font="italic" xml:id="token.839">T</token>
+              <XMApp role="POSTSUBSCRIPT" scriptpos="2" xml:id="XMApp.24">
+                <XMArg rule="Subscript" xml:id="XMArg.24">
+                  <token role="UNKNOWN" font="italic" xml:id="token.840">A</token>
+                </XMArg>
+              </XMApp>
+            </XMath>
+          </Math>
+        </formula>
+        <word xml:id="word.662">
+          <token xml:id="token.841">,</token>
+        </word>
+        <word xml:id="word.663">
+          <token xml:id="token.842">the</token>
+        </word>
+        <word font="italic" xml:id="word.664">
+          <token xml:id="token.843">Kasteleyn</token>
+        </word>
+        <word font="italic" xml:id="word.665">
+          <token xml:id="token.844">weights</token>
+        </word>
+        <word xml:id="word.666">
+          <token xml:id="token.845">above</token>
+        </word>
+        <word xml:id="word.667">
+          <token xml:id="token.846">obtain</token>
+        </word>
+        <word xml:id="word.668">
+          <token xml:id="token.847">a</token>
+        </word>
+        <word xml:id="word.669">
+          <token xml:id="token.848">signed</token>
+        </word>
+        <word xml:id="word.670">
+          <token xml:id="token.849">monomial</token>
+        </word>
+        <formula xml:id="formula.46">
+          <Math xmlns="http://dlmf.nist.gov/LaTeXML" mode="inline" tex="\pm p^{{\phi(t)}}q^{{\nu(t)}}" xml:id="Math.46">
+            <XMath xml:id="XMath.46">
+              <token meaning="plus-or-minus" name="pm" role="ADDOP" xml:id="token.850">±</token>
+              <token role="UNKNOWN" font="italic" xml:id="token.851">p</token>
+              <XMApp role="POSTSUPERSCRIPT" scriptpos="2" xml:id="XMApp.25">
+                <XMArg rule="Superscript" xml:id="XMArg.25">
+                  <token name="phi" role="UNKNOWN" font="italic" xml:id="token.852">ϕ</token>
+                  <token role="OPEN" xml:id="token.853">(</token>
+                  <token role="UNKNOWN" font="italic" xml:id="token.854">t</token>
+                  <token role="CLOSE" xml:id="token.855">)</token>
+                </XMArg>
+              </XMApp>
+              <token role="UNKNOWN" font="italic" xml:id="token.856">q</token>
+              <XMApp role="POSTSUPERSCRIPT" scriptpos="2" xml:id="XMApp.26">
+                <XMArg rule="Superscript" xml:id="XMArg.26">
+                  <token name="nu" role="UNKNOWN" font="italic" xml:id="token.857">ν</token>
+                  <token role="OPEN" xml:id="token.858">(</token>
+                  <token role="UNKNOWN" font="italic" xml:id="token.859">t</token>
+                  <token role="CLOSE" xml:id="token.860">)</token>
+                </XMArg>
+              </XMApp>
+            </XMath>
+          </Math>
+        </formula>
+        <word xml:id="word.671">
+          <token xml:id="token.861">by</token>
+        </word>
+        <word xml:id="word.672">
+          <token xml:id="token.862">multiplying</token>
+        </word>
+        <word xml:id="word.673">
+          <token xml:id="token.863">the</token>
+        </word>
+        <word xml:id="word.674">
+          <token xml:id="token.864">weights</token>
+        </word>
+        <word xml:id="word.675">
+          <token xml:id="token.865">of</token>
+        </word>
+        <word xml:id="word.676">
+          <token xml:id="token.866">the</token>
+        </word>
+        <word xml:id="word.677">
+          <token xml:id="token.867">edges</token>
+        </word>
+        <word xml:id="word.678">
+          <token xml:id="token.868">asociated</token>
+        </word>
+        <word xml:id="word.679">
+          <token xml:id="token.869">to</token>
+        </word>
+        <word xml:id="word.680">
+          <token xml:id="token.870">dominoes</token>
+        </word>
+        <word xml:id="word.681">
+          <token xml:id="token.871">in</token>
+        </word>
+        <formula xml:id="formula.47">
+          <Math xmlns="http://dlmf.nist.gov/LaTeXML" mode="inline" tex="t" xml:id="Math.47">
+            <XMath xml:id="XMath.47">
+              <token role="UNKNOWN" font="italic" xml:id="token.872">t</token>
+            </XMath>
+          </Math>
+        </formula>
+        <word xml:id="word.682">
+          <token xml:id="token.873">.</token>
+        </word>
+      </sentence>
+      <sentence xml:id="sentence.49">
+        <word xml:id="word.683">
+          <token xml:id="token.874">By</token>
+        </word>
+        <word xml:id="word.684">
+          <token xml:id="token.875">construction</token>
+        </word>
+        <word xml:id="word.685">
+          <token xml:id="token.876">,</token>
+        </word>
+        <word xml:id="word.686">
+          <token xml:id="token.877">a</token>
+        </word>
+        <word xml:id="word.687">
+          <token xml:id="token.878">positive</token>
+        </word>
+        <word xml:id="word.688">
+          <token xml:id="token.879">flip</token>
+        </word>
+        <word xml:id="word.689">
+          <token xml:id="token.880">preserves</token>
+        </word>
+        <word xml:id="word.690">
+          <token xml:id="token.881">the</token>
+        </word>
+        <word font="italic" xml:id="word.691">
+          <token xml:id="token.882">flux</token>
+        </word>
+        <formula xml:id="formula.48">
+          <Math xmlns="http://dlmf.nist.gov/LaTeXML" mode="inline" tex="\phi" xml:id="Math.48">
+            <XMath xml:id="XMath.48">
+              <token name="phi" role="UNKNOWN" font="italic" xml:id="token.883">ϕ</token>
+            </XMath>
+          </Math>
+        </formula>
+        <word xml:id="word.692">
+          <token xml:id="token.884">and</token>
+        </word>
+        <word xml:id="word.693">
+          <token xml:id="token.885">increases</token>
+        </word>
+        <word xml:id="word.694">
+          <token xml:id="token.886">the</token>
+        </word>
+        <word font="italic" xml:id="word.695">
+          <token xml:id="token.887">volume</token>
+        </word>
+        <formula xml:id="formula.49">
+          <Math xmlns="http://dlmf.nist.gov/LaTeXML" mode="inline" tex="\nu" xml:id="Math.49">
+            <XMath xml:id="XMath.49">
+              <token name="nu" role="UNKNOWN" font="italic" xml:id="token.888">ν</token>
+            </XMath>
+          </Math>
+        </formula>
+        <word xml:id="word.696">
+          <token xml:id="token.889">by</token>
+        </word>
+        <word xml:id="word.697">
+          <token xml:id="token.890">one</token>
+        </word>
+        <word xml:id="word.698">
+          <token xml:id="token.891">.</token>
+        </word>
+      </sentence>
+      <sentence xml:id="sentence.50">
+        <word xml:id="word.699">
+          <token xml:id="token.892">This</token>
+        </word>
+        <word xml:id="word.700">
+          <token xml:id="token.893">also</token>
+        </word>
+        <word xml:id="word.701">
+          <token xml:id="token.894">shows</token>
+        </word>
+        <word xml:id="word.702">
+          <token xml:id="token.895">how</token>
+        </word>
+        <word xml:id="word.703">
+          <token xml:id="token.896">to</token>
+        </word>
+        <word xml:id="word.704">
+          <token xml:id="token.897">define</token>
+        </word>
+        <word xml:id="word.705">
+          <token xml:id="token.898">the</token>
+        </word>
+        <word xml:id="word.706">
+          <token xml:id="token.899">volume</token>
+        </word>
+        <word xml:id="word.707">
+          <token xml:id="token.900">of</token>
+        </word>
+        <word xml:id="word.708">
+          <token xml:id="token.901">a</token>
+        </word>
+        <word xml:id="word.709">
+          <token xml:id="token.902">tiling</token>
+        </word>
+        <word xml:id="word.710">
+          <token xml:id="token.903">of</token>
+        </word>
+        <word xml:id="word.711">
+          <token xml:id="token.904">a</token>
+        </word>
+        <word xml:id="word.712">
+          <token xml:id="token.905">quadriculated</token>
+        </word>
+        <word xml:id="word.713">
+          <token xml:id="token.906">disk</token>
+        </word>
+        <word xml:id="word.714">
+          <token xml:id="token.907">(</token>
+        </word>
+        <word xml:id="word.715">
+          <token xml:id="token.908">there</token>
+        </word>
+        <word xml:id="word.716">
+          <token xml:id="token.909">is</token>
+        </word>
+        <word xml:id="word.717">
+          <token xml:id="token.910">no</token>
+        </word>
+        <word xml:id="word.718">
+          <token xml:id="token.911">flux</token>
+        </word>
+        <word xml:id="word.719">
+          <token xml:id="token.912">variable</token>
+        </word>
+        <word xml:id="word.720">
+          <token xml:id="token.913">)</token>
+        </word>
+        <word xml:id="word.721">
+          <token xml:id="token.914">.</token>
+        </word>
+      </sentence>
+    </para>
+    <para xml:id="para.13">
+      <sentence xml:id="sentence.51">
+        <word xml:id="word.722">
+          <token xml:id="token.915">Why</token>
+        </word>
+        <word xml:id="word.723">
+          <token xml:id="token.916">are</token>
+        </word>
+        <word xml:id="word.724">
+          <token xml:id="token.917">the</token>
+        </word>
+        <word xml:id="word.725">
+          <token xml:id="token.918">weights</token>
+        </word>
+        <word xml:id="word.726">
+          <token xml:id="token.919">signed</token>
+        </word>
+        <word xml:id="word.727">
+          <token xml:id="token.920">?</token>
+        </word>
+      </sentence>
+      <sentence xml:id="sentence.52">
+        <word xml:id="word.728">
+          <token xml:id="token.921">So</token>
+        </word>
+        <word xml:id="word.729">
+          <token xml:id="token.922">that</token>
+        </word>
+        <word xml:id="word.730">
+          <token xml:id="token.923">we</token>
+        </word>
+        <word xml:id="word.731">
+          <token xml:id="token.924">can</token>
+        </word>
+        <word xml:id="word.732">
+          <token xml:id="token.925">construct</token>
+        </word>
+        <word xml:id="word.733">
+          <token xml:id="token.926">a</token>
+        </word>
+        <word font="italic" xml:id="word.734">
+          <token xml:id="token.927">Kasteleyn</token>
+        </word>
+        <word font="italic" xml:id="word.735">
+          <token xml:id="token.928">matrix</token>
+        </word>
+        <formula xml:id="formula.50">
+          <Math xmlns="http://dlmf.nist.gov/LaTeXML" mode="inline" tex="M_{A}" xml:id="Math.50">
+            <XMath xml:id="XMath.50">
+              <token role="UNKNOWN" font="italic" xml:id="token.929">M</token>
+              <XMApp role="POSTSUBSCRIPT" scriptpos="2" xml:id="XMApp.27">
+                <XMArg rule="Subscript" xml:id="XMArg.27">
+                  <token role="UNKNOWN" font="italic" xml:id="token.930">A</token>
+                </XMArg>
+              </XMApp>
+            </XMath>
+          </Math>
+        </formula>
+        <word xml:id="word.736">
+          <token xml:id="token.931">whose</token>
+        </word>
+        <word xml:id="word.737">
+          <token xml:id="token.932">determinant</token>
+        </word>
+        <word xml:id="word.738">
+          <token xml:id="token.933">,</token>
+        </word>
+        <word xml:id="word.739">
+          <token xml:id="token.934">the</token>
+        </word>
+        <formula xml:id="formula.51">
+          <Math xmlns="http://dlmf.nist.gov/LaTeXML" mode="inline" tex="q" xml:id="Math.51">
+            <XMath xml:id="XMath.51">
+              <token role="UNKNOWN" font="italic" xml:id="token.935">q</token>
+            </XMath>
+          </Math>
+        </formula>
+        <word font="italic" xml:id="word.740">
+          <token xml:id="token.936">flux</token>
+        </word>
+        <word font="italic" xml:id="word.741">
+          <token xml:id="token.937">polynomial</token>
+        </word>
+        <word xml:id="word.742">
+          <token xml:id="token.938">,</token>
+        </word>
+        <formula xml:id="formula.52">
+          <Math xmlns="http://dlmf.nist.gov/LaTeXML" mode="inline" tex="(p,q)" xml:id="Math.52">
+            <XMath xml:id="XMath.52">
+              <token role="OPEN" xml:id="token.939">(</token>
+              <token role="UNKNOWN" font="italic" xml:id="token.940">p</token>
+              <token role="PUNCT" xml:id="token.941">,</token>
+              <token role="UNKNOWN" font="italic" xml:id="token.942">q</token>
+              <token role="CLOSE" xml:id="token.943">)</token>
+            </XMath>
+          </Math>
+        </formula>
+        <word xml:id="word.743">
+          <token xml:id="token.944">counts</token>
+        </word>
+        <word xml:id="word.744">
+          <token xml:id="token.945">tilings</token>
+        </word>
+        <word xml:id="word.745">
+          <token xml:id="token.946">,</token>
+        </word>
+        <word xml:id="word.746">
+          <token xml:id="token.947">i</token>
+          <token xml:id="token.948">.</token>
+          <token xml:id="token.949">e</token>
+          <token xml:id="token.950">.</token>
+        </word>
+        <word xml:id="word.747">
+          <token xml:id="token.951">,</token>
+        </word>
+        <formula xml:id="formula.53">
+          <equation xmlns="http://dlmf.nist.gov/LaTeXML" xml:id="equation.1">
+            <Math mode="display" tex="\Phi _{A}(p,q)=\sum _{{t\in T_{A}}}p^{{\phi(t)}}q^{{\nu(t)}}=\pm\det(M_{A})." xml:id="Math.53">
+              <XMath xml:id="XMath.53">
+                <token name="Phi" role="UNKNOWN" xml:id="token.952">Φ</token>
+                <XMApp role="POSTSUBSCRIPT" scriptpos="2" xml:id="XMApp.28">
+                  <XMArg rule="Subscript" xml:id="XMArg.28">
+                    <token role="UNKNOWN" font="italic" xml:id="token.953">A</token>
+                  </XMArg>
+                </XMApp>
+                <token role="OPEN" xml:id="token.954">(</token>
+                <token role="UNKNOWN" font="italic" xml:id="token.955">p</token>
+                <token role="PUNCT" xml:id="token.956">,</token>
+                <token role="UNKNOWN" font="italic" xml:id="token.957">q</token>
+                <token role="CLOSE" xml:id="token.958">)</token>
+                <token meaning="equals" role="RELOP" xml:id="token.959">=</token>
+                <token meaning="sum" role="SUMOP" scriptpos="mid" xml:id="token.960">∑</token>
+                <XMApp role="POSTSUBSCRIPT" scriptpos="2" xml:id="XMApp.29">
+                  <XMArg rule="Subscript" xml:id="XMArg.29">
+                    <token role="UNKNOWN" font="italic" xml:id="token.961">t</token>
+                    <token meaning="element-of" name="in" role="RELOP" xml:id="token.962">∈</token>
+                    <token role="UNKNOWN" font="italic" xml:id="token.963">T</token>
+                    <XMApp role="POSTSUBSCRIPT" scriptpos="3" xml:id="XMApp.30">
+                      <XMArg rule="Subscript" xml:id="XMArg.30">
+                        <token role="UNKNOWN" font="italic" xml:id="token.964">A</token>
+                      </XMArg>
+                    </XMApp>
+                  </XMArg>
+                </XMApp>
+                <token role="UNKNOWN" font="italic" xml:id="token.965">p</token>
+                <XMApp role="POSTSUPERSCRIPT" scriptpos="2" xml:id="XMApp.31">
+                  <XMArg rule="Superscript" xml:id="XMArg.31">
+                    <token name="phi" role="UNKNOWN" font="italic" xml:id="token.966">ϕ</token>
+                    <token role="OPEN" xml:id="token.967">(</token>
+                    <token role="UNKNOWN" font="italic" xml:id="token.968">t</token>
+                    <token role="CLOSE" xml:id="token.969">)</token>
+                  </XMArg>
+                </XMApp>
+                <token role="UNKNOWN" font="italic" xml:id="token.970">q</token>
+                <XMApp role="POSTSUPERSCRIPT" scriptpos="2" xml:id="XMApp.32">
+                  <XMArg rule="Superscript" xml:id="XMArg.32">
+                    <token name="nu" role="UNKNOWN" font="italic" xml:id="token.971">ν</token>
+                    <token role="OPEN" xml:id="token.972">(</token>
+                    <token role="UNKNOWN" font="italic" xml:id="token.973">t</token>
+                    <token role="CLOSE" xml:id="token.974">)</token>
+                  </XMArg>
+                </XMApp>
+                <token meaning="equals" role="RELOP" xml:id="token.975">=</token>
+                <token meaning="plus-or-minus" name="pm" role="ADDOP" xml:id="token.976">±</token>
+                <token meaning="determinant" role="LIMITOP" scriptpos="mid" xml:id="token.977">det</token>
+                <token role="OPEN" xml:id="token.978">(</token>
+                <token role="UNKNOWN" font="italic" xml:id="token.979">M</token>
+                <XMApp role="POSTSUBSCRIPT" scriptpos="2" xml:id="XMApp.33">
+                  <XMArg rule="Subscript" xml:id="XMArg.33">
+                    <token role="UNKNOWN" font="italic" xml:id="token.980">A</token>
+                  </XMArg>
+                </XMApp>
+                <token role="CLOSE" xml:id="token.981">)</token>
+                <token role="PERIOD" xml:id="token.982">.</token>
+              </XMath>
+            </Math>
+          </equation>
+        </formula>
+      </sentence>
+      <sentence xml:id="sentence.53">
+        <word xml:id="word.748">
+          <token xml:id="token.983">Rows</token>
+        </word>
+        <word xml:id="word.749">
+          <token xml:id="token.984">and</token>
+        </word>
+        <word xml:id="word.750">
+          <token xml:id="token.985">colums</token>
+        </word>
+        <word xml:id="word.751">
+          <token xml:id="token.986">of</token>
+        </word>
+        <formula xml:id="formula.54">
+          <Math xmlns="http://dlmf.nist.gov/LaTeXML" mode="inline" tex="M_{A}" xml:id="Math.54">
+            <XMath xml:id="XMath.54">
+              <token role="UNKNOWN" font="italic" xml:id="token.987">M</token>
+              <XMApp role="POSTSUBSCRIPT" scriptpos="2" xml:id="XMApp.34">
+                <XMArg rule="Subscript" xml:id="XMArg.34">
+                  <token role="UNKNOWN" font="italic" xml:id="token.988">A</token>
+                </XMArg>
+              </XMApp>
+            </XMath>
+          </Math>
+        </formula>
+        <word xml:id="word.752">
+          <token xml:id="token.989">correspond</token>
+        </word>
+        <word xml:id="word.753">
+          <token xml:id="token.990">to</token>
+        </word>
+        <word xml:id="word.754">
+          <token xml:id="token.991">black</token>
+        </word>
+        <word xml:id="word.755">
+          <token xml:id="token.992">and</token>
+        </word>
+        <word xml:id="word.756">
+          <token xml:id="token.993">white</token>
+        </word>
+        <word xml:id="word.757">
+          <token xml:id="token.994">squares</token>
+        </word>
+        <word xml:id="word.758">
+          <token xml:id="token.995">in</token>
+        </word>
+        <formula xml:id="formula.55">
+          <Math xmlns="http://dlmf.nist.gov/LaTeXML" mode="inline" tex="A" xml:id="Math.55">
+            <XMath xml:id="XMath.55">
+              <token role="UNKNOWN" font="italic" xml:id="token.996">A</token>
+            </XMath>
+          </Math>
+        </formula>
+        <word xml:id="word.759">
+          <token xml:id="token.997">and</token>
+        </word>
+        <word xml:id="word.760">
+          <token xml:id="token.998">entries</token>
+        </word>
+        <word xml:id="word.761">
+          <token xml:id="token.999">are</token>
+        </word>
+        <word xml:id="word.762">
+          <token xml:id="token.1000">given</token>
+        </word>
+        <word xml:id="word.763">
+          <token xml:id="token.1001">by</token>
+        </word>
+        <word xml:id="word.764">
+          <token xml:id="token.1002">weights</token>
+        </word>
+        <word xml:id="word.765">
+          <token xml:id="token.1003">.</token>
+        </word>
+      </sentence>
+      <sentence xml:id="sentence.54">
+        <word xml:id="word.766">
+          <token xml:id="token.1004">The</token>
+        </word>
+        <word xml:id="word.767">
+          <token xml:id="token.1005">reader</token>
+        </word>
+        <word xml:id="word.768">
+          <token xml:id="token.1006">should</token>
+        </word>
+        <word xml:id="word.769">
+          <token xml:id="token.1007">recognize</token>
+        </word>
+        <word xml:id="word.770">
+          <token xml:id="token.1008">the</token>
+        </word>
+        <word xml:id="word.771">
+          <token xml:id="token.1009">construction</token>
+        </word>
+        <word xml:id="word.772">
+          <token xml:id="token.1010">above</token>
+        </word>
+        <word xml:id="word.773">
+          <token xml:id="token.1011">as</token>
+        </word>
+        <word xml:id="word.774">
+          <token xml:id="token.1012">an</token>
+        </word>
+        <word xml:id="word.775">
+          <token xml:id="token.1013">extension</token>
+        </word>
+        <word xml:id="word.776">
+          <token xml:id="token.1014">of</token>
+        </word>
+        <word xml:id="word.777">
+          <token xml:id="token.1015">Kasteleyn</token>
+        </word>
+        <word xml:id="word.778">
+          <token xml:id="token.1016">'</token>
+          <token xml:id="token.1017">s</token>
+        </word>
+        <word xml:id="word.779">
+          <token xml:id="token.1018">(</token>
+        </word>
+        <word xml:id="word.780">
+          <token xml:id="token.1019">ourcitation</token>
+          <token xml:id="token.1020">-</token>
+          <token xml:id="token.1021">doc0</token>
+          <token xml:id="token.1022">-</token>
+          <token xml:id="token.1023">c5</token>
+        </word>
+        <word xml:id="word.781">
+          <token xml:id="token.1024">)</token>
+        </word>
+        <word xml:id="word.782">
+          <token xml:id="token.1025">.</token>
+        </word>
+      </sentence>
+      <sentence xml:id="sentence.55">
+        <word xml:id="word.783">
+          <token xml:id="token.1026">ourreference</token>
+          <token xml:id="token.1027">-</token>
+          <token xml:id="token.1028">doc0</token>
+          <token xml:id="token.1029">-</token>
+          <token xml:id="token.1030">r6</token>
+        </word>
+        <word xml:id="word.784">
+          <token xml:id="token.1031">,</token>
+        </word>
+        <formula xml:id="formula.56">
+          <equationgroup xmlns="http://dlmf.nist.gov/LaTeXML" xml:id="equationgroup.1">
+            <equation xml:id="equation.2">
+              <MathFork xml:id="MathFork.1">
+                <Math xml:id="Math.56" tex="\displaystyle \Phi _{A}(p,q) =q^{{-18}}\, p^{{-2}}\,\big(\,\,{q}^{{36}}\, p^{4}+">
+                  <XMath xml:id="XMath.56">
+                    <token name="Phi" role="UNKNOWN" xml:id="token.1032">Φ</token>
+                    <XMApp role="POSTSUBSCRIPT" scriptpos="7" xml:id="XMApp.35">
+                      <XMArg rule="Subscript" xml:id="XMArg.35">
+                        <token role="UNKNOWN" font="italic" xml:id="token.1033">A</token>
+                      </XMArg>
+                    </XMApp>
+                    <token role="OPEN" xml:id="token.1034">(</token>
+                    <token role="UNKNOWN" font="italic" xml:id="token.1035">p</token>
+                    <token role="PUNCT" xml:id="token.1036">,</token>
+                    <token role="UNKNOWN" font="italic" xml:id="token.1037">q</token>
+                    <token role="CLOSE" xml:id="token.1038">)</token>
+                    <token meaning="equals" role="RELOP" xml:id="token.1039">=</token>
+                    <token role="UNKNOWN" font="italic" xml:id="token.1040">q</token>
+                    <XMApp role="POSTSUPERSCRIPT" scriptpos="7" xml:id="XMApp.36">
+                      <XMArg rule="Superscript" xml:id="XMArg.36">
+                        <token meaning="minus" role="ADDOP" xml:id="token.1041">-</token>
+                        <token meaning="18" role="NUMBER" xml:id="token.1042">18</token>
+                      </XMArg>
+                    </XMApp>
+                    <XMHint name="thinspace" xml:id="XMHint.1"/>
+                    <token role="UNKNOWN" font="italic" xml:id="token.1043">p</token>
+                    <XMApp role="POSTSUPERSCRIPT" scriptpos="7" xml:id="XMApp.37">
+                      <XMArg rule="Superscript" xml:id="XMArg.37">
+                        <token meaning="minus" role="ADDOP" xml:id="token.1044">-</token>
+                        <token meaning="2" role="NUMBER" xml:id="token.1045">2</token>
+                      </XMArg>
+                    </XMApp>
+                    <XMHint name="thinspace" xml:id="XMHint.2"/>
+                    <token role="OPEN" size="big" xml:id="token.1046">(</token>
+                    <XMHint name="thinspace" xml:id="XMHint.3"/>
+                    <XMHint name="thinspace" xml:id="XMHint.4"/>
+                    <token role="UNKNOWN" font="italic" xml:id="token.1047">q</token>
+                    <XMApp role="POSTSUPERSCRIPT" scriptpos="7" xml:id="XMApp.38">
+                      <XMArg rule="Superscript" xml:id="XMArg.38">
+                        <token meaning="36" role="NUMBER" xml:id="token.1048">36</token>
+                      </XMArg>
+                    </XMApp>
+                    <XMHint name="thinspace" xml:id="XMHint.5"/>
+                    <token role="UNKNOWN" font="italic" xml:id="token.1049">p</token>
+                    <XMApp role="POSTSUPERSCRIPT" scriptpos="7" xml:id="XMApp.39">
+                      <XMArg rule="Superscript" xml:id="XMArg.39">
+                        <token meaning="4" role="NUMBER" xml:id="token.1050">4</token>
+                      </XMArg>
+                    </XMApp>
+                    <token meaning="plus" role="ADDOP" xml:id="token.1051">+</token>
+                  </XMath>
+                </Math>
+                <MathBranch xml:id="MathBranch.1">
+                  <td align="right" xml:id="td.1">
+                    <Math mode="inline" tex="\displaystyle\Phi _{A}(p,q)" xml:id="Math.57">
+                      <XMath xml:id="XMath.57">
+                        <token name="Phi" role="UNKNOWN" xml:id="token.1052">Φ</token>
+                        <XMApp role="POSTSUBSCRIPT" scriptpos="7" xml:id="XMApp.40">
+                          <XMArg rule="Subscript" xml:id="XMArg.40">
+                            <token role="UNKNOWN" font="italic" xml:id="token.1053">A</token>
+                          </XMArg>
+                        </XMApp>
+                        <token role="OPEN" xml:id="token.1054">(</token>
+                        <token role="UNKNOWN" font="italic" xml:id="token.1055">p</token>
+                        <token role="PUNCT" xml:id="token.1056">,</token>
+                        <token role="UNKNOWN" font="italic" xml:id="token.1057">q</token>
+                        <token role="CLOSE" xml:id="token.1058">)</token>
+                      </XMath>
+                    </Math>
+                  </td>
+                  <td align="left" xml:id="td.2">
+                    <Math mode="inline" tex="\displaystyle=q^{{-18}}\, p^{{-2}}\,\big(\,\,{q}^{{36}}\, p^{4}+" xml:id="Math.58">
+                      <XMath xml:id="XMath.58">
+                        <token meaning="equals" role="RELOP" xml:id="token.1059">=</token>
+                        <token role="UNKNOWN" font="italic" xml:id="token.1060">q</token>
+                        <XMApp role="POSTSUPERSCRIPT" scriptpos="7" xml:id="XMApp.41">
+                          <XMArg rule="Superscript" xml:id="XMArg.41">
+                            <token meaning="minus" role="ADDOP" xml:id="token.1061">-</token>
+                            <token meaning="18" role="NUMBER" xml:id="token.1062">18</token>
+                          </XMArg>
+                        </XMApp>
+                        <XMHint name="thinspace" xml:id="XMHint.6"/>
+                        <token role="UNKNOWN" font="italic" xml:id="token.1063">p</token>
+                        <XMApp role="POSTSUPERSCRIPT" scriptpos="7" xml:id="XMApp.42">
+                          <XMArg rule="Superscript" xml:id="XMArg.42">
+                            <token meaning="minus" role="ADDOP" xml:id="token.1064">-</token>
+                            <token meaning="2" role="NUMBER" xml:id="token.1065">2</token>
+                          </XMArg>
+                        </XMApp>
+                        <XMHint name="thinspace" xml:id="XMHint.7"/>
+                        <token role="OPEN" size="big" xml:id="token.1066">(</token>
+                        <XMHint name="thinspace" xml:id="XMHint.8"/>
+                        <XMHint name="thinspace" xml:id="XMHint.9"/>
+                        <token role="UNKNOWN" font="italic" xml:id="token.1067">q</token>
+                        <XMApp role="POSTSUPERSCRIPT" scriptpos="7" xml:id="XMApp.43">
+                          <XMArg rule="Superscript" xml:id="XMArg.43">
+                            <token meaning="36" role="NUMBER" xml:id="token.1068">36</token>
+                          </XMArg>
+                        </XMApp>
+                        <XMHint name="thinspace" xml:id="XMHint.10"/>
+                        <token role="UNKNOWN" font="italic" xml:id="token.1069">p</token>
+                        <XMApp role="POSTSUPERSCRIPT" scriptpos="7" xml:id="XMApp.44">
+                          <XMArg rule="Superscript" xml:id="XMArg.44">
+                            <token meaning="4" role="NUMBER" xml:id="token.1070">4</token>
+                          </XMArg>
+                        </XMApp>
+                        <token meaning="plus" role="ADDOP" xml:id="token.1071">+</token>
+                      </XMath>
+                    </Math>
+                  </td>
+                </MathBranch>
+              </MathFork>
+            </equation>
+            <equation xml:id="equation.3">
+              <MathFork xml:id="MathFork.2">
+                <Math xml:id="Math.59" tex="\displaystyle \phantom{}({q}^{{36}}+3\,{q}^{{35}}+3\,{q}^{{34}}+4\,{q}^{{33}}+6\,{q}^{{32}}+6\,{q}^{{31}}+7\,{q}^{{30}}+6\,{q}^{{29}}+6\,{q}^{{28}}+7\,{q}^{{27}}+">
+                  <XMath xml:id="XMath.59">
+                    <XMHint name="phantom" xml:id="XMHint.11"/>
+                    <token role="OPEN" xml:id="token.1072">(</token>
+                    <token role="UNKNOWN" font="italic" xml:id="token.1073">q</token>
+                    <XMApp role="POSTSUPERSCRIPT" scriptpos="7" xml:id="XMApp.45">
+                      <XMArg rule="Superscript" xml:id="XMArg.45">
+                        <token meaning="36" role="NUMBER" xml:id="token.1074">36</token>
+                      </XMArg>
+                    </XMApp>
+                    <token meaning="plus" role="ADDOP" xml:id="token.1075">+</token>
+                    <token meaning="3" role="NUMBER" xml:id="token.1076">3</token>
+                    <XMHint name="thinspace" xml:id="XMHint.12"/>
+                    <token role="UNKNOWN" font="italic" xml:id="token.1077">q</token>
+                    <XMApp role="POSTSUPERSCRIPT" scriptpos="7" xml:id="XMApp.46">
+                      <XMArg rule="Superscript" xml:id="XMArg.46">
+                        <token meaning="35" role="NUMBER" xml:id="token.1078">35</token>
+                      </XMArg>
+                    </XMApp>
+                    <token meaning="plus" role="ADDOP" xml:id="token.1079">+</token>
+                    <token meaning="3" role="NUMBER" xml:id="token.1080">3</token>
+                    <XMHint name="thinspace" xml:id="XMHint.13"/>
+                    <token role="UNKNOWN" font="italic" xml:id="token.1081">q</token>
+                    <XMApp role="POSTSUPERSCRIPT" scriptpos="7" xml:id="XMApp.47">
+                      <XMArg rule="Superscript" xml:id="XMArg.47">
+                        <token meaning="34" role="NUMBER" xml:id="token.1082">34</token>
+                      </XMArg>
+                    </XMApp>
+                    <token meaning="plus" role="ADDOP" xml:id="token.1083">+</token>
+                    <token meaning="4" role="NUMBER" xml:id="token.1084">4</token>
+                    <XMHint name="thinspace" xml:id="XMHint.14"/>
+                    <token role="UNKNOWN" font="italic" xml:id="token.1085">q</token>
+                    <XMApp role="POSTSUPERSCRIPT" scriptpos="7" xml:id="XMApp.48">
+                      <XMArg rule="Superscript" xml:id="XMArg.48">
+                        <token meaning="33" role="NUMBER" xml:id="token.1086">33</token>
+                      </XMArg>
+                    </XMApp>
+                    <token meaning="plus" role="ADDOP" xml:id="token.1087">+</token>
+                    <token meaning="6" role="NUMBER" xml:id="token.1088">6</token>
+                    <XMHint name="thinspace" xml:id="XMHint.15"/>
+                    <token role="UNKNOWN" font="italic" xml:id="token.1089">q</token>
+                    <XMApp role="POSTSUPERSCRIPT" scriptpos="7" xml:id="XMApp.49">
+                      <XMArg rule="Superscript" xml:id="XMArg.49">
+                        <token meaning="32" role="NUMBER" xml:id="token.1090">32</token>
+                      </XMArg>
+                    </XMApp>
+                    <token meaning="plus" role="ADDOP" xml:id="token.1091">+</token>
+                    <token meaning="6" role="NUMBER" xml:id="token.1092">6</token>
+                    <XMHint name="thinspace" xml:id="XMHint.16"/>
+                    <token role="UNKNOWN" font="italic" xml:id="token.1093">q</token>
+                    <XMApp role="POSTSUPERSCRIPT" scriptpos="7" xml:id="XMApp.50">
+                      <XMArg rule="Superscript" xml:id="XMArg.50">
+                        <token meaning="31" role="NUMBER" xml:id="token.1094">31</token>
+                      </XMArg>
+                    </XMApp>
+                    <token meaning="plus" role="ADDOP" xml:id="token.1095">+</token>
+                    <token meaning="7" role="NUMBER" xml:id="token.1096">7</token>
+                    <XMHint name="thinspace" xml:id="XMHint.17"/>
+                    <token role="UNKNOWN" font="italic" xml:id="token.1097">q</token>
+                    <XMApp role="POSTSUPERSCRIPT" scriptpos="7" xml:id="XMApp.51">
+                      <XMArg rule="Superscript" xml:id="XMArg.51">
+                        <token meaning="30" role="NUMBER" xml:id="token.1098">30</token>
+                      </XMArg>
+                    </XMApp>
+                    <token meaning="plus" role="ADDOP" xml:id="token.1099">+</token>
+                    <token meaning="6" role="NUMBER" xml:id="token.1100">6</token>
+                    <XMHint name="thinspace" xml:id="XMHint.18"/>
+                    <token role="UNKNOWN" font="italic" xml:id="token.1101">q</token>
+                    <XMApp role="POSTSUPERSCRIPT" scriptpos="7" xml:id="XMApp.52">
+                      <XMArg rule="Superscript" xml:id="XMArg.52">
+                        <token meaning="29" role="NUMBER" xml:id="token.1102">29</token>
+                      </XMArg>
+                    </XMApp>
+                    <token meaning="plus" role="ADDOP" xml:id="token.1103">+</token>
+                    <token meaning="6" role="NUMBER" xml:id="token.1104">6</token>
+                    <XMHint name="thinspace" xml:id="XMHint.19"/>
+                    <token role="UNKNOWN" font="italic" xml:id="token.1105">q</token>
+                    <XMApp role="POSTSUPERSCRIPT" scriptpos="7" xml:id="XMApp.53">
+                      <XMArg rule="Superscript" xml:id="XMArg.53">
+                        <token meaning="28" role="NUMBER" xml:id="token.1106">28</token>
+                      </XMArg>
+                    </XMApp>
+                    <token meaning="plus" role="ADDOP" xml:id="token.1107">+</token>
+                    <token meaning="7" role="NUMBER" xml:id="token.1108">7</token>
+                    <XMHint name="thinspace" xml:id="XMHint.20"/>
+                    <token role="UNKNOWN" font="italic" xml:id="token.1109">q</token>
+                    <XMApp role="POSTSUPERSCRIPT" scriptpos="7" xml:id="XMApp.54">
+                      <XMArg rule="Superscript" xml:id="XMArg.54">
+                        <token meaning="27" role="NUMBER" xml:id="token.1110">27</token>
+                      </XMArg>
+                    </XMApp>
+                    <token meaning="plus" role="ADDOP" xml:id="token.1111">+</token>
+                  </XMath>
+                </Math>
+                <MathBranch xml:id="MathBranch.2">
+                  <td align="right" xml:id="td.3"/>
+                  <td align="left" xml:id="td.4">
+                    <Math mode="inline" tex="\displaystyle\phantom{}({q}^{{36}}+3\,{q}^{{35}}+3\,{q}^{{34}}+4\,{q}^{{33}}+6\,{q}^{{32}}+6\,{q}^{{31}}+7\,{q}^{{30}}+6\,{q}^{{29}}+6\,{q}^{{28}}+7\,{q}^{{27}}+" xml:id="Math.60">
+                      <XMath xml:id="XMath.60">
+                        <XMHint name="phantom" xml:id="XMHint.21"/>
+                        <token role="OPEN" xml:id="token.1112">(</token>
+                        <token role="UNKNOWN" font="italic" xml:id="token.1113">q</token>
+                        <XMApp role="POSTSUPERSCRIPT" scriptpos="7" xml:id="XMApp.55">
+                          <XMArg rule="Superscript" xml:id="XMArg.55">
+                            <token meaning="36" role="NUMBER" xml:id="token.1114">36</token>
+                          </XMArg>
+                        </XMApp>
+                        <token meaning="plus" role="ADDOP" xml:id="token.1115">+</token>
+                        <token meaning="3" role="NUMBER" xml:id="token.1116">3</token>
+                        <XMHint name="thinspace" xml:id="XMHint.22"/>
+                        <token role="UNKNOWN" font="italic" xml:id="token.1117">q</token>
+                        <XMApp role="POSTSUPERSCRIPT" scriptpos="7" xml:id="XMApp.56">
+                          <XMArg rule="Superscript" xml:id="XMArg.56">
+                            <token meaning="35" role="NUMBER" xml:id="token.1118">35</token>
+                          </XMArg>
+                        </XMApp>
+                        <token meaning="plus" role="ADDOP" xml:id="token.1119">+</token>
+                        <token meaning="3" role="NUMBER" xml:id="token.1120">3</token>
+                        <XMHint name="thinspace" xml:id="XMHint.23"/>
+                        <token role="UNKNOWN" font="italic" xml:id="token.1121">q</token>
+                        <XMApp role="POSTSUPERSCRIPT" scriptpos="7" xml:id="XMApp.57">
+                          <XMArg rule="Superscript" xml:id="XMArg.57">
+                            <token meaning="34" role="NUMBER" xml:id="token.1122">34</token>
+                          </XMArg>
+                        </XMApp>
+                        <token meaning="plus" role="ADDOP" xml:id="token.1123">+</token>
+                        <token meaning="4" role="NUMBER" xml:id="token.1124">4</token>
+                        <XMHint name="thinspace" xml:id="XMHint.24"/>
+                        <token role="UNKNOWN" font="italic" xml:id="token.1125">q</token>
+                        <XMApp role="POSTSUPERSCRIPT" scriptpos="7" xml:id="XMApp.58">
+                          <XMArg rule="Superscript" xml:id="XMArg.58">
+                            <token meaning="33" role="NUMBER" xml:id="token.1126">33</token>
+                          </XMArg>
+                        </XMApp>
+                        <token meaning="plus" role="ADDOP" xml:id="token.1127">+</token>
+                        <token meaning="6" role="NUMBER" xml:id="token.1128">6</token>
+                        <XMHint name="thinspace" xml:id="XMHint.25"/>
+                        <token role="UNKNOWN" font="italic" xml:id="token.1129">q</token>
+                        <XMApp role="POSTSUPERSCRIPT" scriptpos="7" xml:id="XMApp.59">
+                          <XMArg rule="Superscript" xml:id="XMArg.59">
+                            <token meaning="32" role="NUMBER" xml:id="token.1130">32</token>
+                          </XMArg>
+                        </XMApp>
+                        <token meaning="plus" role="ADDOP" xml:id="token.1131">+</token>
+                        <token meaning="6" role="NUMBER" xml:id="token.1132">6</token>
+                        <XMHint name="thinspace" xml:id="XMHint.26"/>
+                        <token role="UNKNOWN" font="italic" xml:id="token.1133">q</token>
+                        <XMApp role="POSTSUPERSCRIPT" scriptpos="7" xml:id="XMApp.60">
+                          <XMArg rule="Superscript" xml:id="XMArg.60">
+                            <token meaning="31" role="NUMBER" xml:id="token.1134">31</token>
+                          </XMArg>
+                        </XMApp>
+                        <token meaning="plus" role="ADDOP" xml:id="token.1135">+</token>
+                        <token meaning="7" role="NUMBER" xml:id="token.1136">7</token>
+                        <!-- %**** miniannuli.tex Line 250 **** -->
+                        <XMHint name="thinspace" xml:id="XMHint.27"/>
+                        <token role="UNKNOWN" font="italic" xml:id="token.1137">q</token>
+                        <XMApp role="POSTSUPERSCRIPT" scriptpos="7" xml:id="XMApp.61">
+                          <XMArg rule="Superscript" xml:id="XMArg.61">
+                            <token meaning="30" role="NUMBER" xml:id="token.1138">30</token>
+                          </XMArg>
+                        </XMApp>
+                        <token meaning="plus" role="ADDOP" xml:id="token.1139">+</token>
+                        <token meaning="6" role="NUMBER" xml:id="token.1140">6</token>
+                        <XMHint name="thinspace" xml:id="XMHint.28"/>
+                        <token role="UNKNOWN" font="italic" xml:id="token.1141">q</token>
+                        <XMApp role="POSTSUPERSCRIPT" scriptpos="7" xml:id="XMApp.62">
+                          <XMArg rule="Superscript" xml:id="XMArg.62">
+                            <token meaning="29" role="NUMBER" xml:id="token.1142">29</token>
+                          </XMArg>
+                        </XMApp>
+                        <token meaning="plus" role="ADDOP" xml:id="token.1143">+</token>
+                        <token meaning="6" role="NUMBER" xml:id="token.1144">6</token>
+                        <XMHint name="thinspace" xml:id="XMHint.29"/>
+                        <token role="UNKNOWN" font="italic" xml:id="token.1145">q</token>
+                        <XMApp role="POSTSUPERSCRIPT" scriptpos="7" xml:id="XMApp.63">
+                          <XMArg rule="Superscript" xml:id="XMArg.63">
+                            <token meaning="28" role="NUMBER" xml:id="token.1146">28</token>
+                          </XMArg>
+                        </XMApp>
+                        <token meaning="plus" role="ADDOP" xml:id="token.1147">+</token>
+                        <token meaning="7" role="NUMBER" xml:id="token.1148">7</token>
+                        <XMHint name="thinspace" xml:id="XMHint.30"/>
+                        <token role="UNKNOWN" font="italic" xml:id="token.1149">q</token>
+                        <XMApp role="POSTSUPERSCRIPT" scriptpos="7" xml:id="XMApp.64">
+                          <XMArg rule="Superscript" xml:id="XMArg.64">
+                            <token meaning="27" role="NUMBER" xml:id="token.1150">27</token>
+                          </XMArg>
+                        </XMApp>
+                        <token meaning="plus" role="ADDOP" xml:id="token.1151">+</token>
+                      </XMath>
+                    </Math>
+                  </td>
+                </MathBranch>
+              </MathFork>
+            </equation>
+            <equation xml:id="equation.4">
+              <MathFork xml:id="MathFork.3">
+                <Math xml:id="Math.61" tex="\displaystyle \phantom{=+}6\,{q}^{{26}}+6\,{q}^{{25}}+7\,{q}^{{24}}+6\,{q}^{{23}}+6\,{q}^{{22}}+4\,{q}^{{21}}+3\,{q}^{{20}}+3\,{q}^{{19}}+{q}^{{18}})\, p^{3}+">
+                  <XMath xml:id="XMath.61">
+                    <XMHint name="phantom" xml:id="XMHint.31"/>
+                    <token meaning="6" role="NUMBER" xml:id="token.1152">6</token>
+                    <XMHint name="thinspace" xml:id="XMHint.32"/>
+                    <token role="UNKNOWN" font="italic" xml:id="token.1153">q</token>
+                    <XMApp role="POSTSUPERSCRIPT" scriptpos="7" xml:id="XMApp.65">
+                      <XMArg rule="Superscript" xml:id="XMArg.65">
+                        <token meaning="26" role="NUMBER" xml:id="token.1154">26</token>
+                      </XMArg>
+                    </XMApp>
+                    <token meaning="plus" role="ADDOP" xml:id="token.1155">+</token>
+                    <token meaning="6" role="NUMBER" xml:id="token.1156">6</token>
+                    <XMHint name="thinspace" xml:id="XMHint.33"/>
+                    <token role="UNKNOWN" font="italic" xml:id="token.1157">q</token>
+                    <XMApp role="POSTSUPERSCRIPT" scriptpos="7" xml:id="XMApp.66">
+                      <XMArg rule="Superscript" xml:id="XMArg.66">
+                        <token meaning="25" role="NUMBER" xml:id="token.1158">25</token>
+                      </XMArg>
+                    </XMApp>
+                    <token meaning="plus" role="ADDOP" xml:id="token.1159">+</token>
+                    <token meaning="7" role="NUMBER" xml:id="token.1160">7</token>
+                    <XMHint name="thinspace" xml:id="XMHint.34"/>
+                    <token role="UNKNOWN" font="italic" xml:id="token.1161">q</token>
+                    <XMApp role="POSTSUPERSCRIPT" scriptpos="7" xml:id="XMApp.67">
+                      <XMArg rule="Superscript" xml:id="XMArg.67">
+                        <token meaning="24" role="NUMBER" xml:id="token.1162">24</token>
+                      </XMArg>
+                    </XMApp>
+                    <token meaning="plus" role="ADDOP" xml:id="token.1163">+</token>
+                    <token meaning="6" role="NUMBER" xml:id="token.1164">6</token>
+                    <XMHint name="thinspace" xml:id="XMHint.35"/>
+                    <token role="UNKNOWN" font="italic" xml:id="token.1165">q</token>
+                    <XMApp role="POSTSUPERSCRIPT" scriptpos="7" xml:id="XMApp.68">
+                      <XMArg rule="Superscript" xml:id="XMArg.68">
+                        <token meaning="23" role="NUMBER" xml:id="token.1166">23</token>
+                      </XMArg>
+                    </XMApp>
+                    <token meaning="plus" role="ADDOP" xml:id="token.1167">+</token>
+                    <token meaning="6" role="NUMBER" xml:id="token.1168">6</token>
+                    <XMHint name="thinspace" xml:id="XMHint.36"/>
+                    <token role="UNKNOWN" font="italic" xml:id="token.1169">q</token>
+                    <XMApp role="POSTSUPERSCRIPT" scriptpos="7" xml:id="XMApp.69">
+                      <XMArg rule="Superscript" xml:id="XMArg.69">
+                        <token meaning="22" role="NUMBER" xml:id="token.1170">22</token>
+                      </XMArg>
+                    </XMApp>
+                    <token meaning="plus" role="ADDOP" xml:id="token.1171">+</token>
+                    <token meaning="4" role="NUMBER" xml:id="token.1172">4</token>
+                    <XMHint name="thinspace" xml:id="XMHint.37"/>
+                    <token role="UNKNOWN" font="italic" xml:id="token.1173">q</token>
+                    <XMApp role="POSTSUPERSCRIPT" scriptpos="7" xml:id="XMApp.70">
+                      <XMArg rule="Superscript" xml:id="XMArg.70">
+                        <token meaning="21" role="NUMBER" xml:id="token.1174">21</token>
+                      </XMArg>
+                    </XMApp>
+                    <token meaning="plus" role="ADDOP" xml:id="token.1175">+</token>
+                    <token meaning="3" role="NUMBER" xml:id="token.1176">3</token>
+                    <XMHint name="thinspace" xml:id="XMHint.38"/>
+                    <token role="UNKNOWN" font="italic" xml:id="token.1177">q</token>
+                    <XMApp role="POSTSUPERSCRIPT" scriptpos="7" xml:id="XMApp.71">
+                      <XMArg rule="Superscript" xml:id="XMArg.71">
+                        <token meaning="20" role="NUMBER" xml:id="token.1178">20</token>
+                      </XMArg>
+                    </XMApp>
+                    <token meaning="plus" role="ADDOP" xml:id="token.1179">+</token>
+                    <token meaning="3" role="NUMBER" xml:id="token.1180">3</token>
+                    <XMHint name="thinspace" xml:id="XMHint.39"/>
+                    <token role="UNKNOWN" font="italic" xml:id="token.1181">q</token>
+                    <XMApp role="POSTSUPERSCRIPT" scriptpos="7" xml:id="XMApp.72">
+                      <XMArg rule="Superscript" xml:id="XMArg.72">
+                        <token meaning="19" role="NUMBER" xml:id="token.1182">19</token>
+                      </XMArg>
+                    </XMApp>
+                    <token meaning="plus" role="ADDOP" xml:id="token.1183">+</token>
+                    <token role="UNKNOWN" font="italic" xml:id="token.1184">q</token>
+                    <XMApp role="POSTSUPERSCRIPT" scriptpos="7" xml:id="XMApp.73">
+                      <XMArg rule="Superscript" xml:id="XMArg.73">
+                        <token meaning="18" role="NUMBER" xml:id="token.1185">18</token>
+                      </XMArg>
+                    </XMApp>
+                    <token role="CLOSE" xml:id="token.1186">)</token>
+                    <XMHint name="thinspace" xml:id="XMHint.40"/>
+                    <token role="UNKNOWN" font="italic" xml:id="token.1187">p</token>
+                    <XMApp role="POSTSUPERSCRIPT" scriptpos="7" xml:id="XMApp.74">
+                      <XMArg rule="Superscript" xml:id="XMArg.74">
+                        <token meaning="3" role="NUMBER" xml:id="token.1188">3</token>
+                      </XMArg>
+                    </XMApp>
+                    <token meaning="plus" role="ADDOP" xml:id="token.1189">+</token>
+                  </XMath>
+                </Math>
+                <MathBranch xml:id="MathBranch.3">
+                  <td align="right" xml:id="td.5"/>
+                  <td align="left" xml:id="td.6">
+                    <Math mode="inline" tex="\displaystyle\phantom{=+}6\,{q}^{{26}}+6\,{q}^{{25}}+7\,{q}^{{24}}+6\,{q}^{{23}}+6\,{q}^{{22}}+4\,{q}^{{21}}+3\,{q}^{{20}}+3\,{q}^{{19}}+{q}^{{18}})\, p^{3}+" xml:id="Math.62">
+                      <XMath xml:id="XMath.62">
+                        <XMHint name="phantom" xml:id="XMHint.41"/>
+                        <token meaning="6" role="NUMBER" xml:id="token.1190">6</token>
+                        <XMHint name="thinspace" xml:id="XMHint.42"/>
+                        <token role="UNKNOWN" font="italic" xml:id="token.1191">q</token>
+                        <XMApp role="POSTSUPERSCRIPT" scriptpos="7" xml:id="XMApp.75">
+                          <XMArg rule="Superscript" xml:id="XMArg.75">
+                            <token meaning="26" role="NUMBER" xml:id="token.1192">26</token>
+                          </XMArg>
+                        </XMApp>
+                        <token meaning="plus" role="ADDOP" xml:id="token.1193">+</token>
+                        <token meaning="6" role="NUMBER" xml:id="token.1194">6</token>
+                        <XMHint name="thinspace" xml:id="XMHint.43"/>
+                        <token role="UNKNOWN" font="italic" xml:id="token.1195">q</token>
+                        <XMApp role="POSTSUPERSCRIPT" scriptpos="7" xml:id="XMApp.76">
+                          <XMArg rule="Superscript" xml:id="XMArg.76">
+                            <token meaning="25" role="NUMBER" xml:id="token.1196">25</token>
+                          </XMArg>
+                        </XMApp>
+                        <token meaning="plus" role="ADDOP" xml:id="token.1197">+</token>
+                        <token meaning="7" role="NUMBER" xml:id="token.1198">7</token>
+                        <XMHint name="thinspace" xml:id="XMHint.44"/>
+                        <token role="UNKNOWN" font="italic" xml:id="token.1199">q</token>
+                        <XMApp role="POSTSUPERSCRIPT" scriptpos="7" xml:id="XMApp.77">
+                          <XMArg rule="Superscript" xml:id="XMArg.77">
+                            <token meaning="24" role="NUMBER" xml:id="token.1200">24</token>
+                          </XMArg>
+                        </XMApp>
+                        <token meaning="plus" role="ADDOP" xml:id="token.1201">+</token>
+                        <token meaning="6" role="NUMBER" xml:id="token.1202">6</token>
+                        <XMHint name="thinspace" xml:id="XMHint.45"/>
+                        <token role="UNKNOWN" font="italic" xml:id="token.1203">q</token>
+                        <XMApp role="POSTSUPERSCRIPT" scriptpos="7" xml:id="XMApp.78">
+                          <XMArg rule="Superscript" xml:id="XMArg.78">
+                            <token meaning="23" role="NUMBER" xml:id="token.1204">23</token>
+                          </XMArg>
+                        </XMApp>
+                        <token meaning="plus" role="ADDOP" xml:id="token.1205">+</token>
+                        <token meaning="6" role="NUMBER" xml:id="token.1206">6</token>
+                        <XMHint name="thinspace" xml:id="XMHint.46"/>
+                        <token role="UNKNOWN" font="italic" xml:id="token.1207">q</token>
+                        <XMApp role="POSTSUPERSCRIPT" scriptpos="7" xml:id="XMApp.79">
+                          <XMArg rule="Superscript" xml:id="XMArg.79">
+                            <token meaning="22" role="NUMBER" xml:id="token.1208">22</token>
+                          </XMArg>
+                        </XMApp>
+                        <token meaning="plus" role="ADDOP" xml:id="token.1209">+</token>
+                        <token meaning="4" role="NUMBER" xml:id="token.1210">4</token>
+                        <XMHint name="thinspace" xml:id="XMHint.47"/>
+                        <token role="UNKNOWN" font="italic" xml:id="token.1211">q</token>
+                        <XMApp role="POSTSUPERSCRIPT" scriptpos="7" xml:id="XMApp.80">
+                          <XMArg rule="Superscript" xml:id="XMArg.80">
+                            <token meaning="21" role="NUMBER" xml:id="token.1212">21</token>
+                          </XMArg>
+                        </XMApp>
+                        <token meaning="plus" role="ADDOP" xml:id="token.1213">+</token>
+                        <token meaning="3" role="NUMBER" xml:id="token.1214">3</token>
+                        <XMHint name="thinspace" xml:id="XMHint.48"/>
+                        <token role="UNKNOWN" font="italic" xml:id="token.1215">q</token>
+                        <XMApp role="POSTSUPERSCRIPT" scriptpos="7" xml:id="XMApp.81">
+                          <XMArg rule="Superscript" xml:id="XMArg.81">
+                            <token meaning="20" role="NUMBER" xml:id="token.1216">20</token>
+                          </XMArg>
+                        </XMApp>
+                        <token meaning="plus" role="ADDOP" xml:id="token.1217">+</token>
+                        <token meaning="3" role="NUMBER" xml:id="token.1218">3</token>
+                        <XMHint name="thinspace" xml:id="XMHint.49"/>
+                        <token role="UNKNOWN" font="italic" xml:id="token.1219">q</token>
+                        <XMApp role="POSTSUPERSCRIPT" scriptpos="7" xml:id="XMApp.82">
+                          <XMArg rule="Superscript" xml:id="XMArg.82">
+                            <token meaning="19" role="NUMBER" xml:id="token.1220">19</token>
+                          </XMArg>
+                        </XMApp>
+                        <token meaning="plus" role="ADDOP" xml:id="token.1221">+</token>
+                        <token role="UNKNOWN" font="italic" xml:id="token.1222">q</token>
+                        <XMApp role="POSTSUPERSCRIPT" scriptpos="7" xml:id="XMApp.83">
+                          <XMArg rule="Superscript" xml:id="XMArg.83">
+                            <token meaning="18" role="NUMBER" xml:id="token.1223">18</token>
+                          </XMArg>
+                        </XMApp>
+                        <token role="CLOSE" xml:id="token.1224">)</token>
+                        <XMHint name="thinspace" xml:id="XMHint.50"/>
+                        <token role="UNKNOWN" font="italic" xml:id="token.1225">p</token>
+                        <XMApp role="POSTSUPERSCRIPT" scriptpos="7" xml:id="XMApp.84">
+                          <XMArg rule="Superscript" xml:id="XMArg.84">
+                            <token meaning="3" role="NUMBER" xml:id="token.1226">3</token>
+                          </XMArg>
+                        </XMApp>
+                        <token meaning="plus" role="ADDOP" xml:id="token.1227">+</token>
+                      </XMath>
+                    </Math>
+                  </td>
+                </MathBranch>
+              </MathFork>
+            </equation>
+            <equation xml:id="equation.5">
+              <MathFork xml:id="MathFork.4">
+                <Math xml:id="Math.63" tex="\displaystyle \phantom{}({q}^{{30}}+3\,{q}^{{29}}+3\,{q}^{{28}}+4\,{q}^{{27}}+9\,{q}^{{26}}+12\,{q}^{{25}}+16\,{q}^{{24}}+24\,{q}^{{23}}+33\,{q}^{{22}}+">
+                  <XMath xml:id="XMath.63">
+                    <XMHint name="phantom" xml:id="XMHint.51"/>
+                    <token role="OPEN" xml:id="token.1228">(</token>
+                    <token role="UNKNOWN" font="italic" xml:id="token.1229">q</token>
+                    <XMApp role="POSTSUPERSCRIPT" scriptpos="7" xml:id="XMApp.85">
+                      <XMArg rule="Superscript" xml:id="XMArg.85">
+                        <token meaning="30" role="NUMBER" xml:id="token.1230">30</token>
+                      </XMArg>
+                    </XMApp>
+                    <token meaning="plus" role="ADDOP" xml:id="token.1231">+</token>
+                    <token meaning="3" role="NUMBER" xml:id="token.1232">3</token>
+                    <XMHint name="thinspace" xml:id="XMHint.52"/>
+                    <token role="UNKNOWN" font="italic" xml:id="token.1233">q</token>
+                    <XMApp role="POSTSUPERSCRIPT" scriptpos="7" xml:id="XMApp.86">
+                      <XMArg rule="Superscript" xml:id="XMArg.86">
+                        <token meaning="29" role="NUMBER" xml:id="token.1234">29</token>
+                      </XMArg>
+                    </XMApp>
+                    <token meaning="plus" role="ADDOP" xml:id="token.1235">+</token>
+                    <token meaning="3" role="NUMBER" xml:id="token.1236">3</token>
+                    <XMHint name="thinspace" xml:id="XMHint.53"/>
+                    <token role="UNKNOWN" font="italic" xml:id="token.1237">q</token>
+                    <XMApp role="POSTSUPERSCRIPT" scriptpos="7" xml:id="XMApp.87">
+                      <XMArg rule="Superscript" xml:id="XMArg.87">
+                        <token meaning="28" role="NUMBER" xml:id="token.1238">28</token>
+                      </XMArg>
+                    </XMApp>
+                    <token meaning="plus" role="ADDOP" xml:id="token.1239">+</token>
+                    <token meaning="4" role="NUMBER" xml:id="token.1240">4</token>
+                    <XMHint name="thinspace" xml:id="XMHint.54"/>
+                    <token role="UNKNOWN" font="italic" xml:id="token.1241">q</token>
+                    <XMApp role="POSTSUPERSCRIPT" scriptpos="7" xml:id="XMApp.88">
+                      <XMArg rule="Superscript" xml:id="XMArg.88">
+                        <token meaning="27" role="NUMBER" xml:id="token.1242">27</token>
+                      </XMArg>
+                    </XMApp>
+                    <token meaning="plus" role="ADDOP" xml:id="token.1243">+</token>
+                    <token meaning="9" role="NUMBER" xml:id="token.1244">9</token>
+                    <XMHint name="thinspace" xml:id="XMHint.55"/>
+                    <token role="UNKNOWN" font="italic" xml:id="token.1245">q</token>
+                    <XMApp role="POSTSUPERSCRIPT" scriptpos="7" xml:id="XMApp.89">
+                      <XMArg rule="Superscript" xml:id="XMArg.89">
+                        <token meaning="26" role="NUMBER" xml:id="token.1246">26</token>
+                      </XMArg>
+                    </XMApp>
+                    <token meaning="plus" role="ADDOP" xml:id="token.1247">+</token>
+                    <token meaning="12" role="NUMBER" xml:id="token.1248">12</token>
+                    <XMHint name="thinspace" xml:id="XMHint.56"/>
+                    <token role="UNKNOWN" font="italic" xml:id="token.1249">q</token>
+                    <XMApp role="POSTSUPERSCRIPT" scriptpos="7" xml:id="XMApp.90">
+                      <XMArg rule="Superscript" xml:id="XMArg.90">
+                        <token meaning="25" role="NUMBER" xml:id="token.1250">25</token>
+                      </XMArg>
+                    </XMApp>
+                    <token meaning="plus" role="ADDOP" xml:id="token.1251">+</token>
+                    <token meaning="16" role="NUMBER" xml:id="token.1252">16</token>
+                    <XMHint name="thinspace" xml:id="XMHint.57"/>
+                    <token role="UNKNOWN" font="italic" xml:id="token.1253">q</token>
+                    <XMApp role="POSTSUPERSCRIPT" scriptpos="7" xml:id="XMApp.91">
+                      <XMArg rule="Superscript" xml:id="XMArg.91">
+                        <token meaning="24" role="NUMBER" xml:id="token.1254">24</token>
+                      </XMArg>
+                    </XMApp>
+                    <token meaning="plus" role="ADDOP" xml:id="token.1255">+</token>
+                    <token meaning="24" role="NUMBER" xml:id="token.1256">24</token>
+                    <XMHint name="thinspace" xml:id="XMHint.58"/>
+                    <token role="UNKNOWN" font="italic" xml:id="token.1257">q</token>
+                    <XMApp role="POSTSUPERSCRIPT" scriptpos="7" xml:id="XMApp.92">
+                      <XMArg rule="Superscript" xml:id="XMArg.92">
+                        <token meaning="23" role="NUMBER" xml:id="token.1258">23</token>
+                      </XMArg>
+                    </XMApp>
+                    <token meaning="plus" role="ADDOP" xml:id="token.1259">+</token>
+                    <token meaning="33" role="NUMBER" xml:id="token.1260">33</token>
+                    <XMHint name="thinspace" xml:id="XMHint.59"/>
+                    <token role="UNKNOWN" font="italic" xml:id="token.1261">q</token>
+                    <XMApp role="POSTSUPERSCRIPT" scriptpos="7" xml:id="XMApp.93">
+                      <XMArg rule="Superscript" xml:id="XMArg.93">
+                        <token meaning="22" role="NUMBER" xml:id="token.1262">22</token>
+                      </XMArg>
+                    </XMApp>
+                    <token meaning="plus" role="ADDOP" xml:id="token.1263">+</token>
+                  </XMath>
+                </Math>
+                <MathBranch xml:id="MathBranch.4">
+                  <td align="right" xml:id="td.7"/>
+                  <td align="left" xml:id="td.8">
+                    <Math mode="inline" tex="\displaystyle\phantom{}({q}^{{30}}+3\,{q}^{{29}}+3\,{q}^{{28}}+4\,{q}^{{27}}+9\,{q}^{{26}}+12\,{q}^{{25}}+16\,{q}^{{24}}+24\,{q}^{{23}}+33\,{q}^{{22}}+" xml:id="Math.64">
+                      <XMath xml:id="XMath.64">
+                        <XMHint name="phantom" xml:id="XMHint.60"/>
+                        <token role="OPEN" xml:id="token.1264">(</token>
+                        <token role="UNKNOWN" font="italic" xml:id="token.1265">q</token>
+                        <XMApp role="POSTSUPERSCRIPT" scriptpos="7" xml:id="XMApp.94">
+                          <XMArg rule="Superscript" xml:id="XMArg.94">
+                            <token meaning="30" role="NUMBER" xml:id="token.1266">30</token>
+                          </XMArg>
+                        </XMApp>
+                        <token meaning="plus" role="ADDOP" xml:id="token.1267">+</token>
+                        <token meaning="3" role="NUMBER" xml:id="token.1268">3</token>
+                        <XMHint name="thinspace" xml:id="XMHint.61"/>
+                        <token role="UNKNOWN" font="italic" xml:id="token.1269">q</token>
+                        <XMApp role="POSTSUPERSCRIPT" scriptpos="7" xml:id="XMApp.95">
+                          <XMArg rule="Superscript" xml:id="XMArg.95">
+                            <token meaning="29" role="NUMBER" xml:id="token.1270">29</token>
+                          </XMArg>
+                        </XMApp>
+                        <token meaning="plus" role="ADDOP" xml:id="token.1271">+</token>
+                        <token meaning="3" role="NUMBER" xml:id="token.1272">3</token>
+                        <XMHint name="thinspace" xml:id="XMHint.62"/>
+                        <token role="UNKNOWN" font="italic" xml:id="token.1273">q</token>
+                        <XMApp role="POSTSUPERSCRIPT" scriptpos="7" xml:id="XMApp.96">
+                          <XMArg rule="Superscript" xml:id="XMArg.96">
+                            <token meaning="28" role="NUMBER" xml:id="token.1274">28</token>
+                          </XMArg>
+                        </XMApp>
+                        <token meaning="plus" role="ADDOP" xml:id="token.1275">+</token>
+                        <token meaning="4" role="NUMBER" xml:id="token.1276">4</token>
+                        <XMHint name="thinspace" xml:id="XMHint.63"/>
+                        <token role="UNKNOWN" font="italic" xml:id="token.1277">q</token>
+                        <XMApp role="POSTSUPERSCRIPT" scriptpos="7" xml:id="XMApp.97">
+                          <XMArg rule="Superscript" xml:id="XMArg.97">
+                            <token meaning="27" role="NUMBER" xml:id="token.1278">27</token>
+                          </XMArg>
+                        </XMApp>
+                        <token meaning="plus" role="ADDOP" xml:id="token.1279">+</token>
+                        <token meaning="9" role="NUMBER" xml:id="token.1280">9</token>
+                        <XMHint name="thinspace" xml:id="XMHint.64"/>
+                        <token role="UNKNOWN" font="italic" xml:id="token.1281">q</token>
+                        <XMApp role="POSTSUPERSCRIPT" scriptpos="7" xml:id="XMApp.98">
+                          <XMArg rule="Superscript" xml:id="XMArg.98">
+                            <token meaning="26" role="NUMBER" xml:id="token.1282">26</token>
+                          </XMArg>
+                        </XMApp>
+                        <token meaning="plus" role="ADDOP" xml:id="token.1283">+</token>
+                        <token meaning="12" role="NUMBER" xml:id="token.1284">12</token>
+                        <XMHint name="thinspace" xml:id="XMHint.65"/>
+                        <token role="UNKNOWN" font="italic" xml:id="token.1285">q</token>
+                        <XMApp role="POSTSUPERSCRIPT" scriptpos="7" xml:id="XMApp.99">
+                          <XMArg rule="Superscript" xml:id="XMArg.99">
+                            <token meaning="25" role="NUMBER" xml:id="token.1286">25</token>
+                          </XMArg>
+                        </XMApp>
+                        <token meaning="plus" role="ADDOP" xml:id="token.1287">+</token>
+                        <token meaning="16" role="NUMBER" xml:id="token.1288">16</token>
+                        <XMHint name="thinspace" xml:id="XMHint.66"/>
+                        <token role="UNKNOWN" font="italic" xml:id="token.1289">q</token>
+                        <XMApp role="POSTSUPERSCRIPT" scriptpos="7" xml:id="XMApp.100">
+                          <XMArg rule="Superscript" xml:id="XMArg.100">
+                            <token meaning="24" role="NUMBER" xml:id="token.1290">24</token>
+                          </XMArg>
+                        </XMApp>
+                        <token meaning="plus" role="ADDOP" xml:id="token.1291">+</token>
+                        <token meaning="24" role="NUMBER" xml:id="token.1292">24</token>
+                        <XMHint name="thinspace" xml:id="XMHint.67"/>
+                        <token role="UNKNOWN" font="italic" xml:id="token.1293">q</token>
+                        <XMApp role="POSTSUPERSCRIPT" scriptpos="7" xml:id="XMApp.101">
+                          <XMArg rule="Superscript" xml:id="XMArg.101">
+                            <token meaning="23" role="NUMBER" xml:id="token.1294">23</token>
+                          </XMArg>
+                        </XMApp>
+                        <token meaning="plus" role="ADDOP" xml:id="token.1295">+</token>
+                        <token meaning="33" role="NUMBER" xml:id="token.1296">33</token>
+                        <XMHint name="thinspace" xml:id="XMHint.68"/>
+                        <token role="UNKNOWN" font="italic" xml:id="token.1297">q</token>
+                        <XMApp role="POSTSUPERSCRIPT" scriptpos="7" xml:id="XMApp.102">
+                          <XMArg rule="Superscript" xml:id="XMArg.102">
+                            <token meaning="22" role="NUMBER" xml:id="token.1298">22</token>
+                          </XMArg>
+                        </XMApp>
+                        <token meaning="plus" role="ADDOP" xml:id="token.1299">+</token>
+                      </XMath>
+                    </Math>
+                  </td>
+                </MathBranch>
+              </MathFork>
+            </equation>
+            <equation xml:id="equation.6">
+              <MathFork xml:id="MathFork.5">
+                <Math xml:id="Math.65" tex="\displaystyle \phantom{=+}41\,{q}^{{21}}+45\,{q}^{{20}}+51\,{q}^{{19}}+57\,{q}^{{18}}+51\,{q}^{{17}}+45\,{q}^{{16}}+41\,{q}^{{15}}+">
+                  <XMath xml:id="XMath.65">
+                    <XMHint name="phantom" xml:id="XMHint.69"/>
+                    <token meaning="41" role="NUMBER" xml:id="token.1300">41</token>
+                    <XMHint name="thinspace" xml:id="XMHint.70"/>
+                    <token role="UNKNOWN" font="italic" xml:id="token.1301">q</token>
+                    <XMApp role="POSTSUPERSCRIPT" scriptpos="7" xml:id="XMApp.103">
+                      <XMArg rule="Superscript" xml:id="XMArg.103">
+                        <token meaning="21" role="NUMBER" xml:id="token.1302">21</token>
+                      </XMArg>
+                    </XMApp>
+                    <token meaning="plus" role="ADDOP" xml:id="token.1303">+</token>
+                    <token meaning="45" role="NUMBER" xml:id="token.1304">45</token>
+                    <XMHint name="thinspace" xml:id="XMHint.71"/>
+                    <token role="UNKNOWN" font="italic" xml:id="token.1305">q</token>
+                    <XMApp role="POSTSUPERSCRIPT" scriptpos="7" xml:id="XMApp.104">
+                      <XMArg rule="Superscript" xml:id="XMArg.104">
+                        <token meaning="20" role="NUMBER" xml:id="token.1306">20</token>
+                      </XMArg>
+                    </XMApp>
+                    <token meaning="plus" role="ADDOP" xml:id="token.1307">+</token>
+                    <token meaning="51" role="NUMBER" xml:id="token.1308">51</token>
+                    <XMHint name="thinspace" xml:id="XMHint.72"/>
+                    <token role="UNKNOWN" font="italic" xml:id="token.1309">q</token>
+                    <XMApp role="POSTSUPERSCRIPT" scriptpos="7" xml:id="XMApp.105">
+                      <XMArg rule="Superscript" xml:id="XMArg.105">
+                        <token meaning="19" role="NUMBER" xml:id="token.1310">19</token>
+                      </XMArg>
+                    </XMApp>
+                    <token meaning="plus" role="ADDOP" xml:id="token.1311">+</token>
+                    <token meaning="57" role="NUMBER" xml:id="token.1312">57</token>
+                    <XMHint name="thinspace" xml:id="XMHint.73"/>
+                    <token role="UNKNOWN" font="italic" xml:id="token.1313">q</token>
+                    <XMApp role="POSTSUPERSCRIPT" scriptpos="7" xml:id="XMApp.106">
+                      <XMArg rule="Superscript" xml:id="XMArg.106">
+                        <token meaning="18" role="NUMBER" xml:id="token.1314">18</token>
+                      </XMArg>
+                    </XMApp>
+                    <token meaning="plus" role="ADDOP" xml:id="token.1315">+</token>
+                    <token meaning="51" role="NUMBER" xml:id="token.1316">51</token>
+                    <XMHint name="thinspace" xml:id="XMHint.74"/>
+                    <token role="UNKNOWN" font="italic" xml:id="token.1317">q</token>
+                    <XMApp role="POSTSUPERSCRIPT" scriptpos="7" xml:id="XMApp.107">
+                      <XMArg rule="Superscript" xml:id="XMArg.107">
+                        <token meaning="17" role="NUMBER" xml:id="token.1318">17</token>
+                      </XMArg>
+                    </XMApp>
+                    <token meaning="plus" role="ADDOP" xml:id="token.1319">+</token>
+                    <token meaning="45" role="NUMBER" xml:id="token.1320">45</token>
+                    <XMHint name="thinspace" xml:id="XMHint.75"/>
+                    <token role="UNKNOWN" font="italic" xml:id="token.1321">q</token>
+                    <XMApp role="POSTSUPERSCRIPT" scriptpos="7" xml:id="XMApp.108">
+                      <XMArg rule="Superscript" xml:id="XMArg.108">
+                        <token meaning="16" role="NUMBER" xml:id="token.1322">16</token>
+                      </XMArg>
+                    </XMApp>
+                    <token meaning="plus" role="ADDOP" xml:id="token.1323">+</token>
+                    <token meaning="41" role="NUMBER" xml:id="token.1324">41</token>
+                    <XMHint name="thinspace" xml:id="XMHint.76"/>
+                    <token role="UNKNOWN" font="italic" xml:id="token.1325">q</token>
+                    <XMApp role="POSTSUPERSCRIPT" scriptpos="7" xml:id="XMApp.109">
+                      <XMArg rule="Superscript" xml:id="XMArg.109">
+                        <token meaning="15" role="NUMBER" xml:id="token.1326">15</token>
+                      </XMArg>
+                    </XMApp>
+                    <token meaning="plus" role="ADDOP" xml:id="token.1327">+</token>
+                  </XMath>
+                </Math>
+                <MathBranch xml:id="MathBranch.5">
+                  <td align="right" xml:id="td.9"/>
+                  <td align="left" xml:id="td.10">
+                    <Math mode="inline" tex="\displaystyle\phantom{=+}41\,{q}^{{21}}+45\,{q}^{{20}}+51\,{q}^{{19}}+57\,{q}^{{18}}+51\,{q}^{{17}}+45\,{q}^{{16}}+41\,{q}^{{15}}+" xml:id="Math.66">
+                      <XMath xml:id="XMath.66">
+                        <XMHint name="phantom" xml:id="XMHint.77"/>
+                        <token meaning="41" role="NUMBER" xml:id="token.1328">41</token>
+                        <XMHint name="thinspace" xml:id="XMHint.78"/>
+                        <token role="UNKNOWN" font="italic" xml:id="token.1329">q</token>
+                        <XMApp role="POSTSUPERSCRIPT" scriptpos="7" xml:id="XMApp.110">
+                          <XMArg rule="Superscript" xml:id="XMArg.110">
+                            <token meaning="21" role="NUMBER" xml:id="token.1330">21</token>
+                          </XMArg>
+                        </XMApp>
+                        <token meaning="plus" role="ADDOP" xml:id="token.1331">+</token>
+                        <token meaning="45" role="NUMBER" xml:id="token.1332">45</token>
+                        <XMHint name="thinspace" xml:id="XMHint.79"/>
+                        <token role="UNKNOWN" font="italic" xml:id="token.1333">q</token>
+                        <XMApp role="POSTSUPERSCRIPT" scriptpos="7" xml:id="XMApp.111">
+                          <XMArg rule="Superscript" xml:id="XMArg.111">
+                            <token meaning="20" role="NUMBER" xml:id="token.1334">20</token>
+                          </XMArg>
+                        </XMApp>
+                        <token meaning="plus" role="ADDOP" xml:id="token.1335">+</token>
+                        <token meaning="51" role="NUMBER" xml:id="token.1336">51</token>
+                        <XMHint name="thinspace" xml:id="XMHint.80"/>
+                        <token role="UNKNOWN" font="italic" xml:id="token.1337">q</token>
+                        <XMApp role="POSTSUPERSCRIPT" scriptpos="7" xml:id="XMApp.112">
+                          <XMArg rule="Superscript" xml:id="XMArg.112">
+                            <token meaning="19" role="NUMBER" xml:id="token.1338">19</token>
+                          </XMArg>
+                        </XMApp>
+                        <token meaning="plus" role="ADDOP" xml:id="token.1339">+</token>
+                        <token meaning="57" role="NUMBER" xml:id="token.1340">57</token>
+                        <XMHint name="thinspace" xml:id="XMHint.81"/>
+                        <token role="UNKNOWN" font="italic" xml:id="token.1341">q</token>
+                        <XMApp role="POSTSUPERSCRIPT" scriptpos="7" xml:id="XMApp.113">
+                          <XMArg rule="Superscript" xml:id="XMArg.113">
+                            <token meaning="18" role="NUMBER" xml:id="token.1342">18</token>
+                          </XMArg>
+                        </XMApp>
+                        <token meaning="plus" role="ADDOP" xml:id="token.1343">+</token>
+                        <token meaning="51" role="NUMBER" xml:id="token.1344">51</token>
+                        <XMHint name="thinspace" xml:id="XMHint.82"/>
+                        <token role="UNKNOWN" font="italic" xml:id="token.1345">q</token>
+                        <XMApp role="POSTSUPERSCRIPT" scriptpos="7" xml:id="XMApp.114">
+                          <XMArg rule="Superscript" xml:id="XMArg.114">
+                            <token meaning="17" role="NUMBER" xml:id="token.1346">17</token>
+                          </XMArg>
+                        </XMApp>
+                        <token meaning="plus" role="ADDOP" xml:id="token.1347">+</token>
+                        <token meaning="45" role="NUMBER" xml:id="token.1348">45</token>
+                        <XMHint name="thinspace" xml:id="XMHint.83"/>
+                        <token role="UNKNOWN" font="italic" xml:id="token.1349">q</token>
+                        <XMApp role="POSTSUPERSCRIPT" scriptpos="7" xml:id="XMApp.115">
+                          <XMArg rule="Superscript" xml:id="XMArg.115">
+                            <token meaning="16" role="NUMBER" xml:id="token.1350">16</token>
+                          </XMArg>
+                        </XMApp>
+                        <token meaning="plus" role="ADDOP" xml:id="token.1351">+</token>
+                        <token meaning="41" role="NUMBER" xml:id="token.1352">41</token>
+                        <XMHint name="thinspace" xml:id="XMHint.84"/>
+                        <token role="UNKNOWN" font="italic" xml:id="token.1353">q</token>
+                        <XMApp role="POSTSUPERSCRIPT" scriptpos="7" xml:id="XMApp.116">
+                          <XMArg rule="Superscript" xml:id="XMArg.116">
+                            <token meaning="15" role="NUMBER" xml:id="token.1354">15</token>
+                          </XMArg>
+                        </XMApp>
+                        <token meaning="plus" role="ADDOP" xml:id="token.1355">+</token>
+                      </XMath>
+                    </Math>
+                  </td>
+                </MathBranch>
+              </MathFork>
+            </equation>
+            <equation xml:id="equation.7">
+              <MathFork xml:id="MathFork.6">
+                <Math xml:id="Math.67" tex="\displaystyle \phantom{=+}33\,{q}^{{14}}+24\,{q}^{{13}}+16\,{q}^{{12}}+12\,{q}^{{11}}+9\,{q}^{{10}}+4\,{q}^{{9}}+3\,{q}^{{8}}+3\,{q}^{{7}}+{q}^{{6}})\, p^{2}+">
+                  <XMath xml:id="XMath.67">
+                    <XMHint name="phantom" xml:id="XMHint.85"/>
+                    <token meaning="33" role="NUMBER" xml:id="token.1356">33</token>
+                    <XMHint name="thinspace" xml:id="XMHint.86"/>
+                    <token role="UNKNOWN" font="italic" xml:id="token.1357">q</token>
+                    <XMApp role="POSTSUPERSCRIPT" scriptpos="7" xml:id="XMApp.117">
+                      <XMArg rule="Superscript" xml:id="XMArg.117">
+                        <token meaning="14" role="NUMBER" xml:id="token.1358">14</token>
+                      </XMArg>
+                    </XMApp>
+                    <token meaning="plus" role="ADDOP" xml:id="token.1359">+</token>
+                    <token meaning="24" role="NUMBER" xml:id="token.1360">24</token>
+                    <XMHint name="thinspace" xml:id="XMHint.87"/>
+                    <token role="UNKNOWN" font="italic" xml:id="token.1361">q</token>
+                    <XMApp role="POSTSUPERSCRIPT" scriptpos="7" xml:id="XMApp.118">
+                      <XMArg rule="Superscript" xml:id="XMArg.118">
+                        <token meaning="13" role="NUMBER" xml:id="token.1362">13</token>
+                      </XMArg>
+                    </XMApp>
+                    <token meaning="plus" role="ADDOP" xml:id="token.1363">+</token>
+                    <token meaning="16" role="NUMBER" xml:id="token.1364">16</token>
+                    <XMHint name="thinspace" xml:id="XMHint.88"/>
+                    <token role="UNKNOWN" font="italic" xml:id="token.1365">q</token>
+                    <XMApp role="POSTSUPERSCRIPT" scriptpos="7" xml:id="XMApp.119">
+                      <XMArg rule="Superscript" xml:id="XMArg.119">
+                        <token meaning="12" role="NUMBER" xml:id="token.1366">12</token>
+                      </XMArg>
+                    </XMApp>
+                    <token meaning="plus" role="ADDOP" xml:id="token.1367">+</token>
+                    <token meaning="12" role="NUMBER" xml:id="token.1368">12</token>
+                    <XMHint name="thinspace" xml:id="XMHint.89"/>
+                    <token role="UNKNOWN" font="italic" xml:id="token.1369">q</token>
+                    <XMApp role="POSTSUPERSCRIPT" scriptpos="7" xml:id="XMApp.120">
+                      <XMArg rule="Superscript" xml:id="XMArg.120">
+                        <token meaning="11" role="NUMBER" xml:id="token.1370">11</token>
+                      </XMArg>
+                    </XMApp>
+                    <token meaning="plus" role="ADDOP" xml:id="token.1371">+</token>
+                    <token meaning="9" role="NUMBER" xml:id="token.1372">9</token>
+                    <XMHint name="thinspace" xml:id="XMHint.90"/>
+                    <token role="UNKNOWN" font="italic" xml:id="token.1373">q</token>
+                    <XMApp role="POSTSUPERSCRIPT" scriptpos="7" xml:id="XMApp.121">
+                      <XMArg rule="Superscript" xml:id="XMArg.121">
+                        <token meaning="10" role="NUMBER" xml:id="token.1374">10</token>
+                      </XMArg>
+                    </XMApp>
+                    <token meaning="plus" role="ADDOP" xml:id="token.1375">+</token>
+                    <token meaning="4" role="NUMBER" xml:id="token.1376">4</token>
+                    <XMHint name="thinspace" xml:id="XMHint.91"/>
+                    <token role="UNKNOWN" font="italic" xml:id="token.1377">q</token>
+                    <XMApp role="POSTSUPERSCRIPT" scriptpos="7" xml:id="XMApp.122">
+                      <XMArg rule="Superscript" xml:id="XMArg.122">
+                        <token meaning="9" role="NUMBER" xml:id="token.1378">9</token>
+                      </XMArg>
+                    </XMApp>
+                    <token meaning="plus" role="ADDOP" xml:id="token.1379">+</token>
+                    <token meaning="3" role="NUMBER" xml:id="token.1380">3</token>
+                    <XMHint name="thinspace" xml:id="XMHint.92"/>
+                    <token role="UNKNOWN" font="italic" xml:id="token.1381">q</token>
+                    <XMApp role="POSTSUPERSCRIPT" scriptpos="7" xml:id="XMApp.123">
+                      <XMArg rule="Superscript" xml:id="XMArg.123">
+                        <token meaning="8" role="NUMBER" xml:id="token.1382">8</token>
+                      </XMArg>
+                    </XMApp>
+                    <token meaning="plus" role="ADDOP" xml:id="token.1383">+</token>
+                    <token meaning="3" role="NUMBER" xml:id="token.1384">3</token>
+                    <XMHint name="thinspace" xml:id="XMHint.93"/>
+                    <token role="UNKNOWN" font="italic" xml:id="token.1385">q</token>
+                    <XMApp role="POSTSUPERSCRIPT" scriptpos="7" xml:id="XMApp.124">
+                      <XMArg rule="Superscript" xml:id="XMArg.124">
+                        <token meaning="7" role="NUMBER" xml:id="token.1386">7</token>
+                      </XMArg>
+                    </XMApp>
+                    <token meaning="plus" role="ADDOP" xml:id="token.1387">+</token>
+                    <token role="UNKNOWN" font="italic" xml:id="token.1388">q</token>
+                    <XMApp role="POSTSUPERSCRIPT" scriptpos="7" xml:id="XMApp.125">
+                      <XMArg rule="Superscript" xml:id="XMArg.125">
+                        <token meaning="6" role="NUMBER" xml:id="token.1389">6</token>
+                      </XMArg>
+                    </XMApp>
+                    <token role="CLOSE" xml:id="token.1390">)</token>
+                    <XMHint name="thinspace" xml:id="XMHint.94"/>
+                    <token role="UNKNOWN" font="italic" xml:id="token.1391">p</token>
+                    <XMApp role="POSTSUPERSCRIPT" scriptpos="7" xml:id="XMApp.126">
+                      <XMArg rule="Superscript" xml:id="XMArg.126">
+                        <token meaning="2" role="NUMBER" xml:id="token.1392">2</token>
+                      </XMArg>
+                    </XMApp>
+                    <token meaning="plus" role="ADDOP" xml:id="token.1393">+</token>
+                  </XMath>
+                </Math>
+                <MathBranch xml:id="MathBranch.6">
+                  <td align="right" xml:id="td.11"/>
+                  <td align="left" xml:id="td.12">
+                    <Math mode="inline" tex="\displaystyle\phantom{=+}33\,{q}^{{14}}+24\,{q}^{{13}}+16\,{q}^{{12}}+12\,{q}^{{11}}+9\,{q}^{{10}}+4\,{q}^{{9}}+3\,{q}^{{8}}+3\,{q}^{{7}}+{q}^{{6}})\, p^{2}+" xml:id="Math.68">
+                      <XMath xml:id="XMath.68">
+                        <XMHint name="phantom" xml:id="XMHint.95"/>
+                        <token meaning="33" role="NUMBER" xml:id="token.1394">33</token>
+                        <XMHint name="thinspace" xml:id="XMHint.96"/>
+                        <token role="UNKNOWN" font="italic" xml:id="token.1395">q</token>
+                        <XMApp role="POSTSUPERSCRIPT" scriptpos="7" xml:id="XMApp.127">
+                          <XMArg rule="Superscript" xml:id="XMArg.127">
+                            <token meaning="14" role="NUMBER" xml:id="token.1396">14</token>
+                          </XMArg>
+                        </XMApp>
+                        <token meaning="plus" role="ADDOP" xml:id="token.1397">+</token>
+                        <token meaning="24" role="NUMBER" xml:id="token.1398">24</token>
+                        <XMHint name="thinspace" xml:id="XMHint.97"/>
+                        <token role="UNKNOWN" font="italic" xml:id="token.1399">q</token>
+                        <XMApp role="POSTSUPERSCRIPT" scriptpos="7" xml:id="XMApp.128">
+                          <XMArg rule="Superscript" xml:id="XMArg.128">
+                            <token meaning="13" role="NUMBER" xml:id="token.1400">13</token>
+                          </XMArg>
+                        </XMApp>
+                        <token meaning="plus" role="ADDOP" xml:id="token.1401">+</token>
+                        <token meaning="16" role="NUMBER" xml:id="token.1402">16</token>
+                        <XMHint name="thinspace" xml:id="XMHint.98"/>
+                        <token role="UNKNOWN" font="italic" xml:id="token.1403">q</token>
+                        <XMApp role="POSTSUPERSCRIPT" scriptpos="7" xml:id="XMApp.129">
+                          <XMArg rule="Superscript" xml:id="XMArg.129">
+                            <token meaning="12" role="NUMBER" xml:id="token.1404">12</token>
+                          </XMArg>
+                        </XMApp>
+                        <token meaning="plus" role="ADDOP" xml:id="token.1405">+</token>
+                        <token meaning="12" role="NUMBER" xml:id="token.1406">12</token>
+                        <XMHint name="thinspace" xml:id="XMHint.99"/>
+                        <token role="UNKNOWN" font="italic" xml:id="token.1407">q</token>
+                        <XMApp role="POSTSUPERSCRIPT" scriptpos="7" xml:id="XMApp.130">
+                          <XMArg rule="Superscript" xml:id="XMArg.130">
+                            <token meaning="11" role="NUMBER" xml:id="token.1408">11</token>
+                          </XMArg>
+                        </XMApp>
+                        <token meaning="plus" role="ADDOP" xml:id="token.1409">+</token>
+                        <token meaning="9" role="NUMBER" xml:id="token.1410">9</token>
+                        <XMHint name="thinspace" xml:id="XMHint.100"/>
+                        <token role="UNKNOWN" font="italic" xml:id="token.1411">q</token>
+                        <XMApp role="POSTSUPERSCRIPT" scriptpos="7" xml:id="XMApp.131">
+                          <XMArg rule="Superscript" xml:id="XMArg.131">
+                            <token meaning="10" role="NUMBER" xml:id="token.1412">10</token>
+                          </XMArg>
+                        </XMApp>
+                        <token meaning="plus" role="ADDOP" xml:id="token.1413">+</token>
+                        <token meaning="4" role="NUMBER" xml:id="token.1414">4</token>
+                        <XMHint name="thinspace" xml:id="XMHint.101"/>
+                        <token role="UNKNOWN" font="italic" xml:id="token.1415">q</token>
+                        <XMApp role="POSTSUPERSCRIPT" scriptpos="7" xml:id="XMApp.132">
+                          <XMArg rule="Superscript" xml:id="XMArg.132">
+                            <token meaning="9" role="NUMBER" xml:id="token.1416">9</token>
+                          </XMArg>
+                        </XMApp>
+                        <token meaning="plus" role="ADDOP" xml:id="token.1417">+</token>
+                        <token meaning="3" role="NUMBER" xml:id="token.1418">3</token>
+                        <XMHint name="thinspace" xml:id="XMHint.102"/>
+                        <token role="UNKNOWN" font="italic" xml:id="token.1419">q</token>
+                        <XMApp role="POSTSUPERSCRIPT" scriptpos="7" xml:id="XMApp.133">
+                          <XMArg rule="Superscript" xml:id="XMArg.133">
+                            <token meaning="8" role="NUMBER" xml:id="token.1420">8</token>
+                          </XMArg>
+                        </XMApp>
+                        <token meaning="plus" role="ADDOP" xml:id="token.1421">+</token>
+                        <token meaning="3" role="NUMBER" xml:id="token.1422">3</token>
+                        <XMHint name="thinspace" xml:id="XMHint.103"/>
+                        <token role="UNKNOWN" font="italic" xml:id="token.1423">q</token>
+                        <XMApp role="POSTSUPERSCRIPT" scriptpos="7" xml:id="XMApp.134">
+                          <XMArg rule="Superscript" xml:id="XMArg.134">
+                            <token meaning="7" role="NUMBER" xml:id="token.1424">7</token>
+                          </XMArg>
+                        </XMApp>
+                        <token meaning="plus" role="ADDOP" xml:id="token.1425">+</token>
+                        <token role="UNKNOWN" font="italic" xml:id="token.1426">q</token>
+                        <XMApp role="POSTSUPERSCRIPT" scriptpos="7" xml:id="XMApp.135">
+                          <XMArg rule="Superscript" xml:id="XMArg.135">
+                            <token meaning="6" role="NUMBER" xml:id="token.1427">6</token>
+                          </XMArg>
+                        </XMApp>
+                        <token role="CLOSE" xml:id="token.1428">)</token>
+                        <XMHint name="thinspace" xml:id="XMHint.104"/>
+                        <token role="UNKNOWN" font="italic" xml:id="token.1429">p</token>
+                        <XMApp role="POSTSUPERSCRIPT" scriptpos="7" xml:id="XMApp.136">
+                          <XMArg rule="Superscript" xml:id="XMArg.136">
+                            <token meaning="2" role="NUMBER" xml:id="token.1430">2</token>
+                          </XMArg>
+                        </XMApp>
+                        <token meaning="plus" role="ADDOP" xml:id="token.1431">+</token>
+                      </XMath>
+                    </Math>
+                  </td>
+                </MathBranch>
+              </MathFork>
+            </equation>
+            <equation xml:id="equation.8">
+              <MathFork xml:id="MathFork.7">
+                <Math xml:id="Math.69" tex="\displaystyle \phantom{}({q}^{{18}}+3\,{q}^{{17}}+3\,{q}^{{16}}+4\,{q}^{{15}}+6\,{q}^{{14}}+6\,{q}^{{13}}+7\,{q}^{{12}}+6\,{q}^{{11}}+6\,{q}^{{10}}+7\,{q}^{{9}}+">
+                  <XMath xml:id="XMath.69">
+                    <XMHint name="phantom" xml:id="XMHint.105"/>
+                    <token role="OPEN" xml:id="token.1432">(</token>
+                    <token role="UNKNOWN" font="italic" xml:id="token.1433">q</token>
+                    <XMApp role="POSTSUPERSCRIPT" scriptpos="7" xml:id="XMApp.137">
+                      <XMArg rule="Superscript" xml:id="XMArg.137">
+                        <token meaning="18" role="NUMBER" xml:id="token.1434">18</token>
+                      </XMArg>
+                    </XMApp>
+                    <token meaning="plus" role="ADDOP" xml:id="token.1435">+</token>
+                    <token meaning="3" role="NUMBER" xml:id="token.1436">3</token>
+                    <XMHint name="thinspace" xml:id="XMHint.106"/>
+                    <token role="UNKNOWN" font="italic" xml:id="token.1437">q</token>
+                    <XMApp role="POSTSUPERSCRIPT" scriptpos="7" xml:id="XMApp.138">
+                      <XMArg rule="Superscript" xml:id="XMArg.138">
+                        <token meaning="17" role="NUMBER" xml:id="token.1438">17</token>
+                      </XMArg>
+                    </XMApp>
+                    <token meaning="plus" role="ADDOP" xml:id="token.1439">+</token>
+                    <token meaning="3" role="NUMBER" xml:id="token.1440">3</token>
+                    <XMHint name="thinspace" xml:id="XMHint.107"/>
+                    <token role="UNKNOWN" font="italic" xml:id="token.1441">q</token>
+                    <XMApp role="POSTSUPERSCRIPT" scriptpos="7" xml:id="XMApp.139">
+                      <XMArg rule="Superscript" xml:id="XMArg.139">
+                        <token meaning="16" role="NUMBER" xml:id="token.1442">16</token>
+                      </XMArg>
+                    </XMApp>
+                    <token meaning="plus" role="ADDOP" xml:id="token.1443">+</token>
+                    <token meaning="4" role="NUMBER" xml:id="token.1444">4</token>
+                    <XMHint name="thinspace" xml:id="XMHint.108"/>
+                    <token role="UNKNOWN" font="italic" xml:id="token.1445">q</token>
+                    <XMApp role="POSTSUPERSCRIPT" scriptpos="7" xml:id="XMApp.140">
+                      <XMArg rule="Superscript" xml:id="XMArg.140">
+                        <token meaning="15" role="NUMBER" xml:id="token.1446">15</token>
+                      </XMArg>
+                    </XMApp>
+                    <token meaning="plus" role="ADDOP" xml:id="token.1447">+</token>
+                    <token meaning="6" role="NUMBER" xml:id="token.1448">6</token>
+                    <XMHint name="thinspace" xml:id="XMHint.109"/>
+                    <token role="UNKNOWN" font="italic" xml:id="token.1449">q</token>
+                    <XMApp role="POSTSUPERSCRIPT" scriptpos="7" xml:id="XMApp.141">
+                      <XMArg rule="Superscript" xml:id="XMArg.141">
+                        <token meaning="14" role="NUMBER" xml:id="token.1450">14</token>
+                      </XMArg>
+                    </XMApp>
+                    <token meaning="plus" role="ADDOP" xml:id="token.1451">+</token>
+                    <token meaning="6" role="NUMBER" xml:id="token.1452">6</token>
+                    <XMHint name="thinspace" xml:id="XMHint.110"/>
+                    <token role="UNKNOWN" font="italic" xml:id="token.1453">q</token>
+                    <XMApp role="POSTSUPERSCRIPT" scriptpos="7" xml:id="XMApp.142">
+                      <XMArg rule="Superscript" xml:id="XMArg.142">
+                        <token meaning="13" role="NUMBER" xml:id="token.1454">13</token>
+                      </XMArg>
+                    </XMApp>
+                    <token meaning="plus" role="ADDOP" xml:id="token.1455">+</token>
+                    <token meaning="7" role="NUMBER" xml:id="token.1456">7</token>
+                    <XMHint name="thinspace" xml:id="XMHint.111"/>
+                    <token role="UNKNOWN" font="italic" xml:id="token.1457">q</token>
+                    <XMApp role="POSTSUPERSCRIPT" scriptpos="7" xml:id="XMApp.143">
+                      <XMArg rule="Superscript" xml:id="XMArg.143">
+                        <token meaning="12" role="NUMBER" xml:id="token.1458">12</token>
+                      </XMArg>
+                    </XMApp>
+                    <token meaning="plus" role="ADDOP" xml:id="token.1459">+</token>
+                    <token meaning="6" role="NUMBER" xml:id="token.1460">6</token>
+                    <XMHint name="thinspace" xml:id="XMHint.112"/>
+                    <token role="UNKNOWN" font="italic" xml:id="token.1461">q</token>
+                    <XMApp role="POSTSUPERSCRIPT" scriptpos="7" xml:id="XMApp.144">
+                      <XMArg rule="Superscript" xml:id="XMArg.144">
+                        <token meaning="11" role="NUMBER" xml:id="token.1462">11</token>
+                      </XMArg>
+                    </XMApp>
+                    <token meaning="plus" role="ADDOP" xml:id="token.1463">+</token>
+                    <token meaning="6" role="NUMBER" xml:id="token.1464">6</token>
+                    <XMHint name="thinspace" xml:id="XMHint.113"/>
+                    <token role="UNKNOWN" font="italic" xml:id="token.1465">q</token>
+                    <XMApp role="POSTSUPERSCRIPT" scriptpos="7" xml:id="XMApp.145">
+                      <XMArg rule="Superscript" xml:id="XMArg.145">
+                        <token meaning="10" role="NUMBER" xml:id="token.1466">10</token>
+                      </XMArg>
+                    </XMApp>
+                    <token meaning="plus" role="ADDOP" xml:id="token.1467">+</token>
+                    <token meaning="7" role="NUMBER" xml:id="token.1468">7</token>
+                    <XMHint name="thinspace" xml:id="XMHint.114"/>
+                    <token role="UNKNOWN" font="italic" xml:id="token.1469">q</token>
+                    <XMApp role="POSTSUPERSCRIPT" scriptpos="7" xml:id="XMApp.146">
+                      <XMArg rule="Superscript" xml:id="XMArg.146">
+                        <token meaning="9" role="NUMBER" xml:id="token.1470">9</token>
+                      </XMArg>
+                    </XMApp>
+                    <token meaning="plus" role="ADDOP" xml:id="token.1471">+</token>
+                  </XMath>
+                </Math>
+                <MathBranch xml:id="MathBranch.7">
+                  <td align="right" xml:id="td.13"/>
+                  <td align="left" xml:id="td.14">
+                    <Math mode="inline" tex="\displaystyle\phantom{}({q}^{{18}}+3\,{q}^{{17}}+3\,{q}^{{16}}+4\,{q}^{{15}}+6\,{q}^{{14}}+6\,{q}^{{13}}+7\,{q}^{{12}}+6\,{q}^{{11}}+6\,{q}^{{10}}+7\,{q}^{{9}}+" xml:id="Math.70">
+                      <XMath xml:id="XMath.70">
+                        <XMHint name="phantom" xml:id="XMHint.115"/>
+                        <token role="OPEN" xml:id="token.1472">(</token>
+                        <token role="UNKNOWN" font="italic" xml:id="token.1473">q</token>
+                        <XMApp role="POSTSUPERSCRIPT" scriptpos="7" xml:id="XMApp.147">
+                          <XMArg rule="Superscript" xml:id="XMArg.147">
+                            <token meaning="18" role="NUMBER" xml:id="token.1474">18</token>
+                          </XMArg>
+                        </XMApp>
+                        <token meaning="plus" role="ADDOP" xml:id="token.1475">+</token>
+                        <token meaning="3" role="NUMBER" xml:id="token.1476">3</token>
+                        <XMHint name="thinspace" xml:id="XMHint.116"/>
+                        <token role="UNKNOWN" font="italic" xml:id="token.1477">q</token>
+                        <XMApp role="POSTSUPERSCRIPT" scriptpos="7" xml:id="XMApp.148">
+                          <XMArg rule="Superscript" xml:id="XMArg.148">
+                            <token meaning="17" role="NUMBER" xml:id="token.1478">17</token>
+                          </XMArg>
+                        </XMApp>
+                        <token meaning="plus" role="ADDOP" xml:id="token.1479">+</token>
+                        <token meaning="3" role="NUMBER" xml:id="token.1480">3</token>
+                        <XMHint name="thinspace" xml:id="XMHint.117"/>
+                        <token role="UNKNOWN" font="italic" xml:id="token.1481">q</token>
+                        <XMApp role="POSTSUPERSCRIPT" scriptpos="7" xml:id="XMApp.149">
+                          <XMArg rule="Superscript" xml:id="XMArg.149">
+                            <token meaning="16" role="NUMBER" xml:id="token.1482">16</token>
+                          </XMArg>
+                        </XMApp>
+                        <token meaning="plus" role="ADDOP" xml:id="token.1483">+</token>
+                        <token meaning="4" role="NUMBER" xml:id="token.1484">4</token>
+                        <XMHint name="thinspace" xml:id="XMHint.118"/>
+                        <token role="UNKNOWN" font="italic" xml:id="token.1485">q</token>
+                        <XMApp role="POSTSUPERSCRIPT" scriptpos="7" xml:id="XMApp.150">
+                          <XMArg rule="Superscript" xml:id="XMArg.150">
+                            <token meaning="15" role="NUMBER" xml:id="token.1486">15</token>
+                          </XMArg>
+                        </XMApp>
+                        <token meaning="plus" role="ADDOP" xml:id="token.1487">+</token>
+                        <token meaning="6" role="NUMBER" xml:id="token.1488">6</token>
+                        <XMHint name="thinspace" xml:id="XMHint.119"/>
+                        <token role="UNKNOWN" font="italic" xml:id="token.1489">q</token>
+                        <XMApp role="POSTSUPERSCRIPT" scriptpos="7" xml:id="XMApp.151">
+                          <XMArg rule="Superscript" xml:id="XMArg.151">
+                            <token meaning="14" role="NUMBER" xml:id="token.1490">14</token>
+                          </XMArg>
+                        </XMApp>
+                        <token meaning="plus" role="ADDOP" xml:id="token.1491">+</token>
+                        <token meaning="6" role="NUMBER" xml:id="token.1492">6</token>
+                        <XMHint name="thinspace" xml:id="XMHint.120"/>
+                        <token role="UNKNOWN" font="italic" xml:id="token.1493">q</token>
+                        <XMApp role="POSTSUPERSCRIPT" scriptpos="7" xml:id="XMApp.152">
+                          <XMArg rule="Superscript" xml:id="XMArg.152">
+                            <token meaning="13" role="NUMBER" xml:id="token.1494">13</token>
+                          </XMArg>
+                        </XMApp>
+                        <token meaning="plus" role="ADDOP" xml:id="token.1495">+</token>
+                        <token meaning="7" role="NUMBER" xml:id="token.1496">7</token>
+                        <XMHint name="thinspace" xml:id="XMHint.121"/>
+                        <token role="UNKNOWN" font="italic" xml:id="token.1497">q</token>
+                        <XMApp role="POSTSUPERSCRIPT" scriptpos="7" xml:id="XMApp.153">
+                          <XMArg rule="Superscript" xml:id="XMArg.153">
+                            <token meaning="12" role="NUMBER" xml:id="token.1498">12</token>
+                          </XMArg>
+                        </XMApp>
+                        <token meaning="plus" role="ADDOP" xml:id="token.1499">+</token>
+                        <token meaning="6" role="NUMBER" xml:id="token.1500">6</token>
+                        <XMHint name="thinspace" xml:id="XMHint.122"/>
+                        <token role="UNKNOWN" font="italic" xml:id="token.1501">q</token>
+                        <XMApp role="POSTSUPERSCRIPT" scriptpos="7" xml:id="XMApp.154">
+                          <XMArg rule="Superscript" xml:id="XMArg.154">
+                            <token meaning="11" role="NUMBER" xml:id="token.1502">11</token>
+                          </XMArg>
+                        </XMApp>
+                        <token meaning="plus" role="ADDOP" xml:id="token.1503">+</token>
+                        <token meaning="6" role="NUMBER" xml:id="token.1504">6</token>
+                        <XMHint name="thinspace" xml:id="XMHint.123"/>
+                        <token role="UNKNOWN" font="italic" xml:id="token.1505">q</token>
+                        <XMApp role="POSTSUPERSCRIPT" scriptpos="7" xml:id="XMApp.155">
+                          <XMArg rule="Superscript" xml:id="XMArg.155">
+                            <token meaning="10" role="NUMBER" xml:id="token.1506">10</token>
+                          </XMArg>
+                        </XMApp>
+                        <token meaning="plus" role="ADDOP" xml:id="token.1507">+</token>
+                        <token meaning="7" role="NUMBER" xml:id="token.1508">7</token>
+                        <XMHint name="thinspace" xml:id="XMHint.124"/>
+                        <token role="UNKNOWN" font="italic" xml:id="token.1509">q</token>
+                        <XMApp role="POSTSUPERSCRIPT" scriptpos="7" xml:id="XMApp.156">
+                          <XMArg rule="Superscript" xml:id="XMArg.156">
+                            <token meaning="9" role="NUMBER" xml:id="token.1510">9</token>
+                          </XMArg>
+                        </XMApp>
+                        <token meaning="plus" role="ADDOP" xml:id="token.1511">+</token>
+                      </XMath>
+                    </Math>
+                  </td>
+                </MathBranch>
+              </MathFork>
+            </equation>
+            <equation xml:id="equation.9">
+              <MathFork xml:id="MathFork.8">
+                <Math xml:id="Math.71" tex="\displaystyle \phantom{=+}6\,{q}^{{8}}+6\,{q}^{{7}}+7\,{q}^{{6}}+6\,{q}^{{5}}+6\,{q}^{{4}}+4\,{q}^{{3}}+3\,{q}^{{2}}+3\, q+1)\, p+1\,\big)">
+                  <XMath xml:id="XMath.71">
+                    <XMHint name="phantom" xml:id="XMHint.125"/>
+                    <token meaning="6" role="NUMBER" xml:id="token.1512">6</token>
+                    <XMHint name="thinspace" xml:id="XMHint.126"/>
+                    <token role="UNKNOWN" font="italic" xml:id="token.1513">q</token>
+                    <XMApp role="POSTSUPERSCRIPT" scriptpos="7" xml:id="XMApp.157">
+                      <XMArg rule="Superscript" xml:id="XMArg.157">
+                        <token meaning="8" role="NUMBER" xml:id="token.1514">8</token>
+                      </XMArg>
+                    </XMApp>
+                    <token meaning="plus" role="ADDOP" xml:id="token.1515">+</token>
+                    <token meaning="6" role="NUMBER" xml:id="token.1516">6</token>
+                    <XMHint name="thinspace" xml:id="XMHint.127"/>
+                    <token role="UNKNOWN" font="italic" xml:id="token.1517">q</token>
+                    <XMApp role="POSTSUPERSCRIPT" scriptpos="7" xml:id="XMApp.158">
+                      <XMArg rule="Superscript" xml:id="XMArg.158">
+                        <token meaning="7" role="NUMBER" xml:id="token.1518">7</token>
+                      </XMArg>
+                    </XMApp>
+                    <token meaning="plus" role="ADDOP" xml:id="token.1519">+</token>
+                    <token meaning="7" role="NUMBER" xml:id="token.1520">7</token>
+                    <XMHint name="thinspace" xml:id="XMHint.128"/>
+                    <token role="UNKNOWN" font="italic" xml:id="token.1521">q</token>
+                    <XMApp role="POSTSUPERSCRIPT" scriptpos="7" xml:id="XMApp.159">
+                      <XMArg rule="Superscript" xml:id="XMArg.159">
+                        <token meaning="6" role="NUMBER" xml:id="token.1522">6</token>
+                      </XMArg>
+                    </XMApp>
+                    <token meaning="plus" role="ADDOP" xml:id="token.1523">+</token>
+                    <token meaning="6" role="NUMBER" xml:id="token.1524">6</token>
+                    <XMHint name="thinspace" xml:id="XMHint.129"/>
+                    <token role="UNKNOWN" font="italic" xml:id="token.1525">q</token>
+                    <XMApp role="POSTSUPERSCRIPT" scriptpos="7" xml:id="XMApp.160">
+                      <XMArg rule="Superscript" xml:id="XMArg.160">
+                        <token meaning="5" role="NUMBER" xml:id="token.1526">5</token>
+                      </XMArg>
+                    </XMApp>
+                    <token meaning="plus" role="ADDOP" xml:id="token.1527">+</token>
+                    <token meaning="6" role="NUMBER" xml:id="token.1528">6</token>
+                    <XMHint name="thinspace" xml:id="XMHint.130"/>
+                    <token role="UNKNOWN" font="italic" xml:id="token.1529">q</token>
+                    <XMApp role="POSTSUPERSCRIPT" scriptpos="7" xml:id="XMApp.161">
+                      <XMArg rule="Superscript" xml:id="XMArg.161">
+                        <token meaning="4" role="NUMBER" xml:id="token.1530">4</token>
+                      </XMArg>
+                    </XMApp>
+                    <token meaning="plus" role="ADDOP" xml:id="token.1531">+</token>
+                    <token meaning="4" role="NUMBER" xml:id="token.1532">4</token>
+                    <XMHint name="thinspace" xml:id="XMHint.131"/>
+                    <token role="UNKNOWN" font="italic" xml:id="token.1533">q</token>
+                    <XMApp role="POSTSUPERSCRIPT" scriptpos="7" xml:id="XMApp.162">
+                      <XMArg rule="Superscript" xml:id="XMArg.162">
+                        <token meaning="3" role="NUMBER" xml:id="token.1534">3</token>
+                      </XMArg>
+                    </XMApp>
+                    <token meaning="plus" role="ADDOP" xml:id="token.1535">+</token>
+                    <token meaning="3" role="NUMBER" xml:id="token.1536">3</token>
+                    <XMHint name="thinspace" xml:id="XMHint.132"/>
+                    <token role="UNKNOWN" font="italic" xml:id="token.1537">q</token>
+                    <XMApp role="POSTSUPERSCRIPT" scriptpos="7" xml:id="XMApp.163">
+                      <XMArg rule="Superscript" xml:id="XMArg.163">
+                        <token meaning="2" role="NUMBER" xml:id="token.1538">2</token>
+                      </XMArg>
+                    </XMApp>
+                    <token meaning="plus" role="ADDOP" xml:id="token.1539">+</token>
+                    <token meaning="3" role="NUMBER" xml:id="token.1540">3</token>
+                    <XMHint name="thinspace" xml:id="XMHint.133"/>
+                    <token role="UNKNOWN" font="italic" xml:id="token.1541">q</token>
+                    <token meaning="plus" role="ADDOP" xml:id="token.1542">+</token>
+                    <token meaning="1" role="NUMBER" xml:id="token.1543">1</token>
+                    <token role="CLOSE" xml:id="token.1544">)</token>
+                    <XMHint name="thinspace" xml:id="XMHint.134"/>
+                    <token role="UNKNOWN" font="italic" xml:id="token.1545">p</token>
+                    <token meaning="plus" role="ADDOP" xml:id="token.1546">+</token>
+                    <token meaning="1" role="NUMBER" xml:id="token.1547">1</token>
+                    <XMHint name="thinspace" xml:id="XMHint.135"/>
+                    <token role="CLOSE" size="big" xml:id="token.1548">)</token>
+                  </XMath>
+                </Math>
+                <MathBranch xml:id="MathBranch.8">
+                  <td align="right" xml:id="td.15"/>
+                  <td align="left" xml:id="td.16">
+                    <Math mode="inline" tex="\displaystyle\phantom{=+}6\,{q}^{{8}}+6\,{q}^{{7}}+7\,{q}^{{6}}+6\,{q}^{{5}}+6\,{q}^{{4}}+4\,{q}^{{3}}+3\,{q}^{{2}}+3\, q+1)\, p+1\,\big)" xml:id="Math.72">
+                      <XMath xml:id="XMath.72">
+                        <XMHint name="phantom" xml:id="XMHint.136"/>
+                        <token meaning="6" role="NUMBER" xml:id="token.1549">6</token>
+                        <XMHint name="thinspace" xml:id="XMHint.137"/>
+                        <token role="UNKNOWN" font="italic" xml:id="token.1550">q</token>
+                        <XMApp role="POSTSUPERSCRIPT" scriptpos="7" xml:id="XMApp.164">
+                          <XMArg rule="Superscript" xml:id="XMArg.164">
+                            <token meaning="8" role="NUMBER" xml:id="token.1551">8</token>
+                          </XMArg>
+                        </XMApp>
+                        <token meaning="plus" role="ADDOP" xml:id="token.1552">+</token>
+                        <token meaning="6" role="NUMBER" xml:id="token.1553">6</token>
+                        <XMHint name="thinspace" xml:id="XMHint.138"/>
+                        <token role="UNKNOWN" font="italic" xml:id="token.1554">q</token>
+                        <XMApp role="POSTSUPERSCRIPT" scriptpos="7" xml:id="XMApp.165">
+                          <XMArg rule="Superscript" xml:id="XMArg.165">
+                            <token meaning="7" role="NUMBER" xml:id="token.1555">7</token>
+                          </XMArg>
+                        </XMApp>
+                        <token meaning="plus" role="ADDOP" xml:id="token.1556">+</token>
+                        <token meaning="7" role="NUMBER" xml:id="token.1557">7</token>
+                        <XMHint name="thinspace" xml:id="XMHint.139"/>
+                        <token role="UNKNOWN" font="italic" xml:id="token.1558">q</token>
+                        <XMApp role="POSTSUPERSCRIPT" scriptpos="7" xml:id="XMApp.166">
+                          <XMArg rule="Superscript" xml:id="XMArg.166">
+                            <token meaning="6" role="NUMBER" xml:id="token.1559">6</token>
+                          </XMArg>
+                        </XMApp>
+                        <token meaning="plus" role="ADDOP" xml:id="token.1560">+</token>
+                        <token meaning="6" role="NUMBER" xml:id="token.1561">6</token>
+                        <XMHint name="thinspace" xml:id="XMHint.140"/>
+                        <token role="UNKNOWN" font="italic" xml:id="token.1562">q</token>
+                        <XMApp role="POSTSUPERSCRIPT" scriptpos="7" xml:id="XMApp.167">
+                          <XMArg rule="Superscript" xml:id="XMArg.167">
+                            <token meaning="5" role="NUMBER" xml:id="token.1563">5</token>
+                          </XMArg>
+                        </XMApp>
+                        <token meaning="plus" role="ADDOP" xml:id="token.1564">+</token>
+                        <token meaning="6" role="NUMBER" xml:id="token.1565">6</token>
+                        <XMHint name="thinspace" xml:id="XMHint.141"/>
+                        <token role="UNKNOWN" font="italic" xml:id="token.1566">q</token>
+                        <XMApp role="POSTSUPERSCRIPT" scriptpos="7" xml:id="XMApp.168">
+                          <XMArg rule="Superscript" xml:id="XMArg.168">
+                            <token meaning="4" role="NUMBER" xml:id="token.1567">4</token>
+                          </XMArg>
+                        </XMApp>
+                        <token meaning="plus" role="ADDOP" xml:id="token.1568">+</token>
+                        <token meaning="4" role="NUMBER" xml:id="token.1569">4</token>
+                        <XMHint name="thinspace" xml:id="XMHint.142"/>
+                        <token role="UNKNOWN" font="italic" xml:id="token.1570">q</token>
+                        <XMApp role="POSTSUPERSCRIPT" scriptpos="7" xml:id="XMApp.169">
+                          <XMArg rule="Superscript" xml:id="XMArg.169">
+                            <token meaning="3" role="NUMBER" xml:id="token.1571">3</token>
+                          </XMArg>
+                        </XMApp>
+                        <token meaning="plus" role="ADDOP" xml:id="token.1572">+</token>
+                        <token meaning="3" role="NUMBER" xml:id="token.1573">3</token>
+                        <XMHint name="thinspace" xml:id="XMHint.143"/>
+                        <token role="UNKNOWN" font="italic" xml:id="token.1574">q</token>
+                        <XMApp role="POSTSUPERSCRIPT" scriptpos="7" xml:id="XMApp.170">
+                          <XMArg rule="Superscript" xml:id="XMArg.170">
+                            <token meaning="2" role="NUMBER" xml:id="token.1575">2</token>
+                          </XMArg>
+                        </XMApp>
+                        <token meaning="plus" role="ADDOP" xml:id="token.1576">+</token>
+                        <token meaning="3" role="NUMBER" xml:id="token.1577">3</token>
+                        <XMHint name="thinspace" xml:id="XMHint.144"/>
+                        <token role="UNKNOWN" font="italic" xml:id="token.1578">q</token>
+                        <token meaning="plus" role="ADDOP" xml:id="token.1579">+</token>
+                        <token meaning="1" role="NUMBER" xml:id="token.1580">1</token>
+                        <token role="CLOSE" xml:id="token.1581">)</token>
+                        <XMHint name="thinspace" xml:id="XMHint.145"/>
+                        <token role="UNKNOWN" font="italic" xml:id="token.1582">p</token>
+                        <token meaning="plus" role="ADDOP" xml:id="token.1583">+</token>
+                        <token meaning="1" role="NUMBER" xml:id="token.1584">1</token>
+                        <XMHint name="thinspace" xml:id="XMHint.146"/>
+                        <token role="CLOSE" size="big" xml:id="token.1585">)</token>
+                      </XMath>
+                    </Math>
+                  </td>
+                </MathBranch>
+              </MathFork>
+            </equation>
+          </equationgroup>
+        </formula>
+      </sentence>
+    </para>
+    <para xml:id="para.14">
+      <sentence xml:id="sentence.56">
+        <word xml:id="word.785">
+          <token xml:id="token.1586">We</token>
+        </word>
+        <word xml:id="word.786">
+          <token xml:id="token.1587">are</token>
+        </word>
+        <word xml:id="word.787">
+          <token xml:id="token.1588">ready</token>
+        </word>
+        <word xml:id="word.788">
+          <token xml:id="token.1589">to</token>
+        </word>
+        <word xml:id="word.789">
+          <token xml:id="token.1590">state</token>
+        </word>
+        <word xml:id="word.790">
+          <token xml:id="token.1591">our</token>
+        </word>
+        <word xml:id="word.791">
+          <token xml:id="token.1592">main</token>
+        </word>
+        <word xml:id="word.792">
+          <token xml:id="token.1593">result</token>
+        </word>
+        <word xml:id="word.793">
+          <token xml:id="token.1594">.</token>
+        </word>
+      </sentence>
+    </para>
+    <theorem class="theo" refnum="3" xml:id="theorem.3" labels="LABEL:theo:ST">
+      <title xml:id="title.6">
+        <sentence xml:id="sentence.57">
+          <word xml:id="word.794">
+            <token xml:id="token.1595">Theorem</token>
+          </word>
+          <word xml:id="word.795">
+            <token xml:id="token.1596">3</token>
+          </word>
+          <word xml:id="word.796">
+            <token xml:id="token.1597">.</token>
+          </word>
+        </sentence>
+      </title>
+      <para xml:id="para.15">
+        <sentence xml:id="sentence.58">
+          <word font="italic" xml:id="word.797">
+            <token xml:id="token.1598">Let</token>
+          </word>
+          <formula xml:id="formula.57">
+            <Math xmlns="http://dlmf.nist.gov/LaTeXML" mode="inline" tex="A" xml:id="Math.73">
+              <XMath xml:id="XMath.73">
+                <token role="UNKNOWN" xml:id="token.1599">A</token>
+              </XMath>
+            </Math>
+          </formula>
+          <word font="italic" xml:id="word.798">
+            <token xml:id="token.1600">be</token>
+          </word>
+          <word font="italic" xml:id="word.799">
+            <token xml:id="token.1601">a</token>
+          </word>
+          <word font="italic" xml:id="word.800">
+            <token xml:id="token.1602">balanced</token>
+          </word>
+          <word font="italic" xml:id="word.801">
+            <token xml:id="token.1603">bicolored</token>
+          </word>
+          <word font="italic" xml:id="word.802">
+            <token xml:id="token.1604">wall</token>
+            <token xml:id="token.1605">-</token>
+            <token xml:id="token.1606">free</token>
+          </word>
+          <word font="italic" xml:id="word.803">
+            <token xml:id="token.1607">quadriculated</token>
+          </word>
+          <word font="italic" xml:id="word.804">
+            <token xml:id="token.1608">annulus</token>
+          </word>
+          <word font="italic" xml:id="word.805">
+            <token xml:id="token.1609">.</token>
+          </word>
+        </sentence>
+        <enumerate xml:id="enumerate.1">
+          <item refnum="(a)" xml:id="item.1">
+            <para xml:id="para.16">
+              <sentence xml:id="sentence.59">
+                <word xml:id="word.806">
+                  <token xml:id="token.1610">All</token>
+                </word>
+                <word xml:id="word.807">
+                  <token xml:id="token.1611">non</token>
+                  <token xml:id="token.1612">-</token>
+                  <token xml:id="token.1613">zero</token>
+                </word>
+                <word xml:id="word.808">
+                  <token xml:id="token.1614">roots</token>
+                </word>
+                <word xml:id="word.809">
+                  <token xml:id="token.1615">of</token>
+                </word>
+                <word xml:id="word.810">
+                  <token xml:id="token.1616">the</token>
+                </word>
+                <word xml:id="word.811">
+                  <token xml:id="token.1617">polynomial</token>
+                </word>
+                <formula xml:id="formula.58">
+                  <Math xmlns="http://dlmf.nist.gov/LaTeXML" mode="inline" tex="\Phi _{A}(p,-1)" xml:id="Math.74">
+                    <XMath xml:id="XMath.74">
+                      <token name="Phi" role="UNKNOWN" xml:id="token.1618">Φ</token>
+                      <XMApp role="POSTSUBSCRIPT" scriptpos="5" xml:id="XMApp.171">
+                        <XMArg rule="Subscript" xml:id="XMArg.171">
+                          <token role="UNKNOWN" font="italic" xml:id="token.1619">A</token>
+                        </XMArg>
+                      </XMApp>
+                      <token role="OPEN" xml:id="token.1620">(</token>
+                      <token role="UNKNOWN" font="italic" xml:id="token.1621">p</token>
+                      <token role="PUNCT" xml:id="token.1622">,</token>
+                      <token meaning="minus" role="ADDOP" xml:id="token.1623">-</token>
+                      <token meaning="1" role="NUMBER" xml:id="token.1624">1</token>
+                      <token role="CLOSE" xml:id="token.1625">)</token>
+                    </XMath>
+                  </Math>
+                </formula>
+                <word xml:id="word.812">
+                  <token xml:id="token.1626">are</token>
+                </word>
+                <word xml:id="word.813">
+                  <token xml:id="token.1627">roots</token>
+                </word>
+                <word xml:id="word.814">
+                  <token xml:id="token.1628">of</token>
+                </word>
+                <word xml:id="word.815">
+                  <token xml:id="token.1629">unity</token>
+                </word>
+                <word xml:id="word.816">
+                  <token xml:id="token.1630">.</token>
+                </word>
+              </sentence>
+            </para>
+          </item>
+          <item refnum="(b)" xml:id="item.2">
+            <para xml:id="para.17">
+              <sentence xml:id="sentence.60">
+                <word xml:id="word.817">
+                  <token xml:id="token.1631">Let</token>
+                </word>
+                <formula xml:id="formula.59">
+                  <Math xmlns="http://dlmf.nist.gov/LaTeXML" mode="inline" tex="q&gt;0" xml:id="Math.75">
+                    <XMath xml:id="XMath.75">
+                      <token role="UNKNOWN" font="italic" xml:id="token.1632">q</token>
+                      <token meaning="greater-than" role="RELOP" xml:id="token.1633">&gt;</token>
+                      <token meaning="0" role="NUMBER" xml:id="token.1634">0</token>
+                    </XMath>
+                  </Math>
+                </formula>
+                <word xml:id="word.818">
+                  <token xml:id="token.1635">be</token>
+                </word>
+                <word xml:id="word.819">
+                  <token xml:id="token.1636">fixed</token>
+                </word>
+                <word xml:id="word.820">
+                  <token xml:id="token.1637">:</token>
+                </word>
+                <word xml:id="word.821">
+                  <token xml:id="token.1638">all</token>
+                </word>
+                <word xml:id="word.822">
+                  <token xml:id="token.1639">non</token>
+                  <token xml:id="token.1640">-</token>
+                  <token xml:id="token.1641">zero</token>
+                </word>
+                <word xml:id="word.823">
+                  <token xml:id="token.1642">roots</token>
+                </word>
+                <word xml:id="word.824">
+                  <token xml:id="token.1643">of</token>
+                </word>
+                <word xml:id="word.825">
+                  <token xml:id="token.1644">the</token>
+                </word>
+                <formula xml:id="formula.60">
+                  <Math xmlns="http://dlmf.nist.gov/LaTeXML" mode="inline" tex="q" xml:id="Math.76">
+                    <XMath xml:id="XMath.76">
+                      <token role="UNKNOWN" font="italic" xml:id="token.1645">q</token>
+                    </XMath>
+                  </Math>
+                </formula>
+                <word xml:id="word.826">
+                  <token xml:id="token.1646">flux</token>
+                </word>
+                <word xml:id="word.827">
+                  <token xml:id="token.1647">polynomial</token>
+                </word>
+                <formula xml:id="formula.61">
+                  <Math xmlns="http://dlmf.nist.gov/LaTeXML" mode="inline" tex="\Phi _{A}(p,q)" xml:id="Math.77">
+                    <XMath xml:id="XMath.77">
+                      <token name="Phi" role="UNKNOWN" xml:id="token.1648">Φ</token>
+                      <XMApp role="POSTSUBSCRIPT" scriptpos="5" xml:id="XMApp.172">
+                        <XMArg rule="Subscript" xml:id="XMArg.172">
+                          <token role="UNKNOWN" font="italic" xml:id="token.1649">A</token>
+                        </XMArg>
+                      </XMApp>
+                      <token role="OPEN" xml:id="token.1650">(</token>
+                      <token role="UNKNOWN" font="italic" xml:id="token.1651">p</token>
+                      <token role="PUNCT" xml:id="token.1652">,</token>
+                      <token role="UNKNOWN" font="italic" xml:id="token.1653">q</token>
+                      <token role="CLOSE" xml:id="token.1654">)</token>
+                    </XMath>
+                  </Math>
+                </formula>
+                <word xml:id="word.828">
+                  <token xml:id="token.1655">are</token>
+                </word>
+                <word xml:id="word.829">
+                  <token xml:id="token.1656">distinct</token>
+                </word>
+                <word xml:id="word.830">
+                  <token xml:id="token.1657">,</token>
+                </word>
+                <word xml:id="word.831">
+                  <token xml:id="token.1658">negative</token>
+                </word>
+                <word xml:id="word.832">
+                  <token xml:id="token.1659">numbers</token>
+                </word>
+                <word xml:id="word.833">
+                  <token xml:id="token.1660">.</token>
+                </word>
+              </sentence>
+            </para>
+          </item>
+        </enumerate>
+      </para>
+    </theorem>
+    <para xml:id="para.18">
+      <sentence xml:id="sentence.61">
+        <word xml:id="word.834">
+          <token xml:id="token.1661">In</token>
+        </word>
+        <word xml:id="word.835">
+          <token xml:id="token.1662">the</token>
+        </word>
+        <word xml:id="word.836">
+          <token xml:id="token.1663">example</token>
+        </word>
+        <word xml:id="word.837">
+          <token xml:id="token.1664">above</token>
+        </word>
+        <word xml:id="word.838">
+          <token xml:id="token.1665">,</token>
+        </word>
+        <formula xml:id="formula.62">
+          <Math xmlns="http://dlmf.nist.gov/LaTeXML" mode="inline" tex="\Phi _{A}(p,-1)=p^{{-2}}(p^{4}+p^{3}+p^{2}+p+1)" xml:id="Math.78">
+            <XMath xml:id="XMath.78">
+              <token name="Phi" role="UNKNOWN" xml:id="token.1666">Φ</token>
+              <XMApp role="POSTSUBSCRIPT" scriptpos="2" xml:id="XMApp.173">
+                <XMArg rule="Subscript" xml:id="XMArg.173">
+                  <token role="UNKNOWN" font="italic" xml:id="token.1667">A</token>
+                </XMArg>
+              </XMApp>
+              <token role="OPEN" xml:id="token.1668">(</token>
+              <token role="UNKNOWN" font="italic" xml:id="token.1669">p</token>
+              <token role="PUNCT" xml:id="token.1670">,</token>
+              <token meaning="minus" role="ADDOP" xml:id="token.1671">-</token>
+              <token meaning="1" role="NUMBER" xml:id="token.1672">1</token>
+              <token role="CLOSE" xml:id="token.1673">)</token>
+              <token meaning="equals" role="RELOP" xml:id="token.1674">=</token>
+              <token role="UNKNOWN" font="italic" xml:id="token.1675">p</token>
+              <XMApp role="POSTSUPERSCRIPT" scriptpos="2" xml:id="XMApp.174">
+                <XMArg rule="Superscript" xml:id="XMArg.174">
+                  <token meaning="minus" role="ADDOP" xml:id="token.1676">-</token>
+                  <token meaning="2" role="NUMBER" xml:id="token.1677">2</token>
+                </XMArg>
+              </XMApp>
+              <token role="OPEN" xml:id="token.1678">(</token>
+              <token role="UNKNOWN" font="italic" xml:id="token.1679">p</token>
+              <XMApp role="POSTSUPERSCRIPT" scriptpos="2" xml:id="XMApp.175">
+                <XMArg rule="Superscript" xml:id="XMArg.175">
+                  <token meaning="4" role="NUMBER" xml:id="token.1680">4</token>
+                </XMArg>
+              </XMApp>
+              <token meaning="plus" role="ADDOP" xml:id="token.1681">+</token>
+              <token role="UNKNOWN" font="italic" xml:id="token.1682">p</token>
+              <XMApp role="POSTSUPERSCRIPT" scriptpos="2" xml:id="XMApp.176">
+                <XMArg rule="Superscript" xml:id="XMArg.176">
+                  <token meaning="3" role="NUMBER" xml:id="token.1683">3</token>
+                </XMArg>
+              </XMApp>
+              <token meaning="plus" role="ADDOP" xml:id="token.1684">+</token>
+              <token role="UNKNOWN" font="italic" xml:id="token.1685">p</token>
+              <XMApp role="POSTSUPERSCRIPT" scriptpos="2" xml:id="XMApp.177">
+                <XMArg rule="Superscript" xml:id="XMArg.177">
+                  <token meaning="2" role="NUMBER" xml:id="token.1686">2</token>
+                </XMArg>
+              </XMApp>
+              <token meaning="plus" role="ADDOP" xml:id="token.1687">+</token>
+              <token role="UNKNOWN" font="italic" xml:id="token.1688">p</token>
+              <token meaning="plus" role="ADDOP" xml:id="token.1689">+</token>
+              <token meaning="1" role="NUMBER" xml:id="token.1690">1</token>
+              <token role="CLOSE" xml:id="token.1691">)</token>
+            </XMath>
+          </Math>
+        </formula>
+        <word xml:id="word.839">
+          <token xml:id="token.1692">and</token>
+        </word>
+        <formula xml:id="formula.63">
+          <Math xmlns="http://dlmf.nist.gov/LaTeXML" mode="inline" tex="\Phi _{A}(p,1)=p^{{-2}}(p^{4}+91\, p^{3}+541\, p^{2}+91\, p+1)" xml:id="Math.79">
+            <XMath xml:id="XMath.79">
+              <token name="Phi" role="UNKNOWN" xml:id="token.1693">Φ</token>
+              <XMApp role="POSTSUBSCRIPT" scriptpos="2" xml:id="XMApp.178">
+                <XMArg rule="Subscript" xml:id="XMArg.178">
+                  <token role="UNKNOWN" font="italic" xml:id="token.1694">A</token>
+                </XMArg>
+              </XMApp>
+              <token role="OPEN" xml:id="token.1695">(</token>
+              <token role="UNKNOWN" font="italic" xml:id="token.1696">p</token>
+              <token role="PUNCT" xml:id="token.1697">,</token>
+              <token meaning="1" role="NUMBER" xml:id="token.1698">1</token>
+              <token role="CLOSE" xml:id="token.1699">)</token>
+              <token meaning="equals" role="RELOP" xml:id="token.1700">=</token>
+              <token role="UNKNOWN" font="italic" xml:id="token.1701">p</token>
+              <XMApp role="POSTSUPERSCRIPT" scriptpos="2" xml:id="XMApp.179">
+                <XMArg rule="Superscript" xml:id="XMArg.179">
+                  <token meaning="minus" role="ADDOP" xml:id="token.1702">-</token>
+                  <token meaning="2" role="NUMBER" xml:id="token.1703">2</token>
+                </XMArg>
+              </XMApp>
+              <token role="OPEN" xml:id="token.1704">(</token>
+              <token role="UNKNOWN" font="italic" xml:id="token.1705">p</token>
+              <XMApp role="POSTSUPERSCRIPT" scriptpos="2" xml:id="XMApp.180">
+                <XMArg rule="Superscript" xml:id="XMArg.180">
+                  <token meaning="4" role="NUMBER" xml:id="token.1706">4</token>
+                </XMArg>
+              </XMApp>
+              <token meaning="plus" role="ADDOP" xml:id="token.1707">+</token>
+              <token meaning="91" role="NUMBER" xml:id="token.1708">91</token>
+              <XMHint name="thinspace" xml:id="XMHint.147"/>
+              <token role="UNKNOWN" font="italic" xml:id="token.1709">p</token>
+              <XMApp role="POSTSUPERSCRIPT" scriptpos="2" xml:id="XMApp.181">
+                <XMArg rule="Superscript" xml:id="XMArg.181">
+                  <token meaning="3" role="NUMBER" xml:id="token.1710">3</token>
+                </XMArg>
+              </XMApp>
+              <token meaning="plus" role="ADDOP" xml:id="token.1711">+</token>
+              <token meaning="541" role="NUMBER" xml:id="token.1712">541</token>
+              <XMHint name="thinspace" xml:id="XMHint.148"/>
+              <token role="UNKNOWN" font="italic" xml:id="token.1713">p</token>
+              <XMApp role="POSTSUPERSCRIPT" scriptpos="2" xml:id="XMApp.182">
+                <XMArg rule="Superscript" xml:id="XMArg.182">
+                  <token meaning="2" role="NUMBER" xml:id="token.1714">2</token>
+                </XMArg>
+              </XMApp>
+              <token meaning="plus" role="ADDOP" xml:id="token.1715">+</token>
+              <token meaning="91" role="NUMBER" xml:id="token.1716">91</token>
+              <XMHint name="thinspace" xml:id="XMHint.149"/>
+              <token role="UNKNOWN" font="italic" xml:id="token.1717">p</token>
+              <token meaning="plus" role="ADDOP" xml:id="token.1718">+</token>
+              <token meaning="1" role="NUMBER" xml:id="token.1719">1</token>
+              <token role="CLOSE" xml:id="token.1720">)</token>
+            </XMath>
+          </Math>
+        </formula>
+        <word xml:id="word.840">
+          <token xml:id="token.1721">(</token>
+        </word>
+        <word xml:id="word.841">
+          <token xml:id="token.1722">with</token>
+        </word>
+        <word xml:id="word.842">
+          <token xml:id="token.1723">roots</token>
+        </word>
+        <word xml:id="word.843">
+          <token xml:id="token.1724">approximately</token>
+        </word>
+        <word xml:id="word.844">
+          <token xml:id="token.1725">equal</token>
+        </word>
+        <word xml:id="word.845">
+          <token xml:id="token.1726">to</token>
+        </word>
+        <formula xml:id="formula.64">
+          <Math xmlns="http://dlmf.nist.gov/LaTeXML" mode="inline" tex="-84.619" xml:id="Math.80">
+            <XMath xml:id="XMath.80">
+              <token meaning="minus" role="ADDOP" xml:id="token.1727">-</token>
+              <token meaning="84.619" role="NUMBER" xml:id="token.1728">84.619</token>
+            </XMath>
+          </Math>
+        </formula>
+        <word xml:id="word.846">
+          <token xml:id="token.1729">,</token>
+        </word>
+        <formula xml:id="formula.65">
+          <Math xmlns="http://dlmf.nist.gov/LaTeXML" mode="inline" tex="-6.2077" xml:id="Math.81">
+            <XMath xml:id="XMath.81">
+              <token meaning="minus" role="ADDOP" xml:id="token.1730">-</token>
+              <token meaning="6.2077" role="NUMBER" xml:id="token.1731">6.2077</token>
+            </XMath>
+          </Math>
+        </formula>
+        <word xml:id="word.847">
+          <token xml:id="token.1732">,</token>
+        </word>
+        <formula xml:id="formula.66">
+          <Math xmlns="http://dlmf.nist.gov/LaTeXML" mode="inline" tex="-.16109" xml:id="Math.82">
+            <XMath xml:id="XMath.82">
+              <token meaning="minus" role="ADDOP" xml:id="token.1733">-</token>
+              <token meaning=".16109" role="NUMBER" xml:id="token.1734">.16109</token>
+            </XMath>
+          </Math>
+        </formula>
+        <word xml:id="word.848">
+          <token xml:id="token.1735">and</token>
+        </word>
+        <formula xml:id="formula.67">
+          <Math xmlns="http://dlmf.nist.gov/LaTeXML" mode="inline" tex="-.011818" xml:id="Math.83">
+            <XMath xml:id="XMath.83">
+              <token meaning="minus" role="ADDOP" xml:id="token.1736">-</token>
+              <token meaning=".011818" role="NUMBER" xml:id="token.1737">.011818</token>
+            </XMath>
+          </Math>
+        </formula>
+        <word xml:id="word.849">
+          <token xml:id="token.1738">)</token>
+        </word>
+        <word xml:id="word.850">
+          <token xml:id="token.1739">.</token>
+        </word>
+      </sentence>
+    </para>
+  </section>
+</document>
+
