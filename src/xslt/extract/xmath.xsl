@@ -24,7 +24,7 @@
 -->
 
 <!DOCTYPE xsl:stylesheet [
-    <!ENTITY lamapun "http://trac.kwarc.info/lamapun#">
+    <!ENTITY lamapun "http://www.kwarc.info/projects/lamapun#">
     <!ENTITY xsd "http://www.w3.org/2001/XMLSchema#">
 ]>
 
@@ -40,6 +40,7 @@
 
     <xd:doc type="stylesheet">
 	<xd:short>Extraction module for <a href="http://dlmf.nist.gov/LaTeXML">LaTeXML</a>'s XMath format, as required for <a href="http://trac.kwarc.info/lamapun">LaMaPUn</a></xd:short>
+	<xd:detail>https://svn.kwarc.info/repos/lamapun/projects/Ontology/LaMaPUn.owl</xd:detail>
 	<xd:author>Christoph Lange</xd:author>
 	<xd:copyright>Christoph Lange, 2009</xd:copyright>
 	<xd:svnId>$Id$</xd:svnId>
@@ -49,8 +50,48 @@
 	a list of multiple ways.  For every way that is not part of the Krextor
 	core, we have to develop a <code>krextor-genuri:name</code> template
 	implementing that particular URI generation.</xd:doc>
-    <param name="autogenerate-fragment-uris" select="'xmath-index'"/>
+    <param name="autogenerate-fragment-uris" select="'xml-id'"/>
 
+	<!-- TODO @CL: see if we can use krextor:resource syntax here -->
+    <template match="token" mode="krextor:main">
+      <variable name="tokentype">
+      	<choose>
+		  	<when test="ancestor::word">
+		  		&lamapun;WordToken
+		  	</when>
+		  	<otherwise>
+		  		&lamapun;MathToken
+		  	</otherwise>
+	  	</choose>
+      </variable>
+	  
+	  <call-template name="krextor:create-resource">
+	    <!-- <with-param name="type" select="{$tokentype}" /> -->
+	    <with-param name="type" select="Token" />
+	    <with-param name="process-next" select="text()"/>
+	    <with-param name="related-via-properties" select="'&lamapun;hasChild'" tunnel="yes"/> 
+	  </call-template>
+	</template>
+
+    <template match="token/text()" mode="krextor:main">
+	  <call-template name="krextor:add-literal-property">
+	    <with-param name="property" select="'&lamapun;content'"/>
+	  </call-template>
+	</template>
+	
+	<template match="word" mode="krextor:main">
+	  <call-template name="krextor:create-resource">
+	    <with-param name="type" select="'&lamapun;Word'"/>
+	  </call-template>
+	</template>
+	
+	<template match="sentence" mode="krextor:main">
+	  <call-template name="krextor:create-resource">
+	    <with-param name="type" select="'&lamapun;Sentence'"/>
+	  </call-template>
+	</template>
+	
+	<!--
     <xd:doc>The index of an XMath element among all XMath elements in the
 	document.  We assume that there are no nested XMath elements, is that
 	correct?
@@ -66,33 +107,36 @@
     <template match="krextor-genuri:xmath-index" as="xs:string?">
 	<param name="node"/>
 	<param name="base-uri"/>
-	<!-- this could be implemented more efficiently by breaking
-	XSLT 2.0 compliance and incrementing a global counter -->
+	<!- this could be implemented more efficiently by breaking
+	XSLT 2.0 compliance and incrementing a global counter ->
 	<sequence select="krextor:fragment-uri-or-null(
 	    if ($node/self::XMath) then
 	        concat('m', krextor:xmath-index($node))
 	    else (),
 	    $base-uri)"/>
     </template>
+	-->
 
-    <!-- When we see an XMath element ... -->
+	<!--
+    <!- When we see an XMath element ... ->
     <template match="XMath" mode="krextor:main">
-	<!-- ... we create an RDF resource (which can easily be declared an
-	instance of some class) ... -->
+	<!- ... we create an RDF resource (which can easily be declared an
+	instance of some class) ... ->
 	<call-template name="krextor:create-resource">
-	    <!-- ... say how it is related to its parent resource (here: the
-	    whole document) ... -->
+	    <!- ... say how it is related to its parent resource (here: the
+	    whole document) ... ->
 	    <with-param name="related-via-properties" select="'&lamapun;hasMath'" tunnel="yes"/>
-	    <!-- ... and give it some additional properties ... -->
+	    <!- ... and give it some additional properties ... ->
 	    <with-param name="properties">
-		<!-- ... here: only a numeric ID -->
+		<!- ... here: only a numeric ID ->
 		<krextor:property
 		    uri="&lamapun;id"
 		    datatype="&xsd;integer">
-		    <!-- this is computed twice, unfortunately -->
+		    <!- this is computed twice, unfortunately ->
 		    <value-of select="krextor:xmath-index(.)"/>
 		</krextor:property>
 	    </with-param>
 	</call-template>
     </template>
+	-->
 </stylesheet>
