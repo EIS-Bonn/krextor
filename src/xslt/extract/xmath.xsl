@@ -1,142 +1,218 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <!--
-    *  Copyright (C) 2009
-    *  Christoph Lange
-    *  KWARC, Jacobs University Bremen
-    *  http://kwarc.info/projects/krextor/
-    *
-    *   Krextor is free software; you can redistribute it and/or
-    * 	modify it under the terms of the GNU Lesser General Public
-    * 	License as published by the Free Software Foundation; either
-    * 	version 2 of the License, or (at your option) any later version.
-    *
-    * 	This program is distributed in the hope that it will be useful,
-    * 	but WITHOUT ANY WARRANTY; without even the implied warranty of
-    * 	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-    * 	Lesser General Public License for more details.
-    *
-    * 	You should have received a copy of the GNU Lesser General Public
-    * 	License along with this library; if not, write to the
-    * 	Free Software Foundation, Inc., 59 Temple Place - Suite 330,
-    * 	Boston, MA 02111-1307, USA.
-    * 
+	*  Copyright (C) 2009
+	*  Christoph Lange
+	*  KWARC, Jacobs University Bremen
+	*  http://kwarc.info/projects/krextor/
+	*
+	*   Krextor is free software; you can redistribute it and/or
+	* 	modify it under the terms of the GNU Lesser General Public
+	* 	License as published by the Free Software Foundation; either
+	* 	version 2 of the License, or (at your option) any later version.
+	*
+	* 	This program is distributed in the hope that it will be useful,
+	* 	but WITHOUT ANY WARRANTY; without even the implied warranty of
+	* 	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+	* 	Lesser General Public License for more details.
+	*
+	* 	You should have received a copy of the GNU Lesser General Public
+	* 	License along with this library; if not, write to the
+	* 	Free Software Foundation, Inc., 59 Temple Place - Suite 330,
+	* 	Boston, MA 02111-1307, USA.
+	* 
 -->
 
 <!DOCTYPE xsl:stylesheet [
-    <!ENTITY lamapun "http://www.kwarc.info/projects/lamapun#">
-    <!ENTITY xsd "http://www.w3.org/2001/XMLSchema#">
+	<!ENTITY lamapun "http://www.kwarc.info/projects/lamapun#">
+	<!ENTITY xsd "http://www.w3.org/2001/XMLSchema#">
 ]>
 
 <stylesheet xmlns="http://www.w3.org/1999/XSL/Transform" 
-    xpath-default-namespace="http://dlmf.nist.gov/LaTeXML"
-    xmlns:krextor="http://kwarc.info/projects/krextor"
-    xmlns:krextor-genuri="http://kwarc.info/projects/krextor/genuri"
-    xmlns:latexml="http://dlmf.nist.gov/LaTeXML"
-    xmlns:xs="http://www.w3.org/2001/XMLSchema"
-    xmlns:xd="http://www.pnp-software.com/XSLTdoc"
-    exclude-result-prefixes="#all"
-    version="2.0">
+	xpath-default-namespace="http://dlmf.nist.gov/LaTeXML"
+	xmlns:krextor="http://kwarc.info/projects/krextor"
+	xmlns:krextor-genuri="http://kwarc.info/projects/krextor/genuri"
+	xmlns:latexml="http://dlmf.nist.gov/LaTeXML"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xmlns:xd="http://www.pnp-software.com/XSLTdoc"
+	exclude-result-prefixes="#all"
+	version="2.0">
 
-    <xd:doc type="stylesheet">
+	<xd:doc type="stylesheet">
 	<xd:short>Extraction module for <a href="http://dlmf.nist.gov/LaTeXML">LaTeXML</a>'s XMath format, as required for <a href="http://trac.kwarc.info/lamapun">LaMaPUn</a></xd:short>
 	<xd:detail>https://svn.kwarc.info/repos/lamapun/projects/Ontology/LaMaPUn.owl</xd:detail>
 	<xd:author>Christoph Lange</xd:author>
 	<xd:copyright>Christoph Lange, 2009</xd:copyright>
 	<xd:svnId>$Id$</xd:svnId>
-    </xd:doc>
+	</xd:doc>
 
-    <xd:doc>The way we want to generate URIs for resources of interest; can be
-	a list of multiple ways.  For every way that is not part of the Krextor
+	<xd:doc>The way we want to generate URIs for resources of interest; can be
+	a list of multiple ways. For every way that is not part of the Krextor
 	core, we have to develop a <code>krextor-genuri:name</code> template
 	implementing that particular URI generation.</xd:doc>
-    <param name="autogenerate-fragment-uris" select="'xml-id'"/>
+	<param name="autogenerate-fragment-uris" select="'xml-id'"/>
 
-	<!-- TODO @CL: see if we can use krextor:resource syntax here -->
-    <template match="token" mode="krextor:main">
-      <variable name="tokentype">
-      	<choose>
-		  	<when test="ancestor::word">
-		  		&lamapun;WordToken
-		  	</when>
-		  	<otherwise>
-		  		&lamapun;MathToken
-		  	</otherwise>
-	  	</choose>
-      </variable>
-	  
-	  <call-template name="krextor:create-resource">
-	    <!-- <with-param name="type" select="{$tokentype}" /> -->
-	    <with-param name="type" select="Token" />
-	    <with-param name="process-next" select="text()"/>
-	    <with-param name="related-via-properties" select="'&lamapun;hasChild'" tunnel="yes"/> 
-	  </call-template>
-	</template>
-
-    <template match="token/text()" mode="krextor:main">
-	  <call-template name="krextor:add-literal-property">
-	    <with-param name="property" select="'&lamapun;content'"/>
-	  </call-template>
-	</template>
+	<!--
+		TODO:
+		1. add DC: each keyword child of the document with 'property="dct:foo"'
+		   and 'content="bar"' should become the 'foo' property of the document
+		   with the value 'bar'
+		2. add title/creator to Ontology or use DC for that; also: personname, date
+		3. para, section, etc
+		4. math
+		5. table, figure, graphics
+	-->	
 	
-	<template match="word" mode="krextor:main">
-	  <call-template name="krextor:create-resource">
-	    <with-param name="type" select="'&lamapun;Word'"/>
-	  </call-template>
-	</template>
-	
-	<template match="sentence" mode="krextor:main">
-	  <call-template name="krextor:create-resource">
-	    <with-param name="type" select="'&lamapun;Sentence'"/>
-	  </call-template>
+	<template match="document" mode="krextor:main">
+		<call-template name="krextor:create-resource">
+			<with-param name="type" select="'&lamapun;Document'"/>
+			<with-param name="related-via-properties" select="'&lamapun;hasChild'" tunnel="yes"/>
+			<with-param name="related-via-inverse-properties" select="'&lamapun;hasParent'" tunnel="yes"/>
+		</call-template>
 	</template>
 	
 	<!--
-    <xd:doc>The index of an XMath element among all XMath elements in the
-	document.  We assume that there are no nested XMath elements, is that
+	<template match="keywords[substring(@property, 0, 4) = 'dct:']">
+		<call-template name="krextor:add-literal-property">
+			<with-param name="property" select="'&lamapun;' + substring(@property, 4)"/>
+		</call-template>
+	</template>
+	<template match="keywords/@content">
+		<call-template name="krextor:add-literal-property">
+			<with-param name="property" select="'&lamapun;' + substring(../@property, 4)"/>
+		</call-template>
+	</template>
+	-->
+	
+	<template match="section" mode="krextor:main">
+		<call-template name="krextor:create-resource">
+			<with-param name="type" select="'&lamapun;Section'"/>
+			<with-param name="related-via-properties" select="'&lamapun;hasChild'" tunnel="yes"/>
+			<with-param name="related-via-inverse-properties" select="'&lamapun;hasParent'" tunnel="yes"/>
+		</call-template>
+	</template>
+	
+	<template match="subsection" mode="krextor:main">
+		<call-template name="krextor:create-resource">
+			<with-param name="type" select="'&lamapun;Subsection'"/>
+			<with-param name="related-via-properties" select="'&lamapun;hasChild'" tunnel="yes"/>
+			<with-param name="related-via-inverse-properties" select="'&lamapun;hasParent'" tunnel="yes"/>
+		</call-template>
+	</template>
+	
+	<template match="subsubsection" mode="krextor:main">
+		<call-template name="krextor:create-resource">
+			<with-param name="type" select="'&lamapun;Subsubsection'"/>
+			<with-param name="related-via-properties" select="'&lamapun;hasChild'" tunnel="yes"/>
+			<with-param name="related-via-inverse-properties" select="'&lamapun;hasParent'" tunnel="yes"/>
+		</call-template>
+	</template>
+	
+	<template match="para" mode="krextor:main">
+		<call-template name="krextor:create-resource">
+			<with-param name="type" select="'&lamapun;Paragraph'"/>
+			<with-param name="related-via-properties" select="'&lamapun;hasChild'" tunnel="yes"/>
+			<with-param name="related-via-inverse-properties" select="'&lamapun;hasParent'" tunnel="yes"/>
+		</call-template>
+	</template>
+	
+	<template match="sentence" mode="krextor:main">
+		<call-template name="krextor:create-resource">
+			<with-param name="type" select="'&lamapun;Sentence'"/>
+			<with-param name="related-via-properties" select="'&lamapun;hasChild'" tunnel="yes"/>
+			<with-param name="related-via-inverse-properties" select="'&lamapun;hasParent'" tunnel="yes"/>
+		</call-template>
+	</template>
+	
+	<template match="word" mode="krextor:main">
+		<call-template name="krextor:create-resource">
+			<with-param name="type" select="'&lamapun;Word'"/>
+			<with-param name="related-via-properties" select="'&lamapun;hasChild'" tunnel="yes"/>
+			<with-param name="related-via-inverse-properties" select="'&lamapun;hasParent'" tunnel="yes"/>
+		</call-template>
+	</template>
+	
+	<template match="token" mode="krextor:main">
+		<call-template name="krextor:create-resource">
+			<with-param name="type" select="if (ancestor::word) then '&lamapun;WordToken' else '&lamapun;MathToken'" />
+			<with-param name="process-next" select="text()"/>
+			<with-param name="related-via-properties" select="'&lamapun;hasChild'" tunnel="yes"/>
+			<with-param name="related-via-inverse-properties" select="'&lamapun;hasParent'" tunnel="yes"/>
+		</call-template>
+	</template>
+
+	<template match="token/text()" mode="krextor:main">
+		<call-template name="krextor:add-literal-property">
+			<with-param name="property" select="'&lamapun;content'"/>
+		</call-template>
+	</template>
+	
+	<!--
+	<template match="formula">
+		<call-template name="krextor:create-resource">
+			<with-param name="type" select="MathExpression"/>
+		</call-template>
+	</template>
+	<template match="formula/*">
+		<call-template name="krextor:create-resource">
+			<with-param name="type" select="." />
+			<with-param name="related-via-properties" select="'&lamapun;hasChild'" tunnel="yes"/>
+		</call-template>
+	</template>
+	-->
+	
+	<template match="*" mode="krextor:main">
+		<message>Warning! <value-of select="local-name()"/></message>
+		<apply-templates mode="krextor:main"/>
+	</template>
+	
+	
+	<!--
+	<xd:doc>The index of an XMath element among all XMath elements in the
+	document. We assume that there are no nested XMath elements, is that
 	correct?
 	<xd:param name="node">the node, assumed to be an XMath element</xd:param>
-    </xd:doc>
-    <function name="krextor:xmath-index">
+	</xd:doc>
+	<function name="krextor:xmath-index">
 	<param name="node"/>
 	<value-of select="count($node/preceding::XMath)"/>
-    </function>
+	</function>
 
-    <xd:doc>Our own generation of fragment URIs (index of the XMath element);
+	<xd:doc>Our own generation of fragment URIs (index of the XMath element);
 	only succeeds if we are on an XMath element</xd:doc>
-    <template match="krextor-genuri:xmath-index" as="xs:string?">
+	<template match="krextor-genuri:xmath-index" as="xs:string?">
 	<param name="node"/>
 	<param name="base-uri"/>
 	<!- this could be implemented more efficiently by breaking
 	XSLT 2.0 compliance and incrementing a global counter ->
 	<sequence select="krextor:fragment-uri-or-null(
-	    if ($node/self::XMath) then
-	        concat('m', krextor:xmath-index($node))
-	    else (),
-	    $base-uri)"/>
-    </template>
+		if ($node/self::XMath) then
+			concat('m', krextor:xmath-index($node))
+		else (),
+		$base-uri)"/>
+	</template>
 	-->
 
 	<!--
-    <!- When we see an XMath element ... ->
-    <template match="XMath" mode="krextor:main">
+	<!- When we see an XMath element ... ->
+	<template match="XMath" mode="krextor:main">
 	<!- ... we create an RDF resource (which can easily be declared an
 	instance of some class) ... ->
 	<call-template name="krextor:create-resource">
-	    <!- ... say how it is related to its parent resource (here: the
-	    whole document) ... ->
-	    <with-param name="related-via-properties" select="'&lamapun;hasMath'" tunnel="yes"/>
-	    <!- ... and give it some additional properties ... ->
-	    <with-param name="properties">
+		<!- ... say how it is related to its parent resource (here: the
+		whole document) ... ->
+		<with-param name="related-via-properties" select="'&lamapun;hasMath'" tunnel="yes"/>
+		<!- ... and give it some additional properties ... ->
+		<with-param name="properties">
 		<!- ... here: only a numeric ID ->
 		<krextor:property
-		    uri="&lamapun;id"
-		    datatype="&xsd;integer">
-		    <!- this is computed twice, unfortunately ->
-		    <value-of select="krextor:xmath-index(.)"/>
+			uri="&lamapun;id"
+			datatype="&xsd;integer">
+			<!- this is computed twice, unfortunately ->
+			<value-of select="krextor:xmath-index(.)"/>
 		</krextor:property>
-	    </with-param>
+		</with-param>
 	</call-template>
-    </template>
+	</template>
 	-->
 </stylesheet>
