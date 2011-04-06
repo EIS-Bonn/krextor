@@ -25,6 +25,7 @@
 
 <!DOCTYPE xsl:stylesheet [
 	<!ENTITY lamapun "http://www.kwarc.info/projects/lamapun#">
+	<!ENTITY dct "http://purl.org/dc/terms/">
 	<!ENTITY xsd "http://www.w3.org/2001/XMLSchema#">
 ]>
 
@@ -37,6 +38,9 @@
 	xmlns:xd="http://www.pnp-software.com/XSLTdoc"
 	exclude-result-prefixes="#all"
 	version="2.0">
+
+    <import href="util/rdfa.xsl"/>
+    <import href="util/misc.xsl"/>
 
 	<xd:doc type="stylesheet">
 	<xd:short>Extraction module for <a href="http://dlmf.nist.gov/LaTeXML">LaTeXML</a>'s XMath format, as required for <a href="http://trac.kwarc.info/lamapun">LaMaPUn</a></xd:short>
@@ -58,7 +62,6 @@
 		   and 'content="bar"' should become the 'foo' property of the document
 		   with the value 'bar'
 		2. add title/creator to Ontology or use DC for that; also: personname, date
-		3. para, section, etc
 		4. math
 		5. table, figure, graphics
 	-->	
@@ -71,19 +74,27 @@
 		</call-template>
 	</template>
 	
-	<!--
-	<template match="keywords[substring(@property, 0, 4) = 'dct:']">
-		<call-template name="krextor:add-literal-property">
-			<with-param name="property" select="'&lamapun;' + substring(@property, 4)"/>
-		</call-template>
+	<xd:doc>Support for literal-valued RDFa metadata</xd:doc>
+	<template match="keywords" mode="krextor:main">
+		<apply-templates select="@property" mode="krextor:main"/>
 	</template>
-	<template match="keywords/@content">
-		<call-template name="krextor:add-literal-property">
-			<with-param name="property" select="'&lamapun;' + substring(../@property, 4)"/>
-		</call-template>
-	</template>
-	-->
 	
+	<!-- TODO: extend to other roles -->
+	<template match="date[@role='creation']" mode="krextor:main">
+		<call-template name="krextor:add-literal-property">
+			<with-param name="property" select="'&dct;created'"/>
+		</call-template>
+	</template>
+
+	<template match="section|subsection|subsubsection|sentence|word" mode="krextor:main">
+		<call-template name="krextor:create-resource">
+			<with-param name="type" select="concat('&lamapun;', krextor:ucfirst(local-name()))"/>
+			<with-param name="related-via-properties" select="'&lamapun;hasChild'" tunnel="yes"/>
+			<with-param name="related-via-inverse-properties" select="'&lamapun;hasParent'" tunnel="yes"/>
+		</call-template>
+	</template>
+
+	<!--
 	<template match="section" mode="krextor:main">
 		<call-template name="krextor:create-resource">
 			<with-param name="type" select="'&lamapun;Section'"/>
@@ -108,14 +119,6 @@
 		</call-template>
 	</template>
 	
-	<template match="para" mode="krextor:main">
-		<call-template name="krextor:create-resource">
-			<with-param name="type" select="'&lamapun;Paragraph'"/>
-			<with-param name="related-via-properties" select="'&lamapun;hasChild'" tunnel="yes"/>
-			<with-param name="related-via-inverse-properties" select="'&lamapun;hasParent'" tunnel="yes"/>
-		</call-template>
-	</template>
-	
 	<template match="sentence" mode="krextor:main">
 		<call-template name="krextor:create-resource">
 			<with-param name="type" select="'&lamapun;Sentence'"/>
@@ -127,6 +130,15 @@
 	<template match="word" mode="krextor:main">
 		<call-template name="krextor:create-resource">
 			<with-param name="type" select="'&lamapun;Word'"/>
+			<with-param name="related-via-properties" select="'&lamapun;hasChild'" tunnel="yes"/>
+			<with-param name="related-via-inverse-properties" select="'&lamapun;hasParent'" tunnel="yes"/>
+		</call-template>
+	</template>
+	-->
+
+	<template match="para" mode="krextor:main">
+		<call-template name="krextor:create-resource">
+			<with-param name="type" select="'&lamapun;Paragraph'"/>
 			<with-param name="related-via-properties" select="'&lamapun;hasChild'" tunnel="yes"/>
 			<with-param name="related-via-inverse-properties" select="'&lamapun;hasParent'" tunnel="yes"/>
 		</call-template>

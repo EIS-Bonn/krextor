@@ -34,13 +34,10 @@
 	<xd:svnId>$Id$</xd:svnId>
     </xd:doc>
 
-
-    <xd:doc>Transforms e.g. false-conjecture → FalseConjecture</xd:doc>
-    <function name="krextor:dashes-to-camelcase">
-	<param name="type"/>
-	<variable name="capitalized-tokens">
-	    <for-each select="tokenize($type, '-')">
-		<analyze-string select="." regex="^(.)">
+    <xd:doc>Changes the first character of a string to uppercase (returns a sequence, whose first item is the uppercased first character, and whose second item is the rest of the string)</xd:doc>
+    <function name="krextor:ucfirst-as-sequence">
+	<param name="string"/>
+		<analyze-string select="$string" regex="^(.)">
 		    <matching-substring>
 			<value-of select="upper-case(regex-group(1))"/>
 		    </matching-substring>
@@ -48,6 +45,20 @@
 			<value-of select="."/>
 		    </non-matching-substring>
 		</analyze-string>
+    </function>
+
+    <xd:doc>Changes the first character of a string to uppercase (as <code>ucfirst</code> in Perl)</xd:doc>
+    <function name="krextor:ucfirst">
+	<param name="string"/>
+	<value-of select="string-join(krextor:ucfirst-as-sequence($string), '')"/>
+    </function>
+
+    <xd:doc>Transforms e.g. false-conjecture → FalseConjecture</xd:doc>
+    <function name="krextor:dashes-to-camelcase">
+	<param name="type"/>
+	<variable name="capitalized-tokens">
+	    <for-each select="tokenize($type, '-')">
+		<value-of select="krextor:ucfirst-as-sequence(.)"/>
 	    </for-each>
 	</variable>
 	<value-of select="string-join($capitalized-tokens, '')"/>
