@@ -2,8 +2,8 @@
 <CD xmlns="http://www.openmath.org/OpenMathCD"
     xmlns:xi="http://www.w3.org/2001/XInclude"
     xml:id="cd">
-   <CDComment>This is a CDComment.</CDComment>
    <CDName>yetanother</CDName>
+   <CDComment>This is a CDComment.</CDComment>
    <CDBase/>
    <CDURL/>
    <CDReviewDate/>

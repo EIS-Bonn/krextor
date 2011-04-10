@@ -40,30 +40,33 @@
     <import href="util/prefix.xsl"/>
 
     <xd:doc type="stylesheet">
-	<xd:short>Output module for RDF/XML</xd:short>
+	<xd:short>Output module for JSON-LD</xd:short>
 	<xd:detail>This stylesheet provides low-level triple-creation functions
-	    and templates for an RDF/XML extraction from XML languages.
+	    and templates for a JSON-LD extraction from XML languages.
 	    <ul>
-		<li><a href="http://www.w3.org/TR/2004/REC-rdf-syntax-grammar-20040210/">Specification of RDF/XML</a></li>
+	        <!-- TODO when online, find the exact URL of the spec -->
+		<li><a href="http://json-ld.org">Specification of JSON-LD</a></li>
 	    </ul>
 	</xd:detail>
 	<xd:author>Christoph Lange</xd:author>
-	<xd:copyright>Christoph Lange, 2009</xd:copyright>
+	<xd:copyright>Christoph Lange, 2011</xd:copyright>
 	<xd:svnId>$Id$</xd:svnId>
     </xd:doc>
 
-    <output method="xml" encoding="UTF-8" indent="yes" omit-xml-declaration="no"/>
+    <output method="text" encoding="UTF-8"/>
 
-    <xd:doc>Process a single triple, but only output predicate and object.  We assume that the enclosing <code>rdf:Description</code> for the subject has already been created, for this triple and all other triples with the same subject.
+    <xd:doc>Process a single triple, but only output predicate and object.  We assume that the enclosing structure for the subject has already been created, for this triple and all other triples with the same subject.
 	<xd:param name="namespaces" type="node">Prefix to namespace URI mappings to respect (<code>krextor:namespace</code> data structure)</xd:param>
     </xd:doc>
     <template match="rxr:triple" mode="krextor:rxr">
 	<param name="namespaces"/>
 
-	<!-- TODO maybe use QName type instead -->
-        <variable name="predicate-qname" select="krextor:uri-to-qname(rxr:predicate/@uri, $namespaces)"/>
+	<variable name="split-predicate-uri" select="krextor:split-prefix-localname(rxr:predicate/@uri)"/>
+	<variable name="predicate-nsuri" select="$split-predicate-uri[1]"/>
+	<variable name="predicate-nsprefix" select="krextor:prefix-from-uri($predicate-nsuri, $namespaces)"/>
+	<variable name="predicate-localname" select="$split-predicate-uri[2]"/>
 	<!-- output the predicate(s) with their objects -->
-	<element name="{$predicate-qname[2]}:{$predicate-qname[3]}" namespace="{$predicate-qname[1]}">
+	<element name="{$predicate-nsprefix}:{$predicate-localname}" namespace="{$predicate-nsuri}">
 	    <if test="rxr:object/@xml:lang">
 		<attribute name="xml:lang" select="rxr:object/@xml:lang"/>
 	    </if>
@@ -97,45 +100,31 @@
 	<variable name="rxr">
 	    <apply-imports/>
 	</variable>
-	<!-- generate namespace prefixes from all properties and class names in the RXR graph -->
+	<!-- generate namespace prefixes from all predicates in the RXR graph -->
 	<variable name="namespaces"
 	    select="krextor:generate-namespaces-from-uris(
-		$rxr/rxr:graph/rxr:triple/rxr:predicate/@uri|
-		$rxr/rxr:graph/rxr:triple[rxr:predicate/@uri eq '&rdf;type']/rxr:object/@uri)"/>
+		$rxr/rxr:graph/rxr:triple/rxr:predicate/@uri)"/>
 
 	<rdf:RDF>
 	    <!-- output generated namespace prefixes -->
 	    <apply-templates select="$namespaces" mode="krextor:xmlns"/>
 
-            <for-each-group select="$rxr/rxr:graph/rxr:triple" group-by="(rxr:subject/@blank|rxr:subject/@uri)[1]">
-		<!-- if the subject has types, convert the first one into a QName, otherwise use rdf:Description -->
-		<variable name="type-triple" select="current-group()[rxr:predicate/@uri eq '&rdf;type'][rxr:object/@uri][1]"/>
-		<variable name="type-qname" as="xs:string*">
-		    <choose>
-			<when test="$type-triple">
-			    <sequence select="krextor:uri-to-qname($type-triple/rxr:object/@uri, $namespaces)"/>
-			</when>
-			<otherwise>
-			    <sequence select="('&rdf;', 'rdf', 'Description')"/>
-			</otherwise>
-		    </choose>
-		</variable>
-		<variable name="remaining-triples" select="current-group() except ($type-triple)"/>
-		
-		<!-- output an element representing the subject and its type -->
-		<element name="{$type-qname[2]}:{$type-qname[3]}" namespace="{$type-qname[1]}">
-		    <choose>
-			<when test="current-group()/rxr:subject/@blank">
-			    <attribute name="rdf:nodeID" select="current-grouping-key()"/>
-			</when>
-			<when test="current-group()/rxr:subject/@uri">
-			    <attribute name="rdf:about" select="current-grouping-key()"/>
-			</when>
-		    </choose>
-		    <apply-templates select="$remaining-triples" mode="krextor:rxr">
+	    <for-each-group select="$rxr/rxr:graph/rxr:triple[rxr:subject/@blank]" group-by="rxr:subject/@blank">
+		<!-- output the subject (blank node) -->
+		<rdf:Description rdf:nodeID="{current-grouping-key()}">
+		    <apply-templates select="current-group()" mode="krextor:rxr">
 			<with-param name="namespaces" select="$namespaces"/>
 		    </apply-templates>
-		</element>
+		</rdf:Description>
+	    </for-each-group>
+
+	    <for-each-group select="$rxr/rxr:graph/rxr:triple[rxr:subject/@uri]" group-by="rxr:subject/@uri">
+		<!-- output the subject (URI node) -->
+		<rdf:Description rdf:about="{current-grouping-key()}">
+		    <apply-templates select="current-group()" mode="krextor:rxr">
+			<with-param name="namespaces" select="$namespaces"/>
+		    </apply-templates>
+		</rdf:Description>
 	    </for-each-group>
 	</rdf:RDF>
     </template>

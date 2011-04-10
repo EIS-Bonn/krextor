@@ -107,4 +107,21 @@
 	<param name="namespaces" as="node()*"/>
 	<value-of select="$namespaces[@uri eq $uri][1]/@prefix"/>
     </function>
+
+    <!-- TODO maybe use QName type instead -->
+    <xd:doc>Rewrites a URI into a qualified name, using the given <code>krextor:namespace</code> mapping
+	<xd:param name="uri">the URI</xd:param>
+	<xd:param name="namespaces">the prefix→URI mappings for the namespaces</xd:param>
+    </xd:doc>
+    <function name="krextor:uri-to-qname" as="xs:string*">
+	<param name="uri" as="xs:anyURI"/>
+	<param name="namespaces" as="node()*"/>
+
+	<variable name="split-uri" select="krextor:split-prefix-localname($uri)"/>
+	<variable name="nsuri" select="$split-uri[1]"/>
+	<variable name="nsprefix" select="krextor:prefix-from-uri($nsuri, $namespaces)"/>
+	<variable name="localname" select="$split-uri[2]"/>
+
+	<sequence select="($nsuri, $nsprefix, $localname)"/>
+    </function>
 </stylesheet>

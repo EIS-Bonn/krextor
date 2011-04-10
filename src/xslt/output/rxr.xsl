@@ -52,25 +52,28 @@
 
     <output method="xml" encoding="UTF-8" indent="yes" omit-xml-declaration="no"/>
 
-    <xd:doc>creates one RDF triple</xd:doc>
+    <xd:doc>
+	<xd:short>Creates one RDF triple</xd:short>
+	<xd:detail>Creates one RDF triple
+        <xd:param name="subject">the identifier of the subject, either a URI or a blank node ID</xd:param>
+        <xd:param name="subject-type">the type of the subject identifier, either <code>'uri'</code> or <code>'blank'</code></xd:param>
+        <xd:param name="predicate">the identifier of the predicate, always a URI</xd:param>
+        <xd:param name="object">the value of the object, either a URI or a blank node ID or a literal</xd:param>
+        <xd:param name="object-type">the type of the object, either <code>'uri'</code> or <code>'blank'</code>, or nothing for literal objects.  A literal can be given as a string (or text node), or as any other XML</xd:param>
+        <xd:param name="object-language">the language of a literal object.  Language annotation is only supported on the object,
+	     but neither on triples nor on graphs, as in RXR</xd:param>
+        <xd:param name="object-datatype">the datatype of a literal object</xd:param>
+	</xd:detail>
+    </xd:doc>
     <template name="krextor:output-triple">
-	<!-- value of the subject -->
 	<param name="subject"/>
-	<!-- type of the subject: either 'uri' or 'blank' -->
 	<param name="subject-type"/>
 
-	<!-- value of the predicate -->
 	<param name="predicate"/>
 
-	<!-- value of the object -->
 	<param name="object"/>
-	<!-- type of the object: either 'uri' or 'blank',
-	     or nothing for literal objects -->
 	<param name="object-type"/>
-	<!-- language annotation is only supported on the object,
-	     but neither on triples nor on graphs, as in RXR -->
 	<param name="object-language"/>
-	<!-- datatype of the (literal) object -->
 	<param name="object-datatype"/>
 
 	<rxr:triple>

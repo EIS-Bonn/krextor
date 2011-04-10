@@ -138,7 +138,7 @@
 	<mcd:notations type="&omo;NotationDictionary"/>
     </xsl:variable>
 
-    <xsl:template match="CD|
+    <xsl:template match="(: for CD, see below; it gets special treatment :)
                          CDDefinition|
                          description|
                          discussion|
