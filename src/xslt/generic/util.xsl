@@ -45,6 +45,17 @@
 	<xd:svnId>$Id$</xd:svnId>
     </xd:doc>
 
+    <xd:doc>Add a possibly given XML language to any top-level element of an XML literal.</xd:doc>
+    <template match="node()|@*" mode="krextor:prepare-xml-literal">
+	<param name="lang" tunnel="yes"/>
+	<copy>
+	    <if test="$lang">
+		<attribute name="xml:lang" select="$lang"/>
+	    </if>
+	    <apply-templates select="node()|@*" mode="krextor:prepare-xml-literal"/>
+	</copy>
+    </template>
+
     <xd:doc>For each element <i>e</i> of a list, apply a given function <i>f</i> to it in the way <i>f(e, …)</i>, and return the first result that evaluates to <code>true</code>.
 	<xd:param name="function">a reference to the function</xd:param>
 	<xd:param name="iterate-params">a sequence representing the list of elements to test</xd:param>

@@ -184,11 +184,7 @@
 		<code>&lt;krextor:property uri="property-uri" value="object-literal"/&gt;</code> or
 		<code>&lt;krextor:property uri="property-uri"&gt;object-literal&lt;/krextor:property&gt;</code>.
 		On literal-valued objects, the attributes <code>@language</code> and <code>@datatype</code>
-		are also allowed.  Features not yet implemented:
-		<ul>
-		    <li>Support for XML literals is not yet implemented.</li>
-		    <li>Support for blank node objects is not yet implemented.</li>
-		</ul>
+		are also allowed.  Support for blank node objects is not yet implemented.
 		</xd:param>
 		<xd:param name="process-next">The node set to which further extraction templates are applied (via <code>xsl:apply-templates</code>).  The default value is <code>*|@*</code>, i.e. we also process attributes, as they may represent properties of the current resource.</xd:param>
 		<xd:param name="subject-uri"></xd:param>
@@ -260,11 +256,10 @@
 	    <!-- Add additional properties to this resource -->
 	    <if test="$properties">
 		<for-each select="$properties/krextor:property[@uri]">
-		    <variable name="object" as="xs:string" select="if (@object) then @object
+		    <variable name="object" select="if (@object) then @object
                         else if (@value) then @value
-			else if (text()) then text()
+			else if (node()) then node() (: this covers text content and XML literals :)
 			else ''"/>
-		    <!-- TODO support blank node and XML literal objects (and update documentation above) -->
 		    <if test="$object">
 			<call-template name="krextor:output-triple-impl">
 			    <with-param name="subject" select="$subject"/>
@@ -342,12 +337,20 @@
 	<!-- property from incomplete triples -->
 	<param name="tunneled-property" as="xs:anyURI*" tunnel="yes"/>
 	<!-- TODO consider allowing XML literals here (move code from RDFa here) -->
-	<param name="object" select="."/>
+	<param name="object">
+	    <choose>
+		<!-- case XML content -->
+		<otherwise>
+		    <value-of select="."/>
+		</otherwise>
+	    </choose>
+	</param>
 	<!-- Is the object a whitespace-separated list or a sequence? -->
 	<param name="object-is-list" select="false()" as="xs:boolean"/>
 	<!-- Normalize whitespace around the value of the object? -->
 	<param name="normalize-space" select="false()" as="xs:boolean"/>
 	<param name="language" as="xs:string?" select="''"/>
+	<!-- TODO introduce default XMLLiteral -->
 	<param name="datatype" as="xs:string?" select="''"/>
 	<variable name="actual-property" as="xs:anyURI" select="if (exists($property))
 	    then xs:anyURI($property)

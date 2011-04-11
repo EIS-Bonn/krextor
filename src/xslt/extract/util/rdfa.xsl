@@ -165,17 +165,6 @@
 	</choose>
     </function>
 
-    <xd:doc>Add a possibly given XML language to any top-level element.</xd:doc>
-    <template match="node()|@*" mode="krextor:prepare-xml-literal">
-	<param name="lang"/>
-	<copy>
-	    <if test="$lang">
-		<attribute name="xml:lang" select="$lang"/>
-	    </if>
-	    <apply-templates select="node()|@*" mode="krextor:prepare-xml-literal"/>
-	</copy>
-    </template>
-
     <xd:doc>Extracts a literal-valued property</xd:doc>
     <template match="@property" mode="krextor:main">
 	<variable name="parent" select="parent::*"/>
@@ -187,12 +176,13 @@
 		</when>
 		<!-- XML literal -->
 		<when test="$parent/* and (not($parent/@datatype) or krextor:curie-to-uri($parent/@datatype) eq '&rdf;XMLLiteral')">
-		    <!-- reparent node to facilitate processing -->
+		    <!-- reparent node to facilitate processing
+		         TODO is that really necessary? -->
 		    <variable name="node">
 			<copy-of select="$parent/node()"/>
 		    </variable>
 		    <apply-templates select="$node" mode="krextor:prepare-xml-literal">
-			<with-param name="lang" select="ancestor::*/@xml:lang[1]"/>
+			<with-param name="lang" select="ancestor::*/@xml:lang[1]" tunnel="yes"/>
 		    </apply-templates>
 		</when>
 		<!-- XML content but no XMLLiteral datatype given -->
