@@ -105,13 +105,14 @@
       <xsl:param name="openmath-cd-uri"/>
       <xsl:sequence select="xs:anyURI(
                             concat(
+                            $openmath-cd-uri,
                             '#',
                             normalize-space(Name[1])))"/>
     </xsl:template>
 
-    <xsl:template match="property" mode="krextor-genuri:openmath" as="xs:anyURI?">
-      <xsl:sequence select="xs:anyURI(concat('#', generate-id()))"/>
-    </xsl:template>
+    <!-- <xsl:template match="property" mode="krextor-genuri:openmath" as="xs:anyURI?"> -->
+    <!--   <xsl:sequence select="xs:anyURI(concat('#', generate-id()))"/> -->
+    <!-- </xsl:template> -->
     
     <xd:doc>Fail to generate an OpenMath URI for all elements for which none is specified, i.e. all elements except <code>CD</code> and <code>CDDefinition</code></xd:doc>
     <xsl:template match="*" mode="krextor-genuri:openmath" as="xs:anyURI?"/>
@@ -249,7 +250,7 @@
                   mode="krextor:main">
         <xsl:variable name="synthesized-property">
             <!-- create a synthetic property element -->
-            <property>
+            <property xml:id="{normalize-space(parent::CDDefinition/Name)}.prop{count(preceding-sibling::CMP|preceding-sibling::FMP)}">
                 <!-- copy the currently matched element (CMP or FMP) -->
                 <xsl:copy-of select="."/> 
                 <!-- assume that an FMP following a CMP belongs to the same property -->
