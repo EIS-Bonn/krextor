@@ -29,6 +29,8 @@
     xmlns:xs="http://www.w3.org/2001/XMLSchema"
     exclude-result-prefixes="#all"
     version="2.0">
+    <import href="serialize-xml-literal.xsl"/>
+    <import href="../../extract/util/openmath/verb.xsl"/>
 
     <xd:doc type="stylesheet">
 	<xd:short>Utility functions and templates for Turtle-like output</xd:short>

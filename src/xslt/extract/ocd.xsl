@@ -27,6 +27,7 @@
     <!ENTITY omo "http://www.openmath.org/ontology#">
     <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#">
     <!ENTITY dct "http://purl.org/dc/terms/">
+    <!ENTITY xsd "http://www.w3.org/2001/XMLSchema#">
 ]>
 
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" 
@@ -35,7 +36,6 @@
     xmlns:krextor-genuri="http://kwarc.info/projects/krextor/genuri"
     xmlns="http://www.openmath.org/OpenMathCD"
     xmlns:om="http://www.openmath.org/OpenMath"
-    xmlns:cd="http://www.openmath.org/OpenMathCD"
     xmlns:cds="http://www.openmath.org/OpenMathCDS"
     xmlns:cdg="http://www.openmath.org/OpenMathCDG"
     xmlns:m="http://www.w3.org/1998/Math/MathML"
@@ -70,7 +70,7 @@
         <p>See <a href="https://svn.salzburgresearch.at/svn/kiwi/IkeWiki/branches/SWiM/trunk/WEB-INF/src/at/srfg/ikewiki/render/import-ocd.xsl">https://svn.salzburgresearch.at/svn/kiwi/IkeWiki/branches/SWiM/trunk/WEB-INF/src/at/srfg/ikewiki/render/import-ocd.xsl</a> for an implementation of splitting CDs as required by this extraction module.</p>
       </xd:detail>
     </xd:doc>
-    <xsl:param name="split-input" select="true()"/>
+    <xsl:param name="split-input" as="xs:boolean" select="false()"/>
 
     <xd:doc>
       <p>In case of split input, we assume that its document base URIs and <code>xml:id</code>s have been initialized correctly.  Otherwise we generate OpenMath-compliant URIs ourselves.</p>
@@ -91,23 +91,26 @@
     <xsl:template match="krextor-genuri:openmath" as="xs:anyURI?">
       <xsl:param name="node"/>
       <xsl:param name="base-uri"/>
-      <xsl:message>Trying to generate an OpenMath URI for</xsl:message>
-      <xsl:message select="$node"/>
-      <xsl:apply-templates select="$node" mode="krextor-genuri:openmath"/>
+      <xsl:apply-templates select="$node" mode="krextor-genuri:openmath">
+          <xsl:with-param name="openmath-cd-uri" select="$base-uri"/>
+      </xsl:apply-templates>
     </xsl:template>
 
     <xsl:template match="CD" mode="krextor-genuri:openmath" as="xs:anyURI?">
-      <xsl:param name="openmath-cd-uri" as="xs:anyURI" select="xs:anyURI('')" tunnel="yes"/>
+      <xsl:param name="openmath-cd-uri"/>
       <xsl:sequence select="$openmath-cd-uri"/>
     </xsl:template>
 
     <xsl:template match="CDDefinition" mode="krextor-genuri:openmath" as="xs:anyURI?">
-      <xsl:param name="openmath-cd-uri" tunnel="yes"/>
+      <xsl:param name="openmath-cd-uri"/>
       <xsl:sequence select="xs:anyURI(
                             concat(
-                            $openmath-cd-uri,
                             '#',
                             normalize-space(Name[1])))"/>
+    </xsl:template>
+
+    <xsl:template match="property" mode="krextor-genuri:openmath" as="xs:anyURI?">
+      <xsl:sequence select="xs:anyURI(concat('#', generate-id()))"/>
     </xsl:template>
     
     <xd:doc>Fail to generate an OpenMath URI for all elements for which none is specified, i.e. all elements except <code>CD</code> and <code>CDDefinition</code></xd:doc>
@@ -139,6 +142,7 @@
     </xsl:variable>
 
     <xsl:template match="(: for CD, see below; it gets special treatment :)
+                         CD|
                          CDDefinition|
                          description|
                          discussion|
@@ -153,24 +157,23 @@
 	<xsl:apply-templates select="." mode="krextor:create-resource"/>
     </xsl:template>
 
-    <xsl:template match="CD" mode="krextor:main">
+    <xsl:template match="/" mode="krextor:main">
       <xsl:choose>
-        <xsl:when test="$split-input">
-          <xsl:apply-templates select="." mode="krextor:create-resource">
+        <xsl:when test="not($split-input)">
+          <xsl:apply-imports>
             <xsl:with-param
-                name="openmath-cd-uri"
+                name="krextor:base-uri"
                 select="xs:anyURI(
                         concat(
-                        normalize-space(CDBase[1]),
+                        normalize-space(/CD/CDBase[1]),
                         '/',
-                        normalize-space(CDName[1])))"
+                        normalize-space(/CD/CDName[1])))"
                 as="xs:anyURI"
                 tunnel="yes"/>
-          </xsl:apply-templates>
+          </xsl:apply-imports>
         </xsl:when>
         <xsl:otherwise>
-          <!-- this is the template above -->
-          <xsl:next-match/>
+          <xsl:apply-imports/>
         </xsl:otherwise>
       </xsl:choose>
     </xsl:template>
@@ -182,7 +185,7 @@
 	<CDName property="&dct;identifier" normalize-space="true"/>
 	<Description property="&dct;description" normalize-space="true"/>
 	<Title property="&dct;title" normalize-space="true"/>
-	<CDDate property="&dct;date" normalize-space="true"/>
+	<CDDate property="&dct;date" datatype="&xsd;date" normalize-space="true"/>
 	<CDComment property="&rdfs;comment" normalize-space="true"/>
 	<CDReviewDate property="&omo;reviewDate" normalize-space="true"/>
 	<cds:CDSReviewDate property="&omo;reviewDate" normalize-space="true"/>
@@ -232,13 +235,34 @@
         </xsl:call-template>
     </xsl:template>
 
-    <xd:doc>We assume that properties are grouped into <code><![CDATA[<property><CMP/><FMP/></property>]]></code> pairs, i.e. written in OpenMath 3 style.  OpenMath 2 has to be adapted first.</xd:doc>
+    <xd:doc>A property group as suggested for OpenMath 3:  <code><![CDATA[<property><CMP/><FMP/></property>]]></code></xd:doc>
     <xsl:template match="property" mode="krextor:main">
 	<xsl:call-template name="krextor:create-resource">
 	    <xsl:with-param name="related-via-properties" select="'&omo;hasProperty'" tunnel="yes"/>
 	    <xsl:with-param name="type" select="'&omo;Property'"/>
 	</xsl:call-template>
     </xsl:template>    
+
+    <xd:doc>Groups ungrouped OpenMath-2-style properties</xd:doc>
+    <xsl:template match="CDDefinition/*[self::CMP
+                         or self::FMP[not(preceding-sibling::*[1][self::CMP])]]"
+                  mode="krextor:main">
+        <xsl:variable name="synthesized-property">
+            <!-- create a synthetic property element -->
+            <property>
+                <!-- copy the currently matched element (CMP or FMP) -->
+                <xsl:copy-of select="."/> 
+                <!-- assume that an FMP following a CMP belongs to the same property -->
+                <xsl:if test="self::CMP">
+                    <!-- if no following FMP exists, nothing is copied -->
+                    <xsl:copy-of select="following-sibling::*[1][self::FMP]"/>
+                </xsl:if>
+            </property>
+        </xsl:variable>
+        <xsl:message select="$synthesized-property"/>
+        <!-- we must not process the document node -->
+        <xsl:apply-templates mode="krextor:main" select="$synthesized-property/property"/>
+    </xsl:template>
 
     <xsl:template match="CMP" mode="krextor:main">
 	<xsl:call-template name="krextor:create-resource">
@@ -259,6 +283,25 @@
 	    <xsl:with-param name="type" select="'&omo;FormalPart'"/>
 	</xsl:call-template>
     </xsl:template>    
+
+    <xsl:template match="om:OMOBJ" mode="krextor:main">
+        <xsl:call-template name="krextor:add-literal-property">
+	    <xsl:with-param name="property" select="'&omo;openMath'"/>
+	    <xsl:with-param name="object" select="."/>
+        </xsl:call-template>
+        <xsl:call-template name="krextor:add-literal-property">
+	    <xsl:with-param name="property" select="'&omo;contentMathML'"/>
+	    <xsl:with-param name="object">
+              <xsl:apply-templates mode="om2cmml" select="."/>
+            </xsl:with-param>
+        </xsl:call-template>
+        <xsl:call-template name="krextor:add-literal-property">
+	    <xsl:with-param name="property" select="'&omo;popcorn'"/>
+	    <xsl:with-param name="object">
+              <xsl:apply-templates mode="pop" select="."/>
+            </xsl:with-param>
+        </xsl:call-template>
+    </xsl:template>
 
     <xsl:template match="@type[parent::cds:CDSignatures]" mode="krextor:main">
 	<!-- Currently we assume that @cd is a CD name (in fact a relative URI) to be resolved against the base URI. -->

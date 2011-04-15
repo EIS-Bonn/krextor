@@ -23,48 +23,30 @@
     * 
 -->
 
-<!DOCTYPE stylesheet [
-    <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#">
-]>
-
 <stylesheet xmlns="http://www.w3.org/1999/XSL/Transform" 
     xmlns:xd="http://www.pnp-software.com/XSLTdoc"
     xmlns:krextor="http://kwarc.info/projects/krextor"
-    xmlns:TripleAdder="java:info.kwarc.krextor.TripleAdder"
-    xmlns:jt="http://saxon.sf.net/java-type"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema"
     exclude-result-prefixes="#all"
     version="2.0">
-    <import href="util/serialize-xml-literal.xsl"/>
-    <import href="../generic/generic.xsl"/>
+    <import href="../../extract/util/openmath/verb.xsl"/>
 
-    <xd:doc type="stylesheet">This stylesheet does not output anything but calls back a Java method that processes every triple.
+    <xd:doc type="stylesheet">
+	<xd:short>Serialize XML literals into strings</xd:short>
 	<xd:author>Christoph Lange</xd:author>
-	<xd:copyright>Christoph Lange, 2008</xd:copyright>
+	<xd:copyright>Christoph Lange, 2011</xd:copyright>
 	<xd:svnId>$Id$</xd:svnId>
     </xd:doc>
 
-    <xd:doc>The callback object</xd:doc>
-    <param name="triple-adder" required="yes" as="jt:info.kwarc.krextor.TripleAdder"/>
-
-    <output method="text" encoding="UTF-8"/>
-
-    <xd:doc>Calls the Java callback for one triple</xd:doc>
-    <template name="krextor:output-triple">
-	<param name="subject"/>
-	<param name="subject-type"/>
-	<param name="predicate"/>
-	<param name="object"/>
-	<param name="object-type"/>
-	<param name="object-language"/>
-	<param name="object-datatype"/>
-
-	<value-of select="TripleAdder:addTriple($triple-adder,
-	    $subject,
-	    $subject-type,
-	    $predicate,
-	    $object,
-	    $object-type,
-	    $object-language,
-	    $object-datatype)"/>
+    <template name="krextor:preprocess-object-for-output">
+       <param name="object"/>
+       <choose>
+           <when test="$object instance of element()">
+               <apply-templates mode="verb" select="$object"/>
+           </when>
+           <otherwise>
+               <value-of select="$object"/>
+           </otherwise>
+       </choose>
     </template>
 </stylesheet>

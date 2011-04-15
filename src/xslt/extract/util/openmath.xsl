@@ -30,10 +30,14 @@
     exclude-result-prefixes="#all"
     version="2.0">
     <xsl:import href="misc.xsl"/>
+    <!-- Render OpenMath to Content MathML -->
+    <xsl:import href="openmath/om2cmml.xsl"/>
+    <!-- Render OpenMath to Popcorn -->
+    <xsl:import href="openmath/omobj2popcorn.xsl"/>
 
     <xsl:include href="ntn.xsl"/>
 
-    <xd:doc type="stylesheet">A collection of utility functions for <a href="http://www.openmath.org">OpenMath</a> symbols
+    <xd:doc type="stylesheet">A collection of utility functions for <a href="http://www.openmath.org">OpenMath</a> symbols and objects
 	<xd:author>Christoph Lange</xd:author>
 	<xd:copyright>Christoph Lange, 2008</xd:copyright>
 	<xd:svnId>$Id$</xd:svnId>

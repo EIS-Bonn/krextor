@@ -60,9 +60,23 @@
     <function name="krextor:is-text-or-attribute-or-atomic" as="xs:boolean">
 	<!-- can be of almost any type -->
 	<param name="node"/>
-        <sequence select="$node instance of xs:anyAtomicType
+        <value-of select="$node instance of xs:anyAtomicType
             or $node instance of text()
             or $node instance of attribute()"/>
+    </function>
+
+    <function name="krextor:is-single-element" as="xs:boolean">
+        <param name="node"/>
+        <value-of select="$node/self::document-node()
+            and count($node/node()) eq 1
+            and $node/node()/self::element()"/>
+    </function>
+
+    <function name="krextor:normalize-single-element">
+        <param name="node"/>
+        <copy-of select="if (krextor:is-single-element($node))
+                         then $node/node()/self::element()
+                         else $node"/>
     </function>
 
     <xd:doc>
@@ -110,11 +124,23 @@
 	    <with-param name="predicate" select="$predicate"/>
 	    <with-param name="object" select="if ($object-type eq 'uri' and $krextor:base-uri)
 		then resolve-uri($object, $krextor:base-uri)
-		else $object"/>
+		else krextor:preprocess-object-for-output($object)"/>
 	    <with-param name="object-type" select="$object-type"/>
 	    <with-param name="object-language" select="$object-language"/>
 	    <with-param name="object-datatype" select="$object-datatype"/>
 	</call-template>
+    </template>
+
+    <function name="krextor:preprocess-object-for-output">
+       <param name="object"/>
+       <call-template name="krextor:preprocess-object-for-output">
+         <with-param name="object" select="$object"/>
+       </call-template>
+    </function>
+
+    <template name="krextor:preprocess-object-for-output">
+       <param name="object"/>
+       <copy-of select="$object"/>
     </template>
 
     <xd:doc>
@@ -336,10 +362,11 @@
 	<param name="property"/>
 	<!-- property from incomplete triples -->
 	<param name="tunneled-property" as="xs:anyURI*" tunnel="yes"/>
-	<!-- TODO consider allowing XML literals here (move code from RDFa here) -->
 	<param name="object">
 	    <choose>
-		<!-- case XML content -->
+                <when test="element()">
+                    <copy-of select="node()"/>
+                </when>
 		<otherwise>
 		    <value-of select="."/>
 		</otherwise>
@@ -350,8 +377,9 @@
 	<!-- Normalize whitespace around the value of the object? -->
 	<param name="normalize-space" select="false()" as="xs:boolean"/>
 	<param name="language" as="xs:string?" select="''"/>
-	<!-- TODO introduce default XMLLiteral -->
-	<param name="datatype" as="xs:string?" select="''"/>
+	<param name="datatype" as="xs:string?"
+               select="if (krextor:is-single-element($object)) then '&rdf;XMLLiteral' else ''"/>
+
 	<variable name="actual-property" as="xs:anyURI" select="if (exists($property))
 	    then xs:anyURI($property)
 	    else $tunneled-property"/>
@@ -378,7 +406,7 @@
 			    else 'uri'"/>
 			<with-param name="predicate" select="."/>
 			<with-param name="object" select="if ($normalize-space) then normalize-space($object)
-			    else $object"/>
+			    else krextor:normalize-single-element($object)"/>
 			<with-param name="object-language" select="$language"/>
 			<with-param name="object-datatype" select="$datatype"/>
 		    </call-template>
