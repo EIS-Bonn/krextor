@@ -198,6 +198,7 @@
 	<cdg:CDGroupURL property="&omo;url" normalize-space="true"/>
 	<!--  for now we store this as a literal, as SWiM does not yet support URI properties with external objects -->
 	<CDBase property="&omo;base" normalize-space="true"/>
+        <CMP property="&omo;text" normalize-space="true"/>
     </xsl:variable>
 
     <xsl:template match="Name|
@@ -216,7 +217,8 @@
 	cdg:CDGroupURL|
 	(: for now we store this as a literal, as SWiM does not yet support URI
 	   properties with external objects :)
-	CDBase" mode="krextor:main">
+	CDBase|
+        CMP" mode="krextor:main">
 	<xsl:apply-templates select="." mode="krextor:add-literal-property"/>
     </xsl:template>
 
@@ -248,61 +250,42 @@
     <xsl:template match="CDDefinition/*[self::CMP
                          or self::FMP[not(preceding-sibling::*[1][self::CMP])]]"
                   mode="krextor:main">
-        <xsl:variable name="synthesized-property">
-            <!-- create a synthetic property element -->
-            <property xml:id="{normalize-space(parent::CDDefinition/Name)}.prop{count(preceding-sibling::CMP|preceding-sibling::FMP)}">
-                <!-- copy the currently matched element (CMP or FMP) -->
-                <xsl:copy-of select="."/> 
-                <!-- assume that an FMP following a CMP belongs to the same property -->
-                <xsl:if test="self::CMP">
-                    <!-- if no following FMP exists, nothing is copied -->
-                    <xsl:copy-of select="following-sibling::*[1][self::FMP]"/>
-                </xsl:if>
-            </property>
-        </xsl:variable>
-        <xsl:message select="$synthesized-property"/>
-        <!-- we must not process the document node -->
-        <xsl:apply-templates mode="krextor:main" select="$synthesized-property/property"/>
+        <xsl:call-template name="krextor:apply-templates">
+            <xsl:with-param name="node">
+                <!-- create a synthetic property element -->
+                <property xml:id="{normalize-space(parent::CDDefinition/Name)}.prop{count(preceding-sibling::CMP|preceding-sibling::FMP)}">
+                    <!-- copy the currently matched element (CMP or FMP) -->
+                    <xsl:copy-of select="."/> 
+                    <!-- assume that an FMP following a CMP belongs to the same property -->
+                    <xsl:if test="self::CMP">
+                        <!-- if no following FMP exists, nothing is copied -->
+                        <xsl:copy-of select="following-sibling::*[1][self::FMP]"/>
+                    </xsl:if>
+                </property>
+            </xsl:with-param>
+        </xsl:call-template>
     </xsl:template>
-
-    <xsl:template match="CMP" mode="krextor:main">
-	<xsl:call-template name="krextor:create-resource">
-	    <xsl:with-param name="related-via-properties" select="'&omo;hasCommentedPart'" tunnel="yes"/>
-	    <xsl:with-param name="type" select="'&omo;CommentedPart'"/>
-	</xsl:call-template>
-    </xsl:template>    
  
-    <xsl:template match="CMP/text()" mode="krextor:main">
-	<xsl:call-template name="krextor:create-resource">
-	    <xsl:with-param name="related-via-properties" select="'&omo;hasText'" tunnel="yes"/>
-	</xsl:call-template>
-    </xsl:template>    
- 
-    <xsl:template match="FMP" mode="krextor:main">
-	<xsl:call-template name="krextor:create-resource">
-	    <xsl:with-param name="related-via-properties" select="'&omo;hasFormalPart'" tunnel="yes"/>
-	    <xsl:with-param name="type" select="'&omo;FormalPart'"/>
-	</xsl:call-template>
-    </xsl:template>    
-
-    <xsl:template match="om:OMOBJ" mode="krextor:main">
+    <xd:doc>We assume that any FMP has been grouped with a CMP before</xd:doc>
+    <xsl:template match="property/FMP" mode="krextor:main">
         <xsl:call-template name="krextor:add-literal-property">
 	    <xsl:with-param name="property" select="'&omo;openMath'"/>
 	    <xsl:with-param name="object" select="."/>
+            <!-- here, the OMOBJ child becomes the object by default -->
         </xsl:call-template>
         <xsl:call-template name="krextor:add-literal-property">
 	    <xsl:with-param name="property" select="'&omo;contentMathML'"/>
 	    <xsl:with-param name="object">
-              <xsl:apply-templates mode="om2cmml" select="."/>
+              <xsl:apply-templates mode="om2cmml" select="om:OMOBJ"/>
             </xsl:with-param>
         </xsl:call-template>
         <xsl:call-template name="krextor:add-literal-property">
 	    <xsl:with-param name="property" select="'&omo;popcorn'"/>
 	    <xsl:with-param name="object">
-              <xsl:apply-templates mode="pop" select="."/>
+              <xsl:apply-templates mode="pop" select="om:OMOBJ"/>
             </xsl:with-param>
         </xsl:call-template>
-    </xsl:template>
+    </xsl:template>    
 
     <xsl:template match="@type[parent::cds:CDSignatures]" mode="krextor:main">
 	<!-- Currently we assume that @cd is a CD name (in fact a relative URI) to be resolved against the base URI. -->

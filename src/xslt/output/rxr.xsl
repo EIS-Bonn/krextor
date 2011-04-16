@@ -35,7 +35,6 @@
     exclude-result-prefixes="krextor xd xs"
     version="2.0">
     <import href="../generic/generic.xsl"/>
-    <import href="util/prefix.xsl"/>
 
     <xd:doc type="stylesheet">
 	<xd:short>Output module for RDF/RXR</xd:short>

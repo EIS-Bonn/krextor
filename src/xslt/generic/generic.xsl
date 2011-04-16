@@ -327,6 +327,15 @@
 	<krextor:dummy-node/>
     </variable>
 
+    <xd:doc>applies Krextor templates to a given node (usually one that has been synthesized, i.e. that does not exist in the input XML, but is needed to achieve a structure that better matches the desired RDF)</xd:doc>
+    <template name="krextor:apply-templates">
+        <param name="node" as="node()*" select=".|@*"/>
+        <!-- when processing a single synthesized element (which is complex content according to http://www.w3.org/TR/xslt20/#constructing-complex-content), it usually does not make sense to let Krextor process the document node -->
+        <param name="skip-document-node" as="xs:boolean" select="true()"/>
+        <apply-templates mode="krextor:main"
+                         select="if ($skip-document-node) then $node/*[1] else $node"/>
+    </template>
+
     <xd:doc>we hope that this slightly speeds up search</xd:doc>
     <key name="krextor:resources" match="*" use="resolve-QName(name(), .)"/>
 

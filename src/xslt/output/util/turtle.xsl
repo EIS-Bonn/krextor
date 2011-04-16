@@ -116,7 +116,11 @@
             krextor:construct-turtle-string($value, true())"/>
     </function>
 
-    <xd:doc>TODO</xd:doc>
+    <xd:doc>Serializes a literal for Turtle
+      <xd:param name="value">The value (“lexical form”) of the literal, as string</xd:param>
+      <xd:param name="lang">The language annotation of the literal</xd:param>
+      <xd:param name="datatype">The datatype of the literal (a URI)</xd:param>
+    </xd:doc>
     <function name="krextor:literal-to-turtle" as="xs:string">
 	<param name="value" as="xs:string"/>
 	<param name="lang"/>
@@ -128,7 +132,11 @@
 	    krextor:lang-datatype-to-turtle($lang, $datatype))"/>
     </function>
 
-    <xd:doc>TODO</xd:doc>
+    <xd:doc>Serializes a literal for N-Triples
+      <xd:param name="value">The value of the literal, as string</xd:param>
+      <xd:param name="lang">The language annotation of the literal</xd:param>
+      <xd:param name="datatype">The datatype of the literal (a URI)</xd:param>
+    </xd:doc>
     <function name="krextor:literal-to-ntriples" as="xs:string">
 	<param name="value" as="xs:string"/>
 	<param name="lang"/>

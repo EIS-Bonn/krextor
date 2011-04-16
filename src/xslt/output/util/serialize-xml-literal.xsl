@@ -42,7 +42,11 @@
        <param name="object"/>
        <choose>
            <when test="$object instance of element()">
-               <apply-templates mode="verb" select="$object"/>
+               <variable name="temp">
+                   <apply-templates mode="verb" select="$object"/>
+               </variable>
+               <!-- we need this because 'verb' returns a sequence -->
+               <value-of select="$temp"/>
            </when>
            <otherwise>
                <value-of select="$object"/>
