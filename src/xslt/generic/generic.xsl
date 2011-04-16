@@ -387,7 +387,7 @@
 	<param name="normalize-space" select="false()" as="xs:boolean"/>
 	<param name="language" as="xs:string?" select="''"/>
 	<param name="datatype" as="xs:string?"
-               select="if (krextor:is-single-element($object)) then '&rdf;XMLLiteral' else ''"/>
+               select="if ($object/self::element() or krextor:is-single-element($object)) then '&rdf;XMLLiteral' else ''"/>
 
 	<variable name="actual-property" as="xs:anyURI" select="if (exists($property))
 	    then xs:anyURI($property)

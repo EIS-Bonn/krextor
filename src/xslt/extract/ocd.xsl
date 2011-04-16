@@ -270,7 +270,6 @@
     <xsl:template match="property/FMP" mode="krextor:main">
         <xsl:call-template name="krextor:add-literal-property">
 	    <xsl:with-param name="property" select="'&omo;openMath'"/>
-	    <xsl:with-param name="object" select="."/>
             <!-- here, the OMOBJ child becomes the object by default -->
         </xsl:call-template>
         <xsl:call-template name="krextor:add-literal-property">
