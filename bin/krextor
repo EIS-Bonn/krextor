@@ -98,7 +98,7 @@ EOF
     transformer=/tmp/krextor.$$.xsl
 fi
 
-java -jar ${SAXON_JAR:-$KREXTOR_HOME/lib/saxon/saxon9.jar} -s:$infile -xsl:$transformer
+java -jar ${SAXON_JAR:-$KREXTOR_HOME/lib/saxon/saxon9he.jar} -s:$infile -xsl:$transformer
 
 [[ -e /tmp/krextor.$$.xsl ]] && rm /tmp/krextor.$$.xsl
 
