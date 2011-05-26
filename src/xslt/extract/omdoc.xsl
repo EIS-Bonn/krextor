@@ -72,6 +72,9 @@
 
     <param name="use-root-xmlid" select="false()"/>
 
+    <xd:doc>Generate RDF for the document structure, in terms of the SALT document ontology?  Experimental feature.</xd:doc>
+    <param name="use-document-ontology" select="false()"/>
+
     <include href="util/openmath.xsl"/>
 
     <template match="node()" mode="krextor:uri-generation-method">
@@ -215,17 +218,17 @@
 	</call-template>
     </template>
 
-    <!--Do we actually need a separate class for tgroup?-->
     <xd:doc>DocumentUnit</xd:doc>
-    <template match="omgroup|
-                     tgroup"
+    <template match="omgroup"
       mode="krextor:main">
 	<call-template name="krextor:create-omdoc-resource">
 	    <!-- FIXME documentUnit, rhetoricalBlock? -->
 	    <with-param name="type" select="
 		if (@type = $salt-rhetorical-block-types-all) then concat('&sr;', krextor:dashes-to-camelcase(@type))
 		else '&oo;DocumentUnit'"/>
-	    <with-param name="related-via-properties" select="if (self::tgroup and parent::theory) then '&oo;homeTheoryOf' else '' , if(parent::omdoc) then '&sdoc;hasComposite' else '&sdoc;hasPart'" tunnel="yes"/>
+            <with-param name="related-via-properties" select="if ($use-document-ontology) then
+                if(parent::omdoc) then '&sdoc;hasComposite' else '&sdoc;hasPart'
+                else ''" tunnel="yes"/>
 	</call-template>
     </template>
 
@@ -249,7 +252,9 @@
     <template match="theory" mode="krextor:main">	
 	<call-template name="krextor:create-omdoc-resource">
 	    <!-- FIXME documentUnit, mathematicalBlock -->
-	    <with-param name="related-via-properties" select="if (parent::theory) then '&oo;homeTheoryOf' else '&oo;hasDirectPart' , if (parent::omdoc) then '&sdoc;hasComposite' else '&sdoc;hasPart'" tunnel="yes"/>
+            <with-param name="related-via-properties" select="if (parent::theory) then '&oo;homeTheoryOf' else '&oo;hasDirectPart' , if ($use-document-ontology) then
+                if (parent::omdoc) then '&sdoc;hasComposite' else '&sdoc;hasPart'
+                else ''" tunnel="yes"/>
 	    <with-param name="type" select="'&oo;Theory'"/>
 	</call-template>
 	<!-- TODO make this the home theory of any statement-level child
@@ -283,7 +288,7 @@
 	<call-template name="krextor:create-omdoc-resource">
 	    <!-- FIXME mathematicalBlock. Is it a document unit? -->
 	    <with-param name="type" select="'&oo;Import'"/>
-		<with-param name="related-via-properties" select="if (parent::theory) then '&oo;homeTheoryOf' else '&oo;hasImport' , if (parent::tgroup) then '&sdoc;hasComposite' else '&sdoc;hasPart'" tunnel="yes"/>
+		<with-param name="related-via-properties" select="if (parent::theory) then '&oo;homeTheoryOf' else '&oo;hasImport' , if ($use-document-ontology) then '&sdoc;hasPart' else ''" tunnel="yes"/>
 	</call-template>
     </template>    
 
@@ -330,7 +335,7 @@
     <template match="symbol[not(@role)]" mode="krextor:main">
 	<call-template name="krextor:create-omdoc-resource">
 	    <!-- FIXME mathematicalBlock. Is it a document unit? -->
-		<with-param name="related-via-properties" select="if (parent::proof) then '&oo;hasStep' else if (parent::theory) then '&oo;homeTheoryOf' else '&oo;hasDirectPart' , if (parent::tgroup) then '&sdoc;hasComposite' else '&sdoc;hasPart'" tunnel="yes"/>
+		<with-param name="related-via-properties" select="if (parent::proof) then '&oo;hasStep' else if (parent::theory) then '&oo;homeTheoryOf' else '&oo;hasDirectPart' , if ($use-document-ontology) then '&sdoc;hasPart' else ''" tunnel="yes"/>
 	    <with-param name="type" select="if (parent::proof)
 then '&oo;ProofLocalSymbol'
 else '&oo;Symbol'"/>
@@ -351,7 +356,9 @@ else '&oo;Symbol'"/>
         <!-- FIXME documentUnit, mathematicalBlock -->
         <with-param name="related-via-properties"
           select="if (parent::theory) then '&oo;homeTheoryOf' else '&oo;hasDirectPart' ,
-                  if (parent::omdoc) then '&sdoc;hasComposite' else '&sdoc;hasPart'"
+                  if ($use-document-ontology) then
+                  if (parent::omdoc) then '&sdoc;hasComposite' else '&sdoc;hasPart'
+                  else ''"
           tunnel="yes"/>
         <with-param name="type"
           select="if (@just-by) then '&oo;AssertedType'
@@ -384,7 +391,7 @@ else '&oo;Symbol'"/>
 	<!-- axiom/@for missing -->
 	<call-template name="krextor:create-omdoc-resource">
 	    <!-- FIXME documentUnit, mathematicalBlock (can contain CMPs) -->
-		<with-param name="related-via-properties" select="if (parent::proof) then '&oo;hasStep' else if (parent::theory) then '&oo;homeTheoryOf' else '&oo;hasDirectPart' , if (parent::tgroup) then '&sdoc;hasComposite' else '&sdoc;hasPart'" tunnel="yes"/>
+		<with-param name="related-via-properties" select="if (parent::proof) then '&oo;hasStep' else if (parent::theory) then '&oo;homeTheoryOf' else '&oo;hasDirectPart' , if ($use-document-ontology) then '&sdoc;hasPart' else ''" tunnel="yes"/>
 	    <with-param name="type" select="'&oo;Axiom'"/>
 	    <with-param name="formality-degree" select="'&oo;Formal'"/>
 	</call-template>
@@ -393,7 +400,7 @@ else '&oo;Symbol'"/>
     <template match="definition[@name or @xml:id]" mode="krextor:main">
 	<call-template name="krextor:create-omdoc-resource">
 	    <!-- FIXME documentUnit, mathematicalBlock -->
-		<with-param name="related-via-properties" select="if (parent::proof) then '&oo;hasStep' else if (parent::theory) then '&oo;homeTheoryOf' else '&oo;hasDirectPart' , if (parent::tgroup) then '&sdoc;hasComposite' else '&sdoc;hasPart'" tunnel="yes"/>
+		<with-param name="related-via-properties" select="if (parent::proof) then '&oo;hasStep' else if (parent::theory) then '&oo;homeTheoryOf' else '&oo;hasDirectPart' , if ($use-document-ontology) then '&sdoc;hasPart' else ''" tunnel="yes"/>
 	    <with-param name="type" select="if (parent::proof)
 then '&oo;ProofLocalDefinition'
 else '&oo;Definition'"/>
@@ -422,7 +429,9 @@ else '&oo;Definition'"/>
     <template match="alternative" mode="krextor:main">
 	<call-template name="krextor:create-omdoc-resource">
 	    <!-- FIXME documentUnit, mathematicalBlock -->
-		<with-param name="related-via-properties" select="if (parent::theory) then '&oo;homeTheoryOf' else '&oo;hasDirectPart' , if (parent::omdoc) then '&sdoc;hasComposite' else '&sdoc;hasPart'" tunnel="yes"/>
+            <with-param name="related-via-properties" select="if (parent::theory) then '&oo;homeTheoryOf' else '&oo;hasDirectPart' , if ($use-document-ontology) then
+                if (parent::omdoc) then '&sdoc;hasComposite' else '&sdoc;hasPart'
+                else ''" tunnel="yes"/>
 	    <with-param name="type" select="'&oo;AlternativeDefinition'"/>
 		<with-param name="formality-degree" select="'&oo;Formal'"/>
 	</call-template>
@@ -431,7 +440,9 @@ else '&oo;Definition'"/>
     <template match="assertion" mode="krextor:main">
 	<call-template name="krextor:create-omdoc-resource">
 	    <!-- FIXME documentUnit, mathematicalBlock -->
-		<with-param name="related-via-properties" select="if (parent::theory) then '&oo;homeTheoryOf' else '&oo;hasDirectPart' , if (parent::omdoc) then '&sdoc;hasComposite' else '&sdoc;hasPart'" tunnel="yes"/>
+            <with-param name="related-via-properties" select="if (parent::theory) then '&oo;homeTheoryOf' else '&oo;hasDirectPart' , if ($use-document-ontology) then
+                if (parent::omdoc) then '&sdoc;hasComposite' else '&sdoc;hasPart'
+                else ''" tunnel="yes"/>
 	    <with-param name="type" select="concat('&oo;',
 		if (@type eq 'assumption') then 'AssumptionAssertion'
                 else if (@type = $omdoc-assertion-types) then krextor:dashes-to-camelcase(@type)
@@ -443,7 +454,9 @@ else '&oo;Definition'"/>
     <template match="example" mode="krextor:main">
 	<call-template name="krextor:create-omdoc-resource">
 	    <!-- FIXME documentUnit, mathematicalBlock -->
-		<with-param name="related-via-properties" select="if (parent::theory) then '&oo;homeTheoryOf' else '&oo;hasDirectPart' , if (parent::omdoc) then '&sdoc;hasComposite' else '&sdoc;hasPart'" tunnel="yes"/>
+            <with-param name="related-via-properties" select="if (parent::theory) then '&oo;homeTheoryOf' else '&oo;hasDirectPart' , if ($use-document-ontology) then
+                if (parent::omdoc) then '&sdoc;hasComposite' else '&sdoc;hasPart'
+                else ''" tunnel="yes"/>
 	    <with-param name="type" select="'&oo;Example'"/>
             <with-param name="formality-degree" select="'&oo;Formal'"/>
 	</call-template>
@@ -452,7 +465,9 @@ else '&oo;Definition'"/>
     <template match="notation" mode="krextor:main">
 	<call-template name="krextor:create-omdoc-resource">
 	    <!-- FIXME documentUnit, mathematicalBlock -->
-		<with-param name="related-via-properties" select="if (parent::theory) then '&oo;homeTheoryOf' else '&oo;hasDirectPart' , if (parent::omdoc) then '&sdoc;hasComposite' else '&sdoc;hasPart'" tunnel="yes"/>
+            <with-param name="related-via-properties" select="if (parent::theory) then '&oo;homeTheoryOf' else '&oo;hasDirectPart' , if ($use-document-ontology) then
+                if (parent::omdoc) then '&sdoc;hasComposite' else '&sdoc;hasPart'
+                else ''" tunnel="yes"/>
 	    <with-param name="type" select="'&oo;NotationDefinition'"/>
             <with-param name="formality-degree" select="'&oo;Formal'"/>
 	</call-template>
@@ -483,8 +498,10 @@ else '&oo;Definition'"/>
                 if ($nested) then '&oo;stepJustifiedBySubProof'
                 else if (parent::theory) then '&oo;homeTheoryOf'
                 else '&oo;hasDirectPart',
+                if ($use-document-ontology) then
                 if (parent::omdoc) then '&sdoc;hasComposite'
-                else '&sdoc;hasPart'" tunnel="yes"/>
+                else '&sdoc;hasPart'
+                else ''" tunnel="yes"/>
 	    <with-param name="type" select="if ($nested) then '&oo;NestedProof'
                                             else '&oo;Proof'"/>
 	    <with-param name="formality-degree" select="if (self::proof)
@@ -509,7 +526,9 @@ else '&oo;Definition'"/>
 	    maybe split into multiple templates -->
 	    <with-param name="related-via-properties" select="if (parent::theory and $has-mathematical-type) then '&oo;homeTheoryOf'
 	    	else if (parent::proof) then '&oo;hasStep' else '&oo;hasDirectPart' ,
-	    	if (parent::omdoc) then '&sdoc;hasComposite' else '&sdoc;hasPart'" tunnel="yes"/>
+                if ($use-document-ontology) then
+                if (parent::omdoc) then '&sdoc;hasComposite' else '&sdoc;hasPart'
+                else ''" tunnel="yes"/>
 	    <with-param name="type" select="
                 (: This case needs special treatment, as notation is a mathematical type :)
                 if (@type eq 'notation') then '&oo;NotationDefinition'
@@ -527,7 +546,7 @@ else '&oo;Definition'"/>
       mode="krextor:main">
 	<call-template name="krextor:create-omdoc-resource">
 	    <!-- FIXME documentUnit, mathematicalBlock -->
-	    <with-param name="related-via-properties" select="'&oo;hasProperty' , '&sdoc;hasInformationChunk'" tunnel="yes"/>
+	    <with-param name="related-via-properties" select="'&oo;hasProperty' , if ($use-document-ontology) then '&sdoc;hasInformationChunk' else ''" tunnel="yes"/>
 	    <with-param name="type" select="'&oo;Property'"/>
 	    <with-param name="formality-degree"
               select="if (self::CMP) then '&oo;Informal'
@@ -665,7 +684,7 @@ else '&oo;Definition'"/>
     <template match="derive[@type eq 'conclusion']" mode="krextor:main">
 	<call-template name="krextor:create-omdoc-resource">
 	    <!-- FIXME documentUnit, mathematicalBlock -->
-	    <with-param name="related-via-properties" select="'&oo;hasConclusion' , '&sdoc;hasPart'" tunnel="yes"/>
+	    <with-param name="related-via-properties" select="'&oo;hasConclusion' , if ($use-document-ontology) then '&sdoc;hasPart' else ''" tunnel="yes"/>
 	    <with-param name="type" select="'&oo;DerivedConclusion'"/>
 	</call-template>
     </template>
@@ -673,7 +692,7 @@ else '&oo;Definition'"/>
     <template match="derive[@type eq 'gap']" mode="krextor:main">
 	<call-template name="krextor:create-omdoc-resource">
 	    <!-- FIXME documentUnit, mathematicalBlock -->
-	    <with-param name="related-via-properties" select="'&oo;hasStep' , '&sdoc;hasPart'" tunnel="yes"/>
+	    <with-param name="related-via-properties" select="'&oo;hasStep' , if ($use-document-ontology) then '&sdoc;hasPart' else ''" tunnel="yes"/>
 	    <with-param name="type" select="'&oo;Gap'"/>
 	</call-template>
     </template>
@@ -681,7 +700,7 @@ else '&oo;Definition'"/>
     <template match="derive[not(@type eq 'conclusion') and not(@type eq 'gap')]" mode="krextor:main">
 	<call-template name="krextor:create-omdoc-resource">
 	    <!-- FIXME documentUnit, mathematicalBlock -->
-	    <with-param name="related-via-properties" select="'&oo;hasStep' , '&sdoc;hasPart'" tunnel="yes"/>
+	    <with-param name="related-via-properties" select="'&oo;hasStep' , if ($use-document-ontology) then '&sdoc;hasPart' else ''" tunnel="yes"/>
 	    <with-param name="type" select="'&oo;DerivationStep'"/>
 	</call-template>
     </template> 
@@ -689,7 +708,7 @@ else '&oo;Definition'"/>
     <template match="hypothesis" mode="krextor:main">
 	<call-template name="krextor:create-omdoc-resource">
 	    <!-- FIXME documentUnit, mathematicalBlock -->
-	    <with-param name="related-via-properties" select="'&oo;hasStep' , '&sdoc;hasPart'" tunnel="yes"/>
+	    <with-param name="related-via-properties" select="'&oo;hasStep' , if ($use-document-ontology) then '&sdoc;hasPart' else ''" tunnel="yes"/>
 	    <with-param name="type" select="'&oo;Hypothesis'"/>
 	</call-template>
     </template>
