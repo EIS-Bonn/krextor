@@ -520,15 +520,15 @@
     </template>
 
     <xd:doc>Try to find the ontology namespace of a given theory (special
-	metadata field <code>odo:semWebBase</code>)
+	metadata field <code>odo:vocab</code>)
 	<xd:param name="theory" type="node">the theory</xd:param>
     </xd:doc>
     <function name="krextor:sem-web-base" as="xs:string">
 	<param name="theory"/>
 	<variable name="link" as="node()*">
-	    <sequence select="$theory/metadata/link[krextor:curie-to-uri($theory, @rel) eq '&odo;semWebBase']"/>
+	    <sequence select="$theory/metadata/link[krextor:curie-to-uri($theory, @rel) eq '&odo;vocab']"/>
 	</variable>
-	<value-of select="if ($link) then $link/@href else ''"/>
+        <value-of select="if ($link/@resource) then $link/@resource else if ($link/@href) then $link/@href else ''"/>
     </function>
 
     <xd:doc>We don't extract top-level metadata, as they do not correspond to
@@ -537,5 +537,5 @@
 
     <xd:doc>We don't extract the special annotation of the ontology namespace
 	of a theory, as it is for internal use.</xd:doc>
-    <template match="link[krextor:curie-to-uri(., @rel) eq '&odo;semWebBase']" mode="krextor:main"/>
+    <template match="link[krextor:curie-to-uri(., @rel) eq '&odo;vocab']" mode="krextor:main"/>
 </stylesheet>
