@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <!--
-	*  Copyright (C) 2009
-	*  Christoph Lange
-	*  KWARC, Jacobs University Bremen
+	*  Copyright (C) 2011
+	*  Lucian Mocanu
+	*  Jacobs University Bremen
 	*  http://kwarc.info/projects/krextor/
 	*
 	*   Krextor is free software; you can redistribute it and/or
@@ -58,9 +58,6 @@
 
 	<!--
 		TODO:
-		1. add DC: each keyword child of the document with 'property="dct:foo"'
-		   and 'content="bar"' should become the 'foo' property of the document
-		   with the value 'bar'
 		2. add title/creator to Ontology or use DC for that; also: personname, date
 		4. math
 		5. table, figure, graphics
@@ -144,6 +141,38 @@
 		</call-template>
 	</template>
 	
+	<template match="formula">
+		<call-template name="krextor:create-resource">
+			<with-param name="type" select="'&lamapun;Formula'"/>
+			<with-param name="related-via-properties" select="'&lamapun;hasChild'" tunnel="yes"/>
+			<with-param name="related-via-inverse-properties" select="'&lamapun;hasParent'" tunnel="yes"/>
+		</call-template>
+	</template>
+	
+	<template match="XMath">
+		<call-template name="krextor:create-resource">
+			<with-param name="type" select="'&lamapun;MathExpression'" />
+			<with-param name="related-via-properties" select="'&lamapun;hasChild'" tunnel="yes"/>
+			<with-param name="related-via-inverse-properties" select="'&lamapun;hasParent'" tunnel="yes"/>
+		</call-template>
+	</template>
+
+	<template match="XMApp">
+		<call-template name="krextor:create-resource">
+			<with-param name="type" select="'&lamapun;MathApp'"/>
+			<with-param name="related-via-properties" select="'&lamapun;hasChild'" tunnel="yes"/>
+			<with-param name="related-via-inverse-properties" select="'&lamapun;hasParent'" tunnel="yes"/>
+		</call-template>
+	</template>
+
+	<template match="XMArg">
+		<call-template name="krextor:create-resource">
+			<with-param name="type" select="'&lamapun;MathExpression'"/>
+			<with-param name="related-via-properties" select="'&lamapun;hasChild'" tunnel="yes"/>
+			<with-param name="related-via-inverse-properties" select="'&lamapun;hasParent'" tunnel="yes"/>
+		</call-template>
+	</template>
+	
 	<template match="token" mode="krextor:main">
 		<call-template name="krextor:create-resource">
 			<with-param name="type" select="if (ancestor::word) then '&lamapun;WordToken' else '&lamapun;MathToken'" />
@@ -158,20 +187,6 @@
 			<with-param name="property" select="'&lamapun;content'"/>
 		</call-template>
 	</template>
-	
-	<!--
-	<template match="formula">
-		<call-template name="krextor:create-resource">
-			<with-param name="type" select="MathExpression"/>
-		</call-template>
-	</template>
-	<template match="formula/*">
-		<call-template name="krextor:create-resource">
-			<with-param name="type" select="." />
-			<with-param name="related-via-properties" select="'&lamapun;hasChild'" tunnel="yes"/>
-		</call-template>
-	</template>
-	-->
 	
 	<template match="*" mode="krextor:main">
 		<message>Warning! <value-of select="local-name()"/></message>
