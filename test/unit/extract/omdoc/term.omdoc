@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<omdoc xmlns="http://omdoc.org/ns"
+    xml:base="http://linkeddata.tntbase.org/slides/dmath/en/nat-basic"
+    xml:id="nat-basic.omdoc">
+    <theory xml:id="term">
+        <symbol name="foo" xml:id="foo"/>
+        <symbol name="bar" xml:id="bar"/>
+        <definition for="bar" xml:id="bar.def">
+            <CMP xml:id="bar.def.CMP1" about="#bar.def.CMP1">
+                <p xml:id="bar.def.CMP1.p1" about="#bar.def.CMP1.p1">
+                    A <term cd="term" name="bar" role="definiendum">bar</term>
+                    is a <term cd="term" name="foo" role="definiens">foo</term>,
+                    not a <term cd="term" name="baz">bar</term>.
+                </p>
+            </CMP>
+        </definition>
+    </theory>
+</omdoc>
