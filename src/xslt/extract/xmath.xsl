@@ -45,8 +45,8 @@
 	<xd:doc type="stylesheet">
 	<xd:short>Extraction module for <a href="http://dlmf.nist.gov/LaTeXML">LaTeXML</a>'s XMath format, as required for <a href="http://trac.kwarc.info/lamapun">LaMaPUn</a></xd:short>
 	<xd:detail>https://svn.kwarc.info/repos/lamapun/projects/Ontology/LaMaPUn.owl</xd:detail>
-	<xd:author>Christoph Lange</xd:author>
-	<xd:copyright>Christoph Lange, 2009</xd:copyright>
+	<xd:author>Lucian Mocanu, Christoph Lange</xd:author>
+	<xd:copyright>Lucian Mocanu Christoph Lange, 2009-2011</xd:copyright>
 	<xd:svnId>$Id$</xd:svnId>
 	</xd:doc>
 
@@ -56,13 +56,7 @@
 	implementing that particular URI generation.</xd:doc>
 	<param name="autogenerate-fragment-uris" select="'xml-id'"/>
 
-	<!--
-		TODO:
-		2. add title/creator to Ontology or use DC for that; also: personname, date
-		4. math
-		5. table, figure, graphics
-	-->	
-	
+	<xd:doc>Extract the document element</xd:doc>
 	<template match="document" mode="krextor:main">
 		<call-template name="krextor:create-resource">
 			<with-param name="type" select="'&lamapun;Document'"/>
@@ -83,7 +77,9 @@
 		</call-template>
 	</template>
 
-	<template match="section|subsection|subsubsection|sentence|word" mode="krextor:main">
+	<!-- TODO: table, figure -->
+	<xd:doc>Extract the main structural elements</xd:doc>
+	<template match="abstract|chapter|section|subsection|subsubsection|definition|proof|theorem|sentence|word" mode="krextor:main">
 		<call-template name="krextor:create-resource">
 			<with-param name="type" select="concat('&lamapun;', krextor:ucfirst(local-name()))"/>
 			<with-param name="related-via-properties" select="'&lamapun;hasChild'" tunnel="yes"/>
@@ -91,48 +87,7 @@
 		</call-template>
 	</template>
 
-	<!--
-	<template match="section" mode="krextor:main">
-		<call-template name="krextor:create-resource">
-			<with-param name="type" select="'&lamapun;Section'"/>
-			<with-param name="related-via-properties" select="'&lamapun;hasChild'" tunnel="yes"/>
-			<with-param name="related-via-inverse-properties" select="'&lamapun;hasParent'" tunnel="yes"/>
-		</call-template>
-	</template>
-	
-	<template match="subsection" mode="krextor:main">
-		<call-template name="krextor:create-resource">
-			<with-param name="type" select="'&lamapun;Subsection'"/>
-			<with-param name="related-via-properties" select="'&lamapun;hasChild'" tunnel="yes"/>
-			<with-param name="related-via-inverse-properties" select="'&lamapun;hasParent'" tunnel="yes"/>
-		</call-template>
-	</template>
-	
-	<template match="subsubsection" mode="krextor:main">
-		<call-template name="krextor:create-resource">
-			<with-param name="type" select="'&lamapun;Subsubsection'"/>
-			<with-param name="related-via-properties" select="'&lamapun;hasChild'" tunnel="yes"/>
-			<with-param name="related-via-inverse-properties" select="'&lamapun;hasParent'" tunnel="yes"/>
-		</call-template>
-	</template>
-	
-	<template match="sentence" mode="krextor:main">
-		<call-template name="krextor:create-resource">
-			<with-param name="type" select="'&lamapun;Sentence'"/>
-			<with-param name="related-via-properties" select="'&lamapun;hasChild'" tunnel="yes"/>
-			<with-param name="related-via-inverse-properties" select="'&lamapun;hasParent'" tunnel="yes"/>
-		</call-template>
-	</template>
-	
-	<template match="word" mode="krextor:main">
-		<call-template name="krextor:create-resource">
-			<with-param name="type" select="'&lamapun;Word'"/>
-			<with-param name="related-via-properties" select="'&lamapun;hasChild'" tunnel="yes"/>
-			<with-param name="related-via-inverse-properties" select="'&lamapun;hasParent'" tunnel="yes"/>
-		</call-template>
-	</template>
-	-->
-
+	<!-- Paragraphs are named differently by LaTeXML -->
 	<template match="para" mode="krextor:main">
 		<call-template name="krextor:create-resource">
 			<with-param name="type" select="'&lamapun;Paragraph'"/>
@@ -140,15 +95,30 @@
 			<with-param name="related-via-inverse-properties" select="'&lamapun;hasParent'" tunnel="yes"/>
 		</call-template>
 	</template>
-	
+
+	<!-- TODO: choose the subclass of Formula based on the child Math element -->
 	<template match="formula">
 		<call-template name="krextor:create-resource">
 			<with-param name="type" select="'&lamapun;Formula'"/>
 			<with-param name="related-via-properties" select="'&lamapun;hasChild'" tunnel="yes"/>
 			<with-param name="related-via-inverse-properties" select="'&lamapun;hasParent'" tunnel="yes"/>
 		</call-template>
+		<!--
+		<call-template name="krextor:add-literal-property">
+		</call-teamplate>
+		-->
 	</template>
-	
+
+	<!--
+	<template match="Math">
+		<call-template name="krextor:create-resource">
+			<with-param name="type" select="'&lamapun;Formula'"/>
+			<with-param name="related-via-properties" select="'&lamapun;hasChild'" tunnel="yes"/>
+			<with-param name="related-via-inverse-properties" select="'&lamapun;hasParent'" tunnel="yes"/>
+		</call-template>
+	</template>
+	-->
+
 	<template match="XMath">
 		<call-template name="krextor:create-resource">
 			<with-param name="type" select="'&lamapun;MathExpression'" />
@@ -195,28 +165,25 @@
 	
 	
 	<!--
-	<xd:doc>The index of an XMath element among all XMath elements in the
-	document. We assume that there are no nested XMath elements, is that
-	correct?
-	<xd:param name="node">the node, assumed to be an XMath element</xd:param>
+	<xd:doc>
+		The index of an XMath element among all XMath elements in the document. We assume that there are no nested XMath elements, is that correct?
+		<xd:param name="node">the node, assumed to be an XMath element</xd:param>
 	</xd:doc>
 	<function name="krextor:xmath-index">
-	<param name="node"/>
-	<value-of select="count($node/preceding::XMath)"/>
+		<param name="node"/>
+		<value-of select="count($node/preceding::XMath)"/>
 	</function>
 
-	<xd:doc>Our own generation of fragment URIs (index of the XMath element);
-	only succeeds if we are on an XMath element</xd:doc>
+	<xd:doc>Our own generation of fragment URIs (index of the XMath element); only succeeds if we are on an XMath element</xd:doc>
 	<template match="krextor-genuri:xmath-index" as="xs:string?">
-	<param name="node"/>
-	<param name="base-uri"/>
-	<!- this could be implemented more efficiently by breaking
-	XSLT 2.0 compliance and incrementing a global counter ->
-	<sequence select="krextor:fragment-uri-or-null(
-		if ($node/self::XMath) then
-			concat('m', krextor:xmath-index($node))
-		else (),
-		$base-uri)"/>
+		<param name="node"/>
+		<param name="base-uri"/>
+		<!- this could be implemented more efficiently by breaking XSLT 2.0 compliance and incrementing a global counter ->
+		<sequence select="krextor:fragment-uri-or-null(
+			if ($node/self::XMath) then
+				concat('m', krextor:xmath-index($node))
+			else (),
+			$base-uri)"/>
 	</template>
 	-->
 
@@ -226,8 +193,7 @@
 	<!- ... we create an RDF resource (which can easily be declared an
 	instance of some class) ... ->
 	<call-template name="krextor:create-resource">
-		<!- ... say how it is related to its parent resource (here: the
-		whole document) ... ->
+		<!- ... say how it is related to its parent resource (here: the whole document) ... ->
 		<with-param name="related-via-properties" select="'&lamapun;hasMath'" tunnel="yes"/>
 		<!- ... and give it some additional properties ... ->
 		<with-param name="properties">
