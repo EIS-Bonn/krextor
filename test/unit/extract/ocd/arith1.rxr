@@ -1,0 +1,2615 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rxr:graph xmlns:rxr="http://ilrt.org/discovery/2004/03/rxr/">
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1"/>
+      <rxr:predicate uri="http://www.w3.org/1999/02/22-rdf-syntax-ns#type"/>
+      <rxr:object uri="http://www.openmath.org/ontology#ContentDictionary"/>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1"/>
+      <rxr:predicate uri="http://www.w3.org/2000/01/rdf-schema#comment"/>
+      <rxr:object>This document is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. The copyright holder grants you permission to redistribute this document freely as a verbatim copy. Furthermore, the copyright holder permits you to develop any derived work from this document provided that the following conditions are met. a) The derived work acknowledges the fact that it is derived from this document, and maintains a prominent reference in the work to the original source. b) The fact that the derived work is not the original OpenMath document is stated prominently in the derived work. Moreover if both this document and the derived work are Content Dictionaries then the derived work must include a different CDName element, chosen so that it cannot be confused with any works adopted by the OpenMath Society. In particular, if there is a Content Dictionary Group whose name is, for example, `math' containing Content Dictionaries named `math1', `math2' etc., then you should not name a derived Content Dictionary `mathN' where N is an integer. However you are free to name it `private_mathN' or some such. This is because the names `mathN' may be used by the OpenMath Society for future extensions. c) The derived work is distributed under terms that allow the compilation of derived works, but keep paragraphs a) and b) intact. The simplest way to do this is to distribute the derived work under the OpenMath license, but this is not a requirement. If you have questions about this license please contact the OpenMath society at http://www.openmath.org.</rxr:object>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1"/>
+      <rxr:predicate uri="http://purl.org/dc/terms/identifier"/>
+      <rxr:object>arith1</rxr:object>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1"/>
+      <rxr:predicate uri="http://www.openmath.org/ontology#base"/>
+      <rxr:object>http://www.openmath.org/cd</rxr:object>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1"/>
+      <rxr:predicate uri="http://www.openmath.org/ontology#url"/>
+      <rxr:object>http://www.openmath.org/cd/arith1.ocd</rxr:object>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1"/>
+      <rxr:predicate uri="http://www.openmath.org/ontology#reviewDate"/>
+      <rxr:object>2006-03-30</rxr:object>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1"/>
+      <rxr:predicate uri="http://www.openmath.org/ontology#status"/>
+      <rxr:object uri="http://www.openmath.org/ontology#Official"/>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1"/>
+      <rxr:predicate uri="http://purl.org/dc/terms/date"/>
+      <rxr:object>2004-03-30</rxr:object>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1"/>
+      <rxr:predicate uri="http://www.openmath.org/ontology#version"/>
+      <rxr:object>3</rxr:object>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1"/>
+      <rxr:predicate uri="http://www.openmath.org/ontology#revision"/>
+      <rxr:object>0</rxr:object>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1"/>
+      <rxr:predicate uri="http://purl.org/dc/terms/description"/>
+      <rxr:object>This CD defines symbols for common arithmetic functions.</rxr:object>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1"/>
+      <rxr:predicate uri="http://www.openmath.org/ontology#definesSymbol"/>
+      <rxr:object uri="http://www.openmath.org/cd/arith1#lcm"/>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1#lcm"/>
+      <rxr:predicate uri="http://www.w3.org/1999/02/22-rdf-syntax-ns#type"/>
+      <rxr:object uri="http://www.openmath.org/ontology#SymbolDefinition"/>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1#lcm"/>
+      <rxr:predicate uri="http://purl.org/dc/terms/identifier"/>
+      <rxr:object>lcm</rxr:object>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1#lcm"/>
+      <rxr:predicate uri="http://www.openmath.org/ontology#role"/>
+      <rxr:object uri="http://www.openmath.org/ontology#Application"/>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1#lcm"/>
+      <rxr:predicate uri="http://purl.org/dc/terms/description"/>
+      <rxr:object>The symbol to represent the n-ary function to return the least common multiple of its arguments.</rxr:object>
+   </rxr:triple>
+   <!--BEGIN property--><rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1#lcm"/>
+      <rxr:predicate uri="http://www.openmath.org/ontology#hasProperty"/>
+      <rxr:object uri="http://www.openmath.org/cd/arith1#lcm.prop0"/>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1#lcm.prop0"/>
+      <rxr:predicate uri="http://www.w3.org/1999/02/22-rdf-syntax-ns#type"/>
+      <rxr:object uri="http://www.openmath.org/ontology#Property"/>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1#lcm.prop0"/>
+      <rxr:predicate uri="http://www.openmath.org/ontology#text"/>
+      <rxr:object>lcm(a,b) = a*b/gcd(a,b)</rxr:object>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1#lcm.prop0"/>
+      <rxr:predicate uri="http://www.openmath.org/ontology#openMath"/>
+      <rxr:object datatype="http://www.w3.org/1999/02/22-rdf-syntax-ns#XMLLiteral">
+         <OMOBJ xmlns="http://www.openmath.org/OpenMath" version="2.0"
+                cdbase="http://www.openmath.org/cd">
+            <OMA>
+               <OMS cd="relation1" name="eq"/>
+               <OMA>
+                  <OMS cd="arith1" name="lcm"/>
+                  <OMV name="a"/>
+                  <OMV name="b"/>
+               </OMA>
+               <OMA>
+                  <OMS cd="arith1" name="divide"/>
+                  <OMA>
+                     <OMS cd="arith1" name="times"/>
+                     <OMV name="a"/>
+                     <OMV name="b"/>
+                  </OMA>
+                  <OMA>
+                     <OMS cd="arith1" name="gcd"/>
+                     <OMV name="a"/>
+                     <OMV name="b"/>
+                  </OMA>
+               </OMA>
+            </OMA>
+         </OMOBJ>
+      </rxr:object>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1#lcm.prop0"/>
+      <rxr:predicate uri="http://www.openmath.org/ontology#contentMathML"/>
+      <rxr:object datatype="http://www.w3.org/1999/02/22-rdf-syntax-ns#XMLLiteral">
+         <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+               <csymbol cd="relation1">eq</csymbol>
+               <apply>
+                  <csymbol cd="arith1">lcm</csymbol>
+                  <ci>a</ci>
+                  <ci>b</ci>
+               </apply>
+               <apply>
+                  <csymbol cd="arith1">divide</csymbol>
+                  <apply>
+                     <csymbol cd="arith1">times</csymbol>
+                     <ci>a</ci>
+                     <ci>b</ci>
+                  </apply>
+                  <apply>
+                     <csymbol cd="arith1">gcd</csymbol>
+                     <ci>a</ci>
+                     <ci>b</ci>
+                  </apply>
+               </apply>
+            </apply>
+         </math>
+      </rxr:object>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1#lcm.prop0"/>
+      <rxr:predicate uri="http://www.openmath.org/ontology#popcorn"/>
+      <rxr:object>arith1.lcm($a, $b) = ($a * $b) / arith1.gcd($a, $b)</rxr:object>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1#lcm.prop0"/>
+      <rxr:predicate uri="http://www.openmath.org/ontology#usesSymbol"/>
+      <rxr:object uri="http://www.openmath.org/cd/relation1#eq"/>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1#lcm.prop0"/>
+      <rxr:predicate uri="http://www.openmath.org/ontology#usesSymbol"/>
+      <rxr:object uri="http://www.openmath.org/cd/arith1#lcm"/>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1#lcm.prop0"/>
+      <rxr:predicate uri="http://www.openmath.org/ontology#usesSymbol"/>
+      <rxr:object uri="http://www.openmath.org/cd/arith1#divide"/>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1#lcm.prop0"/>
+      <rxr:predicate uri="http://www.openmath.org/ontology#usesSymbol"/>
+      <rxr:object uri="http://www.openmath.org/cd/arith1#times"/>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1#lcm.prop0"/>
+      <rxr:predicate uri="http://www.openmath.org/ontology#usesSymbol"/>
+      <rxr:object uri="http://www.openmath.org/cd/arith1#gcd"/>
+   </rxr:triple>
+   <!--END property--><!--BEGIN property--><rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1#lcm"/>
+      <rxr:predicate uri="http://www.openmath.org/ontology#hasProperty"/>
+      <rxr:object uri="http://www.openmath.org/cd/arith1#lcm.prop2"/>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1#lcm.prop2"/>
+      <rxr:predicate uri="http://www.w3.org/1999/02/22-rdf-syntax-ns#type"/>
+      <rxr:object uri="http://www.openmath.org/ontology#Property"/>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1#lcm.prop2"/>
+      <rxr:predicate uri="http://www.openmath.org/ontology#text"/>
+      <rxr:object>for all integers a,b | There does not exist a c&gt;0 such that c/a is an Integer and c/b is an Integer and lcm(a,b) &gt; c.</rxr:object>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1#lcm.prop2"/>
+      <rxr:predicate uri="http://www.openmath.org/ontology#openMath"/>
+      <rxr:object datatype="http://www.w3.org/1999/02/22-rdf-syntax-ns#XMLLiteral">
+         <OMOBJ xmlns="http://www.openmath.org/OpenMath" version="2.0"
+                cdbase="http://www.openmath.org/cd">
+            <OMBIND>
+               <OMS cd="quant1" name="forall"/>
+               <OMBVAR>
+                  <OMV name="a"/>
+                  <OMV name="b"/>
+               </OMBVAR>
+               <OMA>
+                  <OMS cd="logic1" name="implies"/>
+                  <OMA>
+                     <OMS cd="logic1" name="and"/>
+                     <OMA>
+                        <OMS cd="set1" name="in"/>
+                        <OMV name="a"/>
+                        <OMS cd="setname1" name="Z"/>
+                     </OMA>
+                     <OMA>
+                        <OMS cd="set1" name="in"/>
+                        <OMV name="b"/>
+                        <OMS cd="setname1" name="Z"/>
+                     </OMA>
+                  </OMA>
+                  <OMA>
+                     <OMS cd="logic1" name="not"/>
+                     <OMBIND>
+                        <OMS cd="quant1" name="exists"/>
+                        <OMBVAR>
+                           <OMV name="c"/>
+                        </OMBVAR>
+                        <OMA>
+                           <OMS cd="logic1" name="and"/>
+                           <OMA>
+                              <OMS cd="relation1" name="gt"/>
+                              <OMV name="c"/>
+                              <OMI>0</OMI>
+                           </OMA>
+                           <OMA>
+                              <OMS cd="integer1" name="factorof"/>
+                              <OMV name="a"/>
+                              <OMV name="c"/>
+                           </OMA>
+                           <OMA>
+                              <OMS cd="integer1" name="factorof"/>
+                              <OMV name="b"/>
+                              <OMV name="c"/>
+                           </OMA>
+                           <OMA>
+                              <OMS cd="relation1" name="lt"/>
+                              <OMV name="c"/>
+                              <OMA>
+                                 <OMS cd="arith1" name="lcm"/>
+                                 <OMV name="a"/>
+                                 <OMV name="b"/>
+                              </OMA>
+                           </OMA>
+                        </OMA>
+                     </OMBIND>
+                  </OMA>
+               </OMA>
+            </OMBIND>
+         </OMOBJ>
+      </rxr:object>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1#lcm.prop2"/>
+      <rxr:predicate uri="http://www.openmath.org/ontology#contentMathML"/>
+      <rxr:object datatype="http://www.w3.org/1999/02/22-rdf-syntax-ns#XMLLiteral">
+         <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <bind>
+               <csymbol cd="quant1">forall</csymbol>
+               <bvar>
+                  <ci>a</ci>
+               </bvar>
+               <bvar>
+                  <ci>b</ci>
+               </bvar>
+               <apply>
+                  <csymbol cd="logic1">implies</csymbol>
+                  <apply>
+                     <csymbol cd="logic1">and</csymbol>
+                     <apply>
+                        <csymbol cd="set1">in</csymbol>
+                        <ci>a</ci>
+                        <csymbol cd="setname1">Z</csymbol>
+                     </apply>
+                     <apply>
+                        <csymbol cd="set1">in</csymbol>
+                        <ci>b</ci>
+                        <csymbol cd="setname1">Z</csymbol>
+                     </apply>
+                  </apply>
+                  <apply>
+                     <csymbol cd="logic1">not</csymbol>
+                     <bind>
+                        <csymbol cd="quant1">exists</csymbol>
+                        <bvar>
+                           <ci>c</ci>
+                        </bvar>
+                        <apply>
+                           <csymbol cd="logic1">and</csymbol>
+                           <apply>
+                              <csymbol cd="relation1">gt</csymbol>
+                              <ci>c</ci>
+                              <cn>0</cn>
+                           </apply>
+                           <apply>
+                              <csymbol cd="integer1">factorof</csymbol>
+                              <ci>a</ci>
+                              <ci>c</ci>
+                           </apply>
+                           <apply>
+                              <csymbol cd="integer1">factorof</csymbol>
+                              <ci>b</ci>
+                              <ci>c</ci>
+                           </apply>
+                           <apply>
+                              <csymbol cd="relation1">lt</csymbol>
+                              <ci>c</ci>
+                              <apply>
+                                 <csymbol cd="arith1">lcm</csymbol>
+                                 <ci>a</ci>
+                                 <ci>b</ci>
+                              </apply>
+                           </apply>
+                        </apply>
+                     </bind>
+                  </apply>
+               </apply>
+            </bind>
+         </math>
+      </rxr:object>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1#lcm.prop2"/>
+      <rxr:predicate uri="http://www.openmath.org/ontology#popcorn"/>
+      <rxr:object>quant1.forall[$a, $b -&gt; set1.in($a, setname1.Z) and set1.in($b, setname1.Z) ==&gt;  not(quant1.exists[$c -&gt; $c &gt; 0 and integer1.factorof($a, $c) and integer1.factorof($b, $c) and $c &lt; arith1.lcm($a, $b)])]</rxr:object>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1#lcm.prop2"/>
+      <rxr:predicate uri="http://www.openmath.org/ontology#usesSymbol"/>
+      <rxr:object uri="http://www.openmath.org/cd/quant1#forall"/>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1#lcm.prop2"/>
+      <rxr:predicate uri="http://www.openmath.org/ontology#usesSymbol"/>
+      <rxr:object uri="http://www.openmath.org/cd/logic1#implies"/>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1#lcm.prop2"/>
+      <rxr:predicate uri="http://www.openmath.org/ontology#usesSymbol"/>
+      <rxr:object uri="http://www.openmath.org/cd/logic1#and"/>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1#lcm.prop2"/>
+      <rxr:predicate uri="http://www.openmath.org/ontology#usesSymbol"/>
+      <rxr:object uri="http://www.openmath.org/cd/set1#in"/>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1#lcm.prop2"/>
+      <rxr:predicate uri="http://www.openmath.org/ontology#usesSymbol"/>
+      <rxr:object uri="http://www.openmath.org/cd/setname1#Z"/>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1#lcm.prop2"/>
+      <rxr:predicate uri="http://www.openmath.org/ontology#usesSymbol"/>
+      <rxr:object uri="http://www.openmath.org/cd/set1#in"/>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1#lcm.prop2"/>
+      <rxr:predicate uri="http://www.openmath.org/ontology#usesSymbol"/>
+      <rxr:object uri="http://www.openmath.org/cd/setname1#Z"/>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1#lcm.prop2"/>
+      <rxr:predicate uri="http://www.openmath.org/ontology#usesSymbol"/>
+      <rxr:object uri="http://www.openmath.org/cd/logic1#not"/>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1#lcm.prop2"/>
+      <rxr:predicate uri="http://www.openmath.org/ontology#usesSymbol"/>
+      <rxr:object uri="http://www.openmath.org/cd/quant1#exists"/>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1#lcm.prop2"/>
+      <rxr:predicate uri="http://www.openmath.org/ontology#usesSymbol"/>
+      <rxr:object uri="http://www.openmath.org/cd/logic1#and"/>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1#lcm.prop2"/>
+      <rxr:predicate uri="http://www.openmath.org/ontology#usesSymbol"/>
+      <rxr:object uri="http://www.openmath.org/cd/relation1#gt"/>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1#lcm.prop2"/>
+      <rxr:predicate uri="http://www.openmath.org/ontology#usesSymbol"/>
+      <rxr:object uri="http://www.openmath.org/cd/integer1#factorof"/>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1#lcm.prop2"/>
+      <rxr:predicate uri="http://www.openmath.org/ontology#usesSymbol"/>
+      <rxr:object uri="http://www.openmath.org/cd/integer1#factorof"/>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1#lcm.prop2"/>
+      <rxr:predicate uri="http://www.openmath.org/ontology#usesSymbol"/>
+      <rxr:object uri="http://www.openmath.org/cd/relation1#lt"/>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1#lcm.prop2"/>
+      <rxr:predicate uri="http://www.openmath.org/ontology#usesSymbol"/>
+      <rxr:object uri="http://www.openmath.org/cd/arith1#lcm"/>
+   </rxr:triple>
+   <!--END property--><rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1"/>
+      <rxr:predicate uri="http://www.openmath.org/ontology#definesSymbol"/>
+      <rxr:object uri="http://www.openmath.org/cd/arith1#gcd"/>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1#gcd"/>
+      <rxr:predicate uri="http://www.w3.org/1999/02/22-rdf-syntax-ns#type"/>
+      <rxr:object uri="http://www.openmath.org/ontology#SymbolDefinition"/>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1#gcd"/>
+      <rxr:predicate uri="http://purl.org/dc/terms/identifier"/>
+      <rxr:object>gcd</rxr:object>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1#gcd"/>
+      <rxr:predicate uri="http://www.openmath.org/ontology#role"/>
+      <rxr:object uri="http://www.openmath.org/ontology#Application"/>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1#gcd"/>
+      <rxr:predicate uri="http://purl.org/dc/terms/description"/>
+      <rxr:object>The symbol to represent the n-ary function to return the gcd (greatest common divisor) of its arguments.</rxr:object>
+   </rxr:triple>
+   <!--BEGIN property--><rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1#gcd"/>
+      <rxr:predicate uri="http://www.openmath.org/ontology#hasProperty"/>
+      <rxr:object uri="http://www.openmath.org/cd/arith1#gcd.prop0"/>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1#gcd.prop0"/>
+      <rxr:predicate uri="http://www.w3.org/1999/02/22-rdf-syntax-ns#type"/>
+      <rxr:object uri="http://www.openmath.org/ontology#Property"/>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1#gcd.prop0"/>
+      <rxr:predicate uri="http://www.openmath.org/ontology#text"/>
+      <rxr:object>for all integers a,b | There does not exist a c such that a/c is an Integer and b/c is an Integer and c &gt; gcd(a,b). Note that this implies that gcd(a,b) &gt; 0</rxr:object>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1#gcd.prop0"/>
+      <rxr:predicate uri="http://www.openmath.org/ontology#openMath"/>
+      <rxr:object datatype="http://www.w3.org/1999/02/22-rdf-syntax-ns#XMLLiteral">
+         <OMOBJ xmlns="http://www.openmath.org/OpenMath" version="2.0"
+                cdbase="http://www.openmath.org/cd">
+            <OMBIND>
+               <OMS cd="quant1" name="forall"/>
+               <OMBVAR>
+                  <OMV name="a"/>
+                  <OMV name="b"/>
+               </OMBVAR>
+               <OMA>
+                  <OMS cd="logic1" name="implies"/>
+                  <OMA>
+                     <OMS cd="logic1" name="and"/>
+                     <OMA>
+                        <OMS cd="set1" name="in"/>
+                        <OMV name="a"/>
+                        <OMS cd="setname1" name="Z"/>
+                     </OMA>
+                     <OMA>
+                        <OMS cd="set1" name="in"/>
+                        <OMV name="b"/>
+                        <OMS cd="setname1" name="Z"/>
+                     </OMA>
+                  </OMA>
+                  <OMA>
+                     <OMS cd="logic1" name="not"/>
+                     <OMBIND>
+                        <OMS cd="quant1" name="exists"/>
+                        <OMBVAR>
+                           <OMV name="c"/>
+                        </OMBVAR>
+                        <OMA>
+                           <OMS cd="logic1" name="and"/>
+                           <OMA>
+                              <OMS cd="set1" name="in"/>
+                              <OMA>
+                                 <OMS cd="arith1" name="divide"/>
+                                 <OMV name="a"/>
+                                 <OMV name="c"/>
+                              </OMA>
+                              <OMS cd="setname1" name="Z"/>
+                           </OMA>
+                           <OMA>
+                              <OMS cd="set1" name="in"/>
+                              <OMA>
+                                 <OMS cd="arith1" name="divide"/>
+                                 <OMV name="b"/>
+                                 <OMV name="c"/>
+                              </OMA>
+                              <OMS cd="setname1" name="Z"/>
+                           </OMA>
+                           <OMA>
+                              <OMS cd="relation1" name="gt"/>
+                              <OMV name="c"/>
+                              <OMA>
+                                 <OMS cd="arith1" name="gcd"/>
+                                 <OMV name="a"/>
+                                 <OMV name="b"/>
+                              </OMA>
+                           </OMA>
+                        </OMA>
+                     </OMBIND>
+                  </OMA>
+               </OMA>
+            </OMBIND>
+         </OMOBJ>
+      </rxr:object>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1#gcd.prop0"/>
+      <rxr:predicate uri="http://www.openmath.org/ontology#contentMathML"/>
+      <rxr:object datatype="http://www.w3.org/1999/02/22-rdf-syntax-ns#XMLLiteral">
+         <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <bind>
+               <csymbol cd="quant1">forall</csymbol>
+               <bvar>
+                  <ci>a</ci>
+               </bvar>
+               <bvar>
+                  <ci>b</ci>
+               </bvar>
+               <apply>
+                  <csymbol cd="logic1">implies</csymbol>
+                  <apply>
+                     <csymbol cd="logic1">and</csymbol>
+                     <apply>
+                        <csymbol cd="set1">in</csymbol>
+                        <ci>a</ci>
+                        <csymbol cd="setname1">Z</csymbol>
+                     </apply>
+                     <apply>
+                        <csymbol cd="set1">in</csymbol>
+                        <ci>b</ci>
+                        <csymbol cd="setname1">Z</csymbol>
+                     </apply>
+                  </apply>
+                  <apply>
+                     <csymbol cd="logic1">not</csymbol>
+                     <bind>
+                        <csymbol cd="quant1">exists</csymbol>
+                        <bvar>
+                           <ci>c</ci>
+                        </bvar>
+                        <apply>
+                           <csymbol cd="logic1">and</csymbol>
+                           <apply>
+                              <csymbol cd="set1">in</csymbol>
+                              <apply>
+                                 <csymbol cd="arith1">divide</csymbol>
+                                 <ci>a</ci>
+                                 <ci>c</ci>
+                              </apply>
+                              <csymbol cd="setname1">Z</csymbol>
+                           </apply>
+                           <apply>
+                              <csymbol cd="set1">in</csymbol>
+                              <apply>
+                                 <csymbol cd="arith1">divide</csymbol>
+                                 <ci>b</ci>
+                                 <ci>c</ci>
+                              </apply>
+                              <csymbol cd="setname1">Z</csymbol>
+                           </apply>
+                           <apply>
+                              <csymbol cd="relation1">gt</csymbol>
+                              <ci>c</ci>
+                              <apply>
+                                 <csymbol cd="arith1">gcd</csymbol>
+                                 <ci>a</ci>
+                                 <ci>b</ci>
+                              </apply>
+                           </apply>
+                        </apply>
+                     </bind>
+                  </apply>
+               </apply>
+            </bind>
+         </math>
+      </rxr:object>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1#gcd.prop0"/>
+      <rxr:predicate uri="http://www.openmath.org/ontology#popcorn"/>
+      <rxr:object>quant1.forall[$a, $b -&gt; set1.in($a, setname1.Z) and set1.in($b, setname1.Z) ==&gt;  not(quant1.exists[$c -&gt; set1.in($a / $c, setname1.Z) and set1.in($b / $c, setname1.Z) and $c &gt; arith1.gcd($a, $b)])]</rxr:object>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1#gcd.prop0"/>
+      <rxr:predicate uri="http://www.openmath.org/ontology#usesSymbol"/>
+      <rxr:object uri="http://www.openmath.org/cd/quant1#forall"/>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1#gcd.prop0"/>
+      <rxr:predicate uri="http://www.openmath.org/ontology#usesSymbol"/>
+      <rxr:object uri="http://www.openmath.org/cd/logic1#implies"/>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1#gcd.prop0"/>
+      <rxr:predicate uri="http://www.openmath.org/ontology#usesSymbol"/>
+      <rxr:object uri="http://www.openmath.org/cd/logic1#and"/>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1#gcd.prop0"/>
+      <rxr:predicate uri="http://www.openmath.org/ontology#usesSymbol"/>
+      <rxr:object uri="http://www.openmath.org/cd/set1#in"/>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1#gcd.prop0"/>
+      <rxr:predicate uri="http://www.openmath.org/ontology#usesSymbol"/>
+      <rxr:object uri="http://www.openmath.org/cd/setname1#Z"/>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1#gcd.prop0"/>
+      <rxr:predicate uri="http://www.openmath.org/ontology#usesSymbol"/>
+      <rxr:object uri="http://www.openmath.org/cd/set1#in"/>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1#gcd.prop0"/>
+      <rxr:predicate uri="http://www.openmath.org/ontology#usesSymbol"/>
+      <rxr:object uri="http://www.openmath.org/cd/setname1#Z"/>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1#gcd.prop0"/>
+      <rxr:predicate uri="http://www.openmath.org/ontology#usesSymbol"/>
+      <rxr:object uri="http://www.openmath.org/cd/logic1#not"/>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1#gcd.prop0"/>
+      <rxr:predicate uri="http://www.openmath.org/ontology#usesSymbol"/>
+      <rxr:object uri="http://www.openmath.org/cd/quant1#exists"/>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1#gcd.prop0"/>
+      <rxr:predicate uri="http://www.openmath.org/ontology#usesSymbol"/>
+      <rxr:object uri="http://www.openmath.org/cd/logic1#and"/>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1#gcd.prop0"/>
+      <rxr:predicate uri="http://www.openmath.org/ontology#usesSymbol"/>
+      <rxr:object uri="http://www.openmath.org/cd/set1#in"/>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1#gcd.prop0"/>
+      <rxr:predicate uri="http://www.openmath.org/ontology#usesSymbol"/>
+      <rxr:object uri="http://www.openmath.org/cd/arith1#divide"/>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1#gcd.prop0"/>
+      <rxr:predicate uri="http://www.openmath.org/ontology#usesSymbol"/>
+      <rxr:object uri="http://www.openmath.org/cd/setname1#Z"/>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1#gcd.prop0"/>
+      <rxr:predicate uri="http://www.openmath.org/ontology#usesSymbol"/>
+      <rxr:object uri="http://www.openmath.org/cd/set1#in"/>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1#gcd.prop0"/>
+      <rxr:predicate uri="http://www.openmath.org/ontology#usesSymbol"/>
+      <rxr:object uri="http://www.openmath.org/cd/arith1#divide"/>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1#gcd.prop0"/>
+      <rxr:predicate uri="http://www.openmath.org/ontology#usesSymbol"/>
+      <rxr:object uri="http://www.openmath.org/cd/setname1#Z"/>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1#gcd.prop0"/>
+      <rxr:predicate uri="http://www.openmath.org/ontology#usesSymbol"/>
+      <rxr:object uri="http://www.openmath.org/cd/relation1#gt"/>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1#gcd.prop0"/>
+      <rxr:predicate uri="http://www.openmath.org/ontology#usesSymbol"/>
+      <rxr:object uri="http://www.openmath.org/cd/arith1#gcd"/>
+   </rxr:triple>
+   <!--END property--><rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1#gcd"/>
+      <rxr:predicate uri="http://www.openmath.org/ontology#exemplifiedBy"/>
+      <rxr:object uri="http://www.openmath.org/cd/arith1"/>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1"/>
+      <rxr:predicate uri="http://www.w3.org/1999/02/22-rdf-syntax-ns#type"/>
+      <rxr:object uri="http://www.openmath.org/ontology#Example"/>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1"/>
+      <rxr:predicate uri="http://www.openmath.org/ontology#usesSymbol"/>
+      <rxr:object uri="http://www.openmath.org/cd/relation1#eq"/>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1"/>
+      <rxr:predicate uri="http://www.openmath.org/ontology#usesSymbol"/>
+      <rxr:object uri="http://www.openmath.org/cd/arith1#gcd"/>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1"/>
+      <rxr:predicate uri="http://www.openmath.org/ontology#definesSymbol"/>
+      <rxr:object uri="http://www.openmath.org/cd/arith1#plus"/>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1#plus"/>
+      <rxr:predicate uri="http://www.w3.org/1999/02/22-rdf-syntax-ns#type"/>
+      <rxr:object uri="http://www.openmath.org/ontology#SymbolDefinition"/>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1#plus"/>
+      <rxr:predicate uri="http://purl.org/dc/terms/identifier"/>
+      <rxr:object>plus</rxr:object>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1#plus"/>
+      <rxr:predicate uri="http://www.openmath.org/ontology#role"/>
+      <rxr:object uri="http://www.openmath.org/ontology#Application"/>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1#plus"/>
+      <rxr:predicate uri="http://purl.org/dc/terms/description"/>
+      <rxr:object>The symbol representing an n-ary commutative function plus.</rxr:object>
+   </rxr:triple>
+   <!--BEGIN property--><rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1#plus"/>
+      <rxr:predicate uri="http://www.openmath.org/ontology#hasProperty"/>
+      <rxr:object uri="http://www.openmath.org/cd/arith1#plus.prop0"/>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1#plus.prop0"/>
+      <rxr:predicate uri="http://www.w3.org/1999/02/22-rdf-syntax-ns#type"/>
+      <rxr:object uri="http://www.openmath.org/ontology#Property"/>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1#plus.prop0"/>
+      <rxr:predicate uri="http://www.openmath.org/ontology#text"/>
+      <rxr:object>for all a,b | a + b = b + a</rxr:object>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1#plus.prop0"/>
+      <rxr:predicate uri="http://www.openmath.org/ontology#openMath"/>
+      <rxr:object datatype="http://www.w3.org/1999/02/22-rdf-syntax-ns#XMLLiteral">
+         <OMOBJ xmlns="http://www.openmath.org/OpenMath" version="2.0"
+                cdbase="http://www.openmath.org/cd">
+            <OMBIND>
+               <OMS cd="quant1" name="forall"/>
+               <OMBVAR>
+                  <OMV name="a"/>
+                  <OMV name="b"/>
+               </OMBVAR>
+               <OMA>
+                  <OMS cd="relation1" name="eq"/>
+                  <OMA>
+                     <OMS cd="arith1" name="plus"/>
+                     <OMV name="a"/>
+                     <OMV name="b"/>
+                  </OMA>
+                  <OMA>
+                     <OMS cd="arith1" name="plus"/>
+                     <OMV name="b"/>
+                     <OMV name="a"/>
+                  </OMA>
+               </OMA>
+            </OMBIND>
+         </OMOBJ>
+      </rxr:object>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1#plus.prop0"/>
+      <rxr:predicate uri="http://www.openmath.org/ontology#contentMathML"/>
+      <rxr:object datatype="http://www.w3.org/1999/02/22-rdf-syntax-ns#XMLLiteral">
+         <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <bind>
+               <csymbol cd="quant1">forall</csymbol>
+               <bvar>
+                  <ci>a</ci>
+               </bvar>
+               <bvar>
+                  <ci>b</ci>
+               </bvar>
+               <apply>
+                  <csymbol cd="relation1">eq</csymbol>
+                  <apply>
+                     <csymbol cd="arith1">plus</csymbol>
+                     <ci>a</ci>
+                     <ci>b</ci>
+                  </apply>
+                  <apply>
+                     <csymbol cd="arith1">plus</csymbol>
+                     <ci>b</ci>
+                     <ci>a</ci>
+                  </apply>
+               </apply>
+            </bind>
+         </math>
+      </rxr:object>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1#plus.prop0"/>
+      <rxr:predicate uri="http://www.openmath.org/ontology#popcorn"/>
+      <rxr:object>quant1.forall[$a, $b -&gt; $a + $b = $b + $a]</rxr:object>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1#plus.prop0"/>
+      <rxr:predicate uri="http://www.openmath.org/ontology#usesSymbol"/>
+      <rxr:object uri="http://www.openmath.org/cd/quant1#forall"/>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1#plus.prop0"/>
+      <rxr:predicate uri="http://www.openmath.org/ontology#usesSymbol"/>
+      <rxr:object uri="http://www.openmath.org/cd/relation1#eq"/>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1#plus.prop0"/>
+      <rxr:predicate uri="http://www.openmath.org/ontology#usesSymbol"/>
+      <rxr:object uri="http://www.openmath.org/cd/arith1#plus"/>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1#plus.prop0"/>
+      <rxr:predicate uri="http://www.openmath.org/ontology#usesSymbol"/>
+      <rxr:object uri="http://www.openmath.org/cd/arith1#plus"/>
+   </rxr:triple>
+   <!--END property--><rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1"/>
+      <rxr:predicate uri="http://www.openmath.org/ontology#definesSymbol"/>
+      <rxr:object uri="http://www.openmath.org/cd/arith1#unary_minus"/>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1#unary_minus"/>
+      <rxr:predicate uri="http://www.w3.org/1999/02/22-rdf-syntax-ns#type"/>
+      <rxr:object uri="http://www.openmath.org/ontology#SymbolDefinition"/>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1#unary_minus"/>
+      <rxr:predicate uri="http://purl.org/dc/terms/identifier"/>
+      <rxr:object>unary_minus</rxr:object>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1#unary_minus"/>
+      <rxr:predicate uri="http://www.openmath.org/ontology#role"/>
+      <rxr:object uri="http://www.openmath.org/ontology#Application"/>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1#unary_minus"/>
+      <rxr:predicate uri="http://purl.org/dc/terms/description"/>
+      <rxr:object>This symbol denotes unary minus, i.e. the additive inverse.</rxr:object>
+   </rxr:triple>
+   <!--BEGIN property--><rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1#unary_minus"/>
+      <rxr:predicate uri="http://www.openmath.org/ontology#hasProperty"/>
+      <rxr:object uri="http://www.openmath.org/cd/arith1#unary_minus.prop0"/>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1#unary_minus.prop0"/>
+      <rxr:predicate uri="http://www.w3.org/1999/02/22-rdf-syntax-ns#type"/>
+      <rxr:object uri="http://www.openmath.org/ontology#Property"/>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1#unary_minus.prop0"/>
+      <rxr:predicate uri="http://www.openmath.org/ontology#text"/>
+      <rxr:object>for all a | a + (-a) = 0</rxr:object>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1#unary_minus.prop0"/>
+      <rxr:predicate uri="http://www.openmath.org/ontology#openMath"/>
+      <rxr:object datatype="http://www.w3.org/1999/02/22-rdf-syntax-ns#XMLLiteral">
+         <OMOBJ xmlns="http://www.openmath.org/OpenMath" version="2.0"
+                cdbase="http://www.openmath.org/cd">
+            <OMBIND>
+               <OMS cd="quant1" name="forall"/>
+               <OMBVAR>
+                  <OMV name="a"/>
+               </OMBVAR>
+               <OMA>
+                  <OMS cd="relation1" name="eq"/>
+                  <OMA>
+                     <OMS cd="arith1" name="plus"/>
+                     <OMV name="a"/>
+                     <OMA>
+                        <OMS cd="arith1" name="unary_minus"/>
+                        <OMV name="a"/>
+                     </OMA>
+                  </OMA>
+                  <OMS cd="alg1" name="zero"/>
+               </OMA>
+            </OMBIND>
+         </OMOBJ>
+      </rxr:object>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1#unary_minus.prop0"/>
+      <rxr:predicate uri="http://www.openmath.org/ontology#contentMathML"/>
+      <rxr:object datatype="http://www.w3.org/1999/02/22-rdf-syntax-ns#XMLLiteral">
+         <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <bind>
+               <csymbol cd="quant1">forall</csymbol>
+               <bvar>
+                  <ci>a</ci>
+               </bvar>
+               <apply>
+                  <csymbol cd="relation1">eq</csymbol>
+                  <apply>
+                     <csymbol cd="arith1">plus</csymbol>
+                     <ci>a</ci>
+                     <apply>
+                        <csymbol cd="arith1">unary_minus</csymbol>
+                        <ci>a</ci>
+                     </apply>
+                  </apply>
+                  <csymbol cd="alg1">zero</csymbol>
+               </apply>
+            </bind>
+         </math>
+      </rxr:object>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1#unary_minus.prop0"/>
+      <rxr:predicate uri="http://www.openmath.org/ontology#popcorn"/>
+      <rxr:object>quant1.forall[$a -&gt; $a +  -($a) = alg1.zero]</rxr:object>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1#unary_minus.prop0"/>
+      <rxr:predicate uri="http://www.openmath.org/ontology#usesSymbol"/>
+      <rxr:object uri="http://www.openmath.org/cd/quant1#forall"/>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1#unary_minus.prop0"/>
+      <rxr:predicate uri="http://www.openmath.org/ontology#usesSymbol"/>
+      <rxr:object uri="http://www.openmath.org/cd/relation1#eq"/>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1#unary_minus.prop0"/>
+      <rxr:predicate uri="http://www.openmath.org/ontology#usesSymbol"/>
+      <rxr:object uri="http://www.openmath.org/cd/arith1#plus"/>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1#unary_minus.prop0"/>
+      <rxr:predicate uri="http://www.openmath.org/ontology#usesSymbol"/>
+      <rxr:object uri="http://www.openmath.org/cd/arith1#unary_minus"/>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1#unary_minus.prop0"/>
+      <rxr:predicate uri="http://www.openmath.org/ontology#usesSymbol"/>
+      <rxr:object uri="http://www.openmath.org/cd/alg1#zero"/>
+   </rxr:triple>
+   <!--END property--><rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1"/>
+      <rxr:predicate uri="http://www.openmath.org/ontology#definesSymbol"/>
+      <rxr:object uri="http://www.openmath.org/cd/arith1#minus"/>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1#minus"/>
+      <rxr:predicate uri="http://www.w3.org/1999/02/22-rdf-syntax-ns#type"/>
+      <rxr:object uri="http://www.openmath.org/ontology#SymbolDefinition"/>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1#minus"/>
+      <rxr:predicate uri="http://purl.org/dc/terms/identifier"/>
+      <rxr:object>minus</rxr:object>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1#minus"/>
+      <rxr:predicate uri="http://www.openmath.org/ontology#role"/>
+      <rxr:object uri="http://www.openmath.org/ontology#Application"/>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1#minus"/>
+      <rxr:predicate uri="http://purl.org/dc/terms/description"/>
+      <rxr:object>The symbol representing a binary minus function. This is equivalent to adding the additive inverse.</rxr:object>
+   </rxr:triple>
+   <!--BEGIN property--><rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1#minus"/>
+      <rxr:predicate uri="http://www.openmath.org/ontology#hasProperty"/>
+      <rxr:object uri="http://www.openmath.org/cd/arith1#minus.prop0"/>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1#minus.prop0"/>
+      <rxr:predicate uri="http://www.w3.org/1999/02/22-rdf-syntax-ns#type"/>
+      <rxr:object uri="http://www.openmath.org/ontology#Property"/>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1#minus.prop0"/>
+      <rxr:predicate uri="http://www.openmath.org/ontology#text"/>
+      <rxr:object>for all a,b | a - b = a + (-b)</rxr:object>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1#minus.prop0"/>
+      <rxr:predicate uri="http://www.openmath.org/ontology#openMath"/>
+      <rxr:object datatype="http://www.w3.org/1999/02/22-rdf-syntax-ns#XMLLiteral">
+         <OMOBJ xmlns="http://www.openmath.org/OpenMath" version="2.0"
+                cdbase="http://www.openmath.org/cd">
+            <OMBIND>
+               <OMS cd="quant1" name="forall"/>
+               <OMBVAR>
+                  <OMV name="a"/>
+                  <OMV name="b"/>
+               </OMBVAR>
+               <OMA>
+                  <OMS cd="relation1" name="eq"/>
+                  <OMA>
+                     <OMS cd="arith1" name="minus"/>
+                     <OMV name="a"/>
+                     <OMV name="b"/>
+                  </OMA>
+                  <OMA>
+                     <OMS cd="arith1" name="plus"/>
+                     <OMV name="a"/>
+                     <OMA>
+                        <OMS cd="arith1" name="unary_minus"/>
+                        <OMV name="b"/>
+                     </OMA>
+                  </OMA>
+               </OMA>
+            </OMBIND>
+         </OMOBJ>
+      </rxr:object>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1#minus.prop0"/>
+      <rxr:predicate uri="http://www.openmath.org/ontology#contentMathML"/>
+      <rxr:object datatype="http://www.w3.org/1999/02/22-rdf-syntax-ns#XMLLiteral">
+         <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <bind>
+               <csymbol cd="quant1">forall</csymbol>
+               <bvar>
+                  <ci>a</ci>
+               </bvar>
+               <bvar>
+                  <ci>b</ci>
+               </bvar>
+               <apply>
+                  <csymbol cd="relation1">eq</csymbol>
+                  <apply>
+                     <csymbol cd="arith1">minus</csymbol>
+                     <ci>a</ci>
+                     <ci>b</ci>
+                  </apply>
+                  <apply>
+                     <csymbol cd="arith1">plus</csymbol>
+                     <ci>a</ci>
+                     <apply>
+                        <csymbol cd="arith1">unary_minus</csymbol>
+                        <ci>b</ci>
+                     </apply>
+                  </apply>
+               </apply>
+            </bind>
+         </math>
+      </rxr:object>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1#minus.prop0"/>
+      <rxr:predicate uri="http://www.openmath.org/ontology#popcorn"/>
+      <rxr:object>quant1.forall[$a, $b -&gt; $a - $b = $a +  -($b)]</rxr:object>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1#minus.prop0"/>
+      <rxr:predicate uri="http://www.openmath.org/ontology#usesSymbol"/>
+      <rxr:object uri="http://www.openmath.org/cd/quant1#forall"/>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1#minus.prop0"/>
+      <rxr:predicate uri="http://www.openmath.org/ontology#usesSymbol"/>
+      <rxr:object uri="http://www.openmath.org/cd/relation1#eq"/>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1#minus.prop0"/>
+      <rxr:predicate uri="http://www.openmath.org/ontology#usesSymbol"/>
+      <rxr:object uri="http://www.openmath.org/cd/arith1#minus"/>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1#minus.prop0"/>
+      <rxr:predicate uri="http://www.openmath.org/ontology#usesSymbol"/>
+      <rxr:object uri="http://www.openmath.org/cd/arith1#plus"/>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1#minus.prop0"/>
+      <rxr:predicate uri="http://www.openmath.org/ontology#usesSymbol"/>
+      <rxr:object uri="http://www.openmath.org/cd/arith1#unary_minus"/>
+   </rxr:triple>
+   <!--END property--><rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1"/>
+      <rxr:predicate uri="http://www.openmath.org/ontology#definesSymbol"/>
+      <rxr:object uri="http://www.openmath.org/cd/arith1#times"/>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1#times"/>
+      <rxr:predicate uri="http://www.w3.org/1999/02/22-rdf-syntax-ns#type"/>
+      <rxr:object uri="http://www.openmath.org/ontology#SymbolDefinition"/>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1#times"/>
+      <rxr:predicate uri="http://purl.org/dc/terms/identifier"/>
+      <rxr:object>times</rxr:object>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1#times"/>
+      <rxr:predicate uri="http://www.openmath.org/ontology#role"/>
+      <rxr:object uri="http://www.openmath.org/ontology#Application"/>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1#times"/>
+      <rxr:predicate uri="http://purl.org/dc/terms/description"/>
+      <rxr:object>The symbol representing an n-ary multiplication function.</rxr:object>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1#times"/>
+      <rxr:predicate uri="http://www.openmath.org/ontology#exemplifiedBy"/>
+      <rxr:object uri="http://www.openmath.org/cd/arith1"/>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1"/>
+      <rxr:predicate uri="http://www.w3.org/1999/02/22-rdf-syntax-ns#type"/>
+      <rxr:object uri="http://www.openmath.org/ontology#Example"/>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1"/>
+      <rxr:predicate uri="http://www.openmath.org/ontology#usesSymbol"/>
+      <rxr:object uri="http://www.openmath.org/cd/relation1#eq"/>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1"/>
+      <rxr:predicate uri="http://www.openmath.org/ontology#usesSymbol"/>
+      <rxr:object uri="http://www.openmath.org/cd/arith1#times"/>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1"/>
+      <rxr:predicate uri="http://www.openmath.org/ontology#usesSymbol"/>
+      <rxr:object uri="http://www.openmath.org/cd/linalg2#matrix"/>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1"/>
+      <rxr:predicate uri="http://www.openmath.org/ontology#usesSymbol"/>
+      <rxr:object uri="http://www.openmath.org/cd/linalg2#matrixrow"/>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1"/>
+      <rxr:predicate uri="http://www.openmath.org/ontology#usesSymbol"/>
+      <rxr:object uri="http://www.openmath.org/cd/linalg2#matrixrow"/>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1"/>
+      <rxr:predicate uri="http://www.openmath.org/ontology#usesSymbol"/>
+      <rxr:object uri="http://www.openmath.org/cd/linalg2#matrix"/>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1"/>
+      <rxr:predicate uri="http://www.openmath.org/ontology#usesSymbol"/>
+      <rxr:object uri="http://www.openmath.org/cd/linalg2#matrixrow"/>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1"/>
+      <rxr:predicate uri="http://www.openmath.org/ontology#usesSymbol"/>
+      <rxr:object uri="http://www.openmath.org/cd/linalg2#matrixrow"/>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1"/>
+      <rxr:predicate uri="http://www.openmath.org/ontology#usesSymbol"/>
+      <rxr:object uri="http://www.openmath.org/cd/linalg2#matrix"/>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1"/>
+      <rxr:predicate uri="http://www.openmath.org/ontology#usesSymbol"/>
+      <rxr:object uri="http://www.openmath.org/cd/linalg2#matrixrow"/>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1"/>
+      <rxr:predicate uri="http://www.openmath.org/ontology#usesSymbol"/>
+      <rxr:object uri="http://www.openmath.org/cd/linalg2#matrixrow"/>
+   </rxr:triple>
+   <!--BEGIN property--><rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1#times"/>
+      <rxr:predicate uri="http://www.openmath.org/ontology#hasProperty"/>
+      <rxr:object uri="http://www.openmath.org/cd/arith1#times.prop0"/>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1#times.prop0"/>
+      <rxr:predicate uri="http://www.w3.org/1999/02/22-rdf-syntax-ns#type"/>
+      <rxr:object uri="http://www.openmath.org/ontology#Property"/>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1#times.prop0"/>
+      <rxr:predicate uri="http://www.openmath.org/ontology#text"/>
+      <rxr:object>for all a,b | a * 0 = 0 and a * b = a * (b - 1) + a</rxr:object>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1#times.prop0"/>
+      <rxr:predicate uri="http://www.openmath.org/ontology#openMath"/>
+      <rxr:object datatype="http://www.w3.org/1999/02/22-rdf-syntax-ns#XMLLiteral">
+         <OMOBJ xmlns="http://www.openmath.org/OpenMath" version="2.0"
+                cdbase="http://www.openmath.org/cd">
+            <OMBIND>
+               <OMS cd="quant1" name="forall"/>
+               <OMBVAR>
+                  <OMV name="a"/>
+                  <OMV name="b"/>
+               </OMBVAR>
+               <OMA>
+                  <OMS cd="logic1" name="and"/>
+                  <OMA>
+                     <OMS cd="relation1" name="eq"/>
+                     <OMA>
+                        <OMS cd="arith1" name="times"/>
+                        <OMV name="a"/>
+                        <OMS cd="alg1" name="zero"/>
+                     </OMA>
+                     <OMS cd="alg1" name="zero"/>
+                  </OMA>
+                  <OMA>
+                     <OMS cd="relation1" name="eq"/>
+                     <OMA>
+                        <OMS cd="arith1" name="times"/>
+                        <OMV name="a"/>
+                        <OMV name="b"/>
+                     </OMA>
+                     <OMA>
+                        <OMS cd="arith1" name="plus"/>
+                        <OMA>
+                           <OMS cd="arith1" name="times"/>
+                           <OMV name="a"/>
+                           <OMA>
+                              <OMS cd="arith1" name="minus"/>
+                              <OMV name="b"/>
+                              <OMS cd="alg1" name="one"/>
+                           </OMA>
+                        </OMA>
+                        <OMV name="a"/>
+                     </OMA>
+                  </OMA>
+               </OMA>
+            </OMBIND>
+         </OMOBJ>
+      </rxr:object>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1#times.prop0"/>
+      <rxr:predicate uri="http://www.openmath.org/ontology#contentMathML"/>
+      <rxr:object datatype="http://www.w3.org/1999/02/22-rdf-syntax-ns#XMLLiteral">
+         <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <bind>
+               <csymbol cd="quant1">forall</csymbol>
+               <bvar>
+                  <ci>a</ci>
+               </bvar>
+               <bvar>
+                  <ci>b</ci>
+               </bvar>
+               <apply>
+                  <csymbol cd="logic1">and</csymbol>
+                  <apply>
+                     <csymbol cd="relation1">eq</csymbol>
+                     <apply>
+                        <csymbol cd="arith1">times</csymbol>
+                        <ci>a</ci>
+                        <csymbol cd="alg1">zero</csymbol>
+                     </apply>
+                     <csymbol cd="alg1">zero</csymbol>
+                  </apply>
+                  <apply>
+                     <csymbol cd="relation1">eq</csymbol>
+                     <apply>
+                        <csymbol cd="arith1">times</csymbol>
+                        <ci>a</ci>
+                        <ci>b</ci>
+                     </apply>
+                     <apply>
+                        <csymbol cd="arith1">plus</csymbol>
+                        <apply>
+                           <csymbol cd="arith1">times</csymbol>
+                           <ci>a</ci>
+                           <apply>
+                              <csymbol cd="arith1">minus</csymbol>
+                              <ci>b</ci>
+                              <csymbol cd="alg1">one</csymbol>
+                           </apply>
+                        </apply>
+                        <ci>a</ci>
+                     </apply>
+                  </apply>
+               </apply>
+            </bind>
+         </math>
+      </rxr:object>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1#times.prop0"/>
+      <rxr:predicate uri="http://www.openmath.org/ontology#popcorn"/>
+      <rxr:object>quant1.forall[$a, $b -&gt; $a * alg1.zero = alg1.zero and $a * $b = $a * ($b - alg1.one) + $a]</rxr:object>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1#times.prop0"/>
+      <rxr:predicate uri="http://www.openmath.org/ontology#usesSymbol"/>
+      <rxr:object uri="http://www.openmath.org/cd/quant1#forall"/>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1#times.prop0"/>
+      <rxr:predicate uri="http://www.openmath.org/ontology#usesSymbol"/>
+      <rxr:object uri="http://www.openmath.org/cd/logic1#and"/>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1#times.prop0"/>
+      <rxr:predicate uri="http://www.openmath.org/ontology#usesSymbol"/>
+      <rxr:object uri="http://www.openmath.org/cd/relation1#eq"/>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1#times.prop0"/>
+      <rxr:predicate uri="http://www.openmath.org/ontology#usesSymbol"/>
+      <rxr:object uri="http://www.openmath.org/cd/arith1#times"/>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1#times.prop0"/>
+      <rxr:predicate uri="http://www.openmath.org/ontology#usesSymbol"/>
+      <rxr:object uri="http://www.openmath.org/cd/alg1#zero"/>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1#times.prop0"/>
+      <rxr:predicate uri="http://www.openmath.org/ontology#usesSymbol"/>
+      <rxr:object uri="http://www.openmath.org/cd/alg1#zero"/>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1#times.prop0"/>
+      <rxr:predicate uri="http://www.openmath.org/ontology#usesSymbol"/>
+      <rxr:object uri="http://www.openmath.org/cd/relation1#eq"/>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1#times.prop0"/>
+      <rxr:predicate uri="http://www.openmath.org/ontology#usesSymbol"/>
+      <rxr:object uri="http://www.openmath.org/cd/arith1#times"/>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1#times.prop0"/>
+      <rxr:predicate uri="http://www.openmath.org/ontology#usesSymbol"/>
+      <rxr:object uri="http://www.openmath.org/cd/arith1#plus"/>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1#times.prop0"/>
+      <rxr:predicate uri="http://www.openmath.org/ontology#usesSymbol"/>
+      <rxr:object uri="http://www.openmath.org/cd/arith1#times"/>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1#times.prop0"/>
+      <rxr:predicate uri="http://www.openmath.org/ontology#usesSymbol"/>
+      <rxr:object uri="http://www.openmath.org/cd/arith1#minus"/>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1#times.prop0"/>
+      <rxr:predicate uri="http://www.openmath.org/ontology#usesSymbol"/>
+      <rxr:object uri="http://www.openmath.org/cd/alg1#one"/>
+   </rxr:triple>
+   <!--END property--><!--BEGIN property--><rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1#times"/>
+      <rxr:predicate uri="http://www.openmath.org/ontology#hasProperty"/>
+      <rxr:object uri="http://www.openmath.org/cd/arith1#times.prop2"/>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1#times.prop2"/>
+      <rxr:predicate uri="http://www.w3.org/1999/02/22-rdf-syntax-ns#type"/>
+      <rxr:object uri="http://www.openmath.org/ontology#Property"/>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1#times.prop2"/>
+      <rxr:predicate uri="http://www.openmath.org/ontology#text"/>
+      <rxr:object>for all a,b,c | a*(b+c) = a*b + a*c</rxr:object>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1#times.prop2"/>
+      <rxr:predicate uri="http://www.openmath.org/ontology#openMath"/>
+      <rxr:object datatype="http://www.w3.org/1999/02/22-rdf-syntax-ns#XMLLiteral">
+         <OMOBJ xmlns="http://www.openmath.org/OpenMath" version="2.0"
+                cdbase="http://www.openmath.org/cd">
+            <OMBIND>
+               <OMS cd="quant1" name="forall"/>
+               <OMBVAR>
+                  <OMV name="a"/>
+                  <OMV name="b"/>
+                  <OMV name="c"/>
+               </OMBVAR>
+               <OMA>
+                  <OMS cd="relation1" name="eq"/>
+                  <OMA>
+                     <OMS cd="arith1" name="times"/>
+                     <OMV name="a"/>
+                     <OMA>
+                        <OMS cd="arith1" name="plus"/>
+                        <OMV name="b"/>
+                        <OMV name="c"/>
+                     </OMA>
+                  </OMA>
+                  <OMA>
+                     <OMS cd="arith1" name="plus"/>
+                     <OMA>
+                        <OMS cd="arith1" name="times"/>
+                        <OMV name="a"/>
+                        <OMV name="b"/>
+                     </OMA>
+                     <OMA>
+                        <OMS cd="arith1" name="times"/>
+                        <OMV name="a"/>
+                        <OMV name="c"/>
+                     </OMA>
+                  </OMA>
+               </OMA>
+            </OMBIND>
+         </OMOBJ>
+      </rxr:object>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1#times.prop2"/>
+      <rxr:predicate uri="http://www.openmath.org/ontology#contentMathML"/>
+      <rxr:object datatype="http://www.w3.org/1999/02/22-rdf-syntax-ns#XMLLiteral">
+         <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <bind>
+               <csymbol cd="quant1">forall</csymbol>
+               <bvar>
+                  <ci>a</ci>
+               </bvar>
+               <bvar>
+                  <ci>b</ci>
+               </bvar>
+               <bvar>
+                  <ci>c</ci>
+               </bvar>
+               <apply>
+                  <csymbol cd="relation1">eq</csymbol>
+                  <apply>
+                     <csymbol cd="arith1">times</csymbol>
+                     <ci>a</ci>
+                     <apply>
+                        <csymbol cd="arith1">plus</csymbol>
+                        <ci>b</ci>
+                        <ci>c</ci>
+                     </apply>
+                  </apply>
+                  <apply>
+                     <csymbol cd="arith1">plus</csymbol>
+                     <apply>
+                        <csymbol cd="arith1">times</csymbol>
+                        <ci>a</ci>
+                        <ci>b</ci>
+                     </apply>
+                     <apply>
+                        <csymbol cd="arith1">times</csymbol>
+                        <ci>a</ci>
+                        <ci>c</ci>
+                     </apply>
+                  </apply>
+               </apply>
+            </bind>
+         </math>
+      </rxr:object>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1#times.prop2"/>
+      <rxr:predicate uri="http://www.openmath.org/ontology#popcorn"/>
+      <rxr:object>quant1.forall[$a, $b, $c -&gt; $a * ($b + $c) = $a * $b + $a * $c]</rxr:object>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1#times.prop2"/>
+      <rxr:predicate uri="http://www.openmath.org/ontology#usesSymbol"/>
+      <rxr:object uri="http://www.openmath.org/cd/quant1#forall"/>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1#times.prop2"/>
+      <rxr:predicate uri="http://www.openmath.org/ontology#usesSymbol"/>
+      <rxr:object uri="http://www.openmath.org/cd/relation1#eq"/>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1#times.prop2"/>
+      <rxr:predicate uri="http://www.openmath.org/ontology#usesSymbol"/>
+      <rxr:object uri="http://www.openmath.org/cd/arith1#times"/>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1#times.prop2"/>
+      <rxr:predicate uri="http://www.openmath.org/ontology#usesSymbol"/>
+      <rxr:object uri="http://www.openmath.org/cd/arith1#plus"/>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1#times.prop2"/>
+      <rxr:predicate uri="http://www.openmath.org/ontology#usesSymbol"/>
+      <rxr:object uri="http://www.openmath.org/cd/arith1#plus"/>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1#times.prop2"/>
+      <rxr:predicate uri="http://www.openmath.org/ontology#usesSymbol"/>
+      <rxr:object uri="http://www.openmath.org/cd/arith1#times"/>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1#times.prop2"/>
+      <rxr:predicate uri="http://www.openmath.org/ontology#usesSymbol"/>
+      <rxr:object uri="http://www.openmath.org/cd/arith1#times"/>
+   </rxr:triple>
+   <!--END property--><rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1"/>
+      <rxr:predicate uri="http://www.openmath.org/ontology#definesSymbol"/>
+      <rxr:object uri="http://www.openmath.org/cd/arith1#divide"/>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1#divide"/>
+      <rxr:predicate uri="http://www.w3.org/1999/02/22-rdf-syntax-ns#type"/>
+      <rxr:object uri="http://www.openmath.org/ontology#SymbolDefinition"/>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1#divide"/>
+      <rxr:predicate uri="http://purl.org/dc/terms/identifier"/>
+      <rxr:object>divide</rxr:object>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1#divide"/>
+      <rxr:predicate uri="http://www.openmath.org/ontology#role"/>
+      <rxr:object uri="http://www.openmath.org/ontology#Application"/>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1#divide"/>
+      <rxr:predicate uri="http://purl.org/dc/terms/description"/>
+      <rxr:object>This symbol represents a (binary) division function denoting the first argument right-divided by the second, i.e. divide(a,b)=a*inverse(b). It is the inverse of the multiplication function defined by the symbol times in this CD.</rxr:object>
+   </rxr:triple>
+   <!--BEGIN property--><rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1#divide"/>
+      <rxr:predicate uri="http://www.openmath.org/ontology#hasProperty"/>
+      <rxr:object uri="http://www.openmath.org/cd/arith1#divide.prop0"/>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1#divide.prop0"/>
+      <rxr:predicate uri="http://www.w3.org/1999/02/22-rdf-syntax-ns#type"/>
+      <rxr:object uri="http://www.openmath.org/ontology#Property"/>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1#divide.prop0"/>
+      <rxr:predicate uri="http://www.openmath.org/ontology#text"/>
+      <rxr:object>whenever not(a=0) then a/a = 1</rxr:object>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1#divide.prop0"/>
+      <rxr:predicate uri="http://www.openmath.org/ontology#openMath"/>
+      <rxr:object datatype="http://www.w3.org/1999/02/22-rdf-syntax-ns#XMLLiteral">
+         <OMOBJ xmlns="http://www.openmath.org/OpenMath" version="2.0"
+                cdbase="http://www.openmath.org/cd">
+            <OMBIND>
+               <OMS cd="quant1" name="forall"/>
+               <OMBVAR>
+                  <OMV name="a"/>
+               </OMBVAR>
+               <OMA>
+                  <OMS cd="logic1" name="implies"/>
+                  <OMA>
+                     <OMS cd="relation1" name="neq"/>
+                     <OMV name="a"/>
+                     <OMS cd="alg1" name="zero"/>
+                  </OMA>
+                  <OMA>
+                     <OMS cd="relation1" name="eq"/>
+                     <OMA>
+                        <OMS cd="arith1" name="divide"/>
+                        <OMV name="a"/>
+                        <OMV name="a"/>
+                     </OMA>
+                     <OMS cd="alg1" name="one"/>
+                  </OMA>
+               </OMA>
+            </OMBIND>
+         </OMOBJ>
+      </rxr:object>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1#divide.prop0"/>
+      <rxr:predicate uri="http://www.openmath.org/ontology#contentMathML"/>
+      <rxr:object datatype="http://www.w3.org/1999/02/22-rdf-syntax-ns#XMLLiteral">
+         <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <bind>
+               <csymbol cd="quant1">forall</csymbol>
+               <bvar>
+                  <ci>a</ci>
+               </bvar>
+               <apply>
+                  <csymbol cd="logic1">implies</csymbol>
+                  <apply>
+                     <csymbol cd="relation1">neq</csymbol>
+                     <ci>a</ci>
+                     <csymbol cd="alg1">zero</csymbol>
+                  </apply>
+                  <apply>
+                     <csymbol cd="relation1">eq</csymbol>
+                     <apply>
+                        <csymbol cd="arith1">divide</csymbol>
+                        <ci>a</ci>
+                        <ci>a</ci>
+                     </apply>
+                     <csymbol cd="alg1">one</csymbol>
+                  </apply>
+               </apply>
+            </bind>
+         </math>
+      </rxr:object>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1#divide.prop0"/>
+      <rxr:predicate uri="http://www.openmath.org/ontology#popcorn"/>
+      <rxr:object>quant1.forall[$a -&gt; $a != alg1.zero ==&gt; $a / $a = alg1.one]</rxr:object>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1#divide.prop0"/>
+      <rxr:predicate uri="http://www.openmath.org/ontology#usesSymbol"/>
+      <rxr:object uri="http://www.openmath.org/cd/quant1#forall"/>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1#divide.prop0"/>
+      <rxr:predicate uri="http://www.openmath.org/ontology#usesSymbol"/>
+      <rxr:object uri="http://www.openmath.org/cd/logic1#implies"/>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1#divide.prop0"/>
+      <rxr:predicate uri="http://www.openmath.org/ontology#usesSymbol"/>
+      <rxr:object uri="http://www.openmath.org/cd/relation1#neq"/>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1#divide.prop0"/>
+      <rxr:predicate uri="http://www.openmath.org/ontology#usesSymbol"/>
+      <rxr:object uri="http://www.openmath.org/cd/alg1#zero"/>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1#divide.prop0"/>
+      <rxr:predicate uri="http://www.openmath.org/ontology#usesSymbol"/>
+      <rxr:object uri="http://www.openmath.org/cd/relation1#eq"/>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1#divide.prop0"/>
+      <rxr:predicate uri="http://www.openmath.org/ontology#usesSymbol"/>
+      <rxr:object uri="http://www.openmath.org/cd/arith1#divide"/>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1#divide.prop0"/>
+      <rxr:predicate uri="http://www.openmath.org/ontology#usesSymbol"/>
+      <rxr:object uri="http://www.openmath.org/cd/alg1#one"/>
+   </rxr:triple>
+   <!--END property--><rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1"/>
+      <rxr:predicate uri="http://www.openmath.org/ontology#definesSymbol"/>
+      <rxr:object uri="http://www.openmath.org/cd/arith1#power"/>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1#power"/>
+      <rxr:predicate uri="http://www.w3.org/1999/02/22-rdf-syntax-ns#type"/>
+      <rxr:object uri="http://www.openmath.org/ontology#SymbolDefinition"/>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1#power"/>
+      <rxr:predicate uri="http://purl.org/dc/terms/identifier"/>
+      <rxr:object>power</rxr:object>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1#power"/>
+      <rxr:predicate uri="http://www.openmath.org/ontology#role"/>
+      <rxr:object uri="http://www.openmath.org/ontology#Application"/>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1#power"/>
+      <rxr:predicate uri="http://purl.org/dc/terms/description"/>
+      <rxr:object>This symbol represents a power function. The first argument is raised to the power of the second argument. When the second argument is not an integer, powering is defined in terms of exponentials and logarithms for the complex and real numbers. This operator can represent general powering.</rxr:object>
+   </rxr:triple>
+   <!--BEGIN property--><rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1#power"/>
+      <rxr:predicate uri="http://www.openmath.org/ontology#hasProperty"/>
+      <rxr:object uri="http://www.openmath.org/cd/arith1#power.prop0"/>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1#power.prop0"/>
+      <rxr:predicate uri="http://www.w3.org/1999/02/22-rdf-syntax-ns#type"/>
+      <rxr:object uri="http://www.openmath.org/ontology#Property"/>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1#power.prop0"/>
+      <rxr:predicate uri="http://www.openmath.org/ontology#text"/>
+      <rxr:object>x\in C implies x^a = exp(a ln x)</rxr:object>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1#power.prop0"/>
+      <rxr:predicate uri="http://www.openmath.org/ontology#openMath"/>
+      <rxr:object datatype="http://www.w3.org/1999/02/22-rdf-syntax-ns#XMLLiteral">
+         <OMOBJ xmlns="http://www.openmath.org/OpenMath" version="2.0"
+                cdbase="http://www.openmath.org/cd">
+            <OMA>
+               <OMS cd="logic1" name="implies"/>
+               <OMA>
+                  <OMS cd="set1" name="in"/>
+                  <OMV name="x"/>
+                  <OMS cd="setname1" name="C"/>
+               </OMA>
+               <OMA>
+                  <OMS cd="relation1" name="eq"/>
+                  <OMA>
+                     <OMS name="power" cd="arith1"/>
+                     <OMV name="x"/>
+                     <OMV name="a"/>
+                  </OMA>
+                  <OMA>
+                     <OMS name="exp" cd="transc1"/>
+                     <OMA>
+                        <OMS name="times" cd="arith1"/>
+                        <OMV name="a"/>
+                        <OMA>
+                           <OMS name="ln" cd="transc1"/>
+                           <OMV name="x"/>
+                        </OMA>
+                     </OMA>
+                  </OMA>
+               </OMA>
+            </OMA>
+         </OMOBJ>
+      </rxr:object>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1#power.prop0"/>
+      <rxr:predicate uri="http://www.openmath.org/ontology#contentMathML"/>
+      <rxr:object datatype="http://www.w3.org/1999/02/22-rdf-syntax-ns#XMLLiteral">
+         <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+               <csymbol cd="logic1">implies</csymbol>
+               <apply>
+                  <csymbol cd="set1">in</csymbol>
+                  <ci>x</ci>
+                  <csymbol cd="setname1">C</csymbol>
+               </apply>
+               <apply>
+                  <csymbol cd="relation1">eq</csymbol>
+                  <apply>
+                     <csymbol cd="arith1">power</csymbol>
+                     <ci>x</ci>
+                     <ci>a</ci>
+                  </apply>
+                  <apply>
+                     <csymbol cd="transc1">exp</csymbol>
+                     <apply>
+                        <csymbol cd="arith1">times</csymbol>
+                        <ci>a</ci>
+                        <apply>
+                           <csymbol cd="transc1">ln</csymbol>
+                           <ci>x</ci>
+                        </apply>
+                     </apply>
+                  </apply>
+               </apply>
+            </apply>
+         </math>
+      </rxr:object>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1#power.prop0"/>
+      <rxr:predicate uri="http://www.openmath.org/ontology#popcorn"/>
+      <rxr:object>set1.in($x, setname1.C) ==&gt; $x ^ $a = exp($a * ln($x))</rxr:object>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1#power.prop0"/>
+      <rxr:predicate uri="http://www.openmath.org/ontology#usesSymbol"/>
+      <rxr:object uri="http://www.openmath.org/cd/logic1#implies"/>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1#power.prop0"/>
+      <rxr:predicate uri="http://www.openmath.org/ontology#usesSymbol"/>
+      <rxr:object uri="http://www.openmath.org/cd/set1#in"/>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1#power.prop0"/>
+      <rxr:predicate uri="http://www.openmath.org/ontology#usesSymbol"/>
+      <rxr:object uri="http://www.openmath.org/cd/setname1#C"/>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1#power.prop0"/>
+      <rxr:predicate uri="http://www.openmath.org/ontology#usesSymbol"/>
+      <rxr:object uri="http://www.openmath.org/cd/relation1#eq"/>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1#power.prop0"/>
+      <rxr:predicate uri="http://www.openmath.org/ontology#usesSymbol"/>
+      <rxr:object uri="http://www.openmath.org/cd/arith1#power"/>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1#power.prop0"/>
+      <rxr:predicate uri="http://www.openmath.org/ontology#usesSymbol"/>
+      <rxr:object uri="http://www.openmath.org/cd/transc1#exp"/>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1#power.prop0"/>
+      <rxr:predicate uri="http://www.openmath.org/ontology#usesSymbol"/>
+      <rxr:object uri="http://www.openmath.org/cd/arith1#times"/>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1#power.prop0"/>
+      <rxr:predicate uri="http://www.openmath.org/ontology#usesSymbol"/>
+      <rxr:object uri="http://www.openmath.org/cd/transc1#ln"/>
+   </rxr:triple>
+   <!--END property--><!--BEGIN property--><rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1#power"/>
+      <rxr:predicate uri="http://www.openmath.org/ontology#hasProperty"/>
+      <rxr:object uri="http://www.openmath.org/cd/arith1#power.prop2"/>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1#power.prop2"/>
+      <rxr:predicate uri="http://www.w3.org/1999/02/22-rdf-syntax-ns#type"/>
+      <rxr:object uri="http://www.openmath.org/ontology#Property"/>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1#power.prop2"/>
+      <rxr:predicate uri="http://www.openmath.org/ontology#text"/>
+      <rxr:object>if n is an integer then x^0 = 1, x^n = x * x^(n-1)</rxr:object>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1#power.prop2"/>
+      <rxr:predicate uri="http://www.openmath.org/ontology#openMath"/>
+      <rxr:object datatype="http://www.w3.org/1999/02/22-rdf-syntax-ns#XMLLiteral">
+         <OMOBJ xmlns="http://www.openmath.org/OpenMath" version="2.0"
+                cdbase="http://www.openmath.org/cd">
+            <OMA>
+               <OMS cd="logic1" name="implies"/>
+               <OMA>
+                  <OMS cd="set1" name="in"/>
+                  <OMV name="n"/>
+                  <OMS cd="setname1" name="Z"/>
+               </OMA>
+               <OMA>
+                  <OMS cd="logic1" name="and"/>
+                  <OMA>
+                     <OMS cd="relation1" name="eq"/>
+                     <OMA>
+                        <OMS cd="arith1" name="power"/>
+                        <OMV name="x"/>
+                        <OMI>0</OMI>
+                     </OMA>
+                     <OMS cd="alg1" name="one"/>
+                  </OMA>
+                  <OMA>
+                     <OMS cd="relation1" name="eq"/>
+                     <OMA>
+                        <OMS cd="arith1" name="power"/>
+                        <OMV name="x"/>
+                        <OMV name="n"/>
+                     </OMA>
+                     <OMA>
+                        <OMS cd="arith1" name="times"/>
+                        <OMV name="x"/>
+                        <OMA>
+                           <OMS cd="arith1" name="power"/>
+                           <OMV name="x"/>
+                           <OMA>
+                              <OMS cd="arith1" name="minus"/>
+                              <OMV name="n"/>
+                              <OMI>1</OMI>
+                           </OMA>
+                        </OMA>
+                     </OMA>
+                  </OMA>
+               </OMA>
+            </OMA>
+         </OMOBJ>
+      </rxr:object>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1#power.prop2"/>
+      <rxr:predicate uri="http://www.openmath.org/ontology#contentMathML"/>
+      <rxr:object datatype="http://www.w3.org/1999/02/22-rdf-syntax-ns#XMLLiteral">
+         <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+               <csymbol cd="logic1">implies</csymbol>
+               <apply>
+                  <csymbol cd="set1">in</csymbol>
+                  <ci>n</ci>
+                  <csymbol cd="setname1">Z</csymbol>
+               </apply>
+               <apply>
+                  <csymbol cd="logic1">and</csymbol>
+                  <apply>
+                     <csymbol cd="relation1">eq</csymbol>
+                     <apply>
+                        <csymbol cd="arith1">power</csymbol>
+                        <ci>x</ci>
+                        <cn>0</cn>
+                     </apply>
+                     <csymbol cd="alg1">one</csymbol>
+                  </apply>
+                  <apply>
+                     <csymbol cd="relation1">eq</csymbol>
+                     <apply>
+                        <csymbol cd="arith1">power</csymbol>
+                        <ci>x</ci>
+                        <ci>n</ci>
+                     </apply>
+                     <apply>
+                        <csymbol cd="arith1">times</csymbol>
+                        <ci>x</ci>
+                        <apply>
+                           <csymbol cd="arith1">power</csymbol>
+                           <ci>x</ci>
+                           <apply>
+                              <csymbol cd="arith1">minus</csymbol>
+                              <ci>n</ci>
+                              <cn>1</cn>
+                           </apply>
+                        </apply>
+                     </apply>
+                  </apply>
+               </apply>
+            </apply>
+         </math>
+      </rxr:object>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1#power.prop2"/>
+      <rxr:predicate uri="http://www.openmath.org/ontology#popcorn"/>
+      <rxr:object>set1.in($n, setname1.Z) ==&gt; $x ^ 0 = alg1.one and $x ^ $n = $x * $x ^ ($n - 1)</rxr:object>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1#power.prop2"/>
+      <rxr:predicate uri="http://www.openmath.org/ontology#usesSymbol"/>
+      <rxr:object uri="http://www.openmath.org/cd/logic1#implies"/>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1#power.prop2"/>
+      <rxr:predicate uri="http://www.openmath.org/ontology#usesSymbol"/>
+      <rxr:object uri="http://www.openmath.org/cd/set1#in"/>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1#power.prop2"/>
+      <rxr:predicate uri="http://www.openmath.org/ontology#usesSymbol"/>
+      <rxr:object uri="http://www.openmath.org/cd/setname1#Z"/>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1#power.prop2"/>
+      <rxr:predicate uri="http://www.openmath.org/ontology#usesSymbol"/>
+      <rxr:object uri="http://www.openmath.org/cd/logic1#and"/>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1#power.prop2"/>
+      <rxr:predicate uri="http://www.openmath.org/ontology#usesSymbol"/>
+      <rxr:object uri="http://www.openmath.org/cd/relation1#eq"/>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1#power.prop2"/>
+      <rxr:predicate uri="http://www.openmath.org/ontology#usesSymbol"/>
+      <rxr:object uri="http://www.openmath.org/cd/arith1#power"/>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1#power.prop2"/>
+      <rxr:predicate uri="http://www.openmath.org/ontology#usesSymbol"/>
+      <rxr:object uri="http://www.openmath.org/cd/alg1#one"/>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1#power.prop2"/>
+      <rxr:predicate uri="http://www.openmath.org/ontology#usesSymbol"/>
+      <rxr:object uri="http://www.openmath.org/cd/relation1#eq"/>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1#power.prop2"/>
+      <rxr:predicate uri="http://www.openmath.org/ontology#usesSymbol"/>
+      <rxr:object uri="http://www.openmath.org/cd/arith1#power"/>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1#power.prop2"/>
+      <rxr:predicate uri="http://www.openmath.org/ontology#usesSymbol"/>
+      <rxr:object uri="http://www.openmath.org/cd/arith1#times"/>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1#power.prop2"/>
+      <rxr:predicate uri="http://www.openmath.org/ontology#usesSymbol"/>
+      <rxr:object uri="http://www.openmath.org/cd/arith1#power"/>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1#power.prop2"/>
+      <rxr:predicate uri="http://www.openmath.org/ontology#usesSymbol"/>
+      <rxr:object uri="http://www.openmath.org/cd/arith1#minus"/>
+   </rxr:triple>
+   <!--END property--><rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1#power"/>
+      <rxr:predicate uri="http://www.openmath.org/ontology#exemplifiedBy"/>
+      <rxr:object uri="http://www.openmath.org/cd/arith1"/>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1"/>
+      <rxr:predicate uri="http://www.w3.org/1999/02/22-rdf-syntax-ns#type"/>
+      <rxr:object uri="http://www.openmath.org/ontology#Example"/>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1"/>
+      <rxr:predicate uri="http://www.openmath.org/ontology#usesSymbol"/>
+      <rxr:object uri="http://www.openmath.org/cd/relation1#eq"/>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1"/>
+      <rxr:predicate uri="http://www.openmath.org/ontology#usesSymbol"/>
+      <rxr:object uri="http://www.openmath.org/cd/arith1#power"/>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1"/>
+      <rxr:predicate uri="http://www.openmath.org/ontology#usesSymbol"/>
+      <rxr:object uri="http://www.openmath.org/cd/linalg2#matrix"/>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1"/>
+      <rxr:predicate uri="http://www.openmath.org/ontology#usesSymbol"/>
+      <rxr:object uri="http://www.openmath.org/cd/linalg2#matrixrow"/>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1"/>
+      <rxr:predicate uri="http://www.openmath.org/ontology#usesSymbol"/>
+      <rxr:object uri="http://www.openmath.org/cd/linalg2#matrixrow"/>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1"/>
+      <rxr:predicate uri="http://www.openmath.org/ontology#usesSymbol"/>
+      <rxr:object uri="http://www.openmath.org/cd/linalg2#matrix"/>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1"/>
+      <rxr:predicate uri="http://www.openmath.org/ontology#usesSymbol"/>
+      <rxr:object uri="http://www.openmath.org/cd/linalg2#matrixrow"/>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1"/>
+      <rxr:predicate uri="http://www.openmath.org/ontology#usesSymbol"/>
+      <rxr:object uri="http://www.openmath.org/cd/linalg2#matrixrow"/>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1#power"/>
+      <rxr:predicate uri="http://www.openmath.org/ontology#exemplifiedBy"/>
+      <rxr:object uri="http://www.openmath.org/cd/arith1"/>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1"/>
+      <rxr:predicate uri="http://www.w3.org/1999/02/22-rdf-syntax-ns#type"/>
+      <rxr:object uri="http://www.openmath.org/ontology#Example"/>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1"/>
+      <rxr:predicate uri="http://www.openmath.org/ontology#usesSymbol"/>
+      <rxr:object uri="http://www.openmath.org/cd/relation1#eq"/>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1"/>
+      <rxr:predicate uri="http://www.openmath.org/ontology#usesSymbol"/>
+      <rxr:object uri="http://www.openmath.org/cd/arith1#power"/>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1"/>
+      <rxr:predicate uri="http://www.openmath.org/ontology#usesSymbol"/>
+      <rxr:object uri="http://www.openmath.org/cd/nums1#e"/>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1"/>
+      <rxr:predicate uri="http://www.openmath.org/ontology#usesSymbol"/>
+      <rxr:object uri="http://www.openmath.org/cd/arith1#times"/>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1"/>
+      <rxr:predicate uri="http://www.openmath.org/ontology#usesSymbol"/>
+      <rxr:object uri="http://www.openmath.org/cd/nums1#i"/>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1"/>
+      <rxr:predicate uri="http://www.openmath.org/ontology#usesSymbol"/>
+      <rxr:object uri="http://www.openmath.org/cd/nums1#pi"/>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1"/>
+      <rxr:predicate uri="http://www.openmath.org/ontology#usesSymbol"/>
+      <rxr:object uri="http://www.openmath.org/cd/arith1#unary_minus"/>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1"/>
+      <rxr:predicate uri="http://www.openmath.org/ontology#usesSymbol"/>
+      <rxr:object uri="http://www.openmath.org/cd/alg1#one"/>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1"/>
+      <rxr:predicate uri="http://www.openmath.org/ontology#definesSymbol"/>
+      <rxr:object uri="http://www.openmath.org/cd/arith1#abs"/>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1#abs"/>
+      <rxr:predicate uri="http://www.w3.org/1999/02/22-rdf-syntax-ns#type"/>
+      <rxr:object uri="http://www.openmath.org/ontology#SymbolDefinition"/>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1#abs"/>
+      <rxr:predicate uri="http://purl.org/dc/terms/identifier"/>
+      <rxr:object>abs</rxr:object>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1#abs"/>
+      <rxr:predicate uri="http://www.openmath.org/ontology#role"/>
+      <rxr:object uri="http://www.openmath.org/ontology#Application"/>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1#abs"/>
+      <rxr:predicate uri="http://purl.org/dc/terms/description"/>
+      <rxr:object>A unary operator which represents the absolute value of its argument. The argument should be numerically valued. In the complex case this is often referred to as the modulus.</rxr:object>
+   </rxr:triple>
+   <!--BEGIN property--><rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1#abs"/>
+      <rxr:predicate uri="http://www.openmath.org/ontology#hasProperty"/>
+      <rxr:object uri="http://www.openmath.org/cd/arith1#abs.prop0"/>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1#abs.prop0"/>
+      <rxr:predicate uri="http://www.w3.org/1999/02/22-rdf-syntax-ns#type"/>
+      <rxr:object uri="http://www.openmath.org/ontology#Property"/>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1#abs.prop0"/>
+      <rxr:predicate uri="http://www.openmath.org/ontology#text"/>
+      <rxr:object>for all x,y | abs(x) + abs(y) &gt;= abs(x+y)</rxr:object>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1#abs.prop0"/>
+      <rxr:predicate uri="http://www.openmath.org/ontology#openMath"/>
+      <rxr:object datatype="http://www.w3.org/1999/02/22-rdf-syntax-ns#XMLLiteral">
+         <OMOBJ xmlns="http://www.openmath.org/OpenMath" version="2.0"
+                cdbase="http://www.openmath.org/cd">
+            <OMBIND>
+               <OMS cd="quant1" name="forall"/>
+               <OMBVAR>
+                  <OMV name="x"/>
+                  <OMV name="y"/>
+               </OMBVAR>
+               <OMA>
+                  <OMS cd="relation1" name="geq"/>
+                  <OMA>
+                     <OMS cd="arith1" name="plus"/>
+                     <OMA>
+                        <OMS cd="arith1" name="abs"/>
+                        <OMV name="x"/>
+                     </OMA>
+                     <OMA>
+                        <OMS cd="arith1" name="abs"/>
+                        <OMV name="y"/>
+                     </OMA>
+                  </OMA>
+                  <OMA>
+                     <OMS cd="arith1" name="abs"/>
+                     <OMA>
+                        <OMS cd="arith1" name="plus"/>
+                        <OMV name="x"/>
+                        <OMV name="y"/>
+                     </OMA>
+                  </OMA>
+               </OMA>
+            </OMBIND>
+         </OMOBJ>
+      </rxr:object>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1#abs.prop0"/>
+      <rxr:predicate uri="http://www.openmath.org/ontology#contentMathML"/>
+      <rxr:object datatype="http://www.w3.org/1999/02/22-rdf-syntax-ns#XMLLiteral">
+         <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <bind>
+               <csymbol cd="quant1">forall</csymbol>
+               <bvar>
+                  <ci>x</ci>
+               </bvar>
+               <bvar>
+                  <ci>y</ci>
+               </bvar>
+               <apply>
+                  <csymbol cd="relation1">geq</csymbol>
+                  <apply>
+                     <csymbol cd="arith1">plus</csymbol>
+                     <apply>
+                        <csymbol cd="arith1">abs</csymbol>
+                        <ci>x</ci>
+                     </apply>
+                     <apply>
+                        <csymbol cd="arith1">abs</csymbol>
+                        <ci>y</ci>
+                     </apply>
+                  </apply>
+                  <apply>
+                     <csymbol cd="arith1">abs</csymbol>
+                     <apply>
+                        <csymbol cd="arith1">plus</csymbol>
+                        <ci>x</ci>
+                        <ci>y</ci>
+                     </apply>
+                  </apply>
+               </apply>
+            </bind>
+         </math>
+      </rxr:object>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1#abs.prop0"/>
+      <rxr:predicate uri="http://www.openmath.org/ontology#popcorn"/>
+      <rxr:object>quant1.forall[$x, $y -&gt; arith1.abs($x) + arith1.abs($y) &gt;= arith1.abs($x + $y)]</rxr:object>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1#abs.prop0"/>
+      <rxr:predicate uri="http://www.openmath.org/ontology#usesSymbol"/>
+      <rxr:object uri="http://www.openmath.org/cd/quant1#forall"/>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1#abs.prop0"/>
+      <rxr:predicate uri="http://www.openmath.org/ontology#usesSymbol"/>
+      <rxr:object uri="http://www.openmath.org/cd/relation1#geq"/>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1#abs.prop0"/>
+      <rxr:predicate uri="http://www.openmath.org/ontology#usesSymbol"/>
+      <rxr:object uri="http://www.openmath.org/cd/arith1#plus"/>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1#abs.prop0"/>
+      <rxr:predicate uri="http://www.openmath.org/ontology#usesSymbol"/>
+      <rxr:object uri="http://www.openmath.org/cd/arith1#abs"/>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1#abs.prop0"/>
+      <rxr:predicate uri="http://www.openmath.org/ontology#usesSymbol"/>
+      <rxr:object uri="http://www.openmath.org/cd/arith1#abs"/>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1#abs.prop0"/>
+      <rxr:predicate uri="http://www.openmath.org/ontology#usesSymbol"/>
+      <rxr:object uri="http://www.openmath.org/cd/arith1#abs"/>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1#abs.prop0"/>
+      <rxr:predicate uri="http://www.openmath.org/ontology#usesSymbol"/>
+      <rxr:object uri="http://www.openmath.org/cd/arith1#plus"/>
+   </rxr:triple>
+   <!--END property--><rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1"/>
+      <rxr:predicate uri="http://www.openmath.org/ontology#definesSymbol"/>
+      <rxr:object uri="http://www.openmath.org/cd/arith1#root"/>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1#root"/>
+      <rxr:predicate uri="http://www.w3.org/1999/02/22-rdf-syntax-ns#type"/>
+      <rxr:object uri="http://www.openmath.org/ontology#SymbolDefinition"/>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1#root"/>
+      <rxr:predicate uri="http://purl.org/dc/terms/identifier"/>
+      <rxr:object>root</rxr:object>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1#root"/>
+      <rxr:predicate uri="http://www.openmath.org/ontology#role"/>
+      <rxr:object uri="http://www.openmath.org/ontology#Application"/>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1#root"/>
+      <rxr:predicate uri="http://purl.org/dc/terms/description"/>
+      <rxr:object>A binary operator which represents its first argument "lowered" to its n'th root where n is the second argument. This is the inverse of the operation represented by the power symbol defined in this CD. Care should be taken as to the precise meaning of this operator, in particular which root is represented, however it is here to represent the general notion of taking n'th roots. As inferred by the signature relevant to this symbol, the function represented by this symbol is the single valued function, the specific root returned is the one indicated by the first CMP. Note also that the converse of the second CMP is not valid in general.</rxr:object>
+   </rxr:triple>
+   <!--BEGIN property--><rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1#root"/>
+      <rxr:predicate uri="http://www.openmath.org/ontology#hasProperty"/>
+      <rxr:object uri="http://www.openmath.org/cd/arith1#root.prop0"/>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1#root.prop0"/>
+      <rxr:predicate uri="http://www.w3.org/1999/02/22-rdf-syntax-ns#type"/>
+      <rxr:object uri="http://www.openmath.org/ontology#Property"/>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1#root.prop0"/>
+      <rxr:predicate uri="http://www.openmath.org/ontology#text"/>
+      <rxr:object>x\in C implies root(x,n) = exp(ln(x)/n)</rxr:object>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1#root.prop0"/>
+      <rxr:predicate uri="http://www.openmath.org/ontology#openMath"/>
+      <rxr:object datatype="http://www.w3.org/1999/02/22-rdf-syntax-ns#XMLLiteral">
+         <OMOBJ xmlns="http://www.openmath.org/OpenMath" version="2.0"
+                cdbase="http://www.openmath.org/cd">
+            <OMA>
+               <OMS cd="logic1" name="implies"/>
+               <OMA>
+                  <OMS cd="set1" name="in"/>
+                  <OMV name="x"/>
+                  <OMS cd="setname1" name="C"/>
+               </OMA>
+               <OMA>
+                  <OMS cd="relation1" name="eq"/>
+                  <OMA>
+                     <OMS cd="arith1" name="root"/>
+                     <OMV name="x"/>
+                     <OMV name="n"/>
+                  </OMA>
+                  <OMA>
+                     <OMS name="exp" cd="transc1"/>
+                     <OMA>
+                        <OMS name="divide" cd="arith1"/>
+                        <OMA>
+                           <OMS name="ln" cd="transc1"/>
+                           <OMV name="x"/>
+                        </OMA>
+                        <OMV name="n"/>
+                     </OMA>
+                  </OMA>
+               </OMA>
+            </OMA>
+         </OMOBJ>
+      </rxr:object>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1#root.prop0"/>
+      <rxr:predicate uri="http://www.openmath.org/ontology#contentMathML"/>
+      <rxr:object datatype="http://www.w3.org/1999/02/22-rdf-syntax-ns#XMLLiteral">
+         <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+               <csymbol cd="logic1">implies</csymbol>
+               <apply>
+                  <csymbol cd="set1">in</csymbol>
+                  <ci>x</ci>
+                  <csymbol cd="setname1">C</csymbol>
+               </apply>
+               <apply>
+                  <csymbol cd="relation1">eq</csymbol>
+                  <apply>
+                     <csymbol cd="arith1">root</csymbol>
+                     <ci>x</ci>
+                     <ci>n</ci>
+                  </apply>
+                  <apply>
+                     <csymbol cd="transc1">exp</csymbol>
+                     <apply>
+                        <csymbol cd="arith1">divide</csymbol>
+                        <apply>
+                           <csymbol cd="transc1">ln</csymbol>
+                           <ci>x</ci>
+                        </apply>
+                        <ci>n</ci>
+                     </apply>
+                  </apply>
+               </apply>
+            </apply>
+         </math>
+      </rxr:object>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1#root.prop0"/>
+      <rxr:predicate uri="http://www.openmath.org/ontology#popcorn"/>
+      <rxr:object>set1.in($x, setname1.C) ==&gt; arith1.root($x, $n) = exp(ln($x) / $n)</rxr:object>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1#root.prop0"/>
+      <rxr:predicate uri="http://www.openmath.org/ontology#usesSymbol"/>
+      <rxr:object uri="http://www.openmath.org/cd/logic1#implies"/>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1#root.prop0"/>
+      <rxr:predicate uri="http://www.openmath.org/ontology#usesSymbol"/>
+      <rxr:object uri="http://www.openmath.org/cd/set1#in"/>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1#root.prop0"/>
+      <rxr:predicate uri="http://www.openmath.org/ontology#usesSymbol"/>
+      <rxr:object uri="http://www.openmath.org/cd/setname1#C"/>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1#root.prop0"/>
+      <rxr:predicate uri="http://www.openmath.org/ontology#usesSymbol"/>
+      <rxr:object uri="http://www.openmath.org/cd/relation1#eq"/>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1#root.prop0"/>
+      <rxr:predicate uri="http://www.openmath.org/ontology#usesSymbol"/>
+      <rxr:object uri="http://www.openmath.org/cd/arith1#root"/>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1#root.prop0"/>
+      <rxr:predicate uri="http://www.openmath.org/ontology#usesSymbol"/>
+      <rxr:object uri="http://www.openmath.org/cd/transc1#exp"/>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1#root.prop0"/>
+      <rxr:predicate uri="http://www.openmath.org/ontology#usesSymbol"/>
+      <rxr:object uri="http://www.openmath.org/cd/arith1#divide"/>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1#root.prop0"/>
+      <rxr:predicate uri="http://www.openmath.org/ontology#usesSymbol"/>
+      <rxr:object uri="http://www.openmath.org/cd/transc1#ln"/>
+   </rxr:triple>
+   <!--END property--><!--BEGIN property--><rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1#root"/>
+      <rxr:predicate uri="http://www.openmath.org/ontology#hasProperty"/>
+      <rxr:object uri="http://www.openmath.org/cd/arith1#root.prop2"/>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1#root.prop2"/>
+      <rxr:predicate uri="http://www.w3.org/1999/02/22-rdf-syntax-ns#type"/>
+      <rxr:object uri="http://www.openmath.org/ontology#Property"/>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1#root.prop2"/>
+      <rxr:predicate uri="http://www.openmath.org/ontology#text"/>
+      <rxr:object>for all a,n | power(root(a,n),n) = a (if the root exists!)</rxr:object>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1#root.prop2"/>
+      <rxr:predicate uri="http://www.openmath.org/ontology#openMath"/>
+      <rxr:object datatype="http://www.w3.org/1999/02/22-rdf-syntax-ns#XMLLiteral">
+         <OMOBJ xmlns="http://www.openmath.org/OpenMath" version="2.0"
+                cdbase="http://www.openmath.org/cd">
+            <OMBIND>
+               <OMS cd="quant1" name="forall"/>
+               <OMBVAR>
+                  <OMV name="a"/>
+                  <OMV name="n"/>
+               </OMBVAR>
+               <OMA>
+                  <OMS cd="relation1" name="eq"/>
+                  <OMA>
+                     <OMS cd="arith1" name="power"/>
+                     <OMA>
+                        <OMS cd="arith1" name="root"/>
+                        <OMV name="a"/>
+                        <OMV name="n"/>
+                     </OMA>
+                     <OMV name="n"/>
+                  </OMA>
+                  <OMV name="a"/>
+               </OMA>
+            </OMBIND>
+         </OMOBJ>
+      </rxr:object>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1#root.prop2"/>
+      <rxr:predicate uri="http://www.openmath.org/ontology#contentMathML"/>
+      <rxr:object datatype="http://www.w3.org/1999/02/22-rdf-syntax-ns#XMLLiteral">
+         <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <bind>
+               <csymbol cd="quant1">forall</csymbol>
+               <bvar>
+                  <ci>a</ci>
+               </bvar>
+               <bvar>
+                  <ci>n</ci>
+               </bvar>
+               <apply>
+                  <csymbol cd="relation1">eq</csymbol>
+                  <apply>
+                     <csymbol cd="arith1">power</csymbol>
+                     <apply>
+                        <csymbol cd="arith1">root</csymbol>
+                        <ci>a</ci>
+                        <ci>n</ci>
+                     </apply>
+                     <ci>n</ci>
+                  </apply>
+                  <ci>a</ci>
+               </apply>
+            </bind>
+         </math>
+      </rxr:object>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1#root.prop2"/>
+      <rxr:predicate uri="http://www.openmath.org/ontology#popcorn"/>
+      <rxr:object>quant1.forall[$a, $n -&gt; arith1.root($a, $n) ^ $n = $a]</rxr:object>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1#root.prop2"/>
+      <rxr:predicate uri="http://www.openmath.org/ontology#usesSymbol"/>
+      <rxr:object uri="http://www.openmath.org/cd/quant1#forall"/>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1#root.prop2"/>
+      <rxr:predicate uri="http://www.openmath.org/ontology#usesSymbol"/>
+      <rxr:object uri="http://www.openmath.org/cd/relation1#eq"/>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1#root.prop2"/>
+      <rxr:predicate uri="http://www.openmath.org/ontology#usesSymbol"/>
+      <rxr:object uri="http://www.openmath.org/cd/arith1#power"/>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1#root.prop2"/>
+      <rxr:predicate uri="http://www.openmath.org/ontology#usesSymbol"/>
+      <rxr:object uri="http://www.openmath.org/cd/arith1#root"/>
+   </rxr:triple>
+   <!--END property--><rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1"/>
+      <rxr:predicate uri="http://www.openmath.org/ontology#definesSymbol"/>
+      <rxr:object uri="http://www.openmath.org/cd/arith1#sum"/>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1#sum"/>
+      <rxr:predicate uri="http://www.w3.org/1999/02/22-rdf-syntax-ns#type"/>
+      <rxr:object uri="http://www.openmath.org/ontology#SymbolDefinition"/>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1#sum"/>
+      <rxr:predicate uri="http://purl.org/dc/terms/identifier"/>
+      <rxr:object>sum</rxr:object>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1#sum"/>
+      <rxr:predicate uri="http://www.openmath.org/ontology#role"/>
+      <rxr:object uri="http://www.openmath.org/ontology#Application"/>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1#sum"/>
+      <rxr:predicate uri="http://purl.org/dc/terms/description"/>
+      <rxr:object>An operator taking two arguments, the first being the range of summation, e.g. an integral interval, the second being the function to be summed. Note that the sum may be over an infinite interval.</rxr:object>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1#sum"/>
+      <rxr:predicate uri="http://www.openmath.org/ontology#exemplifiedBy"/>
+      <rxr:object uri="http://www.openmath.org/cd/arith1"/>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1"/>
+      <rxr:predicate uri="http://www.w3.org/1999/02/22-rdf-syntax-ns#type"/>
+      <rxr:object uri="http://www.openmath.org/ontology#Example"/>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1"/>
+      <rxr:predicate uri="http://www.openmath.org/ontology#usesSymbol"/>
+      <rxr:object uri="http://www.openmath.org/cd/arith1#sum"/>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1"/>
+      <rxr:predicate uri="http://www.openmath.org/ontology#usesSymbol"/>
+      <rxr:object uri="http://www.openmath.org/cd/interval1#integer_interval"/>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1"/>
+      <rxr:predicate uri="http://www.openmath.org/ontology#usesSymbol"/>
+      <rxr:object uri="http://www.openmath.org/cd/fns1#lambda"/>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1"/>
+      <rxr:predicate uri="http://www.openmath.org/ontology#usesSymbol"/>
+      <rxr:object uri="http://www.openmath.org/cd/arith1#divide"/>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1"/>
+      <rxr:predicate uri="http://www.openmath.org/ontology#definesSymbol"/>
+      <rxr:object uri="http://www.openmath.org/cd/arith1#product"/>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1#product"/>
+      <rxr:predicate uri="http://www.w3.org/1999/02/22-rdf-syntax-ns#type"/>
+      <rxr:object uri="http://www.openmath.org/ontology#SymbolDefinition"/>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1#product"/>
+      <rxr:predicate uri="http://purl.org/dc/terms/identifier"/>
+      <rxr:object>product</rxr:object>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1#product"/>
+      <rxr:predicate uri="http://www.openmath.org/ontology#role"/>
+      <rxr:object uri="http://www.openmath.org/ontology#Application"/>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1#product"/>
+      <rxr:predicate uri="http://purl.org/dc/terms/description"/>
+      <rxr:object>An operator taking two arguments, the first being the range of multiplication e.g. an integral interval, the second being the function to be multiplied. Note that the product may be over an infinite interval.</rxr:object>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1#product"/>
+      <rxr:predicate uri="http://www.openmath.org/ontology#exemplifiedBy"/>
+      <rxr:object uri="http://www.openmath.org/cd/arith1"/>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1"/>
+      <rxr:predicate uri="http://www.w3.org/1999/02/22-rdf-syntax-ns#type"/>
+      <rxr:object uri="http://www.openmath.org/ontology#Example"/>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1"/>
+      <rxr:predicate uri="http://www.openmath.org/ontology#usesSymbol"/>
+      <rxr:object uri="http://www.openmath.org/cd/relation1#eq"/>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1"/>
+      <rxr:predicate uri="http://www.openmath.org/ontology#usesSymbol"/>
+      <rxr:object uri="http://www.openmath.org/cd/integer1#factorial"/>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1"/>
+      <rxr:predicate uri="http://www.openmath.org/ontology#usesSymbol"/>
+      <rxr:object uri="http://www.openmath.org/cd/arith1#product"/>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1"/>
+      <rxr:predicate uri="http://www.openmath.org/ontology#usesSymbol"/>
+      <rxr:object uri="http://www.openmath.org/cd/interval1#integer_interval"/>
+   </rxr:triple>
+   <rxr:triple>
+      <rxr:subject uri="http://www.openmath.org/cd/arith1"/>
+      <rxr:predicate uri="http://www.openmath.org/ontology#usesSymbol"/>
+      <rxr:object uri="http://www.openmath.org/cd/fns1#lambda"/>
+   </rxr:triple>
+</rxr:graph>

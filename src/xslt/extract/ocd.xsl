@@ -265,6 +265,9 @@
             </xsl:with-param>
         </xsl:call-template>
     </xsl:template>
+
+    <xd:doc>We assume that any FMP has been grouped with a CMP before</xd:doc>
+    <xsl:template match="FMP" mode="krextor:main"/>
  
     <xd:doc>We assume that any FMP has been grouped with a CMP before</xd:doc>
     <xsl:template match="property/FMP" mode="krextor:main">
@@ -284,6 +287,8 @@
               <xsl:apply-templates mode="pop" select="om:OMOBJ"/>
             </xsl:with-param>
         </xsl:call-template>
+	<!-- this makes sure that omo:usesSymbol links are created correctly -->
+	<xsl:apply-templates select="om:OMOBJ" mode="krextor:main"/>
     </xsl:template>    
 
     <xsl:template match="@type[parent::cds:CDSignatures]" mode="krextor:main">

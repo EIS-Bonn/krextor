@@ -234,6 +234,7 @@
 	<param name="blank-node" as="xs:boolean" select="false()"/>
 	<param name="this-blank-node-id" select="()" as="xs:string?"/>
 	<param name="collection" as="xs:boolean" select="false()"/>
+	<param name="nested-call" as="xs:boolean" select="false()" tunnel="yes"/>
 
 	<variable name="autogenerate-fragment-uri" as="xs:string*" select="krextor:uri-generation-method(.)"/>
 	<!-- If we are to autogenerate the URI for this node, then we call the krextor:generate-uri function to generate one, unless an explicit subject URI has been passed
@@ -254,8 +255,10 @@
 	<variable name="subject" as="xs:string" select="if ($generated-blank-node) then $generated-blank-node-id else $generated-uri"/>
 	<variable name="subject-type" as="xs:string" select="if ($generated-blank-node) then 'blank' else 'uri'"/>
 	<if test="exists($generated-uri)">
-	    <if test="not(parent::node() instance of document-node())">
+	    <if test="$nested-call">
 		<!-- Relate this resource to its parent, if it has a parent -->
+		<!-- not(parent::node() instance of document-node()) would not work,
+		     as we may have document nodes synthesized by the extraction module -->
 		<call-template name="krextor:related-via-properties">
 		    <with-param name="properties" select="$related-via-properties"/>
 		    <with-param name="blank-node" select="$generated-blank-node"/>
@@ -320,6 +323,8 @@
 			<!-- Pass the information what type this is; this might help to disambiguate triple generation from children of the element that represents the resource of that type. -->
                         <with-param name="type" select="$type" tunnel="yes"/>
 			<with-param name="blank-node-id" select="$generated-blank-node-id" tunnel="yes"/>
+			<!-- FIXME test whether it is sufficient to set this parameter just here -->
+			<with-param name="nested-call" select="true()" tunnel="yes"/>
 		    </apply-templates>
 		</otherwise>
 	    </choose>

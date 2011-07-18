@@ -32,6 +32,15 @@ specifies the desired RDF serialization.
 EOF
 }
 
+function prepare_path () {
+    case "$(uname -o)" in
+	Cygwin)
+	    cygpath -w "$@" ;;
+	*)
+	    echo "$@" ;;
+    esac
+}
+
 if [[ $# -lt 2 ]]
 then
     help
@@ -98,7 +107,7 @@ EOF
     transformer=/tmp/krextor.$$.xsl
 fi
 
-java -jar ${SAXON_JAR:-$KREXTOR_HOME/lib/saxon/saxon9he.jar} -s:$infile -xsl:$transformer
+java -jar "$(prepare_path ${SAXON_JAR:-$KREXTOR_HOME/lib/saxon/saxon9he.jar})" -s:"$(prepare_path $infile)" -xsl:"$(prepare_path $transformer)"
 
 [[ -e /tmp/krextor.$$.xsl ]] && rm /tmp/krextor.$$.xsl
 
