@@ -47,14 +47,17 @@
 	<xd:svnId>$Id$</xd:svnId>
     </xd:doc>
 
+    <include href="../extract/util/rdf-xml.xsl"/>
+
     <xd:doc>Enable debug output?</xd:doc>
     <param name="debug" as="xs:boolean" select="false()"/>
 
     <xd:doc>Configures whether XIncludes should be traversed.  Note that templates for nodes in XIncluded documents are matched in <code>krextor:included</code> mode.</xd:doc>
     <param name="traverse-xincludes" as="xs:boolean" select="true()"/>
 
-    <xd:doc>Points to an RDF/XML document whose data should be merged with the data extracted from the current input</xd:doc>
-    <param name="merge-rdf" as="xs:anyURI?" select="()"/>
+    <!-- Points to an RDF/XML document whose data should be merged with the data extracted from the current input -->
+    <param name="merge-url-pattern-match" as="xs:string"/>
+    <param name="merge-url-pattern-replace" as="xs:string"/>
 
     <variable name="krextor:resources" as="element()*" select="()"/>
     <variable name="krextor:literal-properties" as="element()*" select="()"/>
@@ -619,26 +622,26 @@
 	<apply-templates select="/" mode="krextor:main"/>
     </template>
 
-    <xd:doc>Start processing; the current subject is identified by the base URI of the document.  Afterwards, if the <code>merge-rdf</code> parameter has been set, output the triples in the document at the <code>merge-rdf</code>.  In terms of the RDF semantics that means that they will be merged with the triples extracted from the primary input.</xd:doc>
+    <xd:doc>Start processing; the current subject is identified by the base URI of the document.  Afterwards, if the <code>merge-url-pattern-*</code> parameters have been set, output the triples in the document at the URL obtained from the base URI of the current input after replacing <code>merge-url-pattern-match</code> with <code>merge-url-pattern-replace</code>.  In terms of the RDF semantics that means that those triples will be merged with the triples extracted from the primary input.</xd:doc>
     <template match="/" mode="krextor:main" name="krextor:main">
 	<param name="krextor:base-uri" as="xs:string" select="krextor:base-uri(.)" tunnel="yes"/>
-        <param name="krextor:merge-rdf" as="xs:string?" select="$merge-rdf" tunnel="yes"/>
+        <param name="merging-rdf" as="xs:boolean" select="$merge-url-pattern-match != ''" tunnel="yes"/>
 	<apply-templates mode="krextor:main">
 	    <with-param name="subject-uri" select="xs:anyURI($krextor:base-uri)" tunnel="yes"/>
 	    <with-param name="krextor:base-uri" select="xs:anyURI($krextor:base-uri)" tunnel="yes"/>
 	</apply-templates>
-        <if test="$krextor:merge-rdf">
+        <if test="$merging-rdf">
             <!-- we need to run it in this mode instead of krextor:main, as otherwise certain output modules would see another document node and thus create a second RDF graph -->
-            <apply-templates select="document($merge-rdf)" mode="krextor:merge-rdf">
+	    <!-- we are not reusing the rewritten base URI ($krextor:base-uri()), as the objective here is to get access to a physical file, whereas the rewritten base URI is about serving nice cool URIs -->
+            <apply-templates select="document(replace(base-uri(), $merge-url-pattern-match, $merge-url-pattern-replace))" mode="krextor:merge-rdf">
                 <!-- avoid infinite loop -->
-                <with-param name="krextor:merge-rdf" select="()" tunnel="yes"/>
+                <with-param name="merging-rdf" select="false()" tunnel="yes"/>
             </apply-templates>
         </if>
     </template>
 
     <template match="/" mode="krextor:merge-rdf">
-        <call-template name="krextor:main">
-        </call-template>
+        <call-template name="krextor:main"/>
     </template>
 
     <xd:doc>Do not extract RDF from attributes that are not matched by the

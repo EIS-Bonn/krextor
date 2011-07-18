@@ -85,6 +85,9 @@
       </xsl:if>
     </xsl:param>
 
+    <xsl:param name="merge-url-pattern-match" as="xs:string" select="'\.ocd$'"/>
+    <xsl:param name="merge-url-pattern-replace" as="xs:string" select="'.rdf'"/>
+
     <xd:doc>
       Top-level implementation of OpenMath-compliant URI generation; we delegate to per-element templates.
     </xd:doc>
@@ -110,10 +113,14 @@
                             normalize-space(Name[1])))"/>
     </xsl:template>
 
-    <!-- <xsl:template match="property" mode="krextor-genuri:openmath" as="xs:anyURI?"> -->
-    <!--   <xsl:sequence select="xs:anyURI(concat('#', generate-id()))"/> -->
-    <!-- </xsl:template> -->
-    
+    <xsl:template match="Example" mode="krextor-genuri:openmath" as="xs:anyURI?">
+      <xsl:param name="openmath-cd-uri"/>
+      <xsl:sequence select="xs:anyURI(
+			    concat($openmath-cd-uri, (: here, this is the URI of the symbol already :)
+			    '.ex',
+			    count(preceding-sibling::Example)))"/>
+    </xsl:template>
+
     <xd:doc>Fail to generate an OpenMath URI for all elements for which none is specified, i.e. all elements except <code>CD</code> and <code>CDDefinition</code></xd:doc>
     <xsl:template match="*" mode="krextor-genuri:openmath" as="xs:anyURI?"/>
     

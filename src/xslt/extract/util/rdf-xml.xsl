@@ -44,12 +44,16 @@
         <xd:svnId>$Id$</xd:svnId>
     </xd:doc>
 
-    <function name="krextor:rdf-xml-uri" as="xs:anyURI?">
+    <template match="krextor-genuri:rdf-xml" as="xs:anyURI?">
         <param name="node"/>
         <param name="base-uri"/>
         <!-- TODO once we support rdf:ID, we need to take xml:base into account -->
-        <sequence select="xs:anyURI($node/@rdf:about)"/>
-    </function>
+        <sequence select="xs:anyURI($node[self::rdf:*]/@rdf:about)"/>
+    </template>
+
+    <template match="rdf:*" mode="krextor:uri-generation-method" as="xs:string*">
+      <sequence select="'rdf-xml'"/>
+    </template>
 
     <strip-space elements="*"/>
 
@@ -60,8 +64,7 @@
     </template>
 
     <template match="/rdf:RDF//rdf:Description" mode="krextor:main" priority="2">
-        <call-template name="krextor:create-resource">
-        </call-template>
+        <call-template name="krextor:create-resource"/>
     </template>
     
     <template match="/rdf:RDF//*[@rdf:resource]" mode="krextor:main" priority="2">

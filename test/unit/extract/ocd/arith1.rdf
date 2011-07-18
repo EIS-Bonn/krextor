@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE rdf:RDF [
+    <!ENTITY dbr  "http://dbpedia.org/resource/">
+]>
+
+<rdf:RDF
+    xmlns:owl="http://www.w3.org/2002/07/owl#"
+    xmlns:dbr="http://dbpedia.org/resource/"
+    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+    <rdf:Description rdf:about="http://www.openmath.org/arith1#lcm">
+      <owl:sameAs rdf:resource="&dbr;Least_common_multiple"/>
+    </rdf:Description>
+</rdf:RDF>
