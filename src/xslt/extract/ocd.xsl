@@ -86,7 +86,7 @@
     </xsl:param>
 
     <xsl:param name="merge-url-pattern-match" as="xs:string" select="'\.ocd$'"/>
-    <xsl:param name="merge-url-pattern-replace" as="xs:string" select="'.rdf'"/>
+    <xsl:param name="merge-url-pattern-replace" as="xs:string" select="'-merge.rdf'"/>
 
     <xd:doc>
       Top-level implementation of OpenMath-compliant URI generation; we delegate to per-element templates.
