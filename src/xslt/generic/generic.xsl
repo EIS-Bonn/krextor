@@ -113,6 +113,18 @@
 
 	<param name="krextor:base-uri" as="xs:anyURI" tunnel="yes"/>
 
+	<!-- for debugging:
+	<message>NEW RDF TRIPLE</message>
+	<message>subject = <value-of select="$subject"/></message>
+	<message>subject-type = <value-of select="$subject-type"/></message>
+	<message>predicate = <value-of select="$predicate"/></message>
+	<message>object = <value-of select="$object"/></message>
+	<message>object-type = <value-of select="$object-type"/></message>
+	<message>object-language = <value-of select="$object-language"/></message>
+	<message>object-datatype = <value-of select="$object-datatype"/></message>
+	<message>krextor:base-uri = <value-of select="$krextor:base-uri"/></message>
+	-->
+
 	<!-- Some sanity checks -->
 	<if test="not($subject-type = ('uri', 'blank'))">
 	    <message terminate="yes" select="concat('Invalid subject type: ', $subject-type)"/>
@@ -633,10 +645,13 @@
         <if test="$merging-rdf">
             <!-- we need to run it in this mode instead of krextor:main, as otherwise certain output modules would see another document node and thus create a second RDF graph -->
 	    <!-- we are not reusing the rewritten base URI ($krextor:base-uri()), as the objective here is to get access to a physical file, whereas the rewritten base URI is about serving nice cool URIs -->
-            <apply-templates select="document(replace(base-uri(), $merge-url-pattern-match, $merge-url-pattern-replace))" mode="krextor:merge-rdf">
-                <!-- avoid infinite loop -->
-                <with-param name="merging-rdf" select="false()" tunnel="yes"/>
-            </apply-templates>
+	    <variable name="merge-url" select="replace(base-uri(), $merge-url-pattern-match, $merge-url-pattern-replace)"/>
+	    <if test="doc-available($merge-url)">
+		<apply-templates select="document" mode="krextor:merge-rdf">
+		    <!-- avoid infinite loop -->
+		    <with-param name="merging-rdf" select="false()" tunnel="yes"/>
+		</apply-templates>
+	    </if>
         </if>
     </template>
 
@@ -649,3 +664,8 @@
     <template match="@*|text()" mode="krextor:main"/>
 </stylesheet>
 
+<!--
+Local Variables:
+nxml-child-indent: 4
+End:
+-->
