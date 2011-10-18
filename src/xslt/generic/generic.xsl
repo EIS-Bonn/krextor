@@ -56,8 +56,8 @@
     <param name="traverse-xincludes" as="xs:boolean" select="true()"/>
 
     <!-- Points to an RDF/XML document whose data should be merged with the data extracted from the current input -->
-    <param name="merge-url-pattern-match" as="xs:string"/>
-    <param name="merge-url-pattern-replace" as="xs:string"/>
+    <param name="merge-url-pattern-match" as="xs:string" select="''"/>
+    <param name="merge-url-pattern-replace" as="xs:string" select="''"/>
 
     <variable name="krextor:resources" as="element()*" select="()"/>
     <variable name="krextor:literal-properties" as="element()*" select="()"/>
