@@ -23,22 +23,22 @@
     <xsl:template match="krextor-genuri:xliff" as="xs:anyURI?">
       <xsl:param name="node"/>
       <xsl:param name="base-uri"/>
-      <xsl:apply-templates select="$node" mode="krextor-genuri:xliff"/>
+      <xsl:apply-templates select="$node" mode="krextor-genuri:xliff">
+        <xsl:with-param name="xliff-base-uri" select="$base-uri"/>
+      </xsl:apply-templates>
     </xsl:template>
 
     <xsl:template match="file" mode="krextor-genuri:xliff" as="xs:anyURI?">
-      <xsl:sequence select="@original"/>
+      <xsl:param name="xliff-base-uri"/>
+      <xsl:sequence select="$xliff-base-uri"/>
     </xsl:template>
 
     <xsl:template match="trans-unit" mode="krextor-genuri:xliff" as="xs:anyURI?">
-      <xsl:variable name="original" select="ancestor::file/@original"/>
-      <xsl:if test="$original and @id">
-        <xsl:sequence select="xs:anyURI(
-                              concat(
-                              $original,
-                              @id))"/>
-        
-      </xsl:if>
+      <xsl:param name="xliff-base-uri"/>
+      <xsl:sequence select="xs:anyURI(
+                            concat(
+                            $xliff-base-uri,
+                            @id))"/>
     </xsl:template>
 
     <xd:doc>Fail to generate a XLIFF compliant URI for all elements for which none is specified, i.e. all elements except <code>file</code> and <code>trans-unit</code></xd:doc>
@@ -61,17 +61,25 @@
 			related-via-properties="&xliff;hasTransUnit"/>
     </xsl:variable>
 	
-    <xsl:template match="file|
-                         trans-unit"
-                  mode="krextor:main">
-	<xsl:apply-templates select="." mode="krextor:create-resource"/>
+    <xsl:template match="file"
+      mode="krextor:main">
+      <xsl:apply-templates select="." mode="krextor:create-resource">
+        <xsl:with-param name="subject-uri" select="@original" tunnel="yes"/>
+      </xsl:apply-templates>
+    </xsl:template>
+    
+    <xsl:template match="trans-unit"
+      mode="krextor:main">
+      <xsl:apply-templates select="." mode="krextor:create-resource"/>
     </xsl:template>
     
     <xsl:variable name="krextor:literal-properties">
       <source property="&xliff;source"/>
+      <source-language property="&xliff;sourceLanguage" krextor:attribute="yes"/>
     </xsl:variable>
     
-    <xsl:template match="source" mode="krextor:main">
+    <xsl:template match="source|
+                         file/@source-language" mode="krextor:main">
       <xsl:apply-templates select="." mode="krextor:add-literal-property"/>
     </xsl:template>
 </xsl:stylesheet>
