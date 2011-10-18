@@ -18,7 +18,7 @@
     exclude-result-prefixes="#all"
     version="2.0">
 
-	<param name="autogenerate-fragment-uris" select="'pseudo-xpath'"/>
+    <xsl:param name="autogenerate-fragment-uris" select="'pseudo-xpath'"/>
 	
     <xsl:variable name="krextor:resources">
 		<file type="&xliff;File"/>
