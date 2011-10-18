@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+<file original="book_file.txt"   source-language="en-us" 
+target-language="de-de" datatype="plaintext">	
+<body>
+<trans-unit id="#1">
+<source>book</source>
+<target>Buch</target>
+	</trans-unit>
+	<trans-unit id="#2">
+<source>book publisher</source>
+	<target>Buchverlag</target>
+	</trans-unit>
+	<trans-unit id="#3">
+	<source>This book is good!</source>
+	<target>Dieses Buch ist gut!</target>
+	</trans-unit>
+	</body>
+	</file>
+	</xliff>

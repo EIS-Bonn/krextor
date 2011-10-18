@@ -1,0 +1,81 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2" 
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+      xsi:schemaLocation="urn:oasis:names:tc:xliff:document:1.2 
+      xliff-core-1.2-transitional.xsd">
+<file original="modular_file.txt" source-language="en-us" target-language="de-de" datatype="plaintext" tool="LKR">
+	<header>
+	   <skl>
+            <internal-file form="String" crc="2">String</internal-file>
+         </skl>
+            	<phase-group>
+                <phase phase-name="Quality Assurance"
+					   process-name="authoring" 
+				   	   contact-name="John" 
+                       contact-email="John.Jack@gmail.com"
+					   contact-phone="123456"
+					   date="2002-01-25T21:06:00Z"
+					   company-name="Universities"
+					   job-id="110">
+                 <note xml:lang="en-us" priority="2" from="John">Please consult the multilingual glossary!
+             </note>
+				</phase>
+			 </phase-group>
+		<glossary>
+			 <internal-file form="String" crc="vf">String</internal-file>
+         </glossary>
+				</header>
+    <body>
+             <trans-unit id="#1" 
+						 approved="yes" 
+						 translate="yes" 
+						 reformat="coord font" 
+						 xml:space="default" 
+						 datatype="plaintext" 
+						 restype="button" 
+						 resname="String" 
+						 extradata="String" 
+						 help-id="NMTOKEN" 
+						 menu="String" 
+						 menu-option="String" 
+						 menu-name="String" 
+						 coord="-0;-0;-0;-0" 
+						 font="String" 
+						 css-style="String" 
+						 style="NMTOKEN" 
+						 exstyle="NMTOKEN" 
+						 size-unit="pixel" 
+						 maxwidth="NMTOKEN" 
+						 minwidth="NMTOKEN" 
+						 maxheight="NMTOKEN" 
+						 minheight="NMTOKEN" 
+						 maxbytes="NMTOKEN" 
+						 minbytes="NMTOKEN" 
+						 charclass="String">
+		<source xml:lang="en-us">book<g id="_1_ski_040">text</g>TEXTTEXT<ph id="_1_ski_337"/>TEXTTEXT<mrk mtype="x-test">text</mrk>
+               <x id="_1_ski_535"/>TEXT</source>
+            <target state="needs-translation" xml:lang="de-de" resname="String" 
+			coord="-0;-0;-0;-0" font="String" css-style="String" style="NMTOKEN" exstyle="NMTOKEN">
+			Text <g id="_1_ski_832">text</g>TEXTTEXT<ph id="_1_ski_1129"/>TEXTTEXT<mrk mtype="x-test">text</mrk>
+               <x id="_1_ski_1327"/>TEXT</target>
+			  			
+			 <context-group name="_ski_40119" crc="NMTOKEN" purpose="location x-test match x-abcdef">
+               <context context-type="database" match-mandatory="no" crc="NMTOKEN">String</context>
+               <context context-type="database" match-mandatory="no" crc="NMTOKEN">String</context>
+            </context-group>
+			
+				<count-group name="_ski_42117">	       
+					<count count-type="new" unit="word">String</count>  
+								
+				</count-group>
+			            <alt-trans match-quality="String" crc="NMTOKEN" xml:lang="en-us" origin="String" datatype="plaintext" xml:space="default" restype="button" resname="String" extradata="String" help-id="NMTOKEN" menu="String" menu-option="String" menu-name="String" coord="-0;-0;-0;-0" font="String" css-style="String" style="NMTOKEN" exstyle="NMTOKEN">
+<source xml:lang="en-us">Text 
+TEXT<ph id="_1_ski_2020">code</ph>TEXT</source>
+               <target state="needs-translation" xml:lang="en-us" resname="String"
+			   coord="-0;-0;-0;-0" font="String" css-style="String" style="NMTOKEN" exstyle="NMTOKEN">Text</target>
+			</alt-trans>
+			</trans-unit>
+    </body>
+ </file>
+</xliff>
+

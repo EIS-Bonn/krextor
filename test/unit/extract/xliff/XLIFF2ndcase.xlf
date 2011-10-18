@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2" 
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+      xsi:schemaLocation="urn:oasis:names:tc:xliff:document:1.2 
+      xliff-core-1.2-transitional.xsd">
+<file original="file_metadata.txt" source-language="en-us" target-language="de-de" datatype="plaintext" tool="TM-ABC">
+	<header>
+            	<phase-group>
+                <phase phase-name="review" 
+			   process-name="Terminology Management" 
+                 	   contact-name="John" 
+                       contact-email="John.Jack@gmail.com"/>
+             </phase-group>	 
+             <glossary>
+<external-file href="file:///C:/MyFolder/MyProject/article.htm"/>
+
+             </glossary>
+             <note>The article is about localisation and Semantic Web.
+             </note>
+	</header>
+    <body>
+             <trans-unit id="#1">
+			<source>book</source>
+			<target>Buch</target>
+			
+             </trans-unit>
+    </body>
+   </file>
+</xliff>
+

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+ <file original="first_file.txt" 
+source-language="en-us" 
+target-language="de-de" datatype="plaintext">	
+  <body>
+    <trans-unit id="#1">
+       <source>book</source>
+       <target>Buch</target>
+    </trans-unit>
+    </body>
+	 </file>
+<file original="second_file.txt"   
+source-language="en-us" 
+target-language="fr-fr" datatype="plaintext">	
+  <body>
+    <trans-unit id="#1">
+       <source>book</source>
+       <target>livre</target>
+    </trans-unit>
+  </body>
+ </file>
+</xliff>

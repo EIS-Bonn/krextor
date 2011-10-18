@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xliff version="1.2"
+	  xmlns="urn:oasis:names:tc:xliff:document:1.2" 
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+      xsi:schemaLocation="urn:oasis:names:tc:xliff:document:1.2 
+      xliff-core-1.2-transitional.xsd">
+<file original="XLIFF_with_alttrans.txt" source-language="en-us" target-language="de-de" datatype="plaintext">	
+	<body>
+		<trans-unit id="#1">
+		   <source>book</source>
+	       <target>Buch</target>
+		   <alt-trans>
+             <source xml:lang="en-US">book chapter</source> 
+	         <target xml:lang="de-de">Buchkapitel</target>
+             <target xml:lang="fr-FR">chapitre de livre</target>
+             <target xml:lang="es-ES">capitulo del libro</target>
+           </alt-trans>
+       </trans-unit>
+	</body>
+</file>
+</xliff>
