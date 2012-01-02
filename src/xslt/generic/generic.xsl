@@ -55,10 +55,24 @@
     <xd:doc>Configures whether XIncludes should be traversed.  Note that templates for nodes in XIncluded documents are matched in <code>krextor:included</code> mode.</xd:doc>
     <param name="traverse-xincludes" as="xs:boolean" select="true()"/>
 
-    <!-- Points to an RDF/XML document whose data should be merged with the data extracted from the current input -->
+    <xd:doc>
+        <xd:short>Points to an RDF/XML document whose data should be merged with the data extracted from the current input</xd:short>
+        <xd:detail>Replacing the <code>merge-url-pattern-match</code> regular expression in the URI of the input XML document by the <code>merge-url-pattern-replace</code> replacement pattern points to an RDF/XML document whose data should be merged with the data extracted from the current input.</xd:detail>
+    </xd:doc>
     <param name="merge-url-pattern-match" as="xs:string" select="''"/>
+    <xd:doc>see <code>merge-url-pattern-match</code></xd:doc>
     <param name="merge-url-pattern-replace" as="xs:string" select="''"/>
 
+    <xd:doc>
+        <xd:short>Defines a simple mapping of XML elements to ontology classes</xd:short>
+        <xd:detail>Defines a simple mapping of XML elements to ontology classes.  XML elements are given literally inside the value of this variable – mind the namespaces!  For each element, the following details may be provided as attributes:
+        <ul>
+        <li><code>@type</code> – a whitespace-separated list of URIs of types of this resource; see the <code>type</code> parameter of <code>krextor:create-resource</code> for details</li>
+        <li><code>@related-via-properties</code> – a whitespace-separated list of URIs of properties by which the parent resource is related to this resource; see the <code>related-via-properties</code> parameter of <code>krextor:create-resource</code> for details</li>
+        <li><code>@related-via-inverse-properties</code> – a whitespace-separated list of URIs of properties by which this resource is related to the parent resource; see the <code>related-via-inverse-properties</code> parameter of <code>krextor:create-resource</code> for details</li>
+        </ul>
+        </xd:detail>
+    </xd:doc>
     <variable name="krextor:resources" as="element()*" select="()"/>
     <variable name="krextor:literal-properties" as="element()*" select="()"/>
 
@@ -72,17 +86,18 @@
     </function>
 
     <function name="krextor:is-single-element" as="xs:boolean">
-        <param name="node"/>
-        <value-of select="$node/self::document-node()
-            and count($node/node()) eq 1
-            and $node/node()/self::element()"/>
+        <param name="maybe-node"/>
+        <value-of select="$maybe-node instance of node()
+            and $maybe-node/self::document-node()
+            and count($maybe-node/node()) eq 1
+            and $maybe-node/node()/self::element()"/>
     </function>
 
-    <function name="krextor:normalize-single-element">
-        <param name="node"/>
-        <copy-of select="if (krextor:is-single-element($node))
-                         then $node/node()/self::element()
-                         else $node"/>
+    <function name="krextor:normalize-if-single-element">
+        <param name="maybe-node"/>
+        <copy-of select="if (krextor:is-single-element($maybe-node))
+                         then $maybe-node/node()/self::element()
+                         else $maybe-node"/>
     </function>
 
     <xd:doc>
@@ -113,7 +128,7 @@
 
 	<param name="krextor:base-uri" as="xs:anyURI" tunnel="yes"/>
 
-	<!-- for debugging:
+	<!-- uncomment for debugging:
 	<message>NEW RDF TRIPLE</message>
 	<message>subject = <value-of select="$subject"/></message>
 	<message>subject-type = <value-of select="$subject-type"/></message>
@@ -176,26 +191,22 @@
 	<param name="blank-node" as="xs:boolean"/>
 	<param name="generated-blank-node-id" as="xs:string"/>
 	<param name="generated-uri" as="xs:anyURI"/>
-	<for-each select="$properties">
-	    <if test=".">
-		<choose>
-		    <when test="$blank-node">
-			<call-template name="krextor:add-uri-property">
-			    <with-param name="property" select="."/>
-			    <with-param name="inverse" select="$inverse"/>
-			    <with-param name="blank" select="$generated-blank-node-id"/>
-			</call-template>
-		    </when>
-		    <otherwise>
-			<call-template name="krextor:add-uri-property">
-			    <with-param name="property" select="."/>
-			    <with-param name="inverse" select="$inverse"/>
-			    <with-param name="object" select="$generated-uri"/>
-			</call-template>
-		    </otherwise>
-		</choose>
-	    </if>
-	</for-each>
+	<choose>
+	    <when test="$blank-node">
+		<call-template name="krextor:add-uri-property">
+		    <with-param name="property" select="."/>
+		    <with-param name="inverse" select="$inverse"/>
+		    <with-param name="blank" select="$generated-blank-node-id"/>
+		</call-template>
+	    </when>
+	    <otherwise>
+		<call-template name="krextor:add-uri-property">
+		    <with-param name="property" select="."/>
+		    <with-param name="inverse" select="$inverse"/>
+		    <with-param name="object" select="$generated-uri"/>
+		</call-template>
+	    </otherwise>
+	</choose>
     </template>
 
     <xd:doc>
@@ -211,22 +222,22 @@
 		has to be specified.</p>
 	    <p>This resource is assumed the default subject of all triples
 		extracted from descendant elements and attributes using the
-		add-literal-property and add-uri-property templates.
+		<code>krextor:add-literal-property</code> and <code>krextor:add-uri-property</code> templates.
 		Optionally, a sequence of properties can be passed by which
-		this resource is related to the resource created by the
+		this resource is related to the “parent” resource, i.e. the resource created by the
 		invoking template (in most cases the resource created from the
-		parent XML element).  Additional properties of this resource
+		parent XML element), or vice versa.  Additional properties of this resource
 		can be passed, if it is not possible to have them generated by
 		templates matching some attributes or children of this
 		element.</p>
 		<xd:param name="subject"></xd:param>
-		<xd:param name="related-via-properties"></xd:param>
-		<xd:param name="related-via-inverse-properties"></xd:param>
-		<xd:param name="type"></xd:param>
+		<xd:param name="related-via-properties">a sequence of properties by which the parent resource is related to this resource</xd:param>
+		<xd:param name="related-via-inverse-properties">a sequence of properties by which this resource is related to its parent resource</xd:param>
+		<xd:param name="type">a sequence of URIs of types of the resource</xd:param>
 		<xd:param name="properties">additional properties of this resource, encoded as
-		<code>&lt;krextor:property uri="property-uri" object="object-uri"/&gt;</code> or
-		<code>&lt;krextor:property uri="property-uri" value="object-literal"/&gt;</code> or
-		<code>&lt;krextor:property uri="property-uri"&gt;object-literal&lt;/krextor:property&gt;</code>.
+		<code>&lt;krextor:property uri="property-uri+" object="object-uri"/&gt;</code> or
+		<code>&lt;krextor:property uri="property-uri+" value="object-literal"/&gt;</code> or
+		<code>&lt;krextor:property uri="property-uri+"&gt;object-literal&lt;/krextor:property&gt;</code>.
 		On literal-valued objects, the attributes <code>@language</code> and <code>@datatype</code>
 		are also allowed.  Support for blank node objects is not yet implemented.
 		</xd:param>
@@ -303,21 +314,24 @@
 	    <!-- Add additional properties to this resource -->
 	    <if test="$properties">
 		<for-each select="$properties/krextor:property[@uri]">
-		    <variable name="object" select="if (@object) then @object
-                        else if (@value) then @value
-			else if (node()) then node() (: this covers text content and XML literals :)
+                    <variable name="property" select="."/><!-- save a reference for the inner for-each loop -->
+		    <variable name="object" select="if ($property/@object) then $property/@object
+                        else if ($property/@value) then $property/@value
+			else if ($property/node()) then $property/node() (: this covers text content and XML literals :)
 			else ''"/>
 		    <if test="$object">
-			<call-template name="krextor:output-triple-impl">
-			    <with-param name="subject" select="$subject"/>
-			    <with-param name="subject-type" select="$subject-type"/>
-			    <with-param name="predicate" select="@uri"/>
-			    <with-param name="object" select="$object"/>
-			    <with-param name="object-type" select="if (@object) then 'uri'
-				else ''"/>
-			    <with-param name="object-language" select="@language"/>
-			    <with-param name="object-datatype" select="@datatype"/>
-			</call-template>
+                        <for-each select="tokenize($property/@uri, '\s+')">
+			    <call-template name="krextor:output-triple-impl">
+			        <with-param name="subject" select="$subject"/>
+			        <with-param name="subject-type" select="$subject-type"/>
+			        <with-param name="predicate" select="xs:anyURI(.)"/>
+			        <with-param name="object" select="$object"/>
+			        <with-param name="object-type" select="if ($property/@object) then 'uri'
+				                                       else ''"/>
+			        <with-param name="object-language" select="$property/@language"/>
+			        <with-param name="object-datatype" select="$property/@datatype"/>
+			    </call-template>
+                        </for-each>
 		    </if>
 		</for-each>
 	    </if>
@@ -386,12 +400,11 @@
     </template>
 
     <xd:doc>Adds a literal-valued property to the resource in whose
-	create-resource scope this template was called.</xd:doc>
+	<code>krextor:create-resource</code> scope this template was called.</xd:doc>
     <template name="krextor:add-literal-property">
 	<param name="subject-uri" as="xs:anyURI" tunnel="yes"/>
 	<param name="blank-node-id" as="xs:string?" tunnel="yes"/>
-	<!-- TODO allow for a sequence of properties here -->
-	<param name="property"/>
+	<param name="property" as="xs:string*"/>
 	<!-- property from incomplete triples -->
 	<param name="tunneled-property" as="xs:anyURI*" tunnel="yes"/>
 	<param name="object">
@@ -412,8 +425,8 @@
 	<param name="datatype" as="xs:string?"
                select="if ($object/self::element() or krextor:is-single-element($object)) then '&rdf;XMLLiteral' else ''"/>
 
-	<variable name="actual-property" as="xs:anyURI" select="if (exists($property))
-	    then xs:anyURI($property)
+	<variable name="actual-property" as="xs:anyURI+" select="if (exists($property))
+	    then for $p in $property return xs:anyURI($p)
 	    else $tunneled-property"/>
 	<choose>
 	    <!-- If the "object" is a whitespace-separated list or a sequence of actual objects, we recursively generate one triple for each object. -->
@@ -438,7 +451,7 @@
 			    else 'uri'"/>
 			<with-param name="predicate" select="."/>
 			<with-param name="object" select="if ($normalize-space) then normalize-space($object)
-			    else krextor:normalize-single-element($object)"/>
+			    else krextor:normalize-if-single-element($object)"/>
 			<with-param name="object-language" select="$language"/>
 			<with-param name="object-datatype" select="$datatype"/>
 		    </call-template>
@@ -465,8 +478,7 @@
 		    <message terminate="yes">No mapping found for attribute <copy-of select="."/></message>
 		</if>
 		<call-template name="krextor:add-literal-property">
-		    <!-- TODO allow for a sequence of properties here (cf. krextor:create-resource/type) -->
-		    <with-param name="property" select="$mapping/@property"/>
+		    <with-param name="property" select="tokenize($mapping/@property, '\s+')"/>
 		    <with-param name="object-is-list" select="boolean($mapping/@list)"/>
 		    <with-param name="normalize-space" select="boolean($mapping/@normalize-space)"/>
 		</call-template>
@@ -482,7 +494,7 @@
     <template name="krextor:add-uri-property">
 	<param name="subject-uri" as="xs:anyURI" tunnel="yes"/>
 	<param name="blank-node-id" as="xs:string?" tunnel="yes"/>
-	<param name="property"/>
+	<param name="property" as="xs:string*"/>
 	<!-- property from incomplete triples -->
 	<param name="tunneled-property" as="xs:anyURI*" tunnel="yes"/>
 	<!-- Should the property be applied in inverse direction? -->
@@ -509,8 +521,8 @@
 	<if test="($blank or exists($object)) and (exists($property) or exists($tunneled-property))">
 	    <variable name="actual-object" select="if ($blank) then $blank
 		else $object"/>
-	    <variable name="actual-property" as="xs:anyURI" select="if (exists($property))
-		then xs:anyURI($property)
+	    <variable name="actual-property" as="xs:anyURI+" select="if (exists($property))
+		then for $p in $property return xs:anyURI($p)
 		else $tunneled-property"/>
 	    <variable name="actual-inverse" as="xs:boolean" select="if (exists($property)) then $inverse
 		else $tunneled-inverse"/>
@@ -564,7 +576,7 @@
 
     <xd:doc>Creates a property whose values are added by nested template calls</xd:doc>
     <template name="krextor:create-property">
-	<param name="property" as="xs:anyURI" required="yes"/>
+	<param name="property" as="xs:anyURI+" required="yes"/>
 	<param name="inverse" as="xs:boolean" select="false()"/>
 	<!-- The node set to which apply-templates is applied -->
 	<!-- We also process attributes, as they may contain links to other resources -->
