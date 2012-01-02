@@ -65,15 +65,30 @@
 
     <xd:doc>
         <xd:short>Defines a simple mapping of XML elements to ontology classes</xd:short>
-        <xd:detail>Defines a simple mapping of XML elements to ontology classes.  XML elements are given literally inside the value of this variable – mind the namespaces!  For each element, the following details may be provided as attributes:
-        <ul>
-        <li><code>@type</code> – a whitespace-separated list of URIs of types of this resource; see the <code>type</code> parameter of <code>krextor:create-resource</code> for details</li>
-        <li><code>@related-via-properties</code> – a whitespace-separated list of URIs of properties by which the parent resource is related to this resource; see the <code>related-via-properties</code> parameter of <code>krextor:create-resource</code> for details</li>
-        <li><code>@related-via-inverse-properties</code> – a whitespace-separated list of URIs of properties by which this resource is related to the parent resource; see the <code>related-via-inverse-properties</code> parameter of <code>krextor:create-resource</code> for details</li>
-        </ul>
+        <xd:detail>
+            <p>Defines a simple mapping of XML elements to ontology classes.  This mapping is applied to all XML elements that are processed in <code>krextor:create-resource</code> mode.</p>
+            <p>XML elements are given literally inside the XML value of this variable – mind the namespaces!  For each element, the following details may be provided as attributes:</p>
+            <ul>
+                <li><code>@type</code> – a whitespace-separated list of URIs of types of this resource; see the <code>type</code> parameter of <code>krextor:create-resource</code> for details</li>
+                <li><code>@related-via-properties</code> – a whitespace-separated list of URIs of properties by which the parent resource is related to this resource; see the <code>related-via-properties</code> parameter of <code>krextor:create-resource</code> for details</li>
+                <li><code>@related-via-inverse-properties</code> – a whitespace-separated list of URIs of properties by which this resource is related to the parent resource; see the <code>related-via-inverse-properties</code> parameter of <code>krextor:create-resource</code> for details</li>
+            </ul>
         </xd:detail>
     </xd:doc>
     <variable name="krextor:resources" as="element()*" select="()"/>
+    <xd:doc>
+        <xd:short>Defines a simple mapping of XML (child) elements or attributes to ontology properties.</xd:short>
+        <xd:detail>
+            <p>Defines a simple mapping of XML (child) elements or attributes to ontology properties.  This mapping is applied to all XML elements or attributes that are processed in <code>krextor:add-literal-property</code> mode.</p>
+            <p>Elements are given literally inside the XML value of this variable – mind the namespaces!   Attributes are given as elements that are named after the attribute and carry an additional <code>krextor:attribute="yes"</code> attribute.  For each property, the following details may be provided as attributes:</p>
+            <ul>
+                <li><code>@property</code> – a whitespace-separated list of URIs of properties; see the <code>property</code> parameter of <code>krextor:add-literal-property</code> for details</li>
+                <li><code>@object-is-list</code> – <code>true</code> if the object is to be interpreted as a whitespace-separated list of multiple objects; see the <code>object-is-list</code> parameter of <code>krextor:add-literal-property</code> for details</li>
+                <li><code>@normalize-space</code> – <code>true</code> if whitespace around the object is to be normalized; see the <code>property</code> parameter of <code>krextor:add-literal-property</code> for details</li>
+                <li><code>@datatype</code> – the URI of the datatype of the object; see the <code>property</code> parameter of <code>krextor:add-literal-property</code> for details</li>
+        </ul>
+        <p>The object value is taken from the text or XML content of the element or attribute, i.e. in the same way as when calling the <code>krextor:add-literal-property</code> template without an <code>object</code> parameter.</p></xd:detail>
+    </xd:doc>
     <variable name="krextor:literal-properties" as="element()*" select="()"/>
 
     <xd:doc>Checks whether a given node is a text node, an attribute, or an atomic value</xd:doc>
@@ -399,8 +414,21 @@
 	</choose>
     </template>
 
-    <xd:doc>Adds a literal-valued property to the resource in whose
-	<code>krextor:create-resource</code> scope this template was called.</xd:doc>
+    <xd:doc>
+        <xd:short>Adds a literal-valued property to the current resource</xd:short>
+        <xd:detail>Adds a literal-valued property to the resource in whose
+	<code>krextor:create-resource</code> scope this template was called.
+        <xd:param name="subject-uri"></xd:param>
+        <xd:param name="blank-node-id"></xd:param>
+        <xd:param name="property">a sequence of property URIs</xd:param>
+        <xd:param name="tunneled-property"></xd:param>
+        <xd:param name="object">the string value (a.k.a. “lexical form”) of the object.  If not specified, the text or XML content of the current element is taken for the object value.</xd:param>
+        <xd:param name="object-is-list"><code>true()</code> if the object is to be interpreted as a whitespace-separated list or sequence of multiple objects.</xd:param>
+        <xd:param name="normalize-space"><code>true()</code> if whitespace around the object value is to be normalized</xd:param>
+        <xd:param name="language">the language tag of a plain literal object</xd:param>
+        <xd:param name="datatype">the URI of the datatype of the object</xd:param>
+        </xd:detail>
+    </xd:doc>
     <template name="krextor:add-literal-property">
 	<param name="subject-uri" as="xs:anyURI" tunnel="yes"/>
 	<param name="blank-node-id" as="xs:string?" tunnel="yes"/>
@@ -417,9 +445,7 @@
 		</otherwise>
 	    </choose>
 	</param>
-	<!-- Is the object a whitespace-separated list or a sequence? -->
 	<param name="object-is-list" select="false()" as="xs:boolean"/>
-	<!-- Normalize whitespace around the value of the object? -->
 	<param name="normalize-space" select="false()" as="xs:boolean"/>
 	<param name="language" as="xs:string?" select="''"/>
 	<param name="datatype" as="xs:string?"
@@ -481,6 +507,7 @@
 		    <with-param name="property" select="tokenize($mapping/@property, '\s+')"/>
 		    <with-param name="object-is-list" select="boolean($mapping/@list)"/>
 		    <with-param name="normalize-space" select="boolean($mapping/@normalize-space)"/>
+		    <with-param name="datatype" select="$mapping/@datatype"/>
 		</call-template>
 	    </when>
 	    <otherwise>
