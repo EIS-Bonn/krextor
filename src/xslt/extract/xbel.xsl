@@ -51,6 +51,7 @@
   <!-- bookmark/@id attributes are a rare exception in XBEL; therefore, we simply generate random but unique IDs for the bookmarks. -->
   <xsl:param name="autogenerate-fragment-uris" select="'generate-id'"/>
   
+  <xd:doc>maps XML elements to types (a.k.a. classes) of RDF resources</xd:doc>
   <xsl:variable name="krextor:resources">
     <!-- We declare explicit types for bookmarks, even though the NFO says
          nfo:bookmarks rdfs:domain nfo:Bookmark
@@ -58,10 +59,15 @@
     <bookmark type="&nfo;Bookmark"/>
   </xsl:variable>
 
+  <xd:doc>activates mapping to RDF types as declared above for some elements</xd:doc>
   <xsl:template match="bookmark" mode="krextor:main">
     <xsl:apply-templates select="." mode="krextor:create-resource"/>
   </xsl:template>
   
+  <xd:doc>
+    <xd:short>maps XML elements and attributes to literal-valued RDF properties</xd:short>
+    <xd:detail>maps XML elements and attributes to literal-valued RDF properties.  Attribute mappings are distinguished from element mappings by an additional attribute <code>krextor:attribute="yes"</code>.</xd:detail>
+  </xd:doc>
   <xsl:variable name="krextor:literal-properties">
     <title property="&dcterms;title"/>
     <added property="&dcterms;created" datatype="&xsd;dateTime" krextor:attribute="yes"/>
@@ -69,6 +75,7 @@
     <visited property="&nuao;lastUsage" datatype="&xsd;dateTime" krextor:attribute="yes"/>
   </xsl:variable>
 
+  <xd:doc>activates mapping to literal properties as declared above for some elements/attributes</xd:doc>
   <xsl:template match="bookmark/title
                        |bookmark/@added
                        |bookmark/@modified
@@ -76,24 +83,27 @@
     <xsl:apply-templates select="." mode="krextor:add-literal-property"/>
   </xsl:template>
   
+  <xd:doc>maps XML attributes to URI-valued RDF properties</xd:doc>
   <xsl:variable name="krextor:uri-properties">
     <href property="&nfo;bookmarks" iri="true" krextor:attribute="yes"/>
   </xsl:variable>
 
+  <xd:doc>activates mapping to URI-valued properties as declared above for some attributes</xd:doc>
   <xsl:template match="bookmark/@href" mode="krextor:main">
     <xsl:apply-templates select="." mode="krextor:add-uri-property"/>
   </xsl:template>
   
   <xsl:variable name="EPOCH" as="xs:dateTime" select="xs:dateTime('1970-01-01T00:00:00')"/>
   
+  <xd:doc>converts a count of seconds since the epoch (see the <code>EPOCH</code> constant above) to an <code>xs:dateTime</code> value</xd:doc>
   <xsl:function name="krextor:epoch-to-dateTime" as="xs:dateTime">
     <xsl:param name="timestamp" as="xs:integer"/><!-- actually xs:nonNegativeInteger, but Saxon HE doesn't support that -->
     <xsl:variable name="secondDuration" select="xs:dayTimeDuration(concat('PT', $timestamp, 'S'))"/>
     <xsl:value-of select="$secondDuration + $EPOCH"/>
   </xsl:function>
   
+  <xd:doc>enables metadata processing only for KDE and FreeDesktop metadata; we don't care about the rest</xd:doc>
   <xsl:template match="info" mode="krextor:main">
-    <!-- We only feel responsible for KDE and FreeDesktop metadata -->
     <xsl:apply-templates select="metadata[@owner='http://www.kde.org']
                                 |metadata[@owner='http://freedesktop.org']" mode="krextor:main"/>
   </xsl:template>
