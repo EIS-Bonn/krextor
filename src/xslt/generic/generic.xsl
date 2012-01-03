@@ -41,7 +41,9 @@
 
     <xd:doc type="stylesheet">
 	<xd:short>Convenience functions and templates for extracting RDF from XML languages, independent both from the XML input language and from the RDF output notation</xd:short>
-	<xd:detail><p>This stylesheet provides convenience functions and templates for an RDF extraction from XML languages.  It is independent of any RDF output notation.</p></xd:detail>
+	<xd:detail>
+            <p>This stylesheet provides convenience functions and templates for an RDF extraction from XML languages.  It is independent of any RDF output notation.</p>
+        </xd:detail>
 	<xd:author>Christoph Lange</xd:author>
 	<xd:copyright>Christoph Lange, 2008</xd:copyright>
 	<xd:svnId>$Id$</xd:svnId>
@@ -534,12 +536,16 @@
 	multi-element sequence?  Use the empty sequence () instead
 	of the empty string in order to pass something that is not an object -->
 	<param name="object-is-list" as="xs:boolean" select="false()"/>
+        <!-- Is the object an IRI that should first be converted to a URI?  Note that this is frequently the case in HTML. -->
+	<param name="iri" as="xs:boolean" select="false()"/>
 	<!-- Currently we assume that, if no explicit link target is given, we are either:
 	1. in the root element R of an XIncluded document and that a relationship between the parent of the xi:include and the XIncluded document is to be expressed.
 	2. or we are in an attribute or a text node or any item of a whitespace-separated list,
 	   and a relationship between the current subject URI and the URIref in the attribute value is to be expressed. -->
 	<param name="object" select="if (krextor:is-text-or-attribute-or-atomic(.))
-	    then if ($object-is-list) then . else krextor:resolve-uri(., $subject-uri)
+	    then if ($object-is-list) then . else krextor:resolve-uri(
+                if ($iri) then xs:anyURI(iri-to-uri(.)) else .,
+                $subject-uri)
 	    (: What is this resolution good for? MMT?
 	       Anyway, if needed, we could also resolve each list
 	       item by for - in - return :)
@@ -547,11 +553,8 @@
 	    else ''"/>
 	<!-- node ID, if the object is a blank node -->
 	<param name="blank" as="xs:string?"/>
-        <!-- Is the object an IRI that should first be converted to a URI?  Note that this is frequently the case in HTML. -->
-	<param name="iri" as="xs:boolean" select="false()"/>
 	<if test="($blank or exists($object)) and (exists($property) or exists($tunneled-property))">
 	    <variable name="actual-object" select="if ($blank) then $blank
-		else if ($iri) then xs:anyURI(iri-to-uri($object))
                 else $object"/>
 	    <variable name="actual-property" as="xs:anyURI+" select="if (exists($property))
 		then for $p in $property return xs:anyURI($p)
