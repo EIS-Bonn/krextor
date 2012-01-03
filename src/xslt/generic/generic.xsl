@@ -90,6 +90,8 @@
         <p>The object value is taken from the text or XML content of the element or attribute, i.e. in the same way as when calling the <code>krextor:add-literal-property</code> template without an <code>object</code> parameter.</p></xd:detail>
     </xd:doc>
     <variable name="krextor:literal-properties" as="element()*" select="()"/>
+    
+    <variable name="krextor:uri-properties" as="element()*" select="()"/>
 
     <xd:doc>Checks whether a given node is a text node, an attribute, or an atomic value</xd:doc>
     <function name="krextor:is-text-or-attribute-or-atomic" as="xs:boolean">
@@ -501,7 +503,7 @@
 		    else $krextor:dummy-node)"/>
 		<!-- we need this to trap the pre-computation of the key hashes -->
 		<if test=". instance of attribute() and not($mapping/@krextor:attribute)">
-		    <message terminate="yes">No mapping found for attribute <copy-of select="."/></message>
+		    <message terminate="yes">No mapping to a literal property found for attribute <copy-of select="."/></message>
 		</if>
 		<call-template name="krextor:add-literal-property">
 		    <with-param name="property" select="tokenize($mapping/@property, '\s+')"/>
@@ -545,9 +547,12 @@
 	    else ''"/>
 	<!-- node ID, if the object is a blank node -->
 	<param name="blank" as="xs:string?"/>
+        <!-- Is the object an IRI that should first be converted to a URI?  Note that this is frequently the case in HTML. -->
+	<param name="iri" as="xs:boolean" select="false()"/>
 	<if test="($blank or exists($object)) and (exists($property) or exists($tunneled-property))">
 	    <variable name="actual-object" select="if ($blank) then $blank
-		else $object"/>
+		else if ($iri) then xs:anyURI(iri-to-uri($object))
+                else $object"/>
 	    <variable name="actual-property" as="xs:anyURI+" select="if (exists($property))
 		then for $p in $property return xs:anyURI($p)
 		else $tunneled-property"/>
@@ -600,6 +605,36 @@
 	    </choose>
 	</if>
     </template>    
+
+    <xd:doc>we hope that this slightly speeds up search</xd:doc>
+    <key name="krextor:uri-properties" match="*" use="resolve-QName(name(), .)"/>
+
+    <xd:doc>Creates a URI-valued property from a child element or attribute for which a mapping to an ontology property has been declared in the variable <code>krextor:uri-properties</code>.</xd:doc>
+    <template match="*|@*" mode="krextor:add-uri-property">
+	<choose>
+	    <when test="not(empty($krextor:uri-properties))">
+		<!-- variant without key: compare local-name and namespace-uri -->
+		<variable name="mapping" as="element()" select="key('krextor:uri-properties',
+		    resolve-QName(name(), if (. instance of attribute()) then parent::node() else .), 
+		    if (not(empty($krextor:uri-properties)))
+		    then $krextor:uri-properties
+		    else $krextor:dummy-node)"/>
+		<!-- we need this to trap the pre-computation of the key hashes -->
+		<if test=". instance of attribute() and not($mapping/@krextor:attribute)">
+		    <message terminate="yes">No mapping to a URI-valued property found for attribute <copy-of select="."/></message>
+		</if>
+		<call-template name="krextor:add-uri-property">
+		    <with-param name="property" select="tokenize($mapping/@property, '\s+')"/>
+		    <with-param name="inverse" select="boolean($mapping/@inverse)"/>
+		    <with-param name="object-is-list" select="boolean($mapping/@list)"/>
+		    <with-param name="iri" select="boolean($mapping/@iri)"/>
+		</call-template>
+	    </when>
+	    <otherwise>
+		<message terminate="yes">No mappings from XML to URI-valued properties declared</message>
+	    </otherwise>
+	</choose>
+    </template>
 
     <xd:doc>Creates a property whose values are added by nested template calls</xd:doc>
     <template name="krextor:create-property">
