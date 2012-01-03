@@ -28,7 +28,7 @@
     <!ENTITY dcterms "http://purl.org/dc/terms/">
     <!ENTITY xsd "http://www.w3.org/2001/XMLSchema#">
     <!ENTITY nuao "http://www.semanticdesktop.org/ontologies/2010/01/25/nuao#">
-    <!ENTITY nie "http://www.semanticdesktop.org/ontologies/2007/01/19/nie#">
+    <!ENTITY nfo "http://www.semanticdesktop.org/ontologies/2007/03/22/nfo#">
 ]>
 
 <xsl:stylesheet
@@ -42,30 +42,20 @@
   version="2.0">
 
   <xd:doc type="stylesheet">
-    <xd:short>Extraction module for XBEL (as used by the Konqueror browser for its bookmarks)"</xd:short>
+    <xd:short>Extraction module for <a href="http://pyxml.sourceforge.net/topics/xbel/">XBEL</a> (as used by the Konqueror browser for its bookmarks)"</xd:short>
     <xd:author>Christoph Lange</xd:author>
     <xd:copyright>Christoph Lange, 2012</xd:copyright>
     <xd:svnId>$Id$</xd:svnId>
   </xd:doc>
   
-  <xsl:param name="autogenerate-fragment-uris" select="'xbel'"/>
-  
-  <xsl:template match="krextor-genuri:xbel" as="xs:anyURI?">
-    <xsl:param name="node"/>
-    <xsl:param name="base-uri"/>
-    <xsl:apply-templates select="$node" mode="krextor-genuri:xbel">
-      <!-- we ignore the base URI for now; later we may pass information about the user that way -->
-    </xsl:apply-templates>
-  </xsl:template>
-
-  <xsl:template match="bookmark" mode="krextor-genuri:xbel" as="xs:anyURI?">
-    <xsl:sequence select="xs:anyURI(iri-to-uri(@href))"/>
-  </xsl:template>
+  <!-- bookmark/@id attributes are a rare exception in XBEL; therefore, we simply generate random but unique IDs for the bookmarks. -->
+  <xsl:param name="autogenerate-fragment-uris" select="'generate-id'"/>
   
   <xsl:variable name="krextor:resources">
-    <!-- For now, we don't implement a proper XBEL vocabulary, but instead hard-code the intended axiom
-         xbel:Bookmark rdfs:subClassOf nie:InformationElement -->
-    <bookmark type="&xbel;Bookmark &nie;InformationElement"/>
+    <!-- We declare explicit types for bookmarks, even though the NFO says
+         nfo:bookmarks rdfs:domain nfo:Bookmark
+         but Nepomuk does not seem to apply this reliably when importing RDF. -->
+    <bookmark type="&nfo;Bookmark"/>
   </xsl:variable>
 
   <xsl:template match="bookmark" mode="krextor:main">
@@ -84,6 +74,14 @@
                        |bookmark/@modified
                        |bookmark/@visited" mode="krextor:main">
     <xsl:apply-templates select="." mode="krextor:add-literal-property"/>
+  </xsl:template>
+  
+  <xsl:variable name="krextor:uri-properties">
+    <href property="&nfo;bookmarks" iri="true" krextor:attribute="yes"/>
+  </xsl:variable>
+
+  <xsl:template match="bookmark/@href" mode="krextor:main">
+    <xsl:apply-templates select="." mode="krextor:add-uri-property"/>
   </xsl:template>
   
   <xsl:variable name="EPOCH" as="xs:dateTime" select="xs:dateTime('1970-01-01T00:00:00')"/>
@@ -126,7 +124,7 @@
     </xsl:call-template>
   </xsl:template>
 
-  <xsl:template match="metadata[@owner='http://freedesktop.org']/bookmark:applications" mode="krextor:main">
+  <xsl:template match="metadata[@owner='http://freedesktop.org']/bookmark:applications[bookmark:application/@count]" mode="krextor:main">
     <xsl:call-template name="krextor:add-literal-property">
       <xsl:with-param name="property" select="'&nuao;usageCount'"/>
       <xsl:with-param name="object" select="sum(bookmark:application/@count)"/>

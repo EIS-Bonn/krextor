@@ -1,497 +1,475 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<!--NewPage-->
-<HTML>
-<HEAD>
-<TITLE>
-Krextor (Krextor Java Wrapper API Documentation)
-</TITLE>
-
-
-<LINK REL ="stylesheet" TYPE="text/css" HREF="../../../stylesheet.css" TITLE="Style">
-
-<SCRIPT type="text/javascript">
-function windowTitle()
-{
+<!-- NewPage -->
+<html lang="en">
+<head>
+<title>Krextor (Krextor Java Wrapper API Documentation)</title>
+<link rel="stylesheet" type="text/css" href="../../../stylesheet.css" title="Style">
+</head>
+<body>
+<script type="text/javascript"><!--
     if (location.href.indexOf('is-external=true') == -1) {
         parent.document.title="Krextor (Krextor Java Wrapper API Documentation)";
     }
-}
-</SCRIPT>
-<NOSCRIPT>
-</NOSCRIPT>
-
-</HEAD>
-
-<BODY BGCOLOR="white" onload="windowTitle();">
-<HR>
-
-
+//-->
+</script>
+<noscript>
+<div>JavaScript is disabled on your browser.</div>
+</noscript>
 <!-- ========= START OF TOP NAVBAR ======= -->
-<A NAME="navbar_top"><!-- --></A>
-<A HREF="#skip-navbar_top" title="Skip navigation links"></A>
-<TABLE BORDER="0" WIDTH="100%" CELLPADDING="1" CELLSPACING="0" SUMMARY="">
-<TR>
-<TD COLSPAN=2 BGCOLOR="#EEEEFF" CLASS="NavBarCell1">
-<A NAME="navbar_top_firstrow"><!-- --></A>
-<TABLE BORDER="0" CELLPADDING="0" CELLSPACING="3" SUMMARY="">
-  <TR ALIGN="center" VALIGN="top">
-  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../info/kwarc/krextor/package-summary.html"><FONT CLASS="NavBarFont1"><B>Package</B></FONT></A>&nbsp;</TD>
-  <TD BGCOLOR="#FFFFFF" CLASS="NavBarCell1Rev"> &nbsp;<FONT CLASS="NavBarFont1Rev"><B>Class</B></FONT>&nbsp;</TD>
-  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="class-use/Krextor.html"><FONT CLASS="NavBarFont1"><B>Use</B></FONT></A>&nbsp;</TD>
-  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="package-tree.html"><FONT CLASS="NavBarFont1"><B>Tree</B></FONT></A>&nbsp;</TD>
-  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../deprecated-list.html"><FONT CLASS="NavBarFont1"><B>Deprecated</B></FONT></A>&nbsp;</TD>
-  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../index-files/index-1.html"><FONT CLASS="NavBarFont1"><B>Index</B></FONT></A>&nbsp;</TD>
-  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../help-doc.html"><FONT CLASS="NavBarFont1"><B>Help</B></FONT></A>&nbsp;</TD>
-  </TR>
-</TABLE>
-</TD>
-<TD ALIGN="right" VALIGN="top" ROWSPAN=3><EM>
-</EM>
-</TD>
-</TR>
-
-<TR>
-<TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
-&nbsp;PREV CLASS&nbsp;
-&nbsp;<A HREF="../../../info/kwarc/krextor/KrextorException.html" title="class in info.kwarc.krextor"><B>NEXT CLASS</B></A></FONT></TD>
-<TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
-  <A HREF="../../../index.html?info/kwarc/krextor/Krextor.html" target="_top"><B>FRAMES</B></A>  &nbsp;
-&nbsp;<A HREF="Krextor.html" target="_top"><B>NO FRAMES</B></A>  &nbsp;
-&nbsp;<SCRIPT type="text/javascript">
-  <!--
+<div class="topNav"><a name="navbar_top">
+<!--   -->
+</a><a href="#skip-navbar_top" title="Skip navigation links"></a><a name="navbar_top_firstrow">
+<!--   -->
+</a>
+<ul class="navList" title="Navigation">
+<li><a href="../../../info/kwarc/krextor/package-summary.html">Package</a></li>
+<li class="navBarCell1Rev">Class</li>
+<li><a href="class-use/Krextor.html">Use</a></li>
+<li><a href="package-tree.html">Tree</a></li>
+<li><a href="../../../deprecated-list.html">Deprecated</a></li>
+<li><a href="../../../index-files/index-1.html">Index</a></li>
+<li><a href="../../../help-doc.html">Help</a></li>
+</ul>
+</div>
+<div class="subNav">
+<ul class="navList">
+<li>Prev Class</li>
+<li><a href="../../../info/kwarc/krextor/KrextorException.html" title="class in info.kwarc.krextor"><span class="strong">Next Class</span></a></li>
+</ul>
+<ul class="navList">
+<li><a href="../../../index.html?info/kwarc/krextor/Krextor.html" target="_top">Frames</a></li>
+<li><a href="Krextor.html" target="_top">No Frames</a></li>
+</ul>
+<ul class="navList" id="allclasses_navbar_top">
+<li><a href="../../../allclasses-noframe.html">All Classes</a></li>
+</ul>
+<div>
+<script type="text/javascript"><!--
+  allClassesLink = document.getElementById("allclasses_navbar_top");
   if(window==top) {
-    document.writeln('<A HREF="../../../allclasses-noframe.html"><B>All Classes</B></A>');
+    allClassesLink.style.display = "block";
+  }
+  else {
+    allClassesLink.style.display = "none";
   }
   //-->
-</SCRIPT>
-<NOSCRIPT>
-  <A HREF="../../../allclasses-noframe.html"><B>All Classes</B></A>
-</NOSCRIPT>
-
-
-</FONT></TD>
-</TR>
-<TR>
-<TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
-  SUMMARY:&nbsp;NESTED&nbsp;|&nbsp;<A HREF="#field_summary">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor_summary">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_summary">METHOD</A></FONT></TD>
-<TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
-DETAIL:&nbsp;<A HREF="#field_detail">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor_detail">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_detail">METHOD</A></FONT></TD>
-</TR>
-</TABLE>
-<A NAME="skip-navbar_top"></A>
+</script>
+</div>
+<div>
+<ul class="subNavList">
+<li>Summary:&nbsp;</li>
+<li>Nested&nbsp;|&nbsp;</li>
+<li><a href="#field_summary">Field</a>&nbsp;|&nbsp;</li>
+<li><a href="#constructor_summary">Constr</a>&nbsp;|&nbsp;</li>
+<li><a href="#method_summary">Method</a></li>
+</ul>
+<ul class="subNavList">
+<li>Detail:&nbsp;</li>
+<li><a href="#field_detail">Field</a>&nbsp;|&nbsp;</li>
+<li><a href="#constructor_detail">Constr</a>&nbsp;|&nbsp;</li>
+<li><a href="#method_detail">Method</a></li>
+</ul>
+</div>
+<a name="skip-navbar_top">
+<!--   -->
+</a></div>
 <!-- ========= END OF TOP NAVBAR ========= -->
-
-<HR>
 <!-- ======== START OF CLASS DATA ======== -->
-<H2>
-<FONT SIZE="-1">
-info.kwarc.krextor</FONT>
-<BR>
-Class Krextor</H2>
-<PRE>
-<A HREF="http://java.sun.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">java.lang.Object</A>
-  <IMG SRC="../../../resources/inherit.gif" ALT="extended by "><B>info.kwarc.krextor.Krextor</B>
-</PRE>
-<HR>
-<DL>
-<DT><PRE>public class <B>Krextor</B><DT>extends <A HREF="http://java.sun.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A></DL>
-</PRE>
-
-<P>
-A Java wrapper for the Krextor XML→RDF extraction library, which is
+<div class="header">
+<div class="subTitle">info.kwarc.krextor</div>
+<h2 title="Class Krextor" class="title">Class Krextor</h2>
+</div>
+<div class="contentContainer">
+<ul class="inheritance">
+<li><a href="http://java.sun.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">java.lang.Object</a></li>
+<li>
+<ul class="inheritance">
+<li>info.kwarc.krextor.Krextor</li>
+</ul>
+</li>
+</ul>
+<div class="description">
+<ul class="blockList">
+<li class="blockList">
+<hr>
+<br>
+<pre>public class <span class="strong">Krextor</span>
+extends <a href="http://java.sun.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</a></pre>
+<div class="block">A Java wrapper for the Krextor XML→RDF extraction library, which is
  implemented in XSLT. Uses the Saxon XSLT processor.
  
  Part of this implementation is based on the
  <code>at.srfg.ikewiki.importer.RXRReader</code> class developed by Sebastian
  Schaffert for <a href="http://ikewiki.salzburgresearch.at">IkeWiki</a>, which
- has been released under GPL.
-<P>
-
-<P>
-<DL>
-<DT><B>Author:</B></DT>
-  <DD>Christoph Lange</DD>
-</DL>
-<HR>
-
-<P>
+ has been released under GPL.</div>
+<dl><dt><span class="strong">Author:</span></dt>
+  <dd>Christoph Lange</dd></dl>
+</li>
+</ul>
+</div>
+<div class="summary">
+<ul class="blockList">
+<li class="blockList">
 <!-- =========== FIELD SUMMARY =========== -->
-
-<A NAME="field_summary"><!-- --></A>
-<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
-<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
-<TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
-<B>Field Summary</B></FONT></TH>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>static&nbsp;<A HREF="http://java.sun.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A></CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../info/kwarc/krextor/Krextor.html#XMLNS_RDF">XMLNS_RDF</A></B></CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;RDF namespace URI</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>static&nbsp;<A HREF="http://java.sun.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A></CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../info/kwarc/krextor/Krextor.html#XMLNS_RXR">XMLNS_RXR</A></B></CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;RXR (Regular XML RDF) namespace URI</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>static&nbsp;<A HREF="http://java.sun.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A></CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../info/kwarc/krextor/Krextor.html#XMLNS_XML">XMLNS_XML</A></B></CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;XML namespace URI</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>static&nbsp;<A HREF="http://java.sun.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A></CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../info/kwarc/krextor/Krextor.html#XMLNS_XSLT">XMLNS_XSLT</A></B></CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;XSLT namespace URI</TD>
-</TR>
-</TABLE>
-&nbsp;
+<ul class="blockList">
+<li class="blockList"><a name="field_summary">
+<!--   -->
+</a>
+<h3>Field Summary</h3>
+<table class="overviewSummary" border="0" cellpadding="3" cellspacing="0" summary="Field Summary table, listing fields, and an explanation">
+<caption><span>Fields</span><span class="tabEnd">&nbsp;</span></caption>
+<tr>
+<th class="colFirst" scope="col">Modifier and Type</th>
+<th class="colLast" scope="col">Field and Description</th>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>static <a href="http://java.sun.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a></code></td>
+<td class="colLast"><code><strong><a href="../../../info/kwarc/krextor/Krextor.html#XMLNS_RDF">XMLNS_RDF</a></strong></code>
+<div class="block">RDF namespace URI</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>static <a href="http://java.sun.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a></code></td>
+<td class="colLast"><code><strong><a href="../../../info/kwarc/krextor/Krextor.html#XMLNS_RXR">XMLNS_RXR</a></strong></code>
+<div class="block">RXR (Regular XML RDF) namespace URI</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>static <a href="http://java.sun.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a></code></td>
+<td class="colLast"><code><strong><a href="../../../info/kwarc/krextor/Krextor.html#XMLNS_XML">XMLNS_XML</a></strong></code>
+<div class="block">XML namespace URI</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>static <a href="http://java.sun.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a></code></td>
+<td class="colLast"><code><strong><a href="../../../info/kwarc/krextor/Krextor.html#XMLNS_XSLT">XMLNS_XSLT</a></strong></code>
+<div class="block">XSLT namespace URI</div>
+</td>
+</tr>
+</table>
+</li>
+</ul>
 <!-- ======== CONSTRUCTOR SUMMARY ======== -->
-
-<A NAME="constructor_summary"><!-- --></A>
-<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
-<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
-<TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
-<B>Constructor Summary</B></FONT></TH>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><CODE><B><A HREF="../../../info/kwarc/krextor/Krextor.html#Krextor()">Krextor</A></B>()</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-</TABLE>
-&nbsp;
+<ul class="blockList">
+<li class="blockList"><a name="constructor_summary">
+<!--   -->
+</a>
+<h3>Constructor Summary</h3>
+<table class="overviewSummary" border="0" cellpadding="3" cellspacing="0" summary="Constructor Summary table, listing constructors, and an explanation">
+<caption><span>Constructors</span><span class="tabEnd">&nbsp;</span></caption>
+<tr>
+<th class="colOne" scope="col">Constructor and Description</th>
+</tr>
+<tr class="altColor">
+<td class="colOne"><code><strong><a href="../../../info/kwarc/krextor/Krextor.html#Krextor()">Krextor</a></strong>()</code>&nbsp;</td>
+</tr>
+</table>
+</li>
+</ul>
 <!-- ========== METHOD SUMMARY =========== -->
-
-<A NAME="method_summary"><!-- --></A>
-<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
-<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
-<TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
-<B>Method Summary</B></FONT></TH>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../info/kwarc/krextor/Krextor.html#extract(java.lang.String, nu.xom.Document, info.kwarc.krextor.TripleAdder)">extract</A></B>(<A HREF="http://java.sun.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;inputFormat,
-        <A HREF="http://www.xom.nu/apidocs/nu/xom/Document.html?is-external=true" title="class or interface in nu.xom">Document</A>&nbsp;inputDocument,
-        <A HREF="../../../info/kwarc/krextor/TripleAdder.html" title="interface in info.kwarc.krextor">TripleAdder</A>&nbsp;callback)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Extract RDF from an input XML document in a given input format and notify a callback for every RDF triple extracted</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;<A HREF="http://www.xom.nu/apidocs/nu/xom/Document.html?is-external=true" title="class or interface in nu.xom">Document</A></CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../info/kwarc/krextor/Krextor.html#extract(java.lang.String, java.lang.String, nu.xom.Document)">extract</A></B>(<A HREF="http://java.sun.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;inputFormat,
-        <A HREF="http://java.sun.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;outputFormat,
-        <A HREF="http://www.xom.nu/apidocs/nu/xom/Document.html?is-external=true" title="class or interface in nu.xom">Document</A>&nbsp;inputDocument)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Extracts RDF from an input document (XML) into an output document in an
- XML-based RDF notation supported by Krextor (e.g.</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;<A HREF="http://www.xom.nu/apidocs/nu/xom/Document.html?is-external=true" title="class or interface in nu.xom">Document</A></CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../info/kwarc/krextor/Krextor.html#generateStylesheet(java.lang.String, java.lang.String)">generateStylesheet</A></B>(<A HREF="http://java.sun.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;inputFormat,
-                   <A HREF="http://java.sun.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;outputFormat)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Generates a Krextor XSLT stylesheet for extracting RDF from a certain
+<ul class="blockList">
+<li class="blockList"><a name="method_summary">
+<!--   -->
+</a>
+<h3>Method Summary</h3>
+<table class="overviewSummary" border="0" cellpadding="3" cellspacing="0" summary="Method Summary table, listing methods, and an explanation">
+<caption><span>Methods</span><span class="tabEnd">&nbsp;</span></caption>
+<tr>
+<th class="colFirst" scope="col">Modifier and Type</th>
+<th class="colLast" scope="col">Method and Description</th>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>void</code></td>
+<td class="colLast"><code><strong><a href="../../../info/kwarc/krextor/Krextor.html#extract(java.lang.String, nu.xom.Document, info.kwarc.krextor.TripleAdder)">extract</a></strong>(<a href="http://java.sun.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;inputFormat,
+       <a href="http://www.xom.nu/apidocs/nu/xom/Document.html?is-external=true" title="class or interface in nu.xom">Document</a>&nbsp;inputDocument,
+       <a href="../../../info/kwarc/krextor/TripleAdder.html" title="interface in info.kwarc.krextor">TripleAdder</a>&nbsp;callback)</code>
+<div class="block">Extract RDF from an input XML document in a given input format and notify a callback for every RDF triple extracted</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code><a href="http://www.xom.nu/apidocs/nu/xom/Document.html?is-external=true" title="class or interface in nu.xom">Document</a></code></td>
+<td class="colLast"><code><strong><a href="../../../info/kwarc/krextor/Krextor.html#extract(java.lang.String, java.lang.String, nu.xom.Document)">extract</a></strong>(<a href="http://java.sun.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;inputFormat,
+       <a href="http://java.sun.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;outputFormat,
+       <a href="http://www.xom.nu/apidocs/nu/xom/Document.html?is-external=true" title="class or interface in nu.xom">Document</a>&nbsp;inputDocument)</code>
+<div class="block">Extracts RDF from an input document (XML) into an output document in an
+ XML-based RDF notation supported by Krextor (e.g.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code><a href="http://www.xom.nu/apidocs/nu/xom/Document.html?is-external=true" title="class or interface in nu.xom">Document</a></code></td>
+<td class="colLast"><code><strong><a href="../../../info/kwarc/krextor/Krextor.html#generateStylesheet(java.lang.String, java.lang.String)">generateStylesheet</a></strong>(<a href="http://java.sun.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;inputFormat,
+                  <a href="http://java.sun.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;outputFormat)</code>
+<div class="block">Generates a Krextor XSLT stylesheet for extracting RDF from a certain
  input format and returning the extracted RDF in a certain output format
- (i.e. a RDF notation).</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;<A HREF="http://www.xom.nu/apidocs/nu/xom/Document.html?is-external=true" title="class or interface in nu.xom">Document</A></CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../info/kwarc/krextor/Krextor.html#getTransformer(java.lang.String, java.lang.String)">getTransformer</A></B>(<A HREF="http://java.sun.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;inputFormat,
-               <A HREF="http://java.sun.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;outputFormat)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Generates a Krextor XSLT stylesheet for extracting RDF from a certain
+ (i.e. a RDF notation).</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code><a href="http://www.xom.nu/apidocs/nu/xom/Document.html?is-external=true" title="class or interface in nu.xom">Document</a></code></td>
+<td class="colLast"><code><strong><a href="../../../info/kwarc/krextor/Krextor.html#getTransformer(java.lang.String, java.lang.String)">getTransformer</a></strong>(<a href="http://java.sun.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;inputFormat,
+              <a href="http://java.sun.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;outputFormat)</code>
+<div class="block">Generates a Krextor XSLT stylesheet for extracting RDF from a certain
  input format and returning the extracted RDF in a certain output format
- (i.e. a RDF notation)</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>static&nbsp;<A HREF="http://java.sun.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A></CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../info/kwarc/krextor/Krextor.html#getTransformerName(java.lang.String, java.lang.String)">getTransformerName</A></B>(<A HREF="http://java.sun.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;inputFormat,
-                   <A HREF="http://java.sun.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;outputFormat)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;returns a filename suitable for an XSLT that transforms from an input
- format (XML) to an output format (RDF notation)</TD>
-</TR>
-</TABLE>
-&nbsp;<A NAME="methods_inherited_from_class_java.lang.Object"><!-- --></A>
-<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
-<TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
-<TH ALIGN="left"><B>Methods inherited from class java.lang.<A HREF="http://java.sun.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A></B></TH>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><CODE><A HREF="http://java.sun.com/javase/6/docs/api/java/lang/Object.html?is-external=true#equals(java.lang.Object)" title="class or interface in java.lang">equals</A>, <A HREF="http://java.sun.com/javase/6/docs/api/java/lang/Object.html?is-external=true#getClass()" title="class or interface in java.lang">getClass</A>, <A HREF="http://java.sun.com/javase/6/docs/api/java/lang/Object.html?is-external=true#hashCode()" title="class or interface in java.lang">hashCode</A>, <A HREF="http://java.sun.com/javase/6/docs/api/java/lang/Object.html?is-external=true#notify()" title="class or interface in java.lang">notify</A>, <A HREF="http://java.sun.com/javase/6/docs/api/java/lang/Object.html?is-external=true#notifyAll()" title="class or interface in java.lang">notifyAll</A>, <A HREF="http://java.sun.com/javase/6/docs/api/java/lang/Object.html?is-external=true#toString()" title="class or interface in java.lang">toString</A>, <A HREF="http://java.sun.com/javase/6/docs/api/java/lang/Object.html?is-external=true#wait()" title="class or interface in java.lang">wait</A>, <A HREF="http://java.sun.com/javase/6/docs/api/java/lang/Object.html?is-external=true#wait(long)" title="class or interface in java.lang">wait</A>, <A HREF="http://java.sun.com/javase/6/docs/api/java/lang/Object.html?is-external=true#wait(long, int)" title="class or interface in java.lang">wait</A></CODE></TD>
-</TR>
-</TABLE>
-&nbsp;
-<P>
-
+ (i.e. a RDF notation)</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>static <a href="http://java.sun.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a></code></td>
+<td class="colLast"><code><strong><a href="../../../info/kwarc/krextor/Krextor.html#getTransformerName(java.lang.String, java.lang.String)">getTransformerName</a></strong>(<a href="http://java.sun.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;inputFormat,
+                  <a href="http://java.sun.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;outputFormat)</code>
+<div class="block">returns a filename suitable for an XSLT that transforms from an input
+ format (XML) to an output format (RDF notation)</div>
+</td>
+</tr>
+</table>
+<ul class="blockList">
+<li class="blockList"><a name="methods_inherited_from_class_java.lang.Object">
+<!--   -->
+</a>
+<h3>Methods inherited from class&nbsp;java.lang.<a href="http://java.sun.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</a></h3>
+<code><a href="http://java.sun.com/javase/6/docs/api/java/lang/Object.html?is-external=true#equals(java.lang.Object)" title="class or interface in java.lang">equals</a>, <a href="http://java.sun.com/javase/6/docs/api/java/lang/Object.html?is-external=true#getClass()" title="class or interface in java.lang">getClass</a>, <a href="http://java.sun.com/javase/6/docs/api/java/lang/Object.html?is-external=true#hashCode()" title="class or interface in java.lang">hashCode</a>, <a href="http://java.sun.com/javase/6/docs/api/java/lang/Object.html?is-external=true#notify()" title="class or interface in java.lang">notify</a>, <a href="http://java.sun.com/javase/6/docs/api/java/lang/Object.html?is-external=true#notifyAll()" title="class or interface in java.lang">notifyAll</a>, <a href="http://java.sun.com/javase/6/docs/api/java/lang/Object.html?is-external=true#toString()" title="class or interface in java.lang">toString</a>, <a href="http://java.sun.com/javase/6/docs/api/java/lang/Object.html?is-external=true#wait()" title="class or interface in java.lang">wait</a>, <a href="http://java.sun.com/javase/6/docs/api/java/lang/Object.html?is-external=true#wait(long)" title="class or interface in java.lang">wait</a>, <a href="http://java.sun.com/javase/6/docs/api/java/lang/Object.html?is-external=true#wait(long, int)" title="class or interface in java.lang">wait</a></code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="details">
+<ul class="blockList">
+<li class="blockList">
 <!-- ============ FIELD DETAIL =========== -->
-
-<A NAME="field_detail"><!-- --></A>
-<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
-<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
-<TH ALIGN="left" COLSPAN="1"><FONT SIZE="+2">
-<B>Field Detail</B></FONT></TH>
-</TR>
-</TABLE>
-
-<A NAME="XMLNS_XSLT"><!-- --></A><H3>
-XMLNS_XSLT</H3>
-<PRE>
-public static final <A HREF="http://java.sun.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A> <B>XMLNS_XSLT</B></PRE>
-<DL>
-<DD>XSLT namespace URI
-<P>
-<DL>
-<DT><B>See Also:</B><DD><A HREF="../../../constant-values.html#info.kwarc.krextor.Krextor.XMLNS_XSLT">Constant Field Values</A></DL>
-</DL>
-<HR>
-
-<A NAME="XMLNS_RXR"><!-- --></A><H3>
-XMLNS_RXR</H3>
-<PRE>
-public static final <A HREF="http://java.sun.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A> <B>XMLNS_RXR</B></PRE>
-<DL>
-<DD>RXR (Regular XML RDF) namespace URI
-<P>
-<DL>
-<DT><B>See Also:</B><DD><A HREF="../../../constant-values.html#info.kwarc.krextor.Krextor.XMLNS_RXR">Constant Field Values</A></DL>
-</DL>
-<HR>
-
-<A NAME="XMLNS_XML"><!-- --></A><H3>
-XMLNS_XML</H3>
-<PRE>
-public static final <A HREF="http://java.sun.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A> <B>XMLNS_XML</B></PRE>
-<DL>
-<DD>XML namespace URI
-<P>
-<DL>
-<DT><B>See Also:</B><DD><A HREF="../../../constant-values.html#info.kwarc.krextor.Krextor.XMLNS_XML">Constant Field Values</A></DL>
-</DL>
-<HR>
-
-<A NAME="XMLNS_RDF"><!-- --></A><H3>
-XMLNS_RDF</H3>
-<PRE>
-public static final <A HREF="http://java.sun.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A> <B>XMLNS_RDF</B></PRE>
-<DL>
-<DD>RDF namespace URI
-<P>
-<DL>
-<DT><B>See Also:</B><DD><A HREF="../../../constant-values.html#info.kwarc.krextor.Krextor.XMLNS_RDF">Constant Field Values</A></DL>
-</DL>
-
+<ul class="blockList">
+<li class="blockList"><a name="field_detail">
+<!--   -->
+</a>
+<h3>Field Detail</h3>
+<a name="XMLNS_XSLT">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>XMLNS_XSLT</h4>
+<pre>public static final&nbsp;<a href="http://java.sun.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a> XMLNS_XSLT</pre>
+<div class="block">XSLT namespace URI</div>
+<dl><dt><span class="strong">See Also:</span></dt><dd><a href="../../../constant-values.html#info.kwarc.krextor.Krextor.XMLNS_XSLT">Constant Field Values</a></dd></dl>
+</li>
+</ul>
+<a name="XMLNS_RXR">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>XMLNS_RXR</h4>
+<pre>public static final&nbsp;<a href="http://java.sun.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a> XMLNS_RXR</pre>
+<div class="block">RXR (Regular XML RDF) namespace URI</div>
+<dl><dt><span class="strong">See Also:</span></dt><dd><a href="../../../constant-values.html#info.kwarc.krextor.Krextor.XMLNS_RXR">Constant Field Values</a></dd></dl>
+</li>
+</ul>
+<a name="XMLNS_XML">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>XMLNS_XML</h4>
+<pre>public static final&nbsp;<a href="http://java.sun.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a> XMLNS_XML</pre>
+<div class="block">XML namespace URI</div>
+<dl><dt><span class="strong">See Also:</span></dt><dd><a href="../../../constant-values.html#info.kwarc.krextor.Krextor.XMLNS_XML">Constant Field Values</a></dd></dl>
+</li>
+</ul>
+<a name="XMLNS_RDF">
+<!--   -->
+</a>
+<ul class="blockListLast">
+<li class="blockList">
+<h4>XMLNS_RDF</h4>
+<pre>public static final&nbsp;<a href="http://java.sun.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a> XMLNS_RDF</pre>
+<div class="block">RDF namespace URI</div>
+<dl><dt><span class="strong">See Also:</span></dt><dd><a href="../../../constant-values.html#info.kwarc.krextor.Krextor.XMLNS_RDF">Constant Field Values</a></dd></dl>
+</li>
+</ul>
+</li>
+</ul>
 <!-- ========= CONSTRUCTOR DETAIL ======== -->
-
-<A NAME="constructor_detail"><!-- --></A>
-<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
-<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
-<TH ALIGN="left" COLSPAN="1"><FONT SIZE="+2">
-<B>Constructor Detail</B></FONT></TH>
-</TR>
-</TABLE>
-
-<A NAME="Krextor()"><!-- --></A><H3>
-Krextor</H3>
-<PRE>
-public <B>Krextor</B>()</PRE>
-<DL>
-</DL>
-
+<ul class="blockList">
+<li class="blockList"><a name="constructor_detail">
+<!--   -->
+</a>
+<h3>Constructor Detail</h3>
+<a name="Krextor()">
+<!--   -->
+</a>
+<ul class="blockListLast">
+<li class="blockList">
+<h4>Krextor</h4>
+<pre>public&nbsp;Krextor()</pre>
+</li>
+</ul>
+</li>
+</ul>
 <!-- ============ METHOD DETAIL ========== -->
-
-<A NAME="method_detail"><!-- --></A>
-<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
-<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
-<TH ALIGN="left" COLSPAN="1"><FONT SIZE="+2">
-<B>Method Detail</B></FONT></TH>
-</TR>
-</TABLE>
-
-<A NAME="generateStylesheet(java.lang.String, java.lang.String)"><!-- --></A><H3>
-generateStylesheet</H3>
-<PRE>
-public <A HREF="http://www.xom.nu/apidocs/nu/xom/Document.html?is-external=true" title="class or interface in nu.xom">Document</A> <B>generateStylesheet</B>(<A HREF="http://java.sun.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;inputFormat,
-                                   <A HREF="http://java.sun.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;outputFormat)
-                            throws <A HREF="http://java.sun.com/javase/6/docs/api/javax/xml/parsers/ParserConfigurationException.html?is-external=true" title="class or interface in javax.xml.parsers">ParserConfigurationException</A></PRE>
-<DL>
-<DD>Generates a Krextor XSLT stylesheet for extracting RDF from a certain
+<ul class="blockList">
+<li class="blockList"><a name="method_detail">
+<!--   -->
+</a>
+<h3>Method Detail</h3>
+<a name="generateStylesheet(java.lang.String, java.lang.String)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>generateStylesheet</h4>
+<pre>public&nbsp;<a href="http://www.xom.nu/apidocs/nu/xom/Document.html?is-external=true" title="class or interface in nu.xom">Document</a>&nbsp;generateStylesheet(<a href="http://java.sun.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;inputFormat,
+                          <a href="http://java.sun.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;outputFormat)
+                            throws <a href="http://java.sun.com/javase/6/docs/api/javax/xml/parsers/ParserConfigurationException.html?is-external=true" title="class or interface in javax.xml.parsers">ParserConfigurationException</a></pre>
+<div class="block">Generates a Krextor XSLT stylesheet for extracting RDF from a certain
  input format and returning the extracted RDF in a certain output format
- (i.e. a RDF notation). The stylesheet is generated on the fly.
-<P>
-<DD><DL>
-<DT><B>Parameters:</B><DD><CODE>inputFormat</CODE> - the name of the input format, as it is known to Krextor (an
-            XSLT file in the extract/ directory)<DD><CODE>outputFormat</CODE> - the name of the output format, as it is known to Krextor (an
-            XSLT file in the output/ directory)
-<DT><B>Returns:</B><DD>a XOM representation of an XSLT stylesheet that bundles together
-         the desired extraction and output modules of Krextor
-<DT><B>Throws:</B>
-<DD><CODE><A HREF="http://java.sun.com/javase/6/docs/api/javax/xml/parsers/ParserConfigurationException.html?is-external=true" title="class or interface in javax.xml.parsers">ParserConfigurationException</A></CODE></DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="getTransformerName(java.lang.String, java.lang.String)"><!-- --></A><H3>
-getTransformerName</H3>
-<PRE>
-public static <A HREF="http://java.sun.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A> <B>getTransformerName</B>(<A HREF="http://java.sun.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;inputFormat,
-                                        <A HREF="http://java.sun.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;outputFormat)</PRE>
-<DL>
-<DD>returns a filename suitable for an XSLT that transforms from an input
- format (XML) to an output format (RDF notation)
-<P>
-<DD><DL>
-<DT><B>Parameters:</B><DD><CODE>inputFormat</CODE> - the name of the input format<DD><CODE>outputFormat</CODE> - the name of the output format
-<DT><B>Returns:</B><DD>the filename</DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="getTransformer(java.lang.String, java.lang.String)"><!-- --></A><H3>
-getTransformer</H3>
-<PRE>
-public <A HREF="http://www.xom.nu/apidocs/nu/xom/Document.html?is-external=true" title="class or interface in nu.xom">Document</A> <B>getTransformer</B>(<A HREF="http://java.sun.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;inputFormat,
-                               <A HREF="http://java.sun.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;outputFormat)</PRE>
-<DL>
-<DD>Generates a Krextor XSLT stylesheet for extracting RDF from a certain
+ (i.e. a RDF notation). The stylesheet is generated on the fly.</div>
+<dl><dt><span class="strong">Parameters:</span></dt><dd><code>inputFormat</code> - the name of the input format, as it is known to Krextor (an
+            XSLT file in the extract/ directory)</dd><dd><code>outputFormat</code> - the name of the output format, as it is known to Krextor (an
+            XSLT file in the output/ directory)</dd>
+<dt><span class="strong">Returns:</span></dt><dd>a XOM representation of an XSLT stylesheet that bundles together
+         the desired extraction and output modules of Krextor</dd>
+<dt><span class="strong">Throws:</span></dt>
+<dd><code><a href="http://java.sun.com/javase/6/docs/api/javax/xml/parsers/ParserConfigurationException.html?is-external=true" title="class or interface in javax.xml.parsers">ParserConfigurationException</a></code></dd></dl>
+</li>
+</ul>
+<a name="getTransformerName(java.lang.String, java.lang.String)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getTransformerName</h4>
+<pre>public static&nbsp;<a href="http://java.sun.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;getTransformerName(<a href="http://java.sun.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;inputFormat,
+                        <a href="http://java.sun.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;outputFormat)</pre>
+<div class="block">returns a filename suitable for an XSLT that transforms from an input
+ format (XML) to an output format (RDF notation)</div>
+<dl><dt><span class="strong">Parameters:</span></dt><dd><code>inputFormat</code> - the name of the input format</dd><dd><code>outputFormat</code> - the name of the output format</dd>
+<dt><span class="strong">Returns:</span></dt><dd>the filename</dd></dl>
+</li>
+</ul>
+<a name="getTransformer(java.lang.String, java.lang.String)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getTransformer</h4>
+<pre>public&nbsp;<a href="http://www.xom.nu/apidocs/nu/xom/Document.html?is-external=true" title="class or interface in nu.xom">Document</a>&nbsp;getTransformer(<a href="http://java.sun.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;inputFormat,
+                      <a href="http://java.sun.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;outputFormat)</pre>
+<div class="block">Generates a Krextor XSLT stylesheet for extracting RDF from a certain
  input format and returning the extracted RDF in a certain output format
- (i.e. a RDF notation)
-<P>
-<DD><DL>
-<DT><B>Parameters:</B><DD><CODE>inputFormat</CODE> - the name of the input format, as it is known to Krextor (an
-            XSLT file in the extract/ directory)<DD><CODE>outputFormat</CODE> - the name of the output format, as it is known to Krextor (an
-            XSLT file in the output/ directory)
-<DT><B>Returns:</B><DD>a XOM representation of an XSLT stylesheet that bundles together
+ (i.e. a RDF notation)</div>
+<dl><dt><span class="strong">Parameters:</span></dt><dd><code>inputFormat</code> - the name of the input format, as it is known to Krextor (an
+            XSLT file in the extract/ directory)</dd><dd><code>outputFormat</code> - the name of the output format, as it is known to Krextor (an
+            XSLT file in the output/ directory)</dd>
+<dt><span class="strong">Returns:</span></dt><dd>a XOM representation of an XSLT stylesheet that bundles together
          the desired extraction and output modules of Krextor – a
          ready-to-use stylesheet as bundled with Krextor, or one that is
          generated on the fly using
-         <A HREF="../../../info/kwarc/krextor/Krextor.html#generateStylesheet(java.lang.String, java.lang.String)"><CODE>generateStylesheet(String, String)</CODE></A></DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="extract(java.lang.String, java.lang.String, nu.xom.Document)"><!-- --></A><H3>
-extract</H3>
-<PRE>
-public <A HREF="http://www.xom.nu/apidocs/nu/xom/Document.html?is-external=true" title="class or interface in nu.xom">Document</A> <B>extract</B>(<A HREF="http://java.sun.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;inputFormat,
-                        <A HREF="http://java.sun.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;outputFormat,
-                        <A HREF="http://www.xom.nu/apidocs/nu/xom/Document.html?is-external=true" title="class or interface in nu.xom">Document</A>&nbsp;inputDocument)
-                 throws <A HREF="http://www.xom.nu/apidocs/nu/xom/xslt/XSLException.html?is-external=true" title="class or interface in nu.xom.xslt">XSLException</A></PRE>
-<DL>
-<DD>Extracts RDF from an input document (XML) into an output document in an
- XML-based RDF notation supported by Krextor (e.g. RXR or RDF/XML)
-<P>
-<DD><DL>
-<DT><B>Parameters:</B><DD><CODE>inputFormat</CODE> - the name of the input format, as it is known to Krextor (an
-            XSLT file in the extract/ directory)<DD><CODE>outputFormat</CODE> - the name of the output format, as it is known to Krextor (an
-            XSLT file in the output/ directory)<DD><CODE>inputDocument</CODE> - the input XML document
-<DT><B>Returns:</B><DD>the output, as a XOM XML document
-<DT><B>Throws:</B>
-<DD><CODE><A HREF="http://www.xom.nu/apidocs/nu/xom/xslt/XSLException.html?is-external=true" title="class or interface in nu.xom.xslt">XSLException</A></CODE></DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="extract(java.lang.String, nu.xom.Document, info.kwarc.krextor.TripleAdder)"><!-- --></A><H3>
-extract</H3>
-<PRE>
-public void <B>extract</B>(<A HREF="http://java.sun.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;inputFormat,
-                    <A HREF="http://www.xom.nu/apidocs/nu/xom/Document.html?is-external=true" title="class or interface in nu.xom">Document</A>&nbsp;inputDocument,
-                    <A HREF="../../../info/kwarc/krextor/TripleAdder.html" title="interface in info.kwarc.krextor">TripleAdder</A>&nbsp;callback)
-             throws <A HREF="../../../info/kwarc/krextor/KrextorException.html" title="class in info.kwarc.krextor">KrextorException</A></PRE>
-<DL>
-<DD>Extract RDF from an input XML document in a given input format and notify a callback for every RDF triple extracted
-<P>
-<DD><DL>
-<DT><B>Parameters:</B><DD><CODE>inputFormat</CODE> - the name of the input format, as it is known to Krextor (an
-            XSLT file in the extract/ directory)<DD><CODE>inputDocument</CODE> - the input XML document<DD><CODE>callback</CODE> - a callback object that is notified for every RDF triple extacted
-<DT><B>Throws:</B>
-<DD><CODE><A HREF="../../../info/kwarc/krextor/KrextorException.html" title="class in info.kwarc.krextor">KrextorException</A></CODE></DL>
-</DD>
-</DL>
+         <a href="../../../info/kwarc/krextor/Krextor.html#generateStylesheet(java.lang.String, java.lang.String)"><code>generateStylesheet(String, String)</code></a></dd></dl>
+</li>
+</ul>
+<a name="extract(java.lang.String, java.lang.String, nu.xom.Document)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>extract</h4>
+<pre>public&nbsp;<a href="http://www.xom.nu/apidocs/nu/xom/Document.html?is-external=true" title="class or interface in nu.xom">Document</a>&nbsp;extract(<a href="http://java.sun.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;inputFormat,
+               <a href="http://java.sun.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;outputFormat,
+               <a href="http://www.xom.nu/apidocs/nu/xom/Document.html?is-external=true" title="class or interface in nu.xom">Document</a>&nbsp;inputDocument)
+                 throws <a href="http://www.xom.nu/apidocs/nu/xom/xslt/XSLException.html?is-external=true" title="class or interface in nu.xom.xslt">XSLException</a></pre>
+<div class="block">Extracts RDF from an input document (XML) into an output document in an
+ XML-based RDF notation supported by Krextor (e.g. RXR or RDF/XML)</div>
+<dl><dt><span class="strong">Parameters:</span></dt><dd><code>inputFormat</code> - the name of the input format, as it is known to Krextor (an
+            XSLT file in the extract/ directory)</dd><dd><code>outputFormat</code> - the name of the output format, as it is known to Krextor (an
+            XSLT file in the output/ directory)</dd><dd><code>inputDocument</code> - the input XML document</dd>
+<dt><span class="strong">Returns:</span></dt><dd>the output, as a XOM XML document</dd>
+<dt><span class="strong">Throws:</span></dt>
+<dd><code><a href="http://www.xom.nu/apidocs/nu/xom/xslt/XSLException.html?is-external=true" title="class or interface in nu.xom.xslt">XSLException</a></code></dd></dl>
+</li>
+</ul>
+<a name="extract(java.lang.String, nu.xom.Document, info.kwarc.krextor.TripleAdder)">
+<!--   -->
+</a>
+<ul class="blockListLast">
+<li class="blockList">
+<h4>extract</h4>
+<pre>public&nbsp;void&nbsp;extract(<a href="http://java.sun.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;inputFormat,
+           <a href="http://www.xom.nu/apidocs/nu/xom/Document.html?is-external=true" title="class or interface in nu.xom">Document</a>&nbsp;inputDocument,
+           <a href="../../../info/kwarc/krextor/TripleAdder.html" title="interface in info.kwarc.krextor">TripleAdder</a>&nbsp;callback)
+             throws <a href="../../../info/kwarc/krextor/KrextorException.html" title="class in info.kwarc.krextor">KrextorException</a></pre>
+<div class="block">Extract RDF from an input XML document in a given input format and notify a callback for every RDF triple extracted</div>
+<dl><dt><span class="strong">Parameters:</span></dt><dd><code>inputFormat</code> - the name of the input format, as it is known to Krextor (an
+            XSLT file in the extract/ directory)</dd><dd><code>inputDocument</code> - the input XML document</dd><dd><code>callback</code> - a callback object that is notified for every RDF triple extacted</dd>
+<dt><span class="strong">Throws:</span></dt>
+<dd><code><a href="../../../info/kwarc/krextor/KrextorException.html" title="class in info.kwarc.krextor">KrextorException</a></code></dd></dl>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
 <!-- ========= END OF CLASS DATA ========= -->
-<HR>
-
-
 <!-- ======= START OF BOTTOM NAVBAR ====== -->
-<A NAME="navbar_bottom"><!-- --></A>
-<A HREF="#skip-navbar_bottom" title="Skip navigation links"></A>
-<TABLE BORDER="0" WIDTH="100%" CELLPADDING="1" CELLSPACING="0" SUMMARY="">
-<TR>
-<TD COLSPAN=2 BGCOLOR="#EEEEFF" CLASS="NavBarCell1">
-<A NAME="navbar_bottom_firstrow"><!-- --></A>
-<TABLE BORDER="0" CELLPADDING="0" CELLSPACING="3" SUMMARY="">
-  <TR ALIGN="center" VALIGN="top">
-  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../info/kwarc/krextor/package-summary.html"><FONT CLASS="NavBarFont1"><B>Package</B></FONT></A>&nbsp;</TD>
-  <TD BGCOLOR="#FFFFFF" CLASS="NavBarCell1Rev"> &nbsp;<FONT CLASS="NavBarFont1Rev"><B>Class</B></FONT>&nbsp;</TD>
-  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="class-use/Krextor.html"><FONT CLASS="NavBarFont1"><B>Use</B></FONT></A>&nbsp;</TD>
-  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="package-tree.html"><FONT CLASS="NavBarFont1"><B>Tree</B></FONT></A>&nbsp;</TD>
-  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../deprecated-list.html"><FONT CLASS="NavBarFont1"><B>Deprecated</B></FONT></A>&nbsp;</TD>
-  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../index-files/index-1.html"><FONT CLASS="NavBarFont1"><B>Index</B></FONT></A>&nbsp;</TD>
-  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../help-doc.html"><FONT CLASS="NavBarFont1"><B>Help</B></FONT></A>&nbsp;</TD>
-  </TR>
-</TABLE>
-</TD>
-<TD ALIGN="right" VALIGN="top" ROWSPAN=3><EM>
-</EM>
-</TD>
-</TR>
-
-<TR>
-<TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
-&nbsp;PREV CLASS&nbsp;
-&nbsp;<A HREF="../../../info/kwarc/krextor/KrextorException.html" title="class in info.kwarc.krextor"><B>NEXT CLASS</B></A></FONT></TD>
-<TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
-  <A HREF="../../../index.html?info/kwarc/krextor/Krextor.html" target="_top"><B>FRAMES</B></A>  &nbsp;
-&nbsp;<A HREF="Krextor.html" target="_top"><B>NO FRAMES</B></A>  &nbsp;
-&nbsp;<SCRIPT type="text/javascript">
-  <!--
+<div class="bottomNav"><a name="navbar_bottom">
+<!--   -->
+</a><a href="#skip-navbar_bottom" title="Skip navigation links"></a><a name="navbar_bottom_firstrow">
+<!--   -->
+</a>
+<ul class="navList" title="Navigation">
+<li><a href="../../../info/kwarc/krextor/package-summary.html">Package</a></li>
+<li class="navBarCell1Rev">Class</li>
+<li><a href="class-use/Krextor.html">Use</a></li>
+<li><a href="package-tree.html">Tree</a></li>
+<li><a href="../../../deprecated-list.html">Deprecated</a></li>
+<li><a href="../../../index-files/index-1.html">Index</a></li>
+<li><a href="../../../help-doc.html">Help</a></li>
+</ul>
+</div>
+<div class="subNav">
+<ul class="navList">
+<li>Prev Class</li>
+<li><a href="../../../info/kwarc/krextor/KrextorException.html" title="class in info.kwarc.krextor"><span class="strong">Next Class</span></a></li>
+</ul>
+<ul class="navList">
+<li><a href="../../../index.html?info/kwarc/krextor/Krextor.html" target="_top">Frames</a></li>
+<li><a href="Krextor.html" target="_top">No Frames</a></li>
+</ul>
+<ul class="navList" id="allclasses_navbar_bottom">
+<li><a href="../../../allclasses-noframe.html">All Classes</a></li>
+</ul>
+<div>
+<script type="text/javascript"><!--
+  allClassesLink = document.getElementById("allclasses_navbar_bottom");
   if(window==top) {
-    document.writeln('<A HREF="../../../allclasses-noframe.html"><B>All Classes</B></A>');
+    allClassesLink.style.display = "block";
+  }
+  else {
+    allClassesLink.style.display = "none";
   }
   //-->
-</SCRIPT>
-<NOSCRIPT>
-  <A HREF="../../../allclasses-noframe.html"><B>All Classes</B></A>
-</NOSCRIPT>
-
-
-</FONT></TD>
-</TR>
-<TR>
-<TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
-  SUMMARY:&nbsp;NESTED&nbsp;|&nbsp;<A HREF="#field_summary">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor_summary">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_summary">METHOD</A></FONT></TD>
-<TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
-DETAIL:&nbsp;<A HREF="#field_detail">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor_detail">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_detail">METHOD</A></FONT></TD>
-</TR>
-</TABLE>
-<A NAME="skip-navbar_bottom"></A>
+</script>
+</div>
+<div>
+<ul class="subNavList">
+<li>Summary:&nbsp;</li>
+<li>Nested&nbsp;|&nbsp;</li>
+<li><a href="#field_summary">Field</a>&nbsp;|&nbsp;</li>
+<li><a href="#constructor_summary">Constr</a>&nbsp;|&nbsp;</li>
+<li><a href="#method_summary">Method</a></li>
+</ul>
+<ul class="subNavList">
+<li>Detail:&nbsp;</li>
+<li><a href="#field_detail">Field</a>&nbsp;|&nbsp;</li>
+<li><a href="#constructor_detail">Constr</a>&nbsp;|&nbsp;</li>
+<li><a href="#method_detail">Method</a></li>
+</ul>
+</div>
+<a name="skip-navbar_bottom">
+<!--   -->
+</a></div>
 <!-- ======== END OF BOTTOM NAVBAR ======= -->
-
-<HR>
-
-</BODY>
-</HTML>
+</body>
+</html>

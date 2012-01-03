@@ -4,9 +4,9 @@
 <html><head><title>XML source view</title><link rel="stylesheet" type="text/css" href="../xmlverbatim.css"></link></head><body class="xmlverb-default"><tt>
 <!-- converted by xmlverbatim.xsl 1.1, (c) O. Becker -->
 <div xmlns:xd="http://www.pnp-software.com/XSLTdoc" class="xmlverb-default">&lt;!--<span class="xmlverb-comment"><br></br>
-        *  Copyright (C) 2009<br></br>
-        *  Christoph Lange<br></br>
-        *  KWARC, Jacobs University Bremen<br></br>
+        *  Copyright (C) 2011<br></br>
+        *  Lucian Mocanu<br></br>
+        *  Jacobs University Bremen<br></br>
         *  http://kwarc.info/projects/krextor/<br></br>
         *<br></br>
         *   Krextor is free software; you can redistribute it and/or<br></br>
@@ -25,177 +25,163 @@
         *         Boston, MA 02111-1307, USA.<br></br>
         * <br></br>
 </span>--&gt;<br></br>
-&lt;<span class="xmlverb-element-name"><a name="d62e2">stylesheet</a></span><span class="xmlverb-ns-name"> xmlns</span>="<span class="xmlverb-ns-uri">http://www.w3.org/1999/XSL/Transform</span>"<span class="xmlverb-ns-name"> xmlns:xs</span>="<span class="xmlverb-ns-uri">http://www.w3.org/2001/XMLSchema</span>"<span class="xmlverb-ns-name"> xmlns:latexml</span>="<span class="xmlverb-ns-uri">http://dlmf.nist.gov/LaTeXML</span>"<span class="xmlverb-ns-name"> xmlns:xd</span>="<span class="xmlverb-ns-uri">http://www.pnp-software.com/XSLTdoc</span>"<span class="xmlverb-ns-name"> xmlns:krextor</span>="<span class="xmlverb-ns-uri">http://kwarc.info/projects/krextor</span>"<span class="xmlverb-ns-name"> xmlns:krextor-genuri</span>="<span class="xmlverb-ns-uri">http://kwarc.info/projects/krextor/genuri</span>" <span class="xmlverb-attr-name">xpath-default-namespace</span>="<span class="xmlverb-attr-content">http://dlmf.nist.gov/LaTeXML</span>" <span class="xmlverb-attr-name">exclude-result-prefixes</span>="<span class="xmlverb-attr-content">#all</span>" <span class="xmlverb-attr-name">version</span>="<span class="xmlverb-attr-content">2.0</span>"&gt;<span class="xmlverb-text"><br></br>
+&lt;<span class="xmlverb-element-name"><a name="d65e2">stylesheet</a></span><span class="xmlverb-ns-name"> xmlns</span>="<span class="xmlverb-ns-uri">http://www.w3.org/1999/XSL/Transform</span>"<span class="xmlverb-ns-name"> xmlns:xs</span>="<span class="xmlverb-ns-uri">http://www.w3.org/2001/XMLSchema</span>"<span class="xmlverb-ns-name"> xmlns:latexml</span>="<span class="xmlverb-ns-uri">http://dlmf.nist.gov/LaTeXML</span>"<span class="xmlverb-ns-name"> xmlns:xd</span>="<span class="xmlverb-ns-uri">http://www.pnp-software.com/XSLTdoc</span>"<span class="xmlverb-ns-name"> xmlns:krextor</span>="<span class="xmlverb-ns-uri">http://kwarc.info/projects/krextor</span>"<span class="xmlverb-ns-name"> xmlns:krextor-genuri</span>="<span class="xmlverb-ns-uri">http://kwarc.info/projects/krextor/genuri</span>" <span class="xmlverb-attr-name">xpath-default-namespace</span>="<span class="xmlverb-attr-content">http://dlmf.nist.gov/LaTeXML</span>" <span class="xmlverb-attr-name">exclude-result-prefixes</span>="<span class="xmlverb-attr-content">#all</span>" <span class="xmlverb-attr-name">version</span>="<span class="xmlverb-attr-content">2.0</span>"&gt;<span class="xmlverb-text"><br></br>
 <br></br>
-    </span>&lt;<span class="xmlverb-element-name"><a name="d62e4">import</a></span> <span class="xmlverb-attr-name">href</span>="<span class="xmlverb-attr-content">util/rdfa.xsl</span>" /&gt;<span class="xmlverb-text"><br></br>
-    </span>&lt;<span class="xmlverb-element-name"><a name="d62e6">import</a></span> <span class="xmlverb-attr-name">href</span>="<span class="xmlverb-attr-content">util/misc.xsl</span>" /&gt;<span class="xmlverb-text"><br></br>
+    </span>&lt;<span class="xmlverb-element-name"><a name="d65e4">import</a></span> <span class="xmlverb-attr-name">href</span>="<span class="xmlverb-attr-content">util/rdfa.xsl</span>" /&gt;<span class="xmlverb-text"><br></br>
+    </span>&lt;<span class="xmlverb-element-name"><a name="d65e6">import</a></span> <span class="xmlverb-attr-name">href</span>="<span class="xmlverb-attr-content">util/misc.xsl</span>" /&gt;<span class="xmlverb-text"><br></br>
 <br></br>
         </span><div class="xd">
 
-    &lt;<span class="xmlverb-element-nsprefix">xd</span>:<span class="xmlverb-element-name"><a name="d62e8">doc</a></span> <span class="xmlverb-attr-name">type</span>="<span class="xmlverb-attr-content">stylesheet</span>"&gt;<span class="xmlverb-text"><br></br>
-        </span>&lt;<span class="xmlverb-element-nsprefix">xd</span>:<span class="xmlverb-element-name"><a name="d62e10">short</a></span>&gt;<span class="xmlverb-text">Extraction module for </span>&lt;<span class="xmlverb-element-name"><a name="d62e12">a</a></span> <span class="xmlverb-attr-name">href</span>="<span class="xmlverb-attr-content">http://dlmf.nist.gov/LaTeXML</span>"&gt;<span class="xmlverb-text">LaTeXML</span>&lt;/<span class="xmlverb-element-name">a</span>&gt;<span class="xmlverb-text">'s XMath format, as required for </span>&lt;<span class="xmlverb-element-name"><a name="d62e15">a</a></span> <span class="xmlverb-attr-name">href</span>="<span class="xmlverb-attr-content">http://trac.kwarc.info/lamapun</span>"&gt;<span class="xmlverb-text">LaMaPUn</span>&lt;/<span class="xmlverb-element-name">a</span>&gt;&lt;/<span class="xmlverb-element-nsprefix">xd</span>:<span class="xmlverb-element-name">short</span>&gt;<span class="xmlverb-text"><br></br>
-        </span>&lt;<span class="xmlverb-element-nsprefix">xd</span>:<span class="xmlverb-element-name"><a name="d62e18">detail</a></span>&gt;<span class="xmlverb-text">https://svn.kwarc.info/repos/lamapun/projects/Ontology/LaMaPUn.owl</span>&lt;/<span class="xmlverb-element-nsprefix">xd</span>:<span class="xmlverb-element-name">detail</span>&gt;<span class="xmlverb-text"><br></br>
-        </span>&lt;<span class="xmlverb-element-nsprefix">xd</span>:<span class="xmlverb-element-name"><a name="d62e21">author</a></span>&gt;<span class="xmlverb-text">Christoph Lange</span>&lt;/<span class="xmlverb-element-nsprefix">xd</span>:<span class="xmlverb-element-name">author</span>&gt;<span class="xmlverb-text"><br></br>
-        </span>&lt;<span class="xmlverb-element-nsprefix">xd</span>:<span class="xmlverb-element-name"><a name="d62e24">copyright</a></span>&gt;<span class="xmlverb-text">Christoph Lange, 2009</span>&lt;/<span class="xmlverb-element-nsprefix">xd</span>:<span class="xmlverb-element-name">copyright</span>&gt;<span class="xmlverb-text"><br></br>
-        </span>&lt;<span class="xmlverb-element-nsprefix">xd</span>:<span class="xmlverb-element-name"><a name="d62e27">svnId</a></span>&gt;<span class="xmlverb-text">$Id: xmath.xsl 1964 2011-04-06 16:56:19Z lucianct $</span>&lt;/<span class="xmlverb-element-nsprefix">xd</span>:<span class="xmlverb-element-name">svnId</span>&gt;<span class="xmlverb-text"><br></br>
+    &lt;<span class="xmlverb-element-nsprefix">xd</span>:<span class="xmlverb-element-name"><a name="d65e8">doc</a></span> <span class="xmlverb-attr-name">type</span>="<span class="xmlverb-attr-content">stylesheet</span>"&gt;<span class="xmlverb-text"><br></br>
+        </span>&lt;<span class="xmlverb-element-nsprefix">xd</span>:<span class="xmlverb-element-name"><a name="d65e10">short</a></span>&gt;<span class="xmlverb-text">Extraction module for </span>&lt;<span class="xmlverb-element-name"><a name="d65e12">a</a></span> <span class="xmlverb-attr-name">href</span>="<span class="xmlverb-attr-content">http://dlmf.nist.gov/LaTeXML</span>"&gt;<span class="xmlverb-text">LaTeXML</span>&lt;/<span class="xmlverb-element-name">a</span>&gt;<span class="xmlverb-text">'s XMath format, as required for </span>&lt;<span class="xmlverb-element-name"><a name="d65e15">a</a></span> <span class="xmlverb-attr-name">href</span>="<span class="xmlverb-attr-content">http://trac.kwarc.info/lamapun</span>"&gt;<span class="xmlverb-text">LaMaPUn</span>&lt;/<span class="xmlverb-element-name">a</span>&gt;&lt;/<span class="xmlverb-element-nsprefix">xd</span>:<span class="xmlverb-element-name">short</span>&gt;<span class="xmlverb-text"><br></br>
+        </span>&lt;<span class="xmlverb-element-nsprefix">xd</span>:<span class="xmlverb-element-name"><a name="d65e18">detail</a></span>&gt;<span class="xmlverb-text">https://svn.kwarc.info/repos/lamapun/projects/Ontology/LaMaPUn.owl</span>&lt;/<span class="xmlverb-element-nsprefix">xd</span>:<span class="xmlverb-element-name">detail</span>&gt;<span class="xmlverb-text"><br></br>
+        </span>&lt;<span class="xmlverb-element-nsprefix">xd</span>:<span class="xmlverb-element-name"><a name="d65e21">author</a></span>&gt;<span class="xmlverb-text">Lucian Mocanu, Christoph Lange</span>&lt;/<span class="xmlverb-element-nsprefix">xd</span>:<span class="xmlverb-element-name">author</span>&gt;<span class="xmlverb-text"><br></br>
+        </span>&lt;<span class="xmlverb-element-nsprefix">xd</span>:<span class="xmlverb-element-name"><a name="d65e24">copyright</a></span>&gt;<span class="xmlverb-text">Lucian Mocanu Christoph Lange, 2009-2011</span>&lt;/<span class="xmlverb-element-nsprefix">xd</span>:<span class="xmlverb-element-name">copyright</span>&gt;<span class="xmlverb-text"><br></br>
+        </span>&lt;<span class="xmlverb-element-nsprefix">xd</span>:<span class="xmlverb-element-name"><a name="d65e27">svnId</a></span>&gt;<span class="xmlverb-text">$Id: xmath.xsl 1998 2011-05-27 10:47:00Z lucianct $</span>&lt;/<span class="xmlverb-element-nsprefix">xd</span>:<span class="xmlverb-element-name">svnId</span>&gt;<span class="xmlverb-text"><br></br>
         </span>&lt;/<span class="xmlverb-element-nsprefix">xd</span>:<span class="xmlverb-element-name">doc</span>&gt;</div><span class="xmlverb-text"><br></br>
 <br></br>
         </span><div class="xd">
 
-    &lt;<span class="xmlverb-element-nsprefix">xd</span>:<span class="xmlverb-element-name"><a name="d62e31">doc</a></span>&gt;<span class="xmlverb-text">The way we want to generate URIs for resources of interest; can be<br></br>
+    &lt;<span class="xmlverb-element-nsprefix">xd</span>:<span class="xmlverb-element-name"><a name="d65e31">doc</a></span>&gt;<span class="xmlverb-text">The way we want to generate URIs for resources of interest; can be<br></br>
         a list of multiple ways. For every way that is not part of the Krextor<br></br>
-        core, we have to develop a </span>&lt;<span class="xmlverb-element-name"><a name="d62e33">code</a></span>&gt;<span class="xmlverb-text">krextor-genuri:name</span>&lt;/<span class="xmlverb-element-name">code</span>&gt;<span class="xmlverb-text"> template<br></br>
+        core, we have to develop a </span>&lt;<span class="xmlverb-element-name"><a name="d65e33">code</a></span>&gt;<span class="xmlverb-text">krextor-genuri:name</span>&lt;/<span class="xmlverb-element-name">code</span>&gt;<span class="xmlverb-text"> template<br></br>
         implementing that particular URI generation.</span>&lt;/<span class="xmlverb-element-nsprefix">xd</span>:<span class="xmlverb-element-name">doc</span>&gt;</div><span class="xmlverb-text"><br></br>
-        </span>&lt;<span class="xmlverb-element-name"><a name="d62e37">param</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">autogenerate-fragment-uris</span>" <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">'xml-id'</span>" /&gt;<span class="xmlverb-text"><br></br>
+        </span>&lt;<span class="xmlverb-element-name"><a name="d65e37">param</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">autogenerate-fragment-uris</span>" <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">'xml-id'</span>" /&gt;<span class="xmlverb-text"><br></br>
 <br></br>
-        </span>&lt;!--<span class="xmlverb-comment"><br></br>
-                TODO:<br></br>
-                1. add DC: each keyword child of the document with 'property="dct:foo"'<br></br>
-                   and 'content="bar"' should become the 'foo' property of the document<br></br>
-                   with the value 'bar'<br></br>
-                2. add title/creator to Ontology or use DC for that; also: personname, date<br></br>
-                4. math<br></br>
-                5. table, figure, graphics<br></br>
-        </span>--&gt;<span class="xmlverb-text">        <br></br>
-        <br></br>
-        </span>&lt;<span class="xmlverb-element-name"><a name="d62e42">template</a></span> <span class="xmlverb-attr-name">match</span>="<span class="xmlverb-attr-content">document</span>" <span class="xmlverb-attr-name">mode</span>="<span class="xmlverb-attr-content">krextor:main</span>"&gt;<span class="xmlverb-text"><br></br>
-                </span>&lt;<span class="xmlverb-element-name"><a name="d62e44">call-template</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">krextor:create-resource</span>"&gt;<span class="xmlverb-text"><br></br>
-                        </span>&lt;<span class="xmlverb-element-name"><a name="d62e46">with-param</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">type</span>" <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">'http://www.kwarc.info/projects/lamapun#Document'</span>" /&gt;<span class="xmlverb-text"><br></br>
-                        </span>&lt;<span class="xmlverb-element-name"><a name="d62e48">with-param</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">related-via-properties</span>" <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">'http://www.kwarc.info/projects/lamapun#hasChild'</span>" <span class="xmlverb-attr-name">tunnel</span>="<span class="xmlverb-attr-content">yes</span>" /&gt;<span class="xmlverb-text"><br></br>
-                        </span>&lt;<span class="xmlverb-element-name"><a name="d62e50">with-param</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">related-via-inverse-properties</span>" <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">'http://www.kwarc.info/projects/lamapun#hasParent'</span>" <span class="xmlverb-attr-name">tunnel</span>="<span class="xmlverb-attr-content">yes</span>" /&gt;<span class="xmlverb-text"><br></br>
+        </span><div class="xd">
+
+    &lt;<span class="xmlverb-element-nsprefix">xd</span>:<span class="xmlverb-element-name"><a name="d65e40">doc</a></span>&gt;<span class="xmlverb-text">Extract the document element</span>&lt;/<span class="xmlverb-element-nsprefix">xd</span>:<span class="xmlverb-element-name">doc</span>&gt;</div><span class="xmlverb-text"><br></br>
+        </span>&lt;<span class="xmlverb-element-name"><a name="d65e43">template</a></span> <span class="xmlverb-attr-name">match</span>="<span class="xmlverb-attr-content">document</span>" <span class="xmlverb-attr-name">mode</span>="<span class="xmlverb-attr-content">krextor:main</span>"&gt;<span class="xmlverb-text"><br></br>
+                </span>&lt;<span class="xmlverb-element-name"><a name="d65e45">call-template</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">krextor:create-resource</span>"&gt;<span class="xmlverb-text"><br></br>
+                        </span>&lt;<span class="xmlverb-element-name"><a name="d65e47">with-param</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">type</span>" <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">'http://www.kwarc.info/projects/lamapun#Document'</span>" /&gt;<span class="xmlverb-text"><br></br>
+                        </span>&lt;<span class="xmlverb-element-name"><a name="d65e49">with-param</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">related-via-properties</span>" <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">'http://www.kwarc.info/projects/lamapun#hasChild'</span>" <span class="xmlverb-attr-name">tunnel</span>="<span class="xmlverb-attr-content">yes</span>" /&gt;<span class="xmlverb-text"><br></br>
+                        </span>&lt;<span class="xmlverb-element-name"><a name="d65e51">with-param</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">related-via-inverse-properties</span>" <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">'http://www.kwarc.info/projects/lamapun#hasParent'</span>" <span class="xmlverb-attr-name">tunnel</span>="<span class="xmlverb-attr-content">yes</span>" /&gt;<span class="xmlverb-text"><br></br>
                 </span>&lt;/<span class="xmlverb-element-name">call-template</span>&gt;<span class="xmlverb-text"><br></br>
         </span>&lt;/<span class="xmlverb-element-name">template</span>&gt;<span class="xmlverb-text"><br></br>
         <br></br>
         </span><div class="xd">
 
-    &lt;<span class="xmlverb-element-nsprefix">xd</span>:<span class="xmlverb-element-name"><a name="d62e54">doc</a></span>&gt;<span class="xmlverb-text">Support for literal-valued RDFa metadata</span>&lt;/<span class="xmlverb-element-nsprefix">xd</span>:<span class="xmlverb-element-name">doc</span>&gt;</div><span class="xmlverb-text"><br></br>
-        </span>&lt;<span class="xmlverb-element-name"><a name="d62e57">template</a></span> <span class="xmlverb-attr-name">match</span>="<span class="xmlverb-attr-content">keywords</span>" <span class="xmlverb-attr-name">mode</span>="<span class="xmlverb-attr-content">krextor:main</span>"&gt;<span class="xmlverb-text"><br></br>
-                </span>&lt;<span class="xmlverb-element-name"><a name="d62e59">apply-templates</a></span> <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">@property</span>" <span class="xmlverb-attr-name">mode</span>="<span class="xmlverb-attr-content">krextor:main</span>" /&gt;<span class="xmlverb-text"><br></br>
+    &lt;<span class="xmlverb-element-nsprefix">xd</span>:<span class="xmlverb-element-name"><a name="d65e55">doc</a></span>&gt;<span class="xmlverb-text">Support for literal-valued RDFa metadata</span>&lt;/<span class="xmlverb-element-nsprefix">xd</span>:<span class="xmlverb-element-name">doc</span>&gt;</div><span class="xmlverb-text"><br></br>
+        </span>&lt;<span class="xmlverb-element-name"><a name="d65e58">template</a></span> <span class="xmlverb-attr-name">match</span>="<span class="xmlverb-attr-content">keywords</span>" <span class="xmlverb-attr-name">mode</span>="<span class="xmlverb-attr-content">krextor:main</span>"&gt;<span class="xmlverb-text"><br></br>
+                </span>&lt;<span class="xmlverb-element-name"><a name="d65e60">apply-templates</a></span> <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">@property</span>" <span class="xmlverb-attr-name">mode</span>="<span class="xmlverb-attr-content">krextor:main</span>" /&gt;<span class="xmlverb-text"><br></br>
         </span>&lt;/<span class="xmlverb-element-name">template</span>&gt;<span class="xmlverb-text"><br></br>
         <br></br>
         </span>&lt;!--<span class="xmlverb-comment"> TODO: extend to other roles </span>--&gt;<span class="xmlverb-text"><br></br>
-        </span>&lt;<span class="xmlverb-element-name"><a name="d62e64">template</a></span> <span class="xmlverb-attr-name">match</span>="<span class="xmlverb-attr-content">date[@role='creation']</span>" <span class="xmlverb-attr-name">mode</span>="<span class="xmlverb-attr-content">krextor:main</span>"&gt;<span class="xmlverb-text"><br></br>
-                </span>&lt;<span class="xmlverb-element-name"><a name="d62e66">call-template</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">krextor:add-literal-property</span>"&gt;<span class="xmlverb-text"><br></br>
-                        </span>&lt;<span class="xmlverb-element-name"><a name="d62e68">with-param</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">property</span>" <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">'http://purl.org/dc/terms/created'</span>" /&gt;<span class="xmlverb-text"><br></br>
+        </span>&lt;<span class="xmlverb-element-name"><a name="d65e65">template</a></span> <span class="xmlverb-attr-name">match</span>="<span class="xmlverb-attr-content">date[@role='creation']</span>" <span class="xmlverb-attr-name">mode</span>="<span class="xmlverb-attr-content">krextor:main</span>"&gt;<span class="xmlverb-text"><br></br>
+                </span>&lt;<span class="xmlverb-element-name"><a name="d65e67">call-template</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">krextor:add-literal-property</span>"&gt;<span class="xmlverb-text"><br></br>
+                        </span>&lt;<span class="xmlverb-element-name"><a name="d65e69">with-param</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">property</span>" <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">'http://purl.org/dc/terms/created'</span>" /&gt;<span class="xmlverb-text"><br></br>
                 </span>&lt;/<span class="xmlverb-element-name">call-template</span>&gt;<span class="xmlverb-text"><br></br>
         </span>&lt;/<span class="xmlverb-element-name">template</span>&gt;<span class="xmlverb-text"><br></br>
 <br></br>
-        </span>&lt;<span class="xmlverb-element-name"><a name="d62e72">template</a></span> <span class="xmlverb-attr-name">match</span>="<span class="xmlverb-attr-content">section|subsection|subsubsection|sentence|word</span>" <span class="xmlverb-attr-name">mode</span>="<span class="xmlverb-attr-content">krextor:main</span>"&gt;<span class="xmlverb-text"><br></br>
-                </span>&lt;<span class="xmlverb-element-name"><a name="d62e74">call-template</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">krextor:create-resource</span>"&gt;<span class="xmlverb-text"><br></br>
-                        </span>&lt;<span class="xmlverb-element-name"><a name="d62e76">with-param</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">type</span>" <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">concat('http://www.kwarc.info/projects/lamapun#', krextor:ucfirst(local-name()))</span>" /&gt;<span class="xmlverb-text"><br></br>
-                        </span>&lt;<span class="xmlverb-element-name"><a name="d62e78">with-param</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">related-via-properties</span>" <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">'http://www.kwarc.info/projects/lamapun#hasChild'</span>" <span class="xmlverb-attr-name">tunnel</span>="<span class="xmlverb-attr-content">yes</span>" /&gt;<span class="xmlverb-text"><br></br>
-                        </span>&lt;<span class="xmlverb-element-name"><a name="d62e80">with-param</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">related-via-inverse-properties</span>" <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">'http://www.kwarc.info/projects/lamapun#hasParent'</span>" <span class="xmlverb-attr-name">tunnel</span>="<span class="xmlverb-attr-content">yes</span>" /&gt;<span class="xmlverb-text"><br></br>
+        </span>&lt;!--<span class="xmlverb-comment"> TODO: table, figure </span>--&gt;<span class="xmlverb-text"><br></br>
+        </span><div class="xd">
+
+    &lt;<span class="xmlverb-element-nsprefix">xd</span>:<span class="xmlverb-element-name"><a name="d65e76">doc</a></span>&gt;<span class="xmlverb-text">Extract the main structural elements</span>&lt;/<span class="xmlverb-element-nsprefix">xd</span>:<span class="xmlverb-element-name">doc</span>&gt;</div><span class="xmlverb-text"><br></br>
+        </span>&lt;<span class="xmlverb-element-name"><a name="d65e79">template</a></span> <span class="xmlverb-attr-name">match</span>="<span class="xmlverb-attr-content">abstract|chapter|section|subsection|subsubsection|definition|proof|theorem|sentence|word</span>" <span class="xmlverb-attr-name">mode</span>="<span class="xmlverb-attr-content">krextor:main</span>"&gt;<span class="xmlverb-text"><br></br>
+                </span>&lt;<span class="xmlverb-element-name"><a name="d65e81">call-template</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">krextor:create-resource</span>"&gt;<span class="xmlverb-text"><br></br>
+                        </span>&lt;<span class="xmlverb-element-name"><a name="d65e83">with-param</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">type</span>" <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">concat('http://www.kwarc.info/projects/lamapun#', krextor:ucfirst(local-name()))</span>" /&gt;<span class="xmlverb-text"><br></br>
+                        </span>&lt;<span class="xmlverb-element-name"><a name="d65e85">with-param</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">related-via-properties</span>" <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">'http://www.kwarc.info/projects/lamapun#hasChild'</span>" <span class="xmlverb-attr-name">tunnel</span>="<span class="xmlverb-attr-content">yes</span>" /&gt;<span class="xmlverb-text"><br></br>
+                        </span>&lt;<span class="xmlverb-element-name"><a name="d65e87">with-param</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">related-via-inverse-properties</span>" <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">'http://www.kwarc.info/projects/lamapun#hasParent'</span>" <span class="xmlverb-attr-name">tunnel</span>="<span class="xmlverb-attr-content">yes</span>" /&gt;<span class="xmlverb-text"><br></br>
                 </span>&lt;/<span class="xmlverb-element-name">call-template</span>&gt;<span class="xmlverb-text"><br></br>
+        </span>&lt;/<span class="xmlverb-element-name">template</span>&gt;<span class="xmlverb-text"><br></br>
+<br></br>
+        </span>&lt;!--<span class="xmlverb-comment"> Paragraphs are named differently by LaTeXML </span>--&gt;<span class="xmlverb-text"><br></br>
+        </span>&lt;<span class="xmlverb-element-name"><a name="d65e93">template</a></span> <span class="xmlverb-attr-name">match</span>="<span class="xmlverb-attr-content">para</span>" <span class="xmlverb-attr-name">mode</span>="<span class="xmlverb-attr-content">krextor:main</span>"&gt;<span class="xmlverb-text"><br></br>
+                </span>&lt;<span class="xmlverb-element-name"><a name="d65e95">call-template</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">krextor:create-resource</span>"&gt;<span class="xmlverb-text"><br></br>
+                        </span>&lt;<span class="xmlverb-element-name"><a name="d65e97">with-param</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">type</span>" <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">'http://www.kwarc.info/projects/lamapun#Paragraph'</span>" /&gt;<span class="xmlverb-text"><br></br>
+                        </span>&lt;<span class="xmlverb-element-name"><a name="d65e99">with-param</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">related-via-properties</span>" <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">'http://www.kwarc.info/projects/lamapun#hasChild'</span>" <span class="xmlverb-attr-name">tunnel</span>="<span class="xmlverb-attr-content">yes</span>" /&gt;<span class="xmlverb-text"><br></br>
+                        </span>&lt;<span class="xmlverb-element-name"><a name="d65e101">with-param</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">related-via-inverse-properties</span>" <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">'http://www.kwarc.info/projects/lamapun#hasParent'</span>" <span class="xmlverb-attr-name">tunnel</span>="<span class="xmlverb-attr-content">yes</span>" /&gt;<span class="xmlverb-text"><br></br>
+                </span>&lt;/<span class="xmlverb-element-name">call-template</span>&gt;<span class="xmlverb-text"><br></br>
+        </span>&lt;/<span class="xmlverb-element-name">template</span>&gt;<span class="xmlverb-text"><br></br>
+<br></br>
+        </span>&lt;!--<span class="xmlverb-comment"> TODO: choose the subclass of Formula based on the child Math element </span>--&gt;<span class="xmlverb-text"><br></br>
+        </span>&lt;<span class="xmlverb-element-name"><a name="d65e107">template</a></span> <span class="xmlverb-attr-name">match</span>="<span class="xmlverb-attr-content">formula</span>"&gt;<span class="xmlverb-text"><br></br>
+                </span>&lt;<span class="xmlverb-element-name"><a name="d65e109">call-template</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">krextor:create-resource</span>"&gt;<span class="xmlverb-text"><br></br>
+                        </span>&lt;<span class="xmlverb-element-name"><a name="d65e111">with-param</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">type</span>" <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">'http://www.kwarc.info/projects/lamapun#Formula'</span>" /&gt;<span class="xmlverb-text"><br></br>
+                        </span>&lt;<span class="xmlverb-element-name"><a name="d65e113">with-param</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">related-via-properties</span>" <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">'http://www.kwarc.info/projects/lamapun#hasChild'</span>" <span class="xmlverb-attr-name">tunnel</span>="<span class="xmlverb-attr-content">yes</span>" /&gt;<span class="xmlverb-text"><br></br>
+                        </span>&lt;<span class="xmlverb-element-name"><a name="d65e115">with-param</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">related-via-inverse-properties</span>" <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">'http://www.kwarc.info/projects/lamapun#hasParent'</span>" <span class="xmlverb-attr-name">tunnel</span>="<span class="xmlverb-attr-content">yes</span>" /&gt;<span class="xmlverb-text"><br></br>
+                </span>&lt;/<span class="xmlverb-element-name">call-template</span>&gt;<span class="xmlverb-text"><br></br>
+                </span>&lt;!--<span class="xmlverb-comment"><br></br>
+                &lt;call-template name="krextor:add-literal-property"&gt;<br></br>
+                &lt;/call-teamplate&gt;<br></br>
+                </span>--&gt;<span class="xmlverb-text"><br></br>
         </span>&lt;/<span class="xmlverb-element-name">template</span>&gt;<span class="xmlverb-text"><br></br>
 <br></br>
         </span>&lt;!--<span class="xmlverb-comment"><br></br>
-        &lt;template match="section" mode="krextor:main"&gt;<br></br>
+        &lt;template match="Math"&gt;<br></br>
                 &lt;call-template name="krextor:create-resource"&gt;<br></br>
-                        &lt;with-param name="type" select="'&amp;lamapun;Section'"/&gt;<br></br>
-                        &lt;with-param name="related-via-properties" select="'&amp;lamapun;hasChild'" tunnel="yes"/&gt;<br></br>
-                        &lt;with-param name="related-via-inverse-properties" select="'&amp;lamapun;hasParent'" tunnel="yes"/&gt;<br></br>
-                &lt;/call-template&gt;<br></br>
-        &lt;/template&gt;<br></br>
-        <br></br>
-        &lt;template match="subsection" mode="krextor:main"&gt;<br></br>
-                &lt;call-template name="krextor:create-resource"&gt;<br></br>
-                        &lt;with-param name="type" select="'&amp;lamapun;Subsection'"/&gt;<br></br>
-                        &lt;with-param name="related-via-properties" select="'&amp;lamapun;hasChild'" tunnel="yes"/&gt;<br></br>
-                        &lt;with-param name="related-via-inverse-properties" select="'&amp;lamapun;hasParent'" tunnel="yes"/&gt;<br></br>
-                &lt;/call-template&gt;<br></br>
-        &lt;/template&gt;<br></br>
-        <br></br>
-        &lt;template match="subsubsection" mode="krextor:main"&gt;<br></br>
-                &lt;call-template name="krextor:create-resource"&gt;<br></br>
-                        &lt;with-param name="type" select="'&amp;lamapun;Subsubsection'"/&gt;<br></br>
-                        &lt;with-param name="related-via-properties" select="'&amp;lamapun;hasChild'" tunnel="yes"/&gt;<br></br>
-                        &lt;with-param name="related-via-inverse-properties" select="'&amp;lamapun;hasParent'" tunnel="yes"/&gt;<br></br>
-                &lt;/call-template&gt;<br></br>
-        &lt;/template&gt;<br></br>
-        <br></br>
-        &lt;template match="sentence" mode="krextor:main"&gt;<br></br>
-                &lt;call-template name="krextor:create-resource"&gt;<br></br>
-                        &lt;with-param name="type" select="'&amp;lamapun;Sentence'"/&gt;<br></br>
-                        &lt;with-param name="related-via-properties" select="'&amp;lamapun;hasChild'" tunnel="yes"/&gt;<br></br>
-                        &lt;with-param name="related-via-inverse-properties" select="'&amp;lamapun;hasParent'" tunnel="yes"/&gt;<br></br>
-                &lt;/call-template&gt;<br></br>
-        &lt;/template&gt;<br></br>
-        <br></br>
-        &lt;template match="word" mode="krextor:main"&gt;<br></br>
-                &lt;call-template name="krextor:create-resource"&gt;<br></br>
-                        &lt;with-param name="type" select="'&amp;lamapun;Word'"/&gt;<br></br>
+                        &lt;with-param name="type" select="'&amp;lamapun;Formula'"/&gt;<br></br>
                         &lt;with-param name="related-via-properties" select="'&amp;lamapun;hasChild'" tunnel="yes"/&gt;<br></br>
                         &lt;with-param name="related-via-inverse-properties" select="'&amp;lamapun;hasParent'" tunnel="yes"/&gt;<br></br>
                 &lt;/call-template&gt;<br></br>
         &lt;/template&gt;<br></br>
         </span>--&gt;<span class="xmlverb-text"><br></br>
 <br></br>
-        </span>&lt;<span class="xmlverb-element-name"><a name="d62e87">template</a></span> <span class="xmlverb-attr-name">match</span>="<span class="xmlverb-attr-content">para</span>" <span class="xmlverb-attr-name">mode</span>="<span class="xmlverb-attr-content">krextor:main</span>"&gt;<span class="xmlverb-text"><br></br>
-                </span>&lt;<span class="xmlverb-element-name"><a name="d62e89">call-template</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">krextor:create-resource</span>"&gt;<span class="xmlverb-text"><br></br>
-                        </span>&lt;<span class="xmlverb-element-name"><a name="d62e91">with-param</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">type</span>" <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">'http://www.kwarc.info/projects/lamapun#Paragraph'</span>" /&gt;<span class="xmlverb-text"><br></br>
-                        </span>&lt;<span class="xmlverb-element-name"><a name="d62e93">with-param</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">related-via-properties</span>" <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">'http://www.kwarc.info/projects/lamapun#hasChild'</span>" <span class="xmlverb-attr-name">tunnel</span>="<span class="xmlverb-attr-content">yes</span>" /&gt;<span class="xmlverb-text"><br></br>
-                        </span>&lt;<span class="xmlverb-element-name"><a name="d62e95">with-param</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">related-via-inverse-properties</span>" <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">'http://www.kwarc.info/projects/lamapun#hasParent'</span>" <span class="xmlverb-attr-name">tunnel</span>="<span class="xmlverb-attr-content">yes</span>" /&gt;<span class="xmlverb-text"><br></br>
-                </span>&lt;/<span class="xmlverb-element-name">call-template</span>&gt;<span class="xmlverb-text"><br></br>
-        </span>&lt;/<span class="xmlverb-element-name">template</span>&gt;<span class="xmlverb-text"><br></br>
-        <br></br>
-        </span>&lt;<span class="xmlverb-element-name"><a name="d62e99">template</a></span> <span class="xmlverb-attr-name">match</span>="<span class="xmlverb-attr-content">token</span>" <span class="xmlverb-attr-name">mode</span>="<span class="xmlverb-attr-content">krextor:main</span>"&gt;<span class="xmlverb-text"><br></br>
-                </span>&lt;<span class="xmlverb-element-name"><a name="d62e101">call-template</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">krextor:create-resource</span>"&gt;<span class="xmlverb-text"><br></br>
-                        </span>&lt;<span class="xmlverb-element-name"><a name="d62e103">with-param</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">type</span>" <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">if (ancestor::word) then 'http://www.kwarc.info/projects/lamapun#WordToken' else 'http://www.kwarc.info/projects/lamapun#MathToken'</span>" /&gt;<span class="xmlverb-text"><br></br>
-                        </span>&lt;<span class="xmlverb-element-name"><a name="d62e105">with-param</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">process-next</span>" <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">text()</span>" /&gt;<span class="xmlverb-text"><br></br>
-                        </span>&lt;<span class="xmlverb-element-name"><a name="d62e107">with-param</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">related-via-properties</span>" <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">'http://www.kwarc.info/projects/lamapun#hasChild'</span>" <span class="xmlverb-attr-name">tunnel</span>="<span class="xmlverb-attr-content">yes</span>" /&gt;<span class="xmlverb-text"><br></br>
-                        </span>&lt;<span class="xmlverb-element-name"><a name="d62e109">with-param</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">related-via-inverse-properties</span>" <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">'http://www.kwarc.info/projects/lamapun#hasParent'</span>" <span class="xmlverb-attr-name">tunnel</span>="<span class="xmlverb-attr-content">yes</span>" /&gt;<span class="xmlverb-text"><br></br>
+        </span>&lt;<span class="xmlverb-element-name"><a name="d65e124">template</a></span> <span class="xmlverb-attr-name">match</span>="<span class="xmlverb-attr-content">XMath</span>"&gt;<span class="xmlverb-text"><br></br>
+                </span>&lt;<span class="xmlverb-element-name"><a name="d65e126">call-template</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">krextor:create-resource</span>"&gt;<span class="xmlverb-text"><br></br>
+                        </span>&lt;<span class="xmlverb-element-name"><a name="d65e128">with-param</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">type</span>" <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">'http://www.kwarc.info/projects/lamapun#MathExpression'</span>" /&gt;<span class="xmlverb-text"><br></br>
+                        </span>&lt;<span class="xmlverb-element-name"><a name="d65e130">with-param</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">related-via-properties</span>" <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">'http://www.kwarc.info/projects/lamapun#hasChild'</span>" <span class="xmlverb-attr-name">tunnel</span>="<span class="xmlverb-attr-content">yes</span>" /&gt;<span class="xmlverb-text"><br></br>
+                        </span>&lt;<span class="xmlverb-element-name"><a name="d65e132">with-param</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">related-via-inverse-properties</span>" <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">'http://www.kwarc.info/projects/lamapun#hasParent'</span>" <span class="xmlverb-attr-name">tunnel</span>="<span class="xmlverb-attr-content">yes</span>" /&gt;<span class="xmlverb-text"><br></br>
                 </span>&lt;/<span class="xmlverb-element-name">call-template</span>&gt;<span class="xmlverb-text"><br></br>
         </span>&lt;/<span class="xmlverb-element-name">template</span>&gt;<span class="xmlverb-text"><br></br>
 <br></br>
-        </span>&lt;<span class="xmlverb-element-name"><a name="d62e113">template</a></span> <span class="xmlverb-attr-name">match</span>="<span class="xmlverb-attr-content">token/text()</span>" <span class="xmlverb-attr-name">mode</span>="<span class="xmlverb-attr-content">krextor:main</span>"&gt;<span class="xmlverb-text"><br></br>
-                </span>&lt;<span class="xmlverb-element-name"><a name="d62e115">call-template</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">krextor:add-literal-property</span>"&gt;<span class="xmlverb-text"><br></br>
-                        </span>&lt;<span class="xmlverb-element-name"><a name="d62e117">with-param</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">property</span>" <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">'http://www.kwarc.info/projects/lamapun#content'</span>" /&gt;<span class="xmlverb-text"><br></br>
+        </span>&lt;<span class="xmlverb-element-name"><a name="d65e136">template</a></span> <span class="xmlverb-attr-name">match</span>="<span class="xmlverb-attr-content">XMApp</span>"&gt;<span class="xmlverb-text"><br></br>
+                </span>&lt;<span class="xmlverb-element-name"><a name="d65e138">call-template</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">krextor:create-resource</span>"&gt;<span class="xmlverb-text"><br></br>
+                        </span>&lt;<span class="xmlverb-element-name"><a name="d65e140">with-param</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">type</span>" <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">'http://www.kwarc.info/projects/lamapun#MathApp'</span>" /&gt;<span class="xmlverb-text"><br></br>
+                        </span>&lt;<span class="xmlverb-element-name"><a name="d65e142">with-param</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">related-via-properties</span>" <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">'http://www.kwarc.info/projects/lamapun#hasChild'</span>" <span class="xmlverb-attr-name">tunnel</span>="<span class="xmlverb-attr-content">yes</span>" /&gt;<span class="xmlverb-text"><br></br>
+                        </span>&lt;<span class="xmlverb-element-name"><a name="d65e144">with-param</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">related-via-inverse-properties</span>" <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">'http://www.kwarc.info/projects/lamapun#hasParent'</span>" <span class="xmlverb-attr-name">tunnel</span>="<span class="xmlverb-attr-content">yes</span>" /&gt;<span class="xmlverb-text"><br></br>
+                </span>&lt;/<span class="xmlverb-element-name">call-template</span>&gt;<span class="xmlverb-text"><br></br>
+        </span>&lt;/<span class="xmlverb-element-name">template</span>&gt;<span class="xmlverb-text"><br></br>
+<br></br>
+        </span>&lt;<span class="xmlverb-element-name"><a name="d65e148">template</a></span> <span class="xmlverb-attr-name">match</span>="<span class="xmlverb-attr-content">XMArg</span>"&gt;<span class="xmlverb-text"><br></br>
+                </span>&lt;<span class="xmlverb-element-name"><a name="d65e150">call-template</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">krextor:create-resource</span>"&gt;<span class="xmlverb-text"><br></br>
+                        </span>&lt;<span class="xmlverb-element-name"><a name="d65e152">with-param</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">type</span>" <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">'http://www.kwarc.info/projects/lamapun#MathExpression'</span>" /&gt;<span class="xmlverb-text"><br></br>
+                        </span>&lt;<span class="xmlverb-element-name"><a name="d65e154">with-param</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">related-via-properties</span>" <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">'http://www.kwarc.info/projects/lamapun#hasChild'</span>" <span class="xmlverb-attr-name">tunnel</span>="<span class="xmlverb-attr-content">yes</span>" /&gt;<span class="xmlverb-text"><br></br>
+                        </span>&lt;<span class="xmlverb-element-name"><a name="d65e156">with-param</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">related-via-inverse-properties</span>" <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">'http://www.kwarc.info/projects/lamapun#hasParent'</span>" <span class="xmlverb-attr-name">tunnel</span>="<span class="xmlverb-attr-content">yes</span>" /&gt;<span class="xmlverb-text"><br></br>
                 </span>&lt;/<span class="xmlverb-element-name">call-template</span>&gt;<span class="xmlverb-text"><br></br>
         </span>&lt;/<span class="xmlverb-element-name">template</span>&gt;<span class="xmlverb-text"><br></br>
         <br></br>
-        </span>&lt;!--<span class="xmlverb-comment"><br></br>
-        &lt;template match="formula"&gt;<br></br>
-                &lt;call-template name="krextor:create-resource"&gt;<br></br>
-                        &lt;with-param name="type" select="MathExpression"/&gt;<br></br>
-                &lt;/call-template&gt;<br></br>
-        &lt;/template&gt;<br></br>
-        &lt;template match="formula/*"&gt;<br></br>
-                &lt;call-template name="krextor:create-resource"&gt;<br></br>
-                        &lt;with-param name="type" select="." /&gt;<br></br>
-                        &lt;with-param name="related-via-properties" select="'&amp;lamapun;hasChild'" tunnel="yes"/&gt;<br></br>
-                &lt;/call-template&gt;<br></br>
-        &lt;/template&gt;<br></br>
-        </span>--&gt;<span class="xmlverb-text"><br></br>
+        </span>&lt;<span class="xmlverb-element-name"><a name="d65e160">template</a></span> <span class="xmlverb-attr-name">match</span>="<span class="xmlverb-attr-content">token</span>" <span class="xmlverb-attr-name">mode</span>="<span class="xmlverb-attr-content">krextor:main</span>"&gt;<span class="xmlverb-text"><br></br>
+                </span>&lt;<span class="xmlverb-element-name"><a name="d65e162">call-template</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">krextor:create-resource</span>"&gt;<span class="xmlverb-text"><br></br>
+                        </span>&lt;<span class="xmlverb-element-name"><a name="d65e164">with-param</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">type</span>" <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">if (ancestor::word) then 'http://www.kwarc.info/projects/lamapun#WordToken' else 'http://www.kwarc.info/projects/lamapun#MathToken'</span>" /&gt;<span class="xmlverb-text"><br></br>
+                        </span>&lt;<span class="xmlverb-element-name"><a name="d65e166">with-param</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">process-next</span>" <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">text()</span>" /&gt;<span class="xmlverb-text"><br></br>
+                        </span>&lt;<span class="xmlverb-element-name"><a name="d65e168">with-param</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">related-via-properties</span>" <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">'http://www.kwarc.info/projects/lamapun#hasChild'</span>" <span class="xmlverb-attr-name">tunnel</span>="<span class="xmlverb-attr-content">yes</span>" /&gt;<span class="xmlverb-text"><br></br>
+                        </span>&lt;<span class="xmlverb-element-name"><a name="d65e170">with-param</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">related-via-inverse-properties</span>" <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">'http://www.kwarc.info/projects/lamapun#hasParent'</span>" <span class="xmlverb-attr-name">tunnel</span>="<span class="xmlverb-attr-content">yes</span>" /&gt;<span class="xmlverb-text"><br></br>
+                </span>&lt;/<span class="xmlverb-element-name">call-template</span>&gt;<span class="xmlverb-text"><br></br>
+        </span>&lt;/<span class="xmlverb-element-name">template</span>&gt;<span class="xmlverb-text"><br></br>
+<br></br>
+        </span>&lt;<span class="xmlverb-element-name"><a name="d65e174">template</a></span> <span class="xmlverb-attr-name">match</span>="<span class="xmlverb-attr-content">token/text()</span>" <span class="xmlverb-attr-name">mode</span>="<span class="xmlverb-attr-content">krextor:main</span>"&gt;<span class="xmlverb-text"><br></br>
+                </span>&lt;<span class="xmlverb-element-name"><a name="d65e176">call-template</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">krextor:add-literal-property</span>"&gt;<span class="xmlverb-text"><br></br>
+                        </span>&lt;<span class="xmlverb-element-name"><a name="d65e178">with-param</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">property</span>" <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">'http://www.kwarc.info/projects/lamapun#content'</span>" /&gt;<span class="xmlverb-text"><br></br>
+                </span>&lt;/<span class="xmlverb-element-name">call-template</span>&gt;<span class="xmlverb-text"><br></br>
+        </span>&lt;/<span class="xmlverb-element-name">template</span>&gt;<span class="xmlverb-text"><br></br>
         <br></br>
-        </span>&lt;<span class="xmlverb-element-name"><a name="d62e123">template</a></span> <span class="xmlverb-attr-name">match</span>="<span class="xmlverb-attr-content">*</span>" <span class="xmlverb-attr-name">mode</span>="<span class="xmlverb-attr-content">krextor:main</span>"&gt;<span class="xmlverb-text"><br></br>
-                </span>&lt;<span class="xmlverb-element-name"><a name="d62e125">message</a></span>&gt;<span class="xmlverb-text">Warning! </span>&lt;<span class="xmlverb-element-name"><a name="d62e127">value-of</a></span> <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">local-name()</span>" /&gt;&lt;/<span class="xmlverb-element-name">message</span>&gt;<span class="xmlverb-text"><br></br>
-                </span>&lt;<span class="xmlverb-element-name"><a name="d62e129">apply-templates</a></span> <span class="xmlverb-attr-name">mode</span>="<span class="xmlverb-attr-content">krextor:main</span>" /&gt;<span class="xmlverb-text"><br></br>
+        </span>&lt;<span class="xmlverb-element-name"><a name="d65e182">template</a></span> <span class="xmlverb-attr-name">match</span>="<span class="xmlverb-attr-content">*</span>" <span class="xmlverb-attr-name">mode</span>="<span class="xmlverb-attr-content">krextor:main</span>"&gt;<span class="xmlverb-text"><br></br>
+                </span>&lt;<span class="xmlverb-element-name"><a name="d65e184">message</a></span>&gt;<span class="xmlverb-text">Warning! </span>&lt;<span class="xmlverb-element-name"><a name="d65e186">value-of</a></span> <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">local-name()</span>" /&gt;&lt;/<span class="xmlverb-element-name">message</span>&gt;<span class="xmlverb-text"><br></br>
+                </span>&lt;<span class="xmlverb-element-name"><a name="d65e188">apply-templates</a></span> <span class="xmlverb-attr-name">mode</span>="<span class="xmlverb-attr-content">krextor:main</span>" /&gt;<span class="xmlverb-text"><br></br>
         </span>&lt;/<span class="xmlverb-element-name">template</span>&gt;<span class="xmlverb-text"><br></br>
         <br></br>
         <br></br>
         </span>&lt;!--<span class="xmlverb-comment"><br></br>
-        &lt;xd:doc&gt;The index of an XMath element among all XMath elements in the<br></br>
-        document. We assume that there are no nested XMath elements, is that<br></br>
-        correct?<br></br>
-        &lt;xd:param name="node"&gt;the node, assumed to be an XMath element&lt;/xd:param&gt;<br></br>
+        &lt;xd:doc&gt;<br></br>
+                The index of an XMath element among all XMath elements in the document. We assume that there are no nested XMath elements, is that correct?<br></br>
+                &lt;xd:param name="node"&gt;the node, assumed to be an XMath element&lt;/xd:param&gt;<br></br>
         &lt;/xd:doc&gt;<br></br>
         &lt;function name="krextor:xmath-index"&gt;<br></br>
-        &lt;param name="node"/&gt;<br></br>
-        &lt;value-of select="count($node/preceding::XMath)"/&gt;<br></br>
+                &lt;param name="node"/&gt;<br></br>
+                &lt;value-of select="count($node/preceding::XMath)"/&gt;<br></br>
         &lt;/function&gt;<br></br>
 <br></br>
-        &lt;xd:doc&gt;Our own generation of fragment URIs (index of the XMath element);<br></br>
-        only succeeds if we are on an XMath element&lt;/xd:doc&gt;<br></br>
+        &lt;xd:doc&gt;Our own generation of fragment URIs (index of the XMath element); only succeeds if we are on an XMath element&lt;/xd:doc&gt;<br></br>
         &lt;template match="krextor-genuri:xmath-index" as="xs:string?"&gt;<br></br>
-        &lt;param name="node"/&gt;<br></br>
-        &lt;param name="base-uri"/&gt;<br></br>
-        &lt;!- this could be implemented more efficiently by breaking<br></br>
-        XSLT 2.0 compliance and incrementing a global counter -&gt;<br></br>
-        &lt;sequence select="krextor:fragment-uri-or-null(<br></br>
-                if ($node/self::XMath) then<br></br>
-                        concat('m', krextor:xmath-index($node))<br></br>
-                else (),<br></br>
-                $base-uri)"/&gt;<br></br>
+                &lt;param name="node"/&gt;<br></br>
+                &lt;param name="base-uri"/&gt;<br></br>
+                &lt;!- this could be implemented more efficiently by breaking XSLT 2.0 compliance and incrementing a global counter -&gt;<br></br>
+                &lt;sequence select="krextor:fragment-uri-or-null(<br></br>
+                        if ($node/self::XMath) then<br></br>
+                                concat('m', krextor:xmath-index($node))<br></br>
+                        else (),<br></br>
+                        $base-uri)"/&gt;<br></br>
         &lt;/template&gt;<br></br>
         </span>--&gt;<span class="xmlverb-text"><br></br>
 <br></br>
@@ -205,8 +191,7 @@
         &lt;!- ... we create an RDF resource (which can easily be declared an<br></br>
         instance of some class) ... -&gt;<br></br>
         &lt;call-template name="krextor:create-resource"&gt;<br></br>
-                &lt;!- ... say how it is related to its parent resource (here: the<br></br>
-                whole document) ... -&gt;<br></br>
+                &lt;!- ... say how it is related to its parent resource (here: the whole document) ... -&gt;<br></br>
                 &lt;with-param name="related-via-properties" select="'&amp;lamapun;hasMath'" tunnel="yes"/&gt;<br></br>
                 &lt;!- ... and give it some additional properties ... -&gt;<br></br>
                 &lt;with-param name="properties"&gt;<br></br>

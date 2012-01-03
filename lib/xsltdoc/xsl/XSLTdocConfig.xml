@@ -29,6 +29,7 @@
     <File href="extract/ocd.xsl"/>
     <File href="extract/omdoc-owl.xsl"/>
     <File href="extract/omdoc.xsl"/>
+    <File href="extract/xbel.xsl"/>
     <File href="extract/xhtml-rdfa.xsl"/>
     <File href="extract/xmath.xsl"/>
     <File href="generic/generic.xsl"/>
