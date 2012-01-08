@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<!-- WARNING: EXPERIMENTAL -->
+
 <!--
-    *  Copyright (C) 2008
+    *  Copyright (C) 2012
     *  Christoph Lange
     *  KWARC, Jacobs University Bremen
     *  http://kwarc.info/projects/krextor/
@@ -93,39 +95,96 @@
 	    </choose>
 	</element>
     </template>
-
+    
     <xd:doc>We obtain the RDF graph as RXR and then regroup the triples
 	by subject</xd:doc>
     <template match="/" mode="krextor:main">
 	<variable name="rxr">
 	    <apply-imports/>
 	</variable>
-	<!-- generate namespace prefixes from all predicates in the RXR graph -->
+        
 	<variable name="namespaces"
 	    select="krextor:generate-namespaces-from-uris(
-		$rxr/rxr:graph/rxr:triple/rxr:predicate/@uri)"/>
+		$rxr/rxr:graph/rxr:triple/rxr:predicate/@uri|
+		$rxr/rxr:graph/rxr:triple[rxr:predicate/@uri eq '&rdf;type']/rxr:object/@uri)"/>
+        
+        <text>{&#xa;</text>
+        
+	<!-- generate namespace prefixes from all predicates in the RXR graph -->
+        <text>&#x9;"@context": {&#xa;</text>
+	<for-each select="$namespaces">
+            <text>&#x9;&#x9;"</text>
+            <value-of select="@prefix"/>
+            <text>": "</text>
+            <value-of select="@uri"/>
+            <text>"</text>
+            <if test="position() ne last()">
+                <text>,</text>
+            </if>
+            <text>&#xa;},&#xa;</text>
+        </for-each>
 
-	<rdf:RDF>
-	    <!-- output generated namespace prefixes -->
-	    <apply-templates select="$namespaces" mode="krextor:xmlns"/>
+        <text>&#9;"@id": [&#xa;</text>
+        
+        <for-each-group select="$rxr/rxr:graph/rxr:triple" group-by="(rxr:subject/@blank|rxr:subject/@uri)[1]">
+            <text>&#x9;{&#xa;</text>
+            <text>&#x9;&#x9;"@id": "</text>
+	    <!-- if the subject has types, convert the first one into a QName, otherwise use rdf:Description -->
+	    <variable name="type-triple" select="current-group()[rxr:predicate/@uri eq '&rdf;type'][rxr:object/@uri][1]"/>
+	    <choose>
+		<when test="$type-triple">
+		    <sequence select="krextor:uri-to-qname($type-triple/rxr:object/@uri, $namespaces)"/>
+		</when>
+		<otherwise>
+		    <sequence select="('&rdf;', 'rdf', 'Description')"/>
+		</otherwise>
+	    </choose>
+	    <variable name="remaining-triples" select="current-group() except ($type-triple)"/>
+	    
+	    <!-- output an element representing the subject and its type -->
+	    <element name="{$type-qname[2]}:{$type-qname[3]}" namespace="{$type-qname[1]}">
+		<choose>
+		    <when test="current-group()/rxr:subject/@blank">
+			<attribute name="rdf:nodeID" select="current-grouping-key()"/>
+		    </when>
+		    <when test="current-group()/rxr:subject/@uri">
+			<attribute name="rdf:about" select="current-grouping-key()"/>
+		    </when>
+		</choose>
+		<apply-templates select="$remaining-triples" mode="krextor:rxr">
+		    <with-param name="namespaces" select="$namespaces"/>
+		</apply-templates>
+	    </element>
+	</for-each-group>
 
-	    <for-each-group select="$rxr/rxr:graph/rxr:triple[rxr:subject/@blank]" group-by="rxr:subject/@blank">
-		<!-- output the subject (blank node) -->
-		<rdf:Description rdf:nodeID="{current-grouping-key()}">
-		    <apply-templates select="current-group()" mode="krextor:rxr">
-			<with-param name="namespaces" select="$namespaces"/>
-		    </apply-templates>
-		</rdf:Description>
-	    </for-each-group>
+        <for-each-group select="$rxr/rxr:graph/rxr:triple[rxr:subject/@blank]" group-by="rxr:subject/@blank">
+            <text>&#x9;{&#xa;</text>
+            <text>&#x9;&#x9;"@id": "_:</text>
+            <value-of select="current-grouping-key()"/>
+            <text>",&#xa;</text>
+            <!-- <apply-templates select="current-group()" mode="krextor:rxr"> -->
+            <!--     <with-param name="namespaces" select="$namespaces"/> -->
+            <!-- </apply-templates> -->
+            <text>&#x9;},&#xa;</text>
+        </for-each-group>
 
-	    <for-each-group select="$rxr/rxr:graph/rxr:triple[rxr:subject/@uri]" group-by="rxr:subject/@uri">
-		<!-- output the subject (URI node) -->
-		<rdf:Description rdf:about="{current-grouping-key()}">
-		    <apply-templates select="current-group()" mode="krextor:rxr">
-			<with-param name="namespaces" select="$namespaces"/>
-		    </apply-templates>
-		</rdf:Description>
-	    </for-each-group>
-	</rdf:RDF>
+        <for-each-group select="$rxr/rxr:graph/rxr:triple[rxr:subject/@uri]" group-by="rxr:subject/@uri">
+            <text>&#x9;{&#xa;</text>
+            <text>&#x9;&#x9;"@id": "_:</text>
+            <value-of select="current-grouping-key()"/>
+            <text>",&#xa;</text>
+            <!-- <apply-templates select="current-group()" mode="krextor:rxr"> -->
+            <!--     <with-param name="namespaces" select="$namespaces"/> -->
+            <!-- </apply-templates> -->
+        </for-each-group>
+        <text>&#9;]&#xa;</text>
+        <text>}</text>
     </template>
 </stylesheet>
+
+<!--
+Local Variables:
+mode: nxml
+nxml-child-indent: 4
+End:
+-->
