@@ -44,11 +44,13 @@
 
     <xd:doc>
 	<xd:short>Should URIs like <code>document#fragment</code> automatically be
-	    generated?  Sequence of string values out of <code>xml-id</code>, <code>document-root-base</code>, <code>generate-id</code>, <code>pseudo-xpath</code>, or additional custom values.</xd:short>
+	    generated?  Sequence of string values out of <code>xml-id</code>, <code>id</code>, <code>document-root-base</code>, <code>generate-id</code>, <code>pseudo-xpath</code>, or additional custom values.</xd:short>
 	<xd:detail><p>This parameter is a sequence of string values representing URI generation functions:</p>
 	    <dl>
 		<dt>xml-id</dt>
 		<dd>use the <a href="http://www.w3.org/TR/xml-id/">xml:id</a> attribute if available, otherwise nothing</dd>
+		<dt>id</dt>
+                <dd>use an <code>id</code> attribute if available, otherwise nothing</dd>
 		<dt>document-root-base</dt>
 		<dd>use the base URI if we are on the root element, otherwise nothing.  Note that for meaningful results you should not pass a manipulated base URI into <code>create-resource</code>.</dd>
 		<dt>generate-id</dt>
@@ -65,15 +67,15 @@
 		    <code>doc-section2-para1</code> =
 		    <code>/doc/section[2]/para[1]</code></dd>
 	    </dl>
-	    <p>The default setting is <code>('xml-id' 'document-root-base')</code>.
+	    <p>The default setting is <code>('xml-id', 'id', 'document-root-base')</code>.
 		If one method fails to generate a URI, the next one in the list is
 		tried, until one succeeds; otherwise, no resource is created for
 		the respective node.</p>
 	    <p>Note that there is no guarantee that <code>generate-id</code> and
 		<code>pseudo-xpath</code> generate URIs that differ from all <a
-		    href="http://www.w3.org/TR/xml-id/">xml:id</a>s in the
+		    href="http://www.w3.org/TR/xml-id/">xml:id</a>s or ids in the
 		document.  We leave the responsibility of not creating too obscure
-		<code>xml:id</code>s to the document author.</p>
+		<code>xml:id</code>s or <code>id</code>s to the document author.</p>
 	    <p>Also note that any fragment ID that the base URI of the document
 		already has is discarded and replaced by the generated fragment ID,
 		if Krextor is instructed to generate one.  More than one fragment
@@ -87,6 +89,7 @@
     </xd:doc>
     <param name="autogenerate-fragment-uris" as="xs:string*" select="
 	'xml-id',
+	'id',
 	'document-root-base'"/>
 
     <xd:doc>Configures whether relative URIs should be resolved into absolute URIs when generating URIs for resources.  Setting it to <code>false</code> is experimental.</xd:doc>
@@ -244,14 +247,19 @@
 	    else ()"/>
     </template>
 
-    <xd:doc>Common implementation of the <code>xml-id</code>, <code>generate-id</code> and <code>pseudo-xpath</code> URI generation functions.  They all use the given base URI and append a fragment ID; they differ in how the fragment ID is generated.  The base URI is generally assumed to be the URI of the document that contains the given node.</xd:doc>
-    <template match="krextor-genuri:xml-id|krextor-genuri:generate-id|krextor-genuri:pseudo-xpath" as="xs:string?">
+    <xd:doc>Common implementation of the <code>xml-id</code>, <code>id</code>, <code>generate-id</code> and <code>pseudo-xpath</code> URI generation functions.  They all use the given base URI and append a fragment ID; they differ in how the fragment ID is generated.  The base URI is generally assumed to be the URI of the document that contains the given node.</xd:doc>
+    <template match="krextor-genuri:xml-id|
+                     krextor-genuri:id|
+                     krextor-genuri:generate-id|
+                     krextor-genuri:pseudo-xpath" as="xs:string?">
 	<param name="node" as="node()"/>
 	<param name="base-uri" as="xs:anyURI"/>
 	<sequence select="
 	    krextor:fragment-uri-or-null(
 		if (self::krextor-genuri:xml-id and $node/@xml:id)
 		    then $node/@xml:id
+		else if (self::krextor-genuri:id and $node/@id)
+		    then $node/@id
 		else if (self::krextor-genuri:generate-id)
 		    then generate-id($node)
 		else if (self::krextor-genuri:pseudo-xpath)
@@ -285,4 +293,11 @@
 	    mode="krextor:uri-generation-method"/>
     </function>
 </stylesheet>
+
+<!--
+Local Variables:
+mode: nxml
+nxml-child-indent: 4
+End:
+-->
 
