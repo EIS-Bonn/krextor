@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE stylesheet [
+    <!ENTITY dc "http://purl.org/dc/elements/1.1/">
+    <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#" >
+]>
+<math cdgroup="foo.cdg" xmlns="http://www.w3.org/1998/Math/MathML">
+    <semantics id="foo">
+        <mi>Hello</mi>
+        <annotation definitionURL="&dc;description">a variable</annotation>
+        <annotation definitionURL="&rdfs;seeAlso" src="#bar"/>
+        <annotation xml:lang="en">hello</annotation>
+        <annotation-xml cd="mathmlkeys" name="contentequiv" encoding="MathML-Content">
+            <ci>Hello</ci>
+        </annotation-xml>
+    </semantics>
+    <mo>*</mo>
+    <semantics id="bar">
+        <mi>World</mi>
+        <annotation cd="foo" name="bar"></annotation>
+    </semantics>
+</math>

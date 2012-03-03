@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CDGroup xmlns="http://www.openmath.org/OpenMathCDG">
+    <CDGroupMember>
+        <CDName>foo</CDName>
+        <CDURL>http://example.org/cd/foo</CDURL>
+    </CDGroupMember>
+    <CDGroupMember>
+        <CDName>mathmlkeys</CDName>
+        <CDURL>http://www.openmath.org/cd/mathmlkeys</CDURL>
+    </CDGroupMember>
+</CDGroup>
+
+<!--
+Local Variables:
+mode: nxml
+nxml-child-indent: 4
+End:
+-->
+
+
