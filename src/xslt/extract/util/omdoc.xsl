@@ -34,16 +34,16 @@
     xmlns:f="http://fxsl.sf.net/"
     version="2.0">
 
-    <import href="misc.xsl"/>
-    <import href="ntn.xsl"/>
     <import href="rdfa.xsl"/>
-
 
     <xd:doc type="stylesheet">A collection of utility functions for <a href="http://www.omdoc.org">OMDoc</a> support
 	<xd:author>Christoph Lange</xd:author>
 	<xd:copyright>Christoph Lange, 2008</xd:copyright>
 	<xd:svnId>$Id$</xd:svnId>
     </xd:doc>
+
+    <include href="misc.xsl"/>
+    <include href="ntn.xsl"/>
 
     <xd:doc>Generates an MMT URI for a theory or symbol by calling
 	the <code>krextor:mmt-uri</code> function</xd:doc>

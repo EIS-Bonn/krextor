@@ -31,51 +31,19 @@
     xmlns:xs="http://www.w3.org/2001/XMLSchema"
     exclude-result-prefixes="#all"
     version="2.0">
-    <xsl:import href="misc.xsl"/>
     <!-- Render OpenMath to Content MathML -->
     <xsl:import href="openmath/om2cmml.xsl"/>
     <!-- Render OpenMath to Popcorn -->
     <xsl:import href="openmath/omobj2popcorn.xsl"/>
-
-    <xsl:include href="ntn.xsl"/>
 
     <xd:doc type="stylesheet">A collection of utility functions for <a href="http://www.openmath.org">OpenMath</a> symbols and objects
 	<xd:author>Christoph Lange</xd:author>
 	<xd:copyright>Christoph Lange, 2008</xd:copyright>
 	<xd:svnId>$Id$</xd:svnId>
     </xd:doc>
-    
-    <xsl:function name="om:cdbase-or-default">
-	<xsl:param name="cdbase"/>
-        <xsl:sequence select="om:cdbase-or-default($cdbase, '')"/>
-    </xsl:function>
 
-    <xsl:function name="om:cdbase-or-default" as="xs:anyURI?">
-	<xsl:param name="cdbase-or-cdgroup"/>
-	<xsl:param name="cd"/>
-	<xsl:sequence select="xs:anyURI(
-                              if ($cdbase-or-cdgroup) then
-                                if ($cd and $cdbase-or-cdgroup instance of document-node()) then
-                                  (: We do not currently support changing the value of the CD in the course of this lookup.  Instead we assume that the last path component from the CDURL is equal to the original CD name passed as $cd, and if to, we strip it. :)
-                                  substring-before(
-                                    $cdbase-or-cdgroup/cdg:CDGroup/cdg:CDGroupMember[cdg:CDName eq $cd]/cdg:CDURL,
-                                    concat('/', $cd))
-                                else $cdbase-or-cdgroup
-                              else 'http://www.openmath.org/cd')"/>
-    </xsl:function>
-
-    <xd:doc>Canonical URI for a symbol (OpenMath 2.0 standard, section 2.3)</xd:doc>
-    <xsl:function name="om:symbol-uri" as="xs:anyURI?">
-        <!-- if a document node: assumed to be a document node of a CDGroup document
-             otherwise assumed to be a string denoting the cdbase -->
-	<xsl:param name="cdbase-or-cdgroup"/>
-	<xsl:param name="cd"/>
-	<xsl:param name="name"/>
-
-        <xsl:variable name="cdbase" select="om:cdbase-or-default($cdbase-or-cdgroup, $cd)"/>
-        <!-- If the cdbase is not well-defined (which means in practice: if the cdgroup mechanism is used and lookup fails), the URI of the symbol is not defined -->
-	<xsl:sequence select="if ($cdbase) then xs:anyURI(concat($cdbase, '/', $cd, '#', $name)) else ()"/>
-    </xsl:function>
+    <xsl:include href="openmath-uris.xsl"/>
+    <xsl:include href="ntn.xsl"/>
 </xsl:stylesheet>
 
 <!--

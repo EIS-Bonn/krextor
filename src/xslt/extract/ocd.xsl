@@ -60,6 +60,8 @@
     </xd:doc>
 
     <xsl:include href="util/openmath.xsl"/>
+    <xsl:include href="util/misc.xsl"/>
+    <xsl:include href="util/ntn.xsl"/>
 
     <xsl:strip-space elements="*"/>
 

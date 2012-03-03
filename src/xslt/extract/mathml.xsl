@@ -37,7 +37,7 @@
     xmlns:xd="http://www.pnp-software.com/XSLTdoc"
     exclude-result-prefixes="#all"
     version="2.0">
-    <import href="util/openmath.xsl"/>
+    <import href="util/openmath-uris.xsl"/>
     
     <xd:doc>generate all URIs from @id attributes</xd:doc>
     <param name="autogenerate-fragment-uris" select="'id'"/>
