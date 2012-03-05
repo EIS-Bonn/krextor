@@ -43,7 +43,6 @@
     </xd:doc>
 
     <include href="misc.xsl"/>
-    <include href="ntn.xsl"/>
 
     <xd:doc>Generates an MMT URI for a theory or symbol by calling
 	the <code>krextor:mmt-uri</code> function</xd:doc>
