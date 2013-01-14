@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html><head><title>XML source view</title><link rel="stylesheet" type="text/css" href="../../xmlverbatim.css"></link></head><body class="xmlverb-default"><tt>
+<!-- converted by xmlverbatim.xsl 1.1, (c) O. Becker -->
+<div xmlns:xd="http://www.pnp-software.com/XSLTdoc" class="xmlverb-default">&lt;!--<span class="xmlverb-comment"><br></br>
+    *  Copyright (C) 2008–2012<br></br>
+    *  Christoph Lange<br></br>
+    *  KWARC, Jacobs University Bremen<br></br>
+    *  http://kwarc.info/projects/krextor/<br></br>
+    *<br></br>
+    *   Krextor is free software; you can redistribute it and/or<br></br>
+    *         modify it under the terms of the GNU Lesser General Public<br></br>
+    *         License as published by the Free Software Foundation; either<br></br>
+    *         version 2 of the License, or (at your option) any later version.<br></br>
+    *<br></br>
+    *         This program is distributed in the hope that it will be useful,<br></br>
+    *         but WITHOUT ANY WARRANTY; without even the implied warranty of<br></br>
+    *         MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU<br></br>
+    *         Lesser General Public License for more details.<br></br>
+    *<br></br>
+    *         You should have received a copy of the GNU Lesser General Public<br></br>
+    *         License along with this library; if not, write to the<br></br>
+    *         Free Software Foundation, Inc., 59 Temple Place - Suite 330,<br></br>
+    *         Boston, MA 02111-1307, USA.<br></br>
+    * <br></br>
+</span>--&gt;<br></br>
+&lt;<span class="xmlverb-element-nsprefix">xsl</span>:<span class="xmlverb-element-name"><a name="d29e2">stylesheet</a></span><span class="xmlverb-ns-name"> xmlns:xsl</span>="<span class="xmlverb-ns-uri">http://www.w3.org/1999/XSL/Transform</span>"<span class="xmlverb-ns-name"> xmlns:xs</span>="<span class="xmlverb-ns-uri">http://www.w3.org/2001/XMLSchema</span>"<span class="xmlverb-ns-name"> xmlns:om</span>="<span class="xmlverb-ns-uri">http://www.openmath.org/OpenMath</span>"<span class="xmlverb-ns-name"> xmlns:xd</span>="<span class="xmlverb-ns-uri">http://www.pnp-software.com/XSLTdoc</span>"<span class="xmlverb-ns-name"> xmlns:cdg</span>="<span class="xmlverb-ns-uri">http://www.openmath.org/OpenMathCDG</span>"<span class="xmlverb-ns-name"> xmlns:m</span>="<span class="xmlverb-ns-uri">http://www.w3.org/1998/Math/MathML</span>" <span class="xmlverb-attr-name">exclude-result-prefixes</span>="<span class="xmlverb-attr-content">#all</span>" <span class="xmlverb-attr-name">version</span>="<span class="xmlverb-attr-content">2.0</span>"&gt;<span class="xmlverb-text"><br></br>
+    </span><div class="xd">
+    &lt;<span class="xmlverb-element-nsprefix">xd</span>:<span class="xmlverb-element-name"><a name="d29e4">doc</a></span> <span class="xmlverb-attr-name">type</span>="<span class="xmlverb-attr-content">stylesheet</span>"&gt;<span class="xmlverb-text">A collection of utility functions for </span>&lt;<span class="xmlverb-element-name"><a name="d29e6">a</a></span> <span class="xmlverb-attr-name">href</span>="<span class="xmlverb-attr-content">http://www.openmath.org</span>"&gt;<span class="xmlverb-text">OpenMath</span>&lt;/<span class="xmlverb-element-name">a</span>&gt;<span class="xmlverb-text"> symbol URIs<br></br>
+        </span>&lt;<span class="xmlverb-element-nsprefix">xd</span>:<span class="xmlverb-element-name"><a name="d29e9">author</a></span>&gt;<span class="xmlverb-text">Christoph Lange</span>&lt;/<span class="xmlverb-element-nsprefix">xd</span>:<span class="xmlverb-element-name">author</span>&gt;<span class="xmlverb-text"><br></br>
+        </span>&lt;<span class="xmlverb-element-nsprefix">xd</span>:<span class="xmlverb-element-name"><a name="d29e12">copyright</a></span>&gt;<span class="xmlverb-text">Christoph Lange, 2008–2012</span>&lt;/<span class="xmlverb-element-nsprefix">xd</span>:<span class="xmlverb-element-name">copyright</span>&gt;<span class="xmlverb-text"><br></br>
+        </span>&lt;<span class="xmlverb-element-nsprefix">xd</span>:<span class="xmlverb-element-name"><a name="d29e15">svnId</a></span>&gt;<span class="xmlverb-text">$Id: openmath-uris.xsl 2061 2012-03-03 13:35:57Z clange $</span>&lt;/<span class="xmlverb-element-nsprefix">xd</span>:<span class="xmlverb-element-name">svnId</span>&gt;<span class="xmlverb-text"><br></br>
+    </span>&lt;/<span class="xmlverb-element-nsprefix">xd</span>:<span class="xmlverb-element-name">doc</span>&gt;</div><span class="xmlverb-text"><br></br>
+    <br></br>
+    </span>&lt;<span class="xmlverb-element-nsprefix">xsl</span>:<span class="xmlverb-element-name"><a name="d29e19">function</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">om:cdbase-or-default</span>"&gt;<span class="xmlverb-text"><br></br>
+        </span>&lt;<span class="xmlverb-element-nsprefix">xsl</span>:<span class="xmlverb-element-name"><a name="d29e21">param</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">cdbase</span>" /&gt;<span class="xmlverb-text"><br></br>
+        </span>&lt;<span class="xmlverb-element-nsprefix">xsl</span>:<span class="xmlverb-element-name"><a name="d29e23">sequence</a></span> <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">om:cdbase-or-default($cdbase, '')</span>" /&gt;<span class="xmlverb-text"><br></br>
+    </span>&lt;/<span class="xmlverb-element-nsprefix">xsl</span>:<span class="xmlverb-element-name">function</span>&gt;<span class="xmlverb-text"><br></br>
+<br></br>
+    </span>&lt;<span class="xmlverb-element-nsprefix">xsl</span>:<span class="xmlverb-element-name"><a name="d29e26">function</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">om:cdbase-or-default</span>" <span class="xmlverb-attr-name">as</span>="<span class="xmlverb-attr-content">xs:anyURI?</span>"&gt;<span class="xmlverb-text"><br></br>
+        </span>&lt;<span class="xmlverb-element-nsprefix">xsl</span>:<span class="xmlverb-element-name"><a name="d29e28">param</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">cdbase-or-cdgroup</span>" /&gt;<span class="xmlverb-text"><br></br>
+        </span>&lt;<span class="xmlverb-element-nsprefix">xsl</span>:<span class="xmlverb-element-name"><a name="d29e30">param</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">cd</span>" /&gt;<span class="xmlverb-text"><br></br>
+        </span>&lt;<span class="xmlverb-element-nsprefix">xsl</span>:<span class="xmlverb-element-name"><a name="d29e32">sequence</a></span> <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">xs:anyURI( if ($cdbase-or-cdgroup) then if ($cd and $cdbase-or-cdgroup instance of document-node()) then (: We do not currently support changing the value of the CD in the course of this lookup. Instead we assume that the last path component from the CDURL is equal to the original CD name passed as $cd, and if to, we strip it. :) substring-before( $cdbase-or-cdgroup/cdg:CDGroup/cdg:CDGroupMember[cdg:CDName eq $cd]/cdg:CDURL, concat('/', $cd)) else $cdbase-or-cdgroup else 'http://www.openmath.org/cd')</span>" /&gt;<span class="xmlverb-text"><br></br>
+    </span>&lt;/<span class="xmlverb-element-nsprefix">xsl</span>:<span class="xmlverb-element-name">function</span>&gt;<span class="xmlverb-text"><br></br>
+<br></br>
+    </span><div class="xd">
+    &lt;<span class="xmlverb-element-nsprefix">xd</span>:<span class="xmlverb-element-name"><a name="d29e35">doc</a></span>&gt;<span class="xmlverb-text">Canonical URI for a symbol (OpenMath 2.0 standard, section 2.3)</span>&lt;/<span class="xmlverb-element-nsprefix">xd</span>:<span class="xmlverb-element-name">doc</span>&gt;</div><span class="xmlverb-text"><br></br>
+    </span>&lt;<span class="xmlverb-element-nsprefix">xsl</span>:<span class="xmlverb-element-name"><a name="d29e38">function</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">om:symbol-uri</span>" <span class="xmlverb-attr-name">as</span>="<span class="xmlverb-attr-content">xs:anyURI?</span>"&gt;<span class="xmlverb-text"><br></br>
+        </span>&lt;!--<span class="xmlverb-comment"> if a document node: assumed to be a document node of a CDGroup document<br></br>
+             otherwise assumed to be a string denoting the cdbase </span>--&gt;<span class="xmlverb-text"><br></br>
+        </span>&lt;<span class="xmlverb-element-nsprefix">xsl</span>:<span class="xmlverb-element-name"><a name="d29e42">param</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">cdbase-or-cdgroup</span>" /&gt;<span class="xmlverb-text"><br></br>
+        </span>&lt;<span class="xmlverb-element-nsprefix">xsl</span>:<span class="xmlverb-element-name"><a name="d29e44">param</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">cd</span>" /&gt;<span class="xmlverb-text"><br></br>
+        </span>&lt;<span class="xmlverb-element-nsprefix">xsl</span>:<span class="xmlverb-element-name"><a name="d29e46">param</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">name</span>" /&gt;<span class="xmlverb-text"><br></br>
+<br></br>
+        </span>&lt;<span class="xmlverb-element-nsprefix">xsl</span>:<span class="xmlverb-element-name"><a name="d29e48">variable</a></span> <span class="xmlverb-attr-name">name</span>="<span class="xmlverb-attr-content">cdbase</span>" <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">om:cdbase-or-default($cdbase-or-cdgroup, $cd)</span>" /&gt;<span class="xmlverb-text"><br></br>
+        </span>&lt;!--<span class="xmlverb-comment"> If the cdbase is not well-defined (which means in practice: if the cdgroup mechanism is used and lookup fails), the URI of the symbol is not defined </span>--&gt;<span class="xmlverb-text"><br></br>
+        </span>&lt;<span class="xmlverb-element-nsprefix">xsl</span>:<span class="xmlverb-element-name"><a name="d29e53">sequence</a></span> <span class="xmlverb-attr-name">select</span>="<span class="xmlverb-attr-content">if ($cdbase) then xs:anyURI(concat($cdbase, '/', $cd, '#', $name)) else ()</span>" /&gt;<span class="xmlverb-text"><br></br>
+    </span>&lt;/<span class="xmlverb-element-nsprefix">xsl</span>:<span class="xmlverb-element-name">function</span>&gt;<span class="xmlverb-text"><br></br>
+</span>&lt;/<span class="xmlverb-element-nsprefix">xsl</span>:<span class="xmlverb-element-name">stylesheet</span>&gt;<br></br>
+&lt;!--<span class="xmlverb-comment"><br></br>
+Local Variables:<br></br>
+mode: nxml<br></br>
+nxml-child-indent: 4<br></br>
+End:<br></br>
+</span>--&gt;<br></br>
+</div>
+</tt><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br>v
+         </body></html>
