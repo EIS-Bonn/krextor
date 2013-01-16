@@ -180,10 +180,11 @@
 	<!-- TODO maybe also for attribute nodes? -->
 	<value-of select="if ($node/parent::node() instance of document-node())
 		then local-name($node)
-            else if ($node/self::*)
+            else if ($node/self::* or $node/self::attribute())
                 then concat(
                     krextor:pseudo-xpath($node/parent::node()),
                     '-',
+                    if ($node/self::attribute()) then '@' else '',
                     local-name($node),
                     count($node/preceding-sibling::node()) + 1
                     )
@@ -282,7 +283,8 @@
     </template>
 
     <xd:doc>Returns the method in which a URI will be generated for the current node unless a different explicit subject URI is passed to <code>krextor:create-resource</code>; extraction modules can override this.</xd:doc>
-    <template match="node()" mode="krextor:uri-generation-method" as="xs:string*">
+    <template match="node()|attribute() (: attribute() doesn't seem to be subsumed by node() :)"
+              mode="krextor:uri-generation-method" as="xs:string*">
         <sequence select="$autogenerate-fragment-uris"/>
     </template>
 
