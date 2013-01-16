@@ -38,7 +38,7 @@
    <rxr:triple>
       <rxr:subject uri="http://www.openmath.org/cd/arith1"/>
       <rxr:predicate uri="http://purl.org/dc/terms/date"/>
-      <rxr:object>2004-03-30</rxr:object>
+      <rxr:object datatype="http://www.w3.org/2001/XMLSchema#date">2004-03-30</rxr:object>
    </rxr:triple>
    <rxr:triple>
       <rxr:subject uri="http://www.openmath.org/cd/arith1"/>
@@ -2611,10 +2611,5 @@
       <rxr:subject uri="http://www.openmath.org/cd/arith1#product.ex0"/>
       <rxr:predicate uri="http://www.openmath.org/ontology#usesSymbol"/>
       <rxr:object uri="http://www.openmath.org/cd/fns1#lambda"/>
-   </rxr:triple>
-   <rxr:triple>
-      <rxr:subject uri="http://www.openmath.org/arith1#lcm"/>
-      <rxr:predicate uri="http://www.w3.org/2002/07/owl#sameAs"/>
-      <rxr:object uri="http://dbpedia.org/resource/Least_common_multiple"/>
    </rxr:triple>
 </rxr:graph>
