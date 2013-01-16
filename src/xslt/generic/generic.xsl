@@ -147,17 +147,16 @@
 
 	<param name="krextor:base-uri" as="xs:anyURI" tunnel="yes"/>
 
-	<!-- uncomment for debugging:
-	<message>NEW RDF TRIPLE</message>
-	<message>subject = <value-of select="$subject"/></message>
-	<message>subject-type = <value-of select="$subject-type"/></message>
-	<message>predicate = <value-of select="$predicate"/></message>
-	<message>object = <value-of select="$object"/></message>
-	<message>object-type = <value-of select="$object-type"/></message>
-	<message>object-language = <value-of select="$object-language"/></message>
-	<message>object-datatype = <value-of select="$object-datatype"/></message>
-	<message>krextor:base-uri = <value-of select="$krextor:base-uri"/></message>
-	-->
+	<!-- uncomment the following for debugging: -->
+	<!-- <message>NEW RDF TRIPLE</message> -->
+	<!-- <message>subject = <value-of select="$subject"/></message> -->
+	<!-- <message>subject-type = <value-of select="$subject-type"/></message> -->
+	<!-- <message>predicate = <value-of select="$predicate"/></message> -->
+	<!-- <message>object = <value-of select="$object"/></message> -->
+	<!-- <message>object-type = <value-of select="$object-type"/></message> -->
+	<!-- <message>object-language = <value-of select="$object-language"/></message> -->
+	<!-- <message>object-datatype = <value-of select="$object-datatype"/></message> -->
+	<!-- <message>krextor:base-uri = <value-of select="$krextor:base-uri"/></message> -->
 
 	<!-- Some sanity checks -->
 	<if test="not($subject-type = ('uri', 'blank'))">
@@ -213,14 +212,14 @@
 	<choose>
 	    <when test="$blank-node">
 		<call-template name="krextor:add-uri-property">
-		    <with-param name="property" select="."/>
+		    <with-param name="property" select="$properties"/>
 		    <with-param name="inverse" select="$inverse"/>
 		    <with-param name="blank" select="$generated-blank-node-id"/>
 		</call-template>
 	    </when>
 	    <otherwise>
 		<call-template name="krextor:add-uri-property">
-		    <with-param name="property" select="."/>
+		    <with-param name="property" select="$properties"/>
 		    <with-param name="inverse" select="$inverse"/>
 		    <with-param name="object" select="$generated-uri"/>
 		</call-template>
