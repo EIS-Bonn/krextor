@@ -76,6 +76,11 @@ done
 KREXTOR_HOME="$(dirname "$KREXTOR_BIN")"
 KREXTOR_HOME="$(cd "$KREXTOR_HOME/.." ; pwd)"
 
+if [[ "$(uname -o)" == "Cygwin" ]]
+then
+    KREXTOR_HOME="$(cygpath -m "$KREXTOR_HOME")"
+fi
+
 transformer="$KREXTOR_HOME/src/xslt/transform-${xml}..${rdf}.xsl"
 
 if [[ ! -r $transformer ]]
