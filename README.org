@@ -1,0 +1,6 @@
+* krextor
+KWARC RDF Extractor, an extensible XSLT-based framework for extracting RDF from XML
+
+The Krextor homepage, +formerly at https://trac.kwarc.info/krextor/+ (now broken), has temporarily been archived to http://www.iai.uni-bonn.de/~langec/exchange/krextor/ and is being migrated to [[/EIS-Bonn/krextor/wiki/][the wiki pages of this GitHub project]] (track progress at [[/EIS-Bonn/krextor/issues/1][#1]]).
+
+A part of the old homepage that has survived is [[http://old.kwarc.info/projects/krextor/pubs.html][an old list of publications mentioning Krextor]]: our own ones, plus third-party ones.
