@@ -1,0 +1,114 @@
+<https://github.com/igg777/automationml/blob/master/aml.ttl#CAEXFile>
+	a	<http://vocab.cs.uni-bonn.de/aml#CAEXFile> ;
+	<http://vocab.cs.uni-bonn.de/aml#hasFileName>	"ExampleTopology.aml" ;
+	<http://vocab.cs.uni-bonn.de/aml#hasSchemaVersion>	"2.15" ;
+	<http://vocab.cs.uni-bonn.de/aml#hasAdditionalInfomation>	<https://github.com/igg777/automationml/blob/master/aml.ttl#CAEXFile-AdditionalInformation1>, <https://github.com/igg777/automationml/blob/master/aml.ttl#CAEXFile-AdditionalInformation2> ;
+	<http://vocab.cs.uni-bonn.de/aml#hasExternalReference>	<https://github.com/igg777/automationml/blob/master/aml.ttl#CAEXFile-ExternalReference3>, <https://github.com/igg777/automationml/blob/master/aml.ttl#CAEXFile-ExternalReference4> ;
+	<http://vocab.cs.uni-bonn.de/aml#hasInstanceHierarchy>	<https://github.com/igg777/automationml/blob/master/aml.ttl#CAEXFile-InstanceHierarchy5> ;
+	<http://vocab.cs.uni-bonn.de/aml#hasInterfaceClassLib>	<https://github.com/igg777/automationml/blob/master/aml.ttl#CAEXFile-InterfaceClassLib6> ;
+	<http://vocab.cs.uni-bonn.de/aml#RoleClassLib>	<https://github.com/igg777/automationml/blob/master/aml.ttl#CAEXFile-RoleClassLib7> ;
+	<http://vocab.cs.uni-bonn.de/aml#hasSystemUnitClassLib>	<https://github.com/igg777/automationml/blob/master/aml.ttl#CAEXFile-SystemUnitClassLib8> .
+<https://github.com/igg777/automationml/blob/master/aml.ttl#CAEXFile-AdditionalInformation1>
+	a	<http://vocab.cs.uni-bonn.de/aml#AdditionalInformation> ;
+	<http://vocab.cs.uni-bonn.de/aml#hasAutomationMLVersion>	"2.0"^^<http://www.w3.org/2001/XMLSchema#string> .
+<https://github.com/igg777/automationml/blob/master/aml.ttl#CAEXFile-AdditionalInformation2>
+	a	<http://vocab.cs.uni-bonn.de/aml#AdditionalInformation> ;
+	<http://vocab.cs.uni-bonn.de/aml#hasWriterName>	"AutomationML e.V." ;
+	<http://vocab.cs.uni-bonn.de/aml#hasWriterID>	"AutomationML e.V."^^<http://www.w3.org/2001/XMLSchema#string> ;
+	<http://vocab.cs.uni-bonn.de/aml#hasWriterVendor>	"AutomationML e.V."^^<http://www.w3.org/2001/XMLSchema#string> ;
+	<http://vocab.cs.uni-bonn.de/aml#hasWriterVendorURL>	"www.AutomationML.org"^^<http://www.w3.org/2001/XMLSchema#string> ;
+	<http://vocab.cs.uni-bonn.de/aml#hasWriterVersion>	"1.0"^^<http://www.w3.org/2001/XMLSchema#string> ;
+	<http://vocab.cs.uni-bonn.de/aml#hasWriterRelease>	"1.0"^^<http://www.w3.org/2001/XMLSchema#string> ;
+	<http://vocab.cs.uni-bonn.de/aml#hasLastWritingDateTime>	"2012-02-20"^^<http://www.w3.org/2001/XMLSchema#dateTime> ;
+	<http://vocab.cs.uni-bonn.de/aml#hasWriterProjectTitle>	"AutomationML Tutorial Examples"^^<http://www.w3.org/2001/XMLSchema#string> ;
+	<http://vocab.cs.uni-bonn.de/aml#hasWriterProjectID>	"AutomationML Tutorial Examples"^^<http://www.w3.org/2001/XMLSchema#string> .
+<https://github.com/igg777/automationml/blob/master/aml.ttl#CAEXFile-ExternalReference3>
+	a	<http://vocab.cs.uni-bonn.de/aml#ExternalReference> ;
+	<http://vocab.cs.uni-bonn.de/aml#refBaseClassPath>	"Libs/RoleClass Libraries/AutomationMLBaseRoleClassLib.aml"^^<http://www.w3.org/2001/XMLSchema#string> ;
+	<http://vocab.cs.uni-bonn.de/aml#externalReferenceAlias>	"BaseRoleClassLib"^^<http://www.w3.org/2001/XMLSchema#string> .
+<https://github.com/igg777/automationml/blob/master/aml.ttl#CAEXFile-ExternalReference4>
+	a	<http://vocab.cs.uni-bonn.de/aml#ExternalReference> ;
+	<http://vocab.cs.uni-bonn.de/aml#refBaseClassPath>	"Libs/InterfaceClass Libraries/AutomationMLInterfaceClassLib.aml"^^<http://www.w3.org/2001/XMLSchema#string> ;
+	<http://vocab.cs.uni-bonn.de/aml#externalReferenceAlias>	"BaseInterfaceClassLib"^^<http://www.w3.org/2001/XMLSchema#string> .
+<https://github.com/igg777/automationml/blob/master/aml.ttl#CAEXFile-InstanceHierarchy5>
+	a	<http://vocab.cs.uni-bonn.de/aml#InstanceHierarchy> ;
+	<http://schema.org/name>	"ManufacturingSystem"^^<http://www.w3.org/2001/XMLSchema#string> ;
+	<http://vocab.cs.uni-bonn.de/aml#hasInternalElement>	<https://github.com/igg777/automationml/blob/master/aml.ttl#CAEXFile-InstanceHierarchy5-InternalElement1>, <https://github.com/igg777/automationml/blob/master/aml.ttl#CAEXFile-InstanceHierarchy5-InternalElement2> .
+<https://github.com/igg777/automationml/blob/master/aml.ttl#CAEXFile-InstanceHierarchy5-InternalElement1>
+	a	<http://vocab.cs.uni-bonn.de/aml#InternalElement> ;
+	<http://schema.org/name>	"firstScrewdriver"^^<http://www.w3.org/2001/XMLSchema#string> ;
+	<http://purl.org/dc/elements/1.1/identifier>	"{788eb291-f103-4fdc-aba0-4893b599f556}"^^<http://www.w3.org/2001/XMLSchema#string> ;
+	<http://vocab.cs.uni-bonn.de/aml#RefBaseSystemUnitPath>	"LibOfCommonTools/ElectricScrewdriver"^^<http://www.w3.org/2001/XMLSchema#string> ;
+	<http://vocab.cs.uni-bonn.de/aml#hasAttribute>	<https://github.com/igg777/automationml/blob/master/aml.ttl#CAEXFile-InstanceHierarchy5-InternalElement1-Attribute1> ;
+	<http://vocab.cs.uni-bonn.de/aml#hasExternalInterface>	<https://github.com/igg777/automationml/blob/master/aml.ttl#CAEXFile-InstanceHierarchy5-InternalElement1-ExternalInterface2> ;
+	<http://vocab.cs.uni-bonn.de/aml#hasSupportedRoleClass>	<https://github.com/igg777/automationml/blob/master/aml.ttl#CAEXFile-InstanceHierarchy5-InternalElement1-SupportedRoleClass3> ;
+	<http://vocab.cs.uni-bonn.de/aml#hasRoleRequirements>	<https://github.com/igg777/automationml/blob/master/aml.ttl#CAEXFile-InstanceHierarchy5-InternalElement1-RoleRequirements4> .
+<https://github.com/igg777/automationml/blob/master/aml.ttl#CAEXFile-InstanceHierarchy5-InternalElement1-Attribute1>
+	a	<http://vocab.cs.uni-bonn.de/aml#Attribute> ;
+	<http://schema.org/name>	"New Attribute"^^<http://www.w3.org/2001/XMLSchema#string> .
+<https://github.com/igg777/automationml/blob/master/aml.ttl#CAEXFile-InstanceHierarchy5-InternalElement1-ExternalInterface2>
+	a	<http://vocab.cs.uni-bonn.de/aml#ExternalInterface> ;
+	<http://schema.org/name>	"EnergySupply"^^<http://www.w3.org/2001/XMLSchema#string> ;
+	<http://purl.org/dc/elements/1.1/identifier>	"{5f535d4c-dd46-4c1c-898c-4e58419048b6}"^^<http://www.w3.org/2001/XMLSchema#string> ;
+	<http://vocab.cs.uni-bonn.de/aml#refBaseClassPath>	"MyInterfaces/Energy"^^<http://www.w3.org/2001/XMLSchema#string> .
+<https://github.com/igg777/automationml/blob/master/aml.ttl#CAEXFile-InstanceHierarchy5-InternalElement1-SupportedRoleClass3>
+	a	<http://vocab.cs.uni-bonn.de/aml#SupportedRoleClass> ;
+	<http://vocab.cs.uni-bonn.de/aml#refRoleClassPath>	"ManufacturingRoleClasses/Tool"^^<http://www.w3.org/2001/XMLSchema#string> .
+<https://github.com/igg777/automationml/blob/master/aml.ttl#CAEXFile-InstanceHierarchy5-InternalElement1-RoleRequirements4>
+	a	<http://vocab.cs.uni-bonn.de/aml#RoleRequirements> ;
+	<http://vocab.cs.uni-bonn.de/aml#refBaseRoleClassPath>	"ManufacturingRoleClasses/Tool"^^<http://www.w3.org/2001/XMLSchema#string> .
+<https://github.com/igg777/automationml/blob/master/aml.ttl#CAEXFile-InstanceHierarchy5-InternalElement2>
+	a	<http://vocab.cs.uni-bonn.de/aml#InternalElement> ;
+	<http://schema.org/name>	"secondScrewdriver"^^<http://www.w3.org/2001/XMLSchema#string> ;
+	<http://purl.org/dc/elements/1.1/identifier>	"{19dcf818-4716-4fc1-a85f-28e1938c4c3a}"^^<http://www.w3.org/2001/XMLSchema#string> ;
+	<http://vocab.cs.uni-bonn.de/aml#RefBaseSystemUnitPath>	"LibOfCommonTools/ElectricScrewdriver"^^<http://www.w3.org/2001/XMLSchema#string> ;
+	<http://vocab.cs.uni-bonn.de/aml#hasExternalInterface>	<https://github.com/igg777/automationml/blob/master/aml.ttl#CAEXFile-InstanceHierarchy5-InternalElement2-ExternalInterface1> ;
+	<http://vocab.cs.uni-bonn.de/aml#hasSupportedRoleClass>	<https://github.com/igg777/automationml/blob/master/aml.ttl#CAEXFile-InstanceHierarchy5-InternalElement2-SupportedRoleClass2> ;
+	<http://vocab.cs.uni-bonn.de/aml#hasRoleRequirements>	<https://github.com/igg777/automationml/blob/master/aml.ttl#CAEXFile-InstanceHierarchy5-InternalElement2-RoleRequirements3> .
+<https://github.com/igg777/automationml/blob/master/aml.ttl#CAEXFile-InstanceHierarchy5-InternalElement2-ExternalInterface1>
+	a	<http://vocab.cs.uni-bonn.de/aml#ExternalInterface> ;
+	<http://schema.org/name>	"EnergySupply"^^<http://www.w3.org/2001/XMLSchema#string> ;
+	<http://purl.org/dc/elements/1.1/identifier>	"50e10905-ac18-413c-afab-ad8ed1569fff"^^<http://www.w3.org/2001/XMLSchema#string> ;
+	<http://vocab.cs.uni-bonn.de/aml#refBaseClassPath>	"MyInterfaces/Energy"^^<http://www.w3.org/2001/XMLSchema#string> .
+<https://github.com/igg777/automationml/blob/master/aml.ttl#CAEXFile-InstanceHierarchy5-InternalElement2-SupportedRoleClass2>
+	a	<http://vocab.cs.uni-bonn.de/aml#SupportedRoleClass> ;
+	<http://vocab.cs.uni-bonn.de/aml#refRoleClassPath>	"ManufacturingRoleClasses/Tool"^^<http://www.w3.org/2001/XMLSchema#string> .
+<https://github.com/igg777/automationml/blob/master/aml.ttl#CAEXFile-InstanceHierarchy5-InternalElement2-RoleRequirements3>
+	a	<http://vocab.cs.uni-bonn.de/aml#RoleRequirements> ;
+	<http://vocab.cs.uni-bonn.de/aml#refBaseRoleClassPath>	"ManufacturingRoleClasses/Tool"^^<http://www.w3.org/2001/XMLSchema#string> .
+<https://github.com/igg777/automationml/blob/master/aml.ttl#CAEXFile-InterfaceClassLib6>
+	a	<http://vocab.cs.uni-bonn.de/aml#InterfaceClassLib> ;
+	<http://schema.org/name>	"MyInterfaces"^^<http://www.w3.org/2001/XMLSchema#string> ;
+	<http://vocab.cs.uni-bonn.de/aml#hasVersion>	"1.0"^^<http://www.w3.org/2001/XMLSchema#string> ;
+	<http://vocab.cs.uni-bonn.de/aml#hasInterfaceClass>	<https://github.com/igg777/automationml/blob/master/aml.ttl#CAEXFile-InterfaceClassLib6-InterfaceClass2> .
+<https://github.com/igg777/automationml/blob/master/aml.ttl#CAEXFile-InterfaceClassLib6-InterfaceClass2>
+	a	<http://vocab.cs.uni-bonn.de/aml#InterfaceClass> ;
+	<http://schema.org/name>	"Energy"^^<http://www.w3.org/2001/XMLSchema#string> ;
+	<http://vocab.cs.uni-bonn.de/aml#refBaseClassPath>	"BaseInterfaceClassLib@AutomationMLInterfaceClassLib/AutomationMLBaseInterface"^^<http://www.w3.org/2001/XMLSchema#string> .
+<https://github.com/igg777/automationml/blob/master/aml.ttl#CAEXFile-RoleClassLib7>
+	a	<http://vocab.cs.uni-bonn.de/aml#RoleClassLib> ;
+	<http://schema.org/name>	"ManufacturingRoleClasses"^^<http://www.w3.org/2001/XMLSchema#string> ;
+	<http://vocab.cs.uni-bonn.de/aml#hasVersion>	"2.0"^^<http://www.w3.org/2001/XMLSchema#string> ;
+	<http://vocab.cs.uni-bonn.de/aml#hasRoleClass>	<https://github.com/igg777/automationml/blob/master/aml.ttl#CAEXFile-RoleClassLib7-RoleClass2> .
+<https://github.com/igg777/automationml/blob/master/aml.ttl#CAEXFile-RoleClassLib7-RoleClass2>
+	a	<http://vocab.cs.uni-bonn.de/aml#RoleClass> ;
+	<http://schema.org/name>	"Tool"^^<http://www.w3.org/2001/XMLSchema#string> ;
+	<http://vocab.cs.uni-bonn.de/aml#refBaseClassPath>	"BaseRoleClassLib@AutomationMLBaseRoleClassLib/AutomationMLBaseRole"^^<http://www.w3.org/2001/XMLSchema#string> .
+<https://github.com/igg777/automationml/blob/master/aml.ttl#CAEXFile-SystemUnitClassLib8>
+	a	<http://vocab.cs.uni-bonn.de/aml#SystemUnitClassLib> ;
+	<http://schema.org/name>	"LibOfCommonTools"^^<http://www.w3.org/2001/XMLSchema#string> ;
+	<http://vocab.cs.uni-bonn.de/aml#hasVersion>	"3.0"^^<http://www.w3.org/2001/XMLSchema#string> ;
+	<http://vocab.cs.uni-bonn.de/aml#hasSystemUnitClass>	<https://github.com/igg777/automationml/blob/master/aml.ttl#CAEXFile-SystemUnitClassLib8-SystemUnitClass2> .
+<https://github.com/igg777/automationml/blob/master/aml.ttl#CAEXFile-SystemUnitClassLib8-SystemUnitClass2>
+	a	<http://vocab.cs.uni-bonn.de/aml#SystemUnitClass> ;
+	<http://schema.org/name>	"ElectricScrewdriver"^^<http://www.w3.org/2001/XMLSchema#string> ;
+	<http://vocab.cs.uni-bonn.de/aml#hasExternalInterface>	<https://github.com/igg777/automationml/blob/master/aml.ttl#CAEXFile-SystemUnitClassLib8-SystemUnitClass2-ExternalInterface1> ;
+	<http://vocab.cs.uni-bonn.de/aml#hasSupportedRoleClass>	<https://github.com/igg777/automationml/blob/master/aml.ttl#CAEXFile-SystemUnitClassLib8-SystemUnitClass2-SupportedRoleClass2> .
+<https://github.com/igg777/automationml/blob/master/aml.ttl#CAEXFile-SystemUnitClassLib8-SystemUnitClass2-ExternalInterface1>
+	a	<http://vocab.cs.uni-bonn.de/aml#ExternalInterface> ;
+	<http://schema.org/name>	"EnergySupply"^^<http://www.w3.org/2001/XMLSchema#string> ;
+	<http://purl.org/dc/elements/1.1/identifier>	"dd0e0dfe-10f8-4068-845b-9c29699ac79b"^^<http://www.w3.org/2001/XMLSchema#string> ;
+	<http://vocab.cs.uni-bonn.de/aml#refBaseClassPath>	"MyInterfaces/Energy"^^<http://www.w3.org/2001/XMLSchema#string> .
+<https://github.com/igg777/automationml/blob/master/aml.ttl#CAEXFile-SystemUnitClassLib8-SystemUnitClass2-SupportedRoleClass2>
+	a	<http://vocab.cs.uni-bonn.de/aml#SupportedRoleClass> ;
+	<http://vocab.cs.uni-bonn.de/aml#refRoleClassPath>	"ManufacturingRoleClasses/Tool"^^<http://www.w3.org/2001/XMLSchema#string> .
