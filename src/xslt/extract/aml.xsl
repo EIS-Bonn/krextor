@@ -49,8 +49,18 @@
                       
 <!--  CAEXFile -->
 
-<xsl:param name="autogenerate-fragment-uris" select="'generate-id'"/>
-
+<!--<xsl:param name="autogenerate-fragment-uris" select="'generate-id'"/>-->
+ <xsl:template match="/" mode="krextor:main">
+      <xsl:apply-imports>
+        <xsl:with-param
+          name="krextor:base-uri"
+          select="xs:anyURI('https://github.com/igg777/automationml/blob/master/aml.ttl')"
+          as="xs:anyURI"
+          tunnel="yes"/>
+      </xsl:apply-imports>
+ </xsl:template>
+    
+<xsl:param name="autogenerate-fragment-uris" select="'pseudo-xpath'" />
 
  
  
