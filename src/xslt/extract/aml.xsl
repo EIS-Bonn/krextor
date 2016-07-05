@@ -54,7 +54,7 @@
       <xsl:apply-imports>
         <xsl:with-param
           name="krextor:base-uri"
-          select="xs:anyURI('http://vocab.cs.uni-bonn.de/aml#')"
+          select="xs:anyURI('https://w3id.org/i40/aml/')"
           as="xs:anyURI"
           tunnel="yes"/>
       </xsl:apply-imports>
