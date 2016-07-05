@@ -22,23 +22,15 @@
 -->
 
 
-
-
-
-
-
-
 <!DOCTYPE stylesheet  [
 <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#">
 <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#">
 <!ENTITY dc "http://purl.org/dc/elements/1.1/">
-<!ENTITY aml "http://vocab.cs.uni-bonn.de/aml#">
+<!ENTITY aml "https://w3id.org/i40/aml/">
 <!ENTITY xsd "http://www.w3.org/2001/XMLSchema#">
 <!ENTITY schema "http://schema.org/">
 <!ENTITY dc "http://purl.org/dc/elements/1.1/">
 ]>
-
-
 
 
 <xsl:transform version="2.0" 
@@ -94,6 +86,7 @@
 		related-via-properties="&aml;hasRoleClass"/>
 	<SystemUnitClass type="&aml;SystemUnitClass" 
 		related-via-properties="&aml;hasSystemUnitClass"/>
+    
 </xsl:variable>
 
 <xsl:template match="CAEXFile
@@ -145,7 +138,8 @@
 		<Version property="&aml;hasVersion" datatype="&xsd;string" />
 <!-- <InterfaceClass property="&aml;hasInterfaceClass" object-is-list="true" /> -->
 
-
+<!-- <Attributes /> -->
+<Attribute property="&aml;hasDataType" krextor:attribute="yes" datatype="&xsd;string"/>
 
 <!-- the following mapping rules will be simplified in the second example, this version can be treated as standard test case -->
 </xsl:variable>
@@ -167,6 +161,8 @@
 	                  |CAEXFile/InstanceHierarchy/InternalElement/@ID
 	                  |CAEXFile/InstanceHierarchy/InternalElement/@RefBaseSystemUnitPath
 	                  |CAEXFile/InstanceHierarchy/InternalElement/Attribute/@Name
+					  |CAEXFile/InstanceHierarchy/InternalElement/Attribute/@Description
+					  |CAEXFile/InstanceHierarchy/InternalElement/Attribute/@Value
 	                  |CAEXFile/InstanceHierarchy/InternalElement/ExternalInterface/@Name
 	                  |CAEXFile/InstanceHierarchy/InternalElement/ExternalInterface/@ID
 	                  |CAEXFile/InstanceHierarchy/InternalElement/ExternalInterface/@RefBaseClassPath
