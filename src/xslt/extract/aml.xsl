@@ -1,7 +1,7 @@
 
 <!--
     *  Copyright (C) 2016
-    *  Ziduan Fang
+    *  Ziduan Fang, Irlan Grangel-Gonzalez
     *  University of Bonn
     *
     *   Krextor is free software; you can redistribute it and/or
