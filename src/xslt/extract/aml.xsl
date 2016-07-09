@@ -171,6 +171,8 @@
 	                  |CAEXFile/InterfaceClassLib/@Name
 	                  |CAEXFile/InterfaceClassLib/InterfaceClass/@Name
 	                  |CAEXFile/InterfaceClassLib/InterfaceClass/@RefBaseClassPath
+	                  |CAEXFile/InterfaceClassLib/InterfaceClass/Attribute/@Name
+	                  |CAEXFile/InterfaceClassLib/InterfaceClass/Attribute/Value
 	                  |CAEXFile/RoleClassLib/@Name
 	                  |CAEXFile/RoleClassLib/Version
 	                  |CAEXFile/RoleClassLib/RoleClass/@Name
