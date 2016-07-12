@@ -1,6 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
 <!--
     *  Copyright (C) 2016
-    *  Ziduan Fang, Irlan Grangel-Gonzalez
+    *  Ziduan Fang, Irlan Grangel-Gonzalez, Christoph Lange
     *  University of Bonn
     *
     *   Krextor is free software; you can redistribute it and/or
@@ -34,6 +35,7 @@
 
 <xsl:transform version="2.0" 
                xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+               xmlns:xd="http://www.pnp-software.com/XSLTdoc"
                xmlns:krextor="http://kwarc.info/projects/krextor"
                xmlns:krextor-genuri="http://kwarc.info/projects/krextor/genuri"
                xmlns:xs="http://www.w3.org/2001/XMLSchema"
@@ -52,8 +54,24 @@
           tunnel="yes"/>
       </xsl:apply-imports>
  </xsl:template>
+
+ <xd:doc>uses ElementN as the fragment URI of the N-th occurrence of an element named
+   <code>Element</code> in document order, starting from N=1.</xd:doc>
+    <xsl:function name="krextor:global-element-index" as="xs:string?">
+	<xsl:param name="node" as="node()"/>
+	<xsl:value-of select="concat(local-name($node), count(root($node)//*[local-name() eq local-name($node) and . &lt;&lt; $node]) + 1)"/>
+    </xsl:function>
+
+    <!-- copied and adapted from generic/uri.xsl -->
+    <xsl:template match="krextor-genuri:global-element-index" as="xs:string?">
+	<xsl:param name="node" as="node()"/>
+	<xsl:param name="base-uri" as="xs:anyURI"/>
+	<xsl:sequence select="
+	    resolve-uri(krextor:global-element-index($node), $base-uri)"/>
+    </xsl:template>
     
-<xsl:param name="autogenerate-fragment-uris" select="'pseudo-xpath'" />
+<xsl:param name="autogenerate-fragment-uris" select="'global-element-index'" />
+<!-- <xsl:param name="autogenerate-fragment-uris" select="'pseudo-xpath'" /> -->
 
  
  
