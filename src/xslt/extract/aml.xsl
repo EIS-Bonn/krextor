@@ -195,8 +195,8 @@
 	                  |CAEXFile/RoleClassLib/@Name
 	                  |CAEXFile/RoleClassLib/Version
 	                  |CAEXFile/RoleClassLib//RoleClass/@Name
-					  |CAEXFile/RoleClassLib//RoleClass/Attribute/@Name
-					  |CAEXFile/RoleClassLib//RoleClass/Attribute/Value
+		          |CAEXFile/RoleClassLib//RoleClass/Attribute/@Name
+			  |CAEXFile/RoleClassLib//RoleClass/Attribute/Value
 	                  |CAEXFile/RoleClassLib//RoleClass/@RefBaseClassPath
 	                  |CAEXFile/RoleClassLib//RoleClass/ExternalInterface/@Name
 	                  |CAEXFile/RoleClassLib//RoleClass/ExternalInterface/Attribute/@Name
@@ -214,8 +214,8 @@
 	                  |CAEXFile/SystemUnitClassLib//SystemUnitClass/InternalElement/SupportedRoleClass/@RefRoleClassPath
 	                  |CAEXFile/SystemUnitClassLib//SystemUnitClass/InternalElement/RoleRequirements/@RefBaseRoleClassPath
 	                  |CAEXFile/SystemUnitClassLib//SystemUnitClass/@Name
-					  |CAEXFile/SystemUnitClassLib//SystemUnitClass/Attribute/@Name
-					  |CAEXFile/SystemUnitClassLib//SystemUnitClass/Attribute/Value
+			  |CAEXFile/SystemUnitClassLib//SystemUnitClass/Attribute/@Name
+			  |CAEXFile/SystemUnitClassLib//SystemUnitClass/Attribute/Value
 	                  |CAEXFile/SystemUnitClassLib//SystemUnitClass/ExternalInterface/@Name
 	                  |CAEXFile/SystemUnitClassLib//SystemUnitClass/ExternalInterface/@ID
 	                  |CAEXFile/SystemUnitClassLib//SystemUnitClass/ExternalInterface/@RefBaseClassPath
